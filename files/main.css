@@ -1,0 +1,49 @@
+/**************************************/
+/*** Основные переменные шаблона ***/
+/**************************************/
+:root {
+	--color-black: #242037;
+	--color-white: #ffffff;
+	--color-gray: #575757;
+	--color-lightgray: #CDCDCD;
+	--color-border: #575757;
+	--color-primary: #FC3F91;
+	--color-secondary: #1CA89D;
+	--color-tertiary: #FFEEEA;
+	--color-quaternary: #0197F6;
+	--color-red: #E83B35;
+	--color-yellow: #FFC107;
+	--color-shadow: rgba(98, 98, 98, 0.1);
+	--ease3: all 0.3s ease;
+}
+
+
+/**************************************/
+/*** Основные стили ***/
+/**************************************/
+body {color: var(--color-black);background: var(--color-white);font-size: 14px;font-family: 'Roboto', sans-serif;}
+
+/*** Скролы сайта ***/
+::-webkit-scrollbar {width: 16px;height: 0;}
+::-webkit-scrollbar-thumb {border-radius: 8px;background: var(--color-gray);}
+::-webkit-scrollbar-track {border-radius: 8px;background: var(--color-lightgray);}
+
+/*** Вспомогательные элементы ***/
+a {color: var(--color-black);}
+a:hover, a.is-actived, a.is-added {color: var(--color-primary);}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+header {background: #F6F8FB;}

@@ -1,0 +1,308 @@
+/**************************************/
+/*** Основные переменные шаблона ***/
+/**************************************/
+:root {
+}
+
+
+/**************************************/
+/*** Основные стили ***/
+/**************************************/
+html {font-size: 100%;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;-webkit-font-smoothing: antialiased;}
+body {margin: 0;padding: 0;line-height: 1;font-weight: 400;position: relative;overflow-x: hidden;}
+
+/*** Основной контейнер ***/
+*, *:before, *:after {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
+.container {margin-right: auto;margin-left: auto;padding-left: 16px;padding-right: 16px;}
+.container:before, .container:after {display: table;line-height: 0;content: '';}
+.container:after {display: block;content: '.';clear: both;font-size: 0;line-height: 0;height: 0;overflow: hidden;}
+.row {margin-left: -16px;margin-right: -16px;}
+.row:before, .row:after {content: ' ';display: table;}
+.row-small {margin-left: -.8px;margin-right: -.8px;}
+.row-small:before, .row-small:after {content: ' ';display: table;}
+
+
+/**************************************/
+/*** Флекс боксы ***/
+/**************************************/
+.flex {display: -ms-flexbox;display: -webkit-flex;display: flex;-ms-flex-wrap: wrap;-webkit-flex-wrap: wrap;flex-wrap: wrap;-ms-flex-align: center;-webkit-align-items: center;-webkit-box-align: center;align-items: center;}
+.flex-start {display: -ms-flexbox;display: -webkit-flex;display: flex;-ms-flex-wrap: wrap;-webkit-flex-wrap: wrap;flex-wrap: wrap;-ms-flex-align: flex-start;-webkit-align-items: flex-start;-webkit-box-align: flex-start;align-items: flex-start;-webkit-justify-content: flex-start;justify-content: flex-start;}
+.flex-center {display: -ms-flexbox;display: -webkit-flex;display: flex;-ms-flex-wrap: wrap;-webkit-flex-wrap: wrap;flex-wrap: wrap;-ms-flex-align: center;-webkit-align-items: center;-webkit-box-align: center;align-items: center;-webkit-justify-content: center;justify-content: center;}
+.flex-stretch {display: -ms-flexbox;display: -webkit-flex;display: flex;-ms-flex-align: stretch;-webkit-align-items: stretch;-webkit-box-align: stretch;align-items: stretch;}
+.flex-column {flex-direction: column;display: -ms-flexbox;display: -webkit-flex;display: flex;-ms-flex-wrap: wrap;-webkit-flex-wrap: wrap;flex-wrap: wrap;}
+.justify-center {-webkit-justify-content: center;justify-content: center;}
+.justify-between {-webkit-justify-content: space-between;justify-content: space-between;}
+
+
+/**************************************/
+/*** Вспомогательные элементы ***/
+/**************************************/
+a {text-decoration: none;transition: all 0.3s ease;}
+a:hover, a.is-actived, a.is-added {text-decoration: none;cursor: pointer;}
+img {max-width: 100%;max-height: 100%;width: auto;}
+p {margin: 0 0 16px 0;line-height: 1.25;overflow: hidden;text-overflow: ellipsis;}
+.tc {color: var(--color-primary);}
+.required em {color: var(--color-red);}
+.noscript {color: var(--color-white);background: var(--color-primary);padding: 20px;position: fixed;top: 0;width: 100%;text-align: center;z-index: 99;}
+.unstyled {margin: 0;padding: 0;list-style: none;}
+.htmlDataBlock {line-height: 1.5;overflow: hidden;}
+.loading {overflow: hidden;white-space: nowrap;}
+.bold {font-weight: bold;}
+.disc li {line-height: 1.5;}
+.mask {overflow: hidden;mask-image: linear-gradient(to bottom, black 50%, transparent 90%);}
+
+
+/**************************************/
+/*** Кнопки ***/
+/**************************************/
+button, [class*="button-"], .paymentFormSubmitLink, .paymentFormTbodySubmitButton {font-family: inherit;gap: 4px;display: inline-flex;align-items: center;justify-content: center;position: relative;transition: all 0.3s ease;}
+
+
+/**************************************/
+/*** Видимость элементов ***/
+/**************************************/
+.is-hide {display: none;}
+.is-show {display: block;}
+.is-hidden {opacity: 0;visibility: hidden;}
+.is-visible {opacity: 1;visibility: visible;}
+
+
+/**************************************/
+/*** Заголовки ***/
+/**************************************/
+h1, h2, h3, h4, h5, h6 {text-rendering: optimizelegibility;text-transform: none;margin: 0;padding: 0;line-height: 1.25;font-weight: 500;}
+h1 {font-size: 32px;}
+h2 {font-size: 28px;}
+h3 {font-size: 24px;}
+h4 {font-size: 20px;}
+h5 {font-size: 16px;}
+h6 {font-size: 14px;}
+
+
+/**************************************/
+/*** Уведомления. Системные сообщения ***/
+/**************************************/
+[class^="notice-"] {width: 100%;margin-bottom: 32px;padding: 12px 20px;line-height: 1.25;font-size: 16px;overflow: hidden;position: relative;display: block;}
+.notice-success {background: #dff0d8;color: #3c763d;border-color: #d6e9c6;}
+.notice-warning {background: #f2dede;color: #a94442;border-color: #ebccd1;}
+.notice-attention {background: #fcf8e3;color: #8a6d3b;border-color: #faebcc;}
+.notice-information {background: #d9edf7;color: #31708f;border-color: #bce8f1;}
+[class^="notice-"] a {color: inherit;font-weight: 500;text-decoration: underline;display: inline;}
+
+
+/**************************************/
+/*** Иконки форматов файлов ***/
+/**************************************/
+.file_extension_icon {width: 16px;height: 16px;margin-right: 10px;display: inline-block;background: var(--color-white) url('{ASSETS_IMAGES_PATH}icons-files-extensions.gif?design=THEMENAME') no-repeat left top;}
+.file_extension_icon.torrent {background-position: -16px 0}
+.file_extension_icon.xls {background-position: -32px 0}
+.file_extension_icon.ie7 {background-position: -48px 0}
+.file_extension_icon.ppt {background-position: -64px 0}
+.file_extension_icon.htm, .file_extension_icon.html {background-position: 0 -16px}
+.file_extension_icon.avi {background-position: -16px -16px}
+.file_extension_icon.bmp, .file_extension_icon.gif {background-position: -32px -16px}
+.file_extension_icon.js, .file_extension_icon.css, .file_extension_icon.txt {background-position: -48px -16px}
+.file_extension_icon.pptm {background-position: -64px -16px}
+.file_extension_icon.rtf, .file_extension_icon.doc {background-position: 0 -32px}
+.file_extension_icon.jpg {background-position: -16px -32px}
+.file_extension_icon.png {background-position: -32px -32px}
+.file_extension_icon.ini {background-position: -48px -32px}
+.file_extension_icon.pptx {background-position: -64px -32px}
+.file_extension_icon.php {background-position: 0 -48px}
+.file_extension_icon.mht, .file_extension_icon.mhtml {background-position: -16px -48px}
+.file_extension_icon.psd {background-position: -32px -48px}
+.file_extension_icon.zip {background-position: -48px -48px}
+.file_extension_icon.xps {background-position: -64px -48px}
+.file_extension_icon.exe {background-position: 0 -64px}
+.file_extension_icon.xml {background-position: -16px -64px}
+.file_extension_icon.wma, .file_extension_icon.mp3 {background-position: -32px -64px}
+.file_extension_icon.xlsx {background-position: -48px -64px}
+.file_extension_icon.xlsb {background-position: -64px -64px}
+.file_extension_icon.pdf {background-position: 0 -80px}
+.file_extension_icon.csv {background-position: -16px -80px}
+.file_extension_icon.docx {background-position: -32px -80px}
+.file_extension_icon.accdb {background-position: -48px -80px}
+.file_extension_icon.xlsm {background-position: -64px -80px}
+.file_extension_icon.dll {background-position: 0 -96px}
+
+
+/**************************************/
+/*** Страница: Список Новостей ***/
+/**************************************/
+.news-list {gap: 16px;display: flex;flex-direction: column;}
+.news-list__item {border: 2px solid var(--color-tertiary);border-radius: 16px;padding: 16px;}
+.news-list__title {margin-bottom: 8px;width: 100%;line-height: 1.25;font-size: 16px;font-weight: 500;overflow: hidden;display: block;}
+.news-list__title span {display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;}
+.news-list__date {text-align: right;font-style: italic;display: block;}
+
+
+/**************************************/
+/*** Страница: Просмотр Новости ***/
+/**************************************/
+.news-show__item {gap: 16px;display: flex;flex-direction: column;}
+.news-show__date {text-align: right;font-style: italic;display: block;}
+
+
+/**************************************/
+/*** Страница: ЛК ***/
+/**************************************/
+.client {gap: 32px;}
+.client__title {margin-bottom: 16px;}
+.client__block {width: calc(50% - 16px);flex-grow: 1;}
+.client__buttons {gap: 16px;}
+@media all and (max-width: 639px) {
+	.client__block {width: 100%;flex-grow: 1;}
+}
+
+
+/**************************************/
+/*** Оверлей. Темный фон ***/
+/**************************************/
+#overlay {position: fixed;top: 0;left: 0;width: 100%;height: 100%;z-index: 10;opacity: 0;filter: alpha(opacity=0);visibility: hidden;background: rgba(0, 0, 0, 0.5);-webkit-transition: opacity .25s ease,visibility 0s ease .25s;transition: opacity .25s ease,visibility 0s ease .25s;}
+#overlay.is-opened {opacity: 1;filter: alpha(opacity=100);visibility: visible;-webkit-transition: opacity .25s ease,visibility 0s ease;transition: opacity .25s ease,visibility 0s ease;cursor: pointer;}
+#overlay.transparent {background: transparent;transition: none;}
+
+
+/**************************************/
+/*** Предзагрузчик ***/
+/**************************************/
+.preloader {background: var(--color-white);position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 15;display: flex;align-items: center;-webkit-justify-content: center;justify-content: center;}
+.preloader .preloading {display: inline-block;width: 80px;height: 80px;transition: all 0.3s ease;}
+.preloader .preloading:after {content: '';border: 5px solid var(--color-white);border-color: var(--color-primary) transparent var(--color-primary) transparent;width: 80px;height: 80px;margin: 1px;border-radius: 50%;display: block;animation: loading 1.2s linear infinite;}
+.preloader.small .preloading {width: 48px;height: 48px;display: inline-block;}
+.preloader.small .preloading:after {content: '';width: 48px;height: 48px;display: block;}
+.preloader.top {align-items: flex-start;}
+.preloader.top .preloading {margin-top: 80px;}
+@keyframes loading {
+	0% {transform: rotate(0deg);}
+	100% {transform: rotate(360deg);}
+}
+
+
+/**************************************/
+/*** Таблицы ***/
+/**************************************/
+.table-box {margin-bottom: 16px;width: 100%;line-height: 1.25;background: var(--color-white);border-collapse: collapse;text-align: center;border-radius: 0;}
+.table-box th, .table-box td {border: 1px solid var(--color-lightgray);line-height: 1.25;padding: 12px 10px;text-align: center;}
+.table-box thead td, .table-box tfoot td {font-weight: bold;border: 1px solid var(--color-lightgray);line-height: 1.25;padding: 12px;text-align: center;}
+.table-box tfoot td {font-weight: bold;white-space: nowrap;}
+.table-box .cell1 {text-align: right;width: 50%;}
+.table-box .cell2 {text-align: left;width: 50%;}
+.table-box .hide {display: none;}
+@media all and (max-width: 767px) {
+	.scroll {width: 100%;overflow-x: auto;margin-bottom: 16px;}
+	.scroll::-webkit-scrollbar {width: 0;height: 16px;}
+}
+
+
+/**************************************/
+/*** Формализованный список ***/
+/**************************************/
+.form__label {display: none;cursor: pointer;}
+.form__fields-duo {gap: 16px;}
+.form__fields-duo .form__field {width: calc(50% - 8px);flex-grow: 1;}
+.form__list {gap: 16px;flex-direction: column;display: -ms-flexbox;display: -webkit-flex;display: flex;-ms-flex-wrap: wrap;-webkit-flex-wrap: wrap;flex-wrap: wrap;}
+.form__registration {gap: 8px;}
+.form__input {border-color: var(--color-tertiary);}
+.form__select {border-color: var(--color-tertiary);}
+.form__textarea {border-color: var(--color-tertiary);}
+.form__input:focus {border-color: var(--color-secondary);}
+.form__select:focus {border-color: var(--color-secondary);}
+.form__textarea:focus {border-color: var(--color-secondary);}
+.form__pp {font-size: 12px;}
+.form__pp [data-fancybox] {text-decoration: underline;cursor: pointer;}
+.form__pp [data-fancybox]:hover {color: var(--color-secondary);text-decoration: none;cursor: pointer;}
+.form__buttons {gap: 12px;display: flex;flex-direction: column;align-items: flex-start;}
+
+
+/**************************************/
+/*** Селекты ***/
+/**************************************/
+.selectBox {position: relative;}
+.selectBox:after {content: '\e907';color: var(--color-lightgray);font-size: 16px;bottom: 16px;right: 16px;position: absolute;font-family: 'icomoon';pointer-events: none;transition: all 0.3s ease;}
+.selectBox:hover:after {color: var(--color-secondary);}
+.selectBox select {padding: 0 40px 0 24px;text-overflow: ellipsis}
+.selectBox select::-ms-expand {display: none;}
+
+
+/**************************************/
+/*** Навигация по страницам ***/
+/**************************************/
+.pages {gap: 8px;margin-top: 16px;}
+.pages__link {font-size: 20px;width: 48px;height: 48px;text-align: center;display: flex;align-items: center;justify-content: center;background: var(--color-tertiary);border-radius: 100%;}
+.pages__link-current {font-weight: bold;color: var(--color-white);background: var(--color-primary);}
+
+
+/**************************************/
+/*** Показать пароль ***/
+/**************************************/
+.password {position: relative;}
+.password__icon {position: absolute;bottom: 10px;right: 16px;cursor: pointer;z-index: 2;}
+.password__icon:before {content: '\e911';font-size: 24px;font-family: 'icomoon';vertical-align: middle;}
+.password__icon.is-actived:before {content: '\e912';}
+.password__input {padding-right: 40px;}
+
+/*** Капслок ***/
+#capslock {display: none;}
+.capslock__icon i {margin-right: 8px;font-size: 24px;color: var(--color-red);}
+.capslock__text {margin-top: 8px;}
+
+
+/**************************************/
+/*** Страница: Оформление заказа ***/
+/**************************************/
+.stage__navigates {margin-bottom: 32px;}
+.stage__nav {flex-grow: 1;font-size: 20px;font-weight: 500;position: relative;transition: all 0.3s ease;}
+.stage__nav.is-actived, .stage__nav:hover {color: var(--color-primary);}
+.stage__nav:after {content: '';background: var(--color-black);width: 100%;height: 2px;position: absolute;bottom: -8px;left: 0;}
+.stage__nav.is-actived:after, .stage__nav:hover:after {background: var(--color-primary);}
+.stages__block {width: 50%;}
+.stages__block_full {width: 100%;}
+.stages__title {margin-bottom: 16px;}
+.stages-list__item {margin-bottom: 12px;gap: 8px;display: flex;align-items: center;}
+.stages-list__item i {font-size: 24px;}
+.stages__buttons {width: 100%;}
+.stages__buttons [class*="button-"] {margin: 16px 16px 0 0;}
+.stages__buttons [class*="button-"]:last-child {margin-right: 0;}
+
+
+/**************************************/
+/*** Адаптивность ***/
+/**************************************/
+@media all and (min-width: 320px) {
+  .container {min-width: 320px;}
+}
+
+@media all and (min-width: 480px) {
+  .container {min-width: 480px;}
+}
+
+@media all and (min-width: 768px) {
+  .container {width: 768px;}
+}
+
+@media all and (min-width: 1024px) {
+  .container {width: 1024px;}
+}
+
+@media all and (min-width: 1200px) {
+  .container {width: 1200px;}
+}
+
+@media all and (max-width: 1199px) {
+}
+
+@media all and (max-width: 1023px) {
+}
+
+@media all and (max-width: 767px) {
+}
+
+@media all and (max-width: 639px) {
+}
+
+@media all and (max-width: 479px) {
+}
+
+@media all and (max-width: 374px) {
+}
