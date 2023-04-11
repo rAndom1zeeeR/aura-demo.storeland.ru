@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?i613rv');
-  src:  url('fonts/icomoon.eot?i613rv#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?i613rv') format('truetype'),
-    url('fonts/icomoon.woff?i613rv') format('woff'),
-    url('fonts/icomoon.svg?i613rv#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?9w58mc');
+  src:  url('fonts/icomoon.eot?9w58mc#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?9w58mc') format('truetype'),
+    url('fonts/icomoon.woff?9w58mc') format('woff'),
+    url('fonts/icomoon.svg?9w58mc#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,8 +25,20 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-home:before {
+.icon-delivery:before {
+  content: "\e926";
+}
+.icon-hourglass:before {
+  content: "\e927";
+}
+.icon-quality:before {
   content: "\e928";
+}
+.icon-rouble:before {
+  content: "\e929";
+}
+.icon-service:before {
+  content: "\e92a";
 }
 .icon-arrow_down:before {
   content: "\e900";
@@ -73,7 +85,7 @@
 .icon-filter:before {
   content: "\e90e";
 }
-.icon-list:before {
+.icon-home:before {
   content: "\e90f";
 }
 .icon-location:before {
@@ -97,7 +109,7 @@
 .icon-minus:before {
   content: "\e916";
 }
-.icon-notifications:before {
+.icon-notification:before {
   content: "\e917";
 }
 .icon-person:before {
@@ -109,39 +121,36 @@
 .icon-plus:before {
   content: "\e91a";
 }
-.icon-refresh:before {
+.icon-reload:before {
   content: "\e91b";
 }
-.icon-reload:before {
+.icon-schedule:before {
   content: "\e91c";
 }
-.icon-schedule:before {
+.icon-search:before {
   content: "\e91d";
 }
-.icon-search:before {
+.icon-star:before {
   content: "\e91e";
 }
-.icon-star:before {
+.icon-thumb_down:before {
   content: "\e91f";
 }
-.icon-thumb_down:before {
+.icon-thumb_up:before {
   content: "\e920";
 }
-.icon-thumb_up:before {
+.icon-view_grid:before {
   content: "\e921";
 }
-.icon-view_grid:before {
+.icon-view_list:before {
   content: "\e922";
 }
-.icon-view_list:before {
+.icon-visibility:before {
   content: "\e923";
 }
-.icon-visibility:before {
+.icon-visibility_off:before {
   content: "\e924";
 }
-.icon-visibility_off:before {
-  content: "\e925";
-}
 .icon-warning:before {
-  content: "\e926";
+  content: "\e925";
 }

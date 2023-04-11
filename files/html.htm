@@ -16,7 +16,7 @@
 	<!-- Open Graph -->
 	<meta property="og:title" content="{PAGE_TITLE}">
 	<meta property="og:description" content="{PAGE_META_DESCRIPTION}">
-	<meta property="og:image" content="{% IF MOD_LNAME=goods %}{GOODS_IMAGE_MEDIUM}{% ELSE %}{INDEX_PAGE_URL}design/logo.png{% ENDIF %}">
+	<meta property="og:image" content="{% IF MOD_LNAME=goods %}{GOODS_IMAGE_MEDIUM}{% ELSE %}{INDEX_PAGE_URL}design/logo.jpg{% ENDIF %}">
 	<meta property="og:url" content="{INDEX_PAGE_URL}">
 	<meta property="og:site_name" content='{SETTINGS_STORE_NAME}'>
 	<meta property="og:type" content="website">
@@ -29,8 +29,7 @@
 	<!-- Подключаемые Шрифты -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;500;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 	<!-- Подключаемые Иконки -->
 	<link rel="stylesheet" type="text/css" href="/design/icomoon.css?design=THEMENAME" />
 	<!-- Основные Стили магазина для всех страниц -->
@@ -78,441 +77,442 @@
 		<!-- Шапка -->
 		<header id="header">
 			<div class="container">
-				<div class="header__top">
-					<!-- Шапка. Телефон 1 -->
-					{% IF SETTINGS_STORE_PHONE_NUMBER1 %}
-					<div class="header-contacts__block header-contacts__block-phone">
-						<a class="contacts__link flex" href="tel:{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}" title="{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}">
-							<div class="contacts__icon">
-								<i class="icon-phone"></i>
-							</div>
-							<div class="contacts__content">
-								<span>{SETTINGS_STORE_PHONE_COUNTRY_CODE1} ({SETTINGS_STORE_PHONE_CITY_CODE1}) {SETTINGS_STORE_PHONE_NUMBER1}</span>
-							</div>
-						</a>
-					</div>
-					{% ENDIF SETTINGS_STORE_PHONE_NUMBER1 %}
+				<div class="header__inner flex">
+					<div class="header__left flex">
+						<!-- Шапка. Телефон 1 -->
+						{% IF SETTINGS_STORE_PHONE_NUMBER1 %}
+						<div class="header-contacts__block header-contacts__block-phone">
+							<a class="contacts__link flex" href="tel:{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}" title="{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}">
+								<div class="contacts__icon">
+									<i class="icon-phone"></i>
+								</div>
+								<div class="contacts__content">
+									<span>{SETTINGS_STORE_PHONE_COUNTRY_CODE1} ({SETTINGS_STORE_PHONE_CITY_CODE1}) {SETTINGS_STORE_PHONE_NUMBER1}</span>
+								</div>
+								<div class="contacts__dropdown">
+									<i class="icon-chevron_down"></i>
+								</div>
+							</a>
+						</div>
+						{% ENDIF SETTINGS_STORE_PHONE_NUMBER1 %}
 
-					<!-- Шапка. Каталог -->
-					<div class="header-catalog dropdown">
-						<a class="header-catalog__icon" href="{CATALOG_URL}" title="Перейти в каталог">
-							<i class="icon-menu"></i>
-							<span>Каталог</span>
-						</a>
-						<div class="header-catalog__content dropdown__content">
-							<div class="header-catalog__inner flex-start">
-								<ul class="catalog__items catalog__items-main unstyled">
-									{% FOR catalog_full %}
-										{% IF catalog_full.LEVEL > 0 %}{continue}{% ENDIF %}
-										<li class="catalog__item {% IF catalog_full.ISSET_VISIBLE_SUB %}parent{% ENDIF %} {% IF catalog_full.CURRENT_PARENT || catalog_full.CURRENT %}is-opened{% ENDIF %}" data-level="{catalog_full.LEVEL}" data-id="{catalog_full.ID}" {% IF catalog_full.HIDE %}style="display:none;"{% ENDIF %}>
-											<a class="catalog__link flex {% IF catalog_full.CURRENT %}is-opened{% ENDIF %}" href="{catalog_full.URL}" data-level="{catalog_full.LEVEL}">
-												<span>{catalog_full.NAME}</span>
-												{% IF catalog_full.ISSET_VISIBLE_SUB %}<i class="icon-chevron_right"></i>{% ENDIF %}
-											</a>
-										</li>
+						<!-- Логотип -->
+						<div class="header-logo" itemscope itemtype="http://schema.org/Organization">
+							<a href="{INDEX_PAGE_URL}" title="{SETTINGS_STORE_NAME}" itemprop="url">
+								<svg width="409" height="78" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 78C65 78 108.999 0 201 0c92 0 161 78 201 78H2.5Z" fill="#fff"/></svg>
+								<img src="{ASSETS_IMAGES_PATH}logo.jpg?design=THEMENAME" alt="{SETTINGS_STORE_NAME}" itemprop="image" width="190" height="70">
+								<meta itemprop="image" content="{ASSETS_IMAGES_PATH}logo.jpg?design=THEMENAME">
+								<meta itemprop="name" content="{SETTINGS_STORE_NAME}">
+								<meta itemprop="telephone" content="{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}">
+								<span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+									<meta itemprop="addressLocality" content="{SETTINGS_STORE_REGION}" />
+								</span>
+							</a>
+						</div>
+
+					</div>
+
+					<div class="header__right flex">
+						<!-- Шапка. Каталог -->
+						<div class="header-catalog dropdown">
+							<a class="header-catalog__icon" href="{CATALOG_URL}" title="Перейти в каталог">
+								<span>Каталог</span>
+								<i class="icon-catalog"></i>
+							</a>
+							<div class="header-catalog__content dropdown__content">
+								<div class="header-catalog__inner flex-start">
+									<ul class="catalog__items catalog__items-main unstyled">
+										{% FOR catalog_full %}
+											{% IF catalog_full.LEVEL > 0 %}{continue}{% ENDIF %}
+											<li class="catalog__item {% IF catalog_full.ISSET_VISIBLE_SUB %}parent{% ENDIF %} {% IF catalog_full.CURRENT_PARENT || catalog_full.CURRENT %}is-opened{% ENDIF %}" data-level="{catalog_full.LEVEL}" data-id="{catalog_full.ID}" {% IF catalog_full.HIDE %}style="display:none;"{% ENDIF %}>
+												<a class="catalog__link flex {% IF catalog_full.CURRENT %}is-opened{% ENDIF %}" href="{catalog_full.URL}" data-level="{catalog_full.LEVEL}">
+													<span>{catalog_full.NAME}</span>
+													{% IF catalog_full.ISSET_VISIBLE_SUB %}<i class="icon-chevron_right"></i>{% ENDIF %}
+												</a>
+											</li>
+										{% ENDFOR %}
+									</ul>
+
+									<ul class="catalog__items catalog__items-sub unstyled">
+										{% FOR catalog_full %}
+											{% IF catalog_full.FIRST && catalog_full.LEVEL > 0 %}<ul data-level="{catalog_full.LEVEL}" class="catalog__sub unstyled">{% ENDIF %}
+											<li class="catalog__item {% IF catalog_full.ISSET_VISIBLE_SUB %}parent{% ENDIF %} {% IF catalog_full.CURRENT_PARENT %}is-opened{% ENDIF %}" data-level="{catalog_full.LEVEL}" data-id="{catalog_full.ID}" {% IF catalog_full.HIDE %}style="display:none;"{% ENDIF %}>
+												<a class="catalog__link flex {% IF catalog_full.CURRENT %}is-opened{% ENDIF %}" href="{catalog_full.URL}" data-level="{catalog_full.LEVEL}">
+													<span>{catalog_full.NAME}</span>
+													{% IF catalog_full.ISSET_VISIBLE_SUB %}<i class="icon-chevron_right"></i>{% ENDIF %}
+												</a>
+												{% IF catalog_full.ISSET_SUB=0 %}</li>{% ENDIF %}
+											{% IF catalog_full.LAST %}{% FOR out %}</li>{% IFNOT catalog_full.out.LAST %}</ul>{% ENDIF %}{% ENDFOR %}{% ENDIF %}
+										{% ENDFOR %}
+								</div>
+							</div>
+						</div>
+
+						<!-- Шапка. Меню -->
+						<div class="header-menu">
+							<nav class="mainnav" itemscope itemtype="https://schema.org/SiteNavigationElement">
+								<ul class="mainnav__list unstyled flex loading">
+									{% FOR menu %}
+										{% FOR header %}
+											{% FOR links %}
+											<li class="mainnav__item">
+												<a class="mainnav__link {% IF menu.header.links.SELECTED %}is-actived{%ENDIF%} {% IF menu.header.links.NAME = Каталог %}is-catalog{% ENDIF %}" href="{menu.header.links.URL}" title="{% IF menu.header.links.TITLE %}{menu.header.links.TITLE}{% ELSE%}{menu.header.links.NAME}{% ENDIF %}" itemprop="url">
+													<span itemprop="name">{menu.header.links.NAME}</span>
+												</a>
+											</li>
+											{% ENDFOR %}
+										{% ENDFOR %}
 									{% ENDFOR %}
 								</ul>
-
-								<ul class="catalog__items catalog__items-sub unstyled">
-									{% FOR catalog_full %}
-										{% IF catalog_full.FIRST && catalog_full.LEVEL > 0 %}<ul data-level="{catalog_full.LEVEL}" class="catalog__sub unstyled">{% ENDIF %}
-										<li class="catalog__item {% IF catalog_full.ISSET_VISIBLE_SUB %}parent{% ENDIF %} {% IF catalog_full.CURRENT_PARENT %}is-opened{% ENDIF %}" data-level="{catalog_full.LEVEL}" data-id="{catalog_full.ID}" {% IF catalog_full.HIDE %}style="display:none;"{% ENDIF %}>
-											<a class="catalog__link flex {% IF catalog_full.CURRENT %}is-opened{% ENDIF %}" href="{catalog_full.URL}" data-level="{catalog_full.LEVEL}">
-												<span>{catalog_full.NAME}</span>
-												{% IF catalog_full.ISSET_VISIBLE_SUB %}<i class="icon-chevron_right"></i>{% ENDIF %}
-											</a>
-											{% IF catalog_full.ISSET_SUB=0 %}</li>{% ENDIF %}
-										{% IF catalog_full.LAST %}{% FOR out %}</li>{% IFNOT catalog_full.out.LAST %}</ul>{% ENDIF %}{% ENDFOR %}{% ENDIF %}
-									{% ENDFOR %}
-							</div>
+								<!-- Меню. Еще -->
+								<ul class="mainnav__overflow dropdown__content unstyled"></ul>
+							</nav>
 						</div>
-					</div>
 
-					<!-- Шапка. Меню -->
-					<div class="header-menu">
-						<nav class="mainnav" itemscope itemtype="https://schema.org/SiteNavigationElement">
-							<ul class="mainnav__list unstyled flex loading">
-								{% FOR menu %}
-									{% FOR header %}
-										{% FOR links %}
-										<li class="mainnav__item">
-											<a class="mainnav__link {% IF menu.header.links.SELECTED %}_active{%ENDIF%} {% IF menu.header.links.NAME = Каталог %}_catalog{% ENDIF %}" href="{menu.header.links.URL}" title="{% IF menu.header.links.TITLE %}{menu.header.links.TITLE}{% ELSE%}{menu.header.links.NAME}{% ENDIF %}" itemprop="url">
-												<span itemprop="name">{menu.header.links.NAME}</span>
+						<!-- Добавление в ... -->
+						<div class="header-addto addto flex">
+							<!-- Сравнение -->
+							{% IFNOT MOD_LNAME = compare && SETTINGS_COMPARE_DISABLE=0 %}
+							<div class="addto__block compare dropdown {% IF COMPARE_GOODS_COUNT > 0 %}has-items{% ENDIF %}">
+								<a class="addto__link flex dropdown__open" href="{COMPARE_URL}" title="Сравнение">
+									<i class="icon-compare"></i>
+									<span class="addto__count compare-count" data-count="{COMPARE_GOODS_COUNT}">{COMPARE_GOODS_COUNT}</span>
+									<span>Сравнение</span>
+								</a>
+
+								<div class="addto__compare dropdown__content">
+									<div class="addto__title">
+										<span>В Сравнении</span>
+									</div>
+
+									<div class="addto__items">
+										{% FOR compare_goods %}
+										<div class="addto__item flex" data-id="{compare_goods.ID}">
+											<a class="addto__image flex-center" href="{compare_goods.URL}"title="{compare_goods.NAME}">
+												<img src="{% IF compare_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{compare_goods.IMAGE_ICON}{% ENDIF %}" alt="{compare_goods.NAME}" />
 											</a>
-										</li>
+
+											<div class="addto__content flex">
+
+												<a class="addto__name" href="{compare_goods.URL}" title="{compare_goods.NAME}">
+													<span>{compare_goods.NAME}</span>
+												</a>
+
+												<div class="addto__price flex {CURRENCY_CHAR_CODE}">
+													<div class="price__now" data-price="{compare_goods.MIN_PRICE_NOW}">{compare_goods.MIN_PRICE_NOW | money_format}</div>
+													{% IF compare_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > compare_goods.MIN_PRICE_NOW %}
+													<span class="price__old" data-price="{compare_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{compare_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>
+													{% ELSEIF compare_goods.MIN_PRICE_OLD > compare_goods.MIN_PRICE_NOW %}
+													<span class="price__old" data-price="{compare_goods.MIN_PRICE_OLD}">{compare_goods.MIN_PRICE_OLD | money_format}</span>
+													{% ENDIF %}
+												</div>
+
+												<a class="addto__remove button-rotate button-link" 
+													href="{COMPARE_DELETE_URL}?id={compare_goods.MIN_PRICE_NOW_ID}" 
+													data-id="{compare_goods.ID}" 
+													title="Убрать товар из списка сравнения"
+												>
+													<i class="icon-close"></i>
+												</a>
+											</div>
+
+										</div>
 										{% ENDFOR %}
-									{% ENDFOR %}
-								{% ENDFOR %}
-							</ul>
-							<!-- Меню. Еще -->
-							<ul class="mainnav__overflow dropdown__content unstyled"></ul>
-						</nav>
-					</div>
-
-					<!-- Добавление в ... -->
-					<div class="header-addto addto flex">
-						<!-- Сравнение -->
-						{% IFNOT MOD_LNAME = compare && SETTINGS_COMPARE_DISABLE=0 %}
-						<div class="addto__block compare dropdown {% IF COMPARE_GOODS_COUNT > 0 %}has-items{% ENDIF %}">
-							<a class="addto__link flex dropdown__open" href="{COMPARE_URL}" title="Сравнение">
-								<i class="icon-compare"></i>
-								<span class="addto__count compare-count" data-count="{COMPARE_GOODS_COUNT}">{COMPARE_GOODS_COUNT}</span>
-								<span>Сравнение</span>
-							</a>
-
-							<div class="addto__compare dropdown__content">
-								<div class="addto__title">
-									<span>В Сравнении</span>
-								</div>
-
-								<div class="addto__items">
-									{% FOR compare_goods %}
-									<div class="addto__item flex" data-id="{compare_goods.ID}">
-										<a class="addto__image flex-center" href="{compare_goods.URL}"title="{compare_goods.NAME}">
-											<img src="{% IF compare_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{compare_goods.IMAGE_ICON}{% ENDIF %}" alt="{compare_goods.NAME}" />
-										</a>
-
-										<div class="addto__content flex">
-
-											<a class="addto__name" href="{compare_goods.URL}" title="{compare_goods.NAME}">
-												<span>{compare_goods.NAME}</span>
-											</a>
-
-											<div class="addto__price flex {CURRENCY_CHAR_CODE}">
-												<div class="price__now" data-price="{compare_goods.MIN_PRICE_NOW}">{compare_goods.MIN_PRICE_NOW | money_format}</div>
-												{% IF compare_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > compare_goods.MIN_PRICE_NOW %}
-												<span class="price__old" data-price="{compare_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{compare_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>
-												{% ELSEIF compare_goods.MIN_PRICE_OLD > compare_goods.MIN_PRICE_NOW %}
-												<span class="price__old" data-price="{compare_goods.MIN_PRICE_OLD}">{compare_goods.MIN_PRICE_OLD | money_format}</span>
-												{% ENDIF %}
-											</div>
-
-											<a class="addto__remove button-rotate button-link" 
-												href="{COMPARE_DELETE_URL}?id={compare_goods.MIN_PRICE_NOW_ID}" 
-												data-id="{compare_goods.ID}" 
-												title="Убрать товар из списка сравнения"
-											>
-												<i class="icon-close"></i>
-											</a>
-										</div>
-
 									</div>
-									{% ENDFOR %}
-								</div>
 
-								<div class="addto__buttons">
-									<a class="addto__removeAll button-tertiary" href="{COMPARE_RESET_URL}" title="Очистить список сравнения"><span>Очистить</span></a>
-									<a class="button-secondary" href="{COMPARE_URL}" title="Перейти к Сравнению"><span>В Сравнение</span></a>
-								</div>
+									<div class="addto__buttons">
+										<a class="addto__removeAll button-tertiary" href="{COMPARE_RESET_URL}" title="Очистить список сравнения"><span>Очистить</span></a>
+										<a class="button-secondary" href="{COMPARE_URL}" title="Перейти к Сравнению"><span>В Сравнение</span></a>
+									</div>
 
-								<!-- Пустая корзина -->
-								<div class="addto__empty">Ваш список сравнения пуст</div>
+									<!-- Пустая корзина -->
+									<div class="addto__empty">Ваш список сравнения пуст</div>
+
+								</div>
 
 							</div>
+							{% ENDIF %}
 
-						</div>
-						{% ENDIF %}
+							<!-- Избранное -->
+							<div class="addto__block favorites dropdown {% IF FAVORITES_GOODS_COUNT > 0 %}has-items{% ENDIF %}">
+								<a class="addto__link flex dropdown__open" href="{FAVORITES_URL}" title="Избранное">
+									<i class="icon-favorites"></i>
+									<span class="addto__count favorites-count" data-count="{FAVORITES_GOODS_COUNT}">{FAVORITES_GOODS_COUNT}</span>
+									<span>Избранное</span>
+								</a>
 
-						<!-- Избранное -->
-						<div class="addto__block favorites dropdown {% IF FAVORITES_GOODS_COUNT > 0 %}has-items{% ENDIF %}">
-							<a class="addto__link flex dropdown__open" href="{FAVORITES_URL}" title="Избранное">
-								<i class="icon-favorites"></i>
-								<span class="addto__count favorites-count" data-count="{FAVORITES_GOODS_COUNT}">{FAVORITES_GOODS_COUNT}</span>
-								<span>Избранное</span>
-							</a>
+								<div class="addto__favorites dropdown__content">
+									<div class="addto__title">
+										<span>В Избранном</span>
+									</div>
 
-							<div class="addto__favorites dropdown__content">
-								<div class="addto__title">
-									<span>В Избранном</span>
-								</div>
-
-								<div class="addto__items">
-									{% FOR favorites_goods %}
-									<div class="addto__item flex" data-id="{favorites_goods.ID}">
-										<a class="addto__image flex-center" href="{favorites_goods.URL}"title="{favorites_goods.NAME}">
-											<img src="{% IF favorites_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{favorites_goods.IMAGE_ICON}{% ENDIF %}" alt="{favorites_goods.NAME}" />
-										</a>
-
-										<div class="addto__content flex">
-
-											<a class="addto__name" href="{favorites_goods.URL}" title="{favorites_goods.NAME}">
-												<span>{favorites_goods.NAME}</span>
+									<div class="addto__items">
+										{% FOR favorites_goods %}
+										<div class="addto__item flex" data-id="{favorites_goods.ID}">
+											<a class="addto__image flex-center" href="{favorites_goods.URL}"title="{favorites_goods.NAME}">
+												<img src="{% IF favorites_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{favorites_goods.IMAGE_ICON}{% ENDIF %}" alt="{favorites_goods.NAME}" />
 											</a>
 
-											<div class="addto__price flex {CURRENCY_CHAR_CODE}">
-												<div class="price__now" data-price="{favorites_goods.MIN_PRICE_NOW}">{favorites_goods.MIN_PRICE_NOW | money_format}</div>
-												{% IF favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > favorites_goods.MIN_PRICE_NOW %}
-												<span class="price__old" data-price="{favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>
-												{% ELSEIF favorites_goods.MIN_PRICE_OLD > favorites_goods.MIN_PRICE_NOW %}
-												<span class="price__old" data-price="{favorites_goods.MIN_PRICE_OLD}">{favorites_goods.MIN_PRICE_OLD | money_format}</span>
-												{% ENDIF %}
+											<div class="addto__content flex">
+
+												<a class="addto__name" href="{favorites_goods.URL}" title="{favorites_goods.NAME}">
+													<span>{favorites_goods.NAME}</span>
+												</a>
+
+												<div class="addto__price flex {CURRENCY_CHAR_CODE}">
+													<div class="price__now" data-price="{favorites_goods.MIN_PRICE_NOW}">{favorites_goods.MIN_PRICE_NOW | money_format}</div>
+													{% IF favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > favorites_goods.MIN_PRICE_NOW %}
+													<span class="price__old" data-price="{favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>
+													{% ELSEIF favorites_goods.MIN_PRICE_OLD > favorites_goods.MIN_PRICE_NOW %}
+													<span class="price__old" data-price="{favorites_goods.MIN_PRICE_OLD}">{favorites_goods.MIN_PRICE_OLD | money_format}</span>
+													{% ENDIF %}
+												</div>
+											
+												<a class="addto__remove button-rotate button-link" 
+													href="{favorites_goods.FAVORITES_DELETE_URL}" 
+													data-id="{favorites_goods.ID}" 
+													title="Убрать товар из списка избранного"
+												>
+													<i class="icon-close"></i>
+												</a>
+
 											</div>
-										
-											<a class="addto__remove button-rotate button-link" 
-												href="{favorites_goods.FAVORITES_DELETE_URL}" 
-												data-id="{favorites_goods.ID}" 
-												title="Убрать товар из списка избранного"
-											>
-												<i class="icon-close"></i>
-											</a>
 
 										</div>
-
+										{% ENDFOR %}
 									</div>
-									{% ENDFOR %}
-								</div>
 
-								<div class="addto__buttons">
-									<a class="addto__removeAll button-tertiary" href="{FAVORITES_RESET_URL}" title="Очистить избранное"><span>Очистить</span></a>
-									<a class="button-secondary" href="{FAVORITES_URL}" title="Перейти к Избранное"><span>В Избранное</span></a>
+									<div class="addto__buttons">
+										<a class="addto__removeAll button-tertiary" href="{FAVORITES_RESET_URL}" title="Очистить избранное"><span>Очистить</span></a>
+										<a class="button-secondary" href="{FAVORITES_URL}" title="Перейти к Избранное"><span>В Избранное</span></a>
+									</div>
+									
+									<!-- Пустая корзина -->
+									<div class="addto__empty">Ваш список избранного пуст</div>
+
 								</div>
-								
-								<!-- Пустая корзина -->
-								<div class="addto__empty">Ваш список избранного пуст</div>
 
 							</div>
 
 						</div>
 
-					</div>
-
-				</div>
-
-				<div class="header__middle">
-					<!-- Логотип -->
-					<div class="header-logo" itemscope itemtype="http://schema.org/Organization">
-						<a href="{INDEX_PAGE_URL}" title="{SETTINGS_STORE_NAME}" itemprop="url">
-							<img src="{ASSETS_IMAGES_PATH}logo.png?design=THEMENAME" alt="{SETTINGS_STORE_NAME}" itemprop="image" width="182" height="48">
-							<meta itemprop="image" content="{ASSETS_IMAGES_PATH}logo.png?design=THEMENAME">
-							<meta itemprop="name" content="{SETTINGS_STORE_NAME}">
-							<meta itemprop="telephone" content="{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}">
-							<span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-								<meta itemprop="addressLocality" content="{SETTINGS_STORE_REGION}" />
-							</span>
-						</a>
-					</div>
-
-					<!-- Поиск -->
-					<div class="header-search search" itemscope itemtype="https://schema.org/WebSite">
-						<link itemprop="url" href="{INDEX_PAGE_URL}" />
-						<div class="header-search__icon flex-center">
-							<i class="icon-search"></i>
-						</div>
-						<!-- Форма поиска -->
-						<form class="search__form" action="{QUICK_SEARCH_URL}" method="get" itemprop="potentialAction" itemscope itemtype="https://schema.org/SearchAction">
-							<meta itemprop="target" content="{SEARCH_URL}?q={query}" />
-							<input type="hidden" name="goods_search_field_id" value="0" />
-							<input class="search__input" type="text" name="q" value="{FORM_SEARCH_Q}" placeholder="Искать товары" autocomplete="off" itemprop="query" />
-							<!-- Найти -->
-							<button class="search__submit" type="submit" title="Искать">
+						<!-- Поиск -->
+						<div class="header-search search" itemscope itemtype="https://schema.org/WebSite">
+							<link itemprop="url" href="{INDEX_PAGE_URL}" />
+							<div class="header-search__icon flex-center">
 								<i class="icon-search"></i>
-							</button>
-							<!-- Кружок обновления -->
-							<div class="search__loader flex">
-								<div></div><div></div><div></div><div></div>
 							</div>
-							<!-- Закрыть -->
-							<div class="search__reset flex">
-								<i class="icon-close"></i>
-							</div>
-						</form>
-
-						<!-- Результаты поиска -->
-						<div class="search-results">
-							<div class="search-results__inner flex-start">
-								<div class="search-results__category flex-start">
-									<div class="search-results__title">Категории товаров</div>
+							<!-- Форма поиска -->
+							<form class="search__form flex" action="{QUICK_SEARCH_URL}" method="get" itemprop="potentialAction" itemscope itemtype="https://schema.org/SearchAction">
+								<meta itemprop="target" content="{SEARCH_URL}?q={query}" />
+								<input type="hidden" name="goods_search_field_id" value="0" />
+								<input class="search__input" type="text" name="q" value="{FORM_SEARCH_Q}" placeholder="Поиск..." autocomplete="off" itemprop="query" />
+								<!-- Найти -->
+								<button class="search__submit" type="submit" title="Искать">
+									<i class="icon-search"></i>
+								</button>
+								<!-- Кружок обновления -->
+								<div class="search__loader flex">
+									<div></div><div></div><div></div><div></div>
 								</div>
-								<div class="search-results__goods flex-start">
-									<div class="search-results__title">Товары</div>
+								<!-- Закрыть -->
+								<div class="search__reset flex">
+									<i class="icon-close"></i>
 								</div>
-								<div class="search-results__showAll is-hide button-rotate button-link">
-									<i class="icon-reload"></i>
-									<span>Все результаты</span>
-								</div>
-							</div>
-						</div>
+							</form>
 
-					</div>
-
-					<!-- Личный кабинет -->
-					<div class="addto__block login dropdown">
-						<a class="addto__link flex dropdown__open" href="{USER_LOGIN_URL}" title="Личный кабинет">
-							<i class="icon-person"></i>
-							<span>ЛК</span>
-						</a>
-						<div class="addto__login dropdown__content">
-							<!-- ЛК для авторизованных пользователей -->
-							<ul class="mainnav__list unstyled">
-								{% IF CLIENT_IS_LOGIN %}
-								<li>
-									<a class="mainnav__link" href="{USER_SETTINGS_URL}" title="Личный кабинет" rel="nofollow">
-										<span>Мой кабинет</span>
-									</a>
-								</li>
-
-								<li>
-									<a class="mainnav__link" href="{USER_HISTORY_LIST_URL}" title="История заказов" rel="nofollow">
-										<span>История</span>
-									</a>
-								</li>
-
-								{% IF SETTINGS_COMPARE_DISABLE=0 %}
-								<li>
-									<a class="mainnav__link" href="{COMPARE_URL}" title="Сравнение" rel="nofollow">
-										<span>Сравнение</span>
-									</a>
-								</li>
-								{% ENDIF %}
-
-								<li>
-									<a class="mainnav__link" href="{FAVORITES_URL}" title="Избранные товары" rel="nofollow">
-										<span>Избранное</span>
-									</a>
-								</li>
-
-								<li>
-									<a class="mainnav__link" href="{USER_LOGOUT_URL}" title="Выход" rel="nofollow">
-										<span>Выход</span>
-									</a>
-								</li>
-
-								{% ELSE %}
-
-								{% IF SETTINGS_COMPARE_DISABLE=0 %}
-								<li>
-									<a class="mainnav__link" href="{COMPARE_URL}" title="Сравнение" rel="nofollow">
-										<span>Сравнение</span>
-									</a>
-								</li>
-								{% ENDIF %}
-
-								<li>
-									<a class="mainnav__link" href="{USER_LOGIN_URL}" title="Вход" rel="nofollow">
-										<span>Вход</span>
-									</a>
-								</li>
-
-								<li>
-									<a class="mainnav__link" href="{USER_REGISTER_URL}" title="Регистрация" rel="nofollow">
-										<span>Регистрация</span>
-									</a>
-								</li>
-								{% ENDIF CLIENT_IS_LOGIN %}
-
-							</ul>
-						</div>
-					</div>
-
-					<!-- Корзина -->
-					<div class="addto__block cart dropdown {% IF CART_COUNT_TOTAL > 0 %}has-items{% ENDIF %}">
-						<a class="addto__link flex cart__icon dropdown__open" href="{CART_URL}" title="Перейти в корзину">
-							<i class="icon-cart"></i>
-							<span class="addto__count cart-count" data-count="{CART_COUNT_TOTAL}">{CART_COUNT_TOTAL}</span>
-							<span>Корзина</span>
-						</a>
-
-						<!-- Выпадаюзая Корзина -->
-						<div class="addto__cart dropdown__content">
-							{% IFNOT cart_items_empty %}
-							<div class="addto__title">
-								<span>В Корзине</span>
-								<span class="cart-count" data-count="{CART_COUNT_TOTAL}">{CART_COUNT_TOTAL}</span>
-								<span class="cart-wordend">товар{CART_COUNT_TOTAL | gen_word_end("","а","ов")}</span>
-							</div>
-
-							<div class="addto__items">
-								<form class="addto__form" action="{CART_URL}" method="post">
-									<input type="hidden" name="fast_order" value="1" />
-									<input type="hidden" name="hash" value="{HASH}" />
-									{% FOR cart_items %}
-									<div class="addto__item flex" data-id="{cart_items.GOODS_ID}" data-mod-id="{cart_items.GOODS_MOD_ID}">
-										<a class="addto__image flex-center" href="{cart_items.GOODS_URL}" title="{cart_items.GOODS_NAME}">
-											<img src="{% IF cart_items.GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{cart_items.GOODS_IMAGE_ICON}{% ENDIF %}" alt="{cart_items.GOODS_NAME}" width="{SETTINGS_GOODS_IMAGES_SIZE_ICON | divide('2')}" height="{SETTINGS_GOODS_IMAGES_SIZE_ICON | divide('2')}" />
-										</a>
-
-										<div class="addto__content flex">
-											<a class="addto__name" href="{cart_items.GOODS_URL}" title="{cart_items.GOODS_NAME}">
-												<span>{cart_items.GOODS_NAME}</span>
-											</a>
-
-											{% IFNOT cart_items.distinctive_properties_empty %}
-											<div class="addto__mod">{% FOR distinctive_properties %}{cart_items.distinctive_properties.NAME}: {cart_items.distinctive_properties.VALUE}{% IFNOT cart_items.distinctive_properties.last %}; {% ENDIF %}{% ENDFOR %}</div>
-											{% ENDIF %}
-
-											<div class="addto__qty qty flex {% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE %}has-max{% ENDIF %}">
-													<span class="qty__select qty__select-minus" title="Уменьшить"><i class="icon-minus"></i></span>
-													<input class="qty__input" 
-																type="text" 
-																name="form[quantity][{cart_items.GOODS_MOD_ID}]" 
-																maxlength="3" 
-																{% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE %}max="{cart_items.GOODS_MOD_REST_VALUE}" {% ENDIF %}
-																min="1" 
-																value="{cart_items.ORDER_LINE_QUANTITY}" 
-																title="Количество, {cart_items.GOODS_MOD_MEASURE_NAME}"
-																autocomplete="off" 
-																
-													/>
-													<span class="qty__select qty__select-plus" title="Увеличить"><i class="icon-plus"></i></span>
-											</div>
-
-											<div class="addto__price flex {CURRENCY_CHAR_CODE}">
-												<span class="price__now" data-price="{cart_items.ORDER_LINE_PRICE_NOW}">{cart_items.ORDER_LINE_PRICE_NOW | money_format}</span>
-												{% IF cart_items.ORDER_LINE_PRICE_OLD > cart_items.ORDER_LINE_PRICE_NOW %}
-												<span class="price__old" data-price="{cart_items.ORDER_LINE_PRICE_OLD}">{cart_items.ORDER_LINE_PRICE_OLD | money_format}</span>
-												{% ENDIF %}
-											</div>
-
-											<a class="addto__remove button-rotate button-link" 
-												href="{cart_items.ORDER_LINE_DELETE_URL}" 
-												data-qty="{cart_items.ORDER_LINE_QUANTITY}" 
-												data-id="{cart_items.GOODS_ID}" 
-												title="Удалить позицию" 
-											>
-												<i class="icon-close"></i>
-											</a>
-
-										</div>
+							<!-- Результаты поиска -->
+							<div class="search-results">
+								<div class="search-results__inner flex-start">
+									<div class="search-results__category flex-start">
+										<div class="search-results__title">Категории товаров</div>
 									</div>
-									{% ENDFOR cart_items %}
-								</form>
+									<div class="search-results__goods flex-start">
+										<div class="search-results__title">Товары</div>
+									</div>
+									<div class="search-results__showAll is-hide button-rotate button-link">
+										<i class="icon-reload"></i>
+										<span>Все результаты</span>
+									</div>
+								</div>
 							</div>
 
-							<div class="addto__total {CURRENCY_CHAR_CODE}">
-								<!-- Скидки, действующие на заказ -->
-								<div class="addto__total-discount is-hide flex justify-between">
-									<span class="addto__total-label">Скидка:</span>
-									<span class="addto__total-price flex">
-										{% FOR cart_discount %}
-											{% IF cart_discount.DISCOUNT_IS_ENABLED %}
-												<span class="discountValue" data-value="{cart_discount.DISCOUNT_VALUE}">{cart_discount.DISCOUNT_VALUE}</span>
-												{% IF cart_discount.IS_PERCENT %}<span class="percent">%</span>{% ELSE %}<span class="num"></span>{% ENDIF %}
-											{% ENDIF %}
-										{% ENDFOR %}
-									</span>
+						</div>
+
+						<!-- Личный кабинет -->
+						<div class="addto__block login dropdown">
+							<a class="addto__link flex dropdown__open" href="{USER_LOGIN_URL}" title="Личный кабинет">
+								{% IF CLIENT_IS_LOGIN %}
+								<span>Личный кабинет</span>
+								{% ELSE %}
+								<span>Войти/Регистрация</span>
+								{% ENDIF %}
+							</a>
+							<div class="addto__login dropdown__content">
+								<!-- ЛК для авторизованных пользователей -->
+								<ul class="mainnav__list flex-column unstyled">
+									{% IF CLIENT_IS_LOGIN %}
+									<li>
+										<a class="mainnav__link" href="{USER_SETTINGS_URL}" title="Личный кабинет" rel="nofollow">
+											<span>Мой кабинет</span>
+										</a>
+									</li>
+
+									<li>
+										<a class="mainnav__link" href="{USER_HISTORY_LIST_URL}" title="История заказов" rel="nofollow">
+											<span>История</span>
+										</a>
+									</li>
+
+									{% IF SETTINGS_COMPARE_DISABLE=0 %}
+									<li>
+										<a class="mainnav__link" href="{COMPARE_URL}" title="Сравнение" rel="nofollow">
+											<span>Сравнение</span>
+										</a>
+									</li>
+									{% ENDIF %}
+
+									<li>
+										<a class="mainnav__link" href="{FAVORITES_URL}" title="Избранные товары" rel="nofollow">
+											<span>Избранное</span>
+										</a>
+									</li>
+
+									<li>
+										<a class="mainnav__link" href="{USER_LOGOUT_URL}" title="Выход" rel="nofollow">
+											<span>Выход</span>
+										</a>
+									</li>
+
+									{% ELSE %}
+
+									<li>
+										<a class="mainnav__link" href="{USER_LOGIN_URL}" title="Вход" rel="nofollow">
+											<span>Вход</span>
+										</a>
+									</li>
+
+									<li>
+										<a class="mainnav__link" href="{USER_REGISTER_URL}" title="Регистрация" rel="nofollow">
+											<span>Регистрация</span>
+										</a>
+									</li>
+									{% ENDIF CLIENT_IS_LOGIN %}
+
+								</ul>
+							</div>
+						</div>
+
+						<!-- Корзина -->
+						<div class="addto__block cart dropdown {% IF CART_COUNT_TOTAL > 0 %}has-items{% ENDIF %}">
+							<a class="addto__link flex cart__icon dropdown__open" href="{CART_URL}" title="Перейти в корзину">
+								<i class="icon-cart"></i>
+								<span class="addto__count cart-count" data-count="{CART_COUNT_TOTAL}">{CART_COUNT_TOTAL}</span>
+								<span>Корзина</span>
+							</a>
+
+							<!-- Выпадаюзая Корзина -->
+							<div class="addto__cart dropdown__content">
+								{% IFNOT cart_items_empty %}
+								<div class="addto__title">
+									<span>В Корзине</span>
+									<span class="cart-count" data-count="{CART_COUNT_TOTAL}">{CART_COUNT_TOTAL}</span>
+									<span class="cart-wordend">товар{CART_COUNT_TOTAL | gen_word_end("","а","ов")}</span>
 								</div>
 
-								<!-- Итого -->
-								<div class="addto__total-block flex justify-between">
-									<span class="addto__total-label">Итого:</span>
-									<span class="addto__total-price cartSumNowDiscount" data-price="{CART_SUM_NOW_WITH_DISCOUNT}">{CART_SUM_NOW_WITH_DISCOUNT | money_format}</span>
+								<div class="addto__items">
+									<form class="addto__form" action="{CART_URL}" method="post">
+										<input type="hidden" name="fast_order" value="1" />
+										<input type="hidden" name="hash" value="{HASH}" />
+										{% FOR cart_items %}
+										<div class="addto__item flex" data-id="{cart_items.GOODS_ID}" data-mod-id="{cart_items.GOODS_MOD_ID}">
+											<a class="addto__image flex-center" href="{cart_items.GOODS_URL}" title="{cart_items.GOODS_NAME}">
+												<img src="{% IF cart_items.GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{cart_items.GOODS_IMAGE_ICON}{% ENDIF %}" alt="{cart_items.GOODS_NAME}" width="{SETTINGS_GOODS_IMAGES_SIZE_ICON | divide('2')}" height="{SETTINGS_GOODS_IMAGES_SIZE_ICON | divide('2')}" />
+											</a>
+
+											<div class="addto__content flex">
+												<a class="addto__name" href="{cart_items.GOODS_URL}" title="{cart_items.GOODS_NAME}">
+													<span>{cart_items.GOODS_NAME}</span>
+												</a>
+
+												{% IFNOT cart_items.distinctive_properties_empty %}
+												<div class="addto__mod">{% FOR distinctive_properties %}{cart_items.distinctive_properties.NAME}: {cart_items.distinctive_properties.VALUE}{% IFNOT cart_items.distinctive_properties.last %}; {% ENDIF %}{% ENDFOR %}</div>
+												{% ENDIF %}
+
+												<div class="addto__qty qty flex {% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE %}has-max{% ENDIF %}">
+														<span class="qty__select qty__select-minus" title="Уменьшить"><i class="icon-minus"></i></span>
+														<input class="qty__input" 
+																	type="text" 
+																	name="form[quantity][{cart_items.GOODS_MOD_ID}]" 
+																	maxlength="3" 
+																	{% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE %}max="{cart_items.GOODS_MOD_REST_VALUE}" {% ENDIF %}
+																	min="1" 
+																	value="{cart_items.ORDER_LINE_QUANTITY}" 
+																	title="Количество, {cart_items.GOODS_MOD_MEASURE_NAME}"
+																	autocomplete="off" 
+																	
+														/>
+														<span class="qty__select qty__select-plus" title="Увеличить"><i class="icon-plus"></i></span>
+												</div>
+
+												<div class="addto__price flex {CURRENCY_CHAR_CODE}">
+													<span class="price__now" data-price="{cart_items.ORDER_LINE_PRICE_NOW}">{cart_items.ORDER_LINE_PRICE_NOW | money_format}</span>
+													{% IF cart_items.ORDER_LINE_PRICE_OLD > cart_items.ORDER_LINE_PRICE_NOW %}
+													<span class="price__old" data-price="{cart_items.ORDER_LINE_PRICE_OLD}">{cart_items.ORDER_LINE_PRICE_OLD | money_format}</span>
+													{% ENDIF %}
+												</div>
+
+												<a class="addto__remove button-rotate button-link" 
+													href="{cart_items.ORDER_LINE_DELETE_URL}" 
+													data-qty="{cart_items.ORDER_LINE_QUANTITY}" 
+													data-id="{cart_items.GOODS_ID}" 
+													title="Удалить позицию" 
+												>
+													<i class="icon-close"></i>
+												</a>
+
+											</div>
+										</div>
+										{% ENDFOR cart_items %}
+									</form>
 								</div>
 
-							</div>
-							{% ENDIF cart_items_empty %}
+								<div class="addto__total {CURRENCY_CHAR_CODE}">
+									<!-- Скидки, действующие на заказ -->
+									<div class="addto__total-discount is-hide flex justify-between">
+										<span class="addto__total-label">Скидка:</span>
+										<span class="addto__total-price flex">
+											{% FOR cart_discount %}
+												{% IF cart_discount.DISCOUNT_IS_ENABLED %}
+													<span class="discountValue" data-value="{cart_discount.DISCOUNT_VALUE}">{cart_discount.DISCOUNT_VALUE}</span>
+													{% IF cart_discount.IS_PERCENT %}<span class="percent">%</span>{% ELSE %}<span class="num"></span>{% ENDIF %}
+												{% ENDIF %}
+											{% ENDFOR %}
+										</span>
+									</div>
 
-							<div class="addto__buttons">
-								<a class="addto__removeAll button-tertiary" href="{CART_TRUNCATE_URL}" title="Очистить корзину"><span>Очистить</span></a>
-								<a class="button-secondary" href="{CART_URL}" title="Перейти в Корзину"><span>В Корзину</span></a>
-							</div>
+									<!-- Итого -->
+									<div class="addto__total-block flex justify-between">
+										<span class="addto__total-label">Итого:</span>
+										<span class="addto__total-price cartSumNowDiscount" data-price="{CART_SUM_NOW_WITH_DISCOUNT}">{CART_SUM_NOW_WITH_DISCOUNT | money_format}</span>
+									</div>
 
-							<!-- Пустая корзина -->
-							<div class="addto__empty">В корзине пока ничего нет</div>
+								</div>
+								{% ENDIF cart_items_empty %}
+
+								<div class="addto__buttons">
+									<a class="addto__removeAll button-tertiary" href="{CART_TRUNCATE_URL}" title="Очистить корзину"><span>Очистить</span></a>
+									<a class="button-secondary" href="{CART_URL}" title="Перейти в Корзину"><span>В Корзину</span></a>
+								</div>
+
+								<!-- Пустая корзина -->
+								<div class="addto__empty">В корзине пока ничего нет</div>
+
+							</div>
 
 						</div>
 
 					</div>
-
 				</div>
 
 			</div>
@@ -633,7 +633,7 @@
 
 						<!-- Название магазина -->
 						<meta itemprop="name" content="{SETTINGS_STORE_ORG_NAME}" />
-						<meta itemprop="image" content="{ASSETS_IMAGES_PATH}logo.png?design=THEMENAME">
+						<meta itemprop="image" content="{ASSETS_IMAGES_PATH}logo.jpg?design=THEMENAME">
 					</div>
 
 				</div>
