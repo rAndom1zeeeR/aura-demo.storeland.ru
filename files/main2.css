@@ -154,7 +154,7 @@ main {margin: 0 0 48px;position: relative;display: block;}
 /**************************************/
 /*** Хлебные крошки ***/
 /**************************************/
-#breadcrumbs {margin-bottom: 16px;padding-bottom: 4px;width: 100%;overflow-x: auto;display: block;position: relative;}
+#breadcrumbs {margin-bottom: 4px;padding-bottom: 4px;width: 100%;overflow-x: auto;display: block;position: relative;}
 #breadcrumbs ul {flex-wrap: nowrap;white-space: nowrap;}
 #breadcrumbs ul li:before {content: '\e909';color: var(--color-lightgray);margin: 0 8px;font-size: 12px;font-family: 'icomoon';line-height: 1;vertical-align: middle;}
 #breadcrumbs ul li:first-child::before {display: none;}

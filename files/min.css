@@ -20,8 +20,13 @@ body {margin: 0;padding: 0;line-height: 1;font-weight: 400;position: relative;ov
 /**************************************/
 a {text-decoration: none;transition: all 0.3s ease;}
 a:hover {text-decoration: none;cursor: pointer;}
+img {max-width: 100%;max-height: 100%;width: auto;}
+p {margin: 0 0 16px 0;line-height: 1.25;overflow: hidden;text-overflow: ellipsis;}
 .unstyled {margin: 0;padding: 0;list-style: none;}
 .loading {overflow: hidden;white-space: nowrap;}
+.htmlDataBlock {line-height: 1.25;overflow: hidden;}
+.required em {color: var(--color-red);}
+.noscript {color: var(--color-white);background: var(--color-primary);padding: 24px;position: fixed;top: 0;width: 100%;text-align: center;z-index: 99;}
 
 /**************************************/
 /*** Инпут поля ***/
@@ -49,6 +54,42 @@ h3 {font-size: 24px;}
 h4 {font-size: 20px;}
 h5 {font-size: 16px;}
 h6 {font-size: 14px;}
+
+
+/**************************************/
+/*** Основные блоки ***/
+/**************************************/
+section {margin: 48px 0;position: relative;}
+main {margin: 32px 0 48px;position: relative;display: block;}
+@media all and (max-width: 1023px) {
+	section {margin: 32px 0;}
+	main {margin: 32px 0;}
+}
+
+
+/**************************************/
+/*** Хлебные крошки ***/
+/**************************************/
+#breadcrumbs {margin-bottom: 8px;padding-bottom: 4px;width: 100%;overflow-x: auto;display: block;position: relative;}
+#breadcrumbs::-webkit-scrollbar {width: 0;height: 4px;}
+.breadcrumbs__list {flex-wrap: nowrap;white-space: nowrap;}
+.breadcrumbs__list li {display: flex;align-items: center;}
+.breadcrumbs__list li:before {content: '';width: 4px;height: 4px;border-radius: 100%;margin: 0 8px;line-height: 1;}
+.breadcrumbs__list li:first-child::before {display: none;}
+.breadcrumbs__list li span {text-overflow: ellipsis;white-space: nowrap;overflow: hidden;max-width: 320px;display: inline-block;}
+.breadcrumbs__list li a {display: flex;}
+
+
+/****************************************/
+/*** Категории ***/
+/****************************************/
+.products + .htmlDataBlock {margin-top: 32px;}
+.categories + .products__container {margin-top: 32px;}
+.categories__grid {gap: 16px;display: grid;}
+.categories__item {position: relative;overflow: hidden;transition: all 0.3s ease;}
+.categories__name {line-height: 1.25;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;text-align: center;}
+.categories__image {overflow: hidden;}
+.loading .categories__image {background: var(--color-bg2);}
 
 
 /**************************************/
@@ -81,8 +122,6 @@ h6 {font-size: 14px;}
 	0% {transform: rotate(0deg);}
 	100% {transform: rotate(360deg);}
 }
-
-
 
 
 /**************************************/

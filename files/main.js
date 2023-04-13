@@ -138,11 +138,16 @@ function pdtVisible(id){
 	const content = document.querySelector(id);
 	if (!content) {return false}
 	const button = content.querySelector('.pdt__visible-button');
+	if (!button) {return false}
 	const items = content.querySelectorAll('.product__item');
-	const visible = 8;
 	
 	// Скрываем кнопку показать все если мало товаров
-	button.parentElement.style.display = items.length < visible ? 'none' : 'block';
+	pdtVisibleButton(content, button, items)
+
+	// Скрываем кнопку при изменении экрана
+	window.addEventListener('resize', function(){
+		pdtVisibleButton(content, button, items)
+	})
 
 	// Функция открытия скрытых товаров
 	button.addEventListener('click', function(event){
@@ -156,16 +161,23 @@ function pdtVisible(id){
 	})
 }
 
+// Скрываем кнопку показать все если мало товаров
+function pdtVisibleButton(content, button, items) {
+	const visible = $(content).find('.product__item:visible').length;
+	button.parentElement.style.display = items.length > visible ? 'block' : 'none';
+}
+
 // Переход к контенту
 function pdtVisibleScroll(content, obj){
 	// Верхний отступ до контента + высота контента - высота окна + отступ снизу
 	const contentBottom = content.offsetTop + content.clientHeight - window.innerHeight + 16;
 	// Переход
-	scrollTop(obj.matches('.is-actived') ? contentBottom : content.offsetTop)
+	scrollTop(obj.matches('.is-actived') ? false : content.offsetTop)
 }
 
 // Переход к контенту сверху
 function scrollTop(offsetTop){
+	if (offsetTop == false) {return false}
 	window.scrollTo({
 		top: offsetTop,
 		left: 0,
@@ -468,8 +480,7 @@ class Quantity {
 				// Если выпадающая корзина
 				if (prodAddto) {
 					// console.log('prodAddto', prodAddto);
-					quantity.updAddto(input)
-					quantity.updProdValue(input)					
+					quantity.updAddto(input)				
 				}
 	
 				// Если товар
@@ -619,7 +630,9 @@ class Quantity {
 		const newTotal = doc.querySelector('.cartTotal__items').innerHTML;
 		document.querySelector('.cartTotal__items').innerHTML = newTotal;
 		// Обновить минимальную сумму заказа
-		cart.minSum();
+		setTimeout(() => {
+			cart.minSum();			
+		}, 100);
 		// console.log('price', price);
 		// console.log('newCount', newCount);
 		// console.log('newTotal', newTotal);
@@ -688,8 +701,8 @@ class Quantity {
 	
 	// Обновление итоговой цены
 	updCartSum(sum){
-		const elements = document.querySelectorAll('.cartSumNowDiscount');
-		elements.forEach((e) => e.innerHTML = sum)
+		const elements = document.querySelectorAll('.cartSumDiscount');
+		elements.forEach(e => e.innerHTML = sum)
 	};
 	
 	// Обновление итоговой скидки
@@ -718,17 +731,6 @@ class Quantity {
 		if (!item) {return false}
 		item.value = val
 		item.dispatchEvent(new Event('input'));
-	}
-
-	// Обновить кол-во всех товаров
-	updProdValue(obj) {
-		const val = obj.value
-		const id = obj.closest('[data-id]').getAttribute('data-id')
-		const mod = obj.getAttribute('name')
-		const items = document.querySelectorAll('.product__item[data-id="'+ id +'"] .qty__input[name="'+ mod +'"]')
-
-		if (!items) {return false}
-		items.forEach((el) => el.value = val)
 	}
 	
 }
@@ -1172,11 +1174,10 @@ class Product {
 				const formBlock = $($(this).get(0));
 				const formData = formBlock.serializeArray();
 				const t = $(this);
-				const qty = t.find('.qty__input');
-				const val = parseInt(qty.val());
-				const newVal = val + 1;
+				// const qty = t.find('.qty__input');
+				// const val = parseInt(qty.val());
 				// const id = t.find('input[name="form[goods_id]"]').val();
-				console.log('val', val);
+				// console.log('val', val);
 				// const mod = t.find('.qty__input').attr('name');
 
 				// Проверка на существование формы отправки запроса на добавление товара в корзину
@@ -1215,7 +1216,6 @@ class Product {
 							setTimeout(() => {
 								// product.inCartAll(id, mod)
 								quantity.init(document.querySelector('.addto__cart'))
-								qty.val(newVal)
 								t.addClass('product__inCart')
 							}, 100);
 
@@ -1288,6 +1288,7 @@ class Product {
 							order.coupons();
 							order.onValidate();
 							preload();
+							cart.minSum();
 							// Стили для новых селектов
 							$('.form__phone').mask('+7 (999) 999-9999');
 						}
@@ -1533,8 +1534,8 @@ class Remove {
 							e.innerHTML = $(data).find('.cart-wordend').html()
 						})
 						// Итоговая сумма со скидкой
-						document.querySelectorAll('.cartSumNowDiscount').forEach(e => {
-							const newPrice = Math.ceil($(data).find('.cartSumNowDiscount').attr('data-price'))
+						document.querySelectorAll('.cartSumDiscount').forEach(e => {
+							const newPrice = Math.ceil($(data).find('.cartSumDiscount').attr('data-price'))
 							e.setAttribute('data-price', newPrice)
 							e.querySelector('.num').textContent = addSpaces(newPrice)
 						})
@@ -1939,18 +1940,69 @@ class Goods {
 
 			// Функция смены изображений при изменении модификации
 			function changeImages(){
-				// console.log('changeImages()');
-				const mods = document.querySelector('.modifications-props__select')
-				mods.addEventListener('change', function(){
-					const mod = mods.closest('.productView__modifications').querySelector('.goodsModificationsSlug[rel="'+ this.value +'"]')
-					if (!mod) {return false}
-					const id = mod.querySelector('[name="goods_mod_image_id"]').value
-					if (!id) {return false}
-					const thumb = document.querySelector('.thumblist__item[data-id="'+ id +'"]')
-					const index = thumb.getAttribute('data-swiper-slide-index')
-					swiperImage.slideTo(index)
-					// swiperThumb.slideTo(index)
+				console.log('changeImages()');
+				const ids = []
+				const mods = document.querySelectorAll('.modifications-props__select')
+				mods.forEach(e => {
+					console.log('e1', e);
+					console.log('e2', e.value);
+					e.addEventListener('change', function(){
+						console.log('e2', this);
+						console.log('this.value', this.value);
+						console.log('e3', e.value);
+						console.log('ids',ids);
+						const mod = e.closest('.productView__modifications').querySelector('.goodsModificationsSlug[rel="'+ getModId() +'"]')
+						// console.log('getModId()',getModId());
+						console.log('mod',mod);
+						
+						if (!mod) {return false}
+						const id = mod.querySelector('[name="goods_mod_image_id"]').value
+						console.log('id', id);
+						if (!id) {return false}
+						const thumb = document.querySelector('.thumblist__item[data-id="'+ id +'"]')
+						const index = thumb.getAttribute('data-swiper-slide-index')
+						console.log('thumb', thumb);
+						console.log('index', index);
+						swiperImage.slideTo(index)
+						
+					})
 				})
+
+				function compareNumeric(a, b) {
+					if (a > b) return 1;
+					if (a == b) return 0;
+					if (a < b) return -1;
+				}
+
+				function getModId(){
+					const items = []
+					mods.forEach(e => items.push(e.value))
+					const arr = []
+					const slugs = document.querySelectorAll('.goodsModificationsSlug')
+					slugs.forEach(e => arr.push(e.getAttribute('rel')))
+					console.log('items', items);
+					console.log('arr', arr);
+					return items.sort(compareNumeric).join('_')
+				}
+				// mods.forEach(e => {
+				// 	e.addEventListener('change', function(){
+				// 		console.log('e', e);
+				// 		const mod = e.closest('.productView__modifications').querySelector('.goodsModificationsSlug[rel="'+ e.value +'"]')
+				// 		console.log('this.value', e.value);
+				// 		console.log('mod', mod);
+
+				// 		if (!mod) {return false}
+				// 		const id = mod.querySelector('[name="goods_mod_image_id"]').value
+				// 		console.log('id', id);
+				// 		if (!id) {return false}
+				// 		const thumb = document.querySelector('.thumblist__item[data-id="'+ id +'"]')
+				// 		const index = thumb.getAttribute('data-swiper-slide-index')
+				// 		console.log('thumb', thumb);
+				// 		console.log('index', index);
+				// 		swiperImage.slideTo(index)
+				// 		// swiperThumb.slideTo(index)
+				// 	})
+				// })
 			}
 
 		};
@@ -2015,8 +2067,8 @@ class Goods {
 				const targetMod = event.target.closest('.modifications-values__value');
 				const targetAnswer = event.target.closest('.opinion__answer-button');
 				const opinionBlock = document.querySelector('.productView__opinion');
-				const moreDesc = document.querySelector('.desc__more');
-				const moreFeat = document.querySelector('.features__more');
+				const moreDesc = event.target.closest('.desc__more');
+				const moreFeat = event.target.closest('.features__more');
 				if (!opinionBlock) {return false}
 				const parentButton = opinionBlock.querySelector('.opinion__buttons');
 				const parentItems = opinionBlock.querySelector('.opinion__items');
@@ -2106,15 +2158,13 @@ class Goods {
 				}
 
 				// Переход к характеристикам
-				else if (moreFeat){
-					event.preventDefault();
+				if (moreFeat){
 					const content = document.querySelector('.productView__tabs')
 					scrollTop(content.offsetTop + 32)
 				}
 
 				// Переход к описанию
-				else if (moreDesc){
-					event.preventDefault();
+				if (moreDesc){
 					const content = document.querySelector('.productView__tabs')
 					scrollTop(content.offsetTop + 32)
 				}
@@ -2435,15 +2485,17 @@ class Cart {
 		this.minSum = function(){
 			if ($('.cartTotal__min').length){
 				const minPrice = parseInt($('.cartTotal__min-price').data('price'));
-				const totalSum = parseInt($('.cartSumTotal').data('price'));
+				const totalSum = parseInt($('.cartSumDiscount').data('price'));
+				console.log('minPrice', minPrice);
+				console.log('totalSum', totalSum);
 				if (minPrice > totalSum){
 					const diff = minPrice - totalSum;
 					$('.cartTotal__min-price').find('.num').text(addSpaces(diff));
 					$('.total__buttons button').attr('disabled', true).addClass('is-disabled');
-					$('.cartTotal__min').show();
+					$('.cartTotal__min').removeClass('is-hide');
 				} else {
 					$('.total__buttons button').attr('disabled', false).removeClass('is-disabled');
-					$('.cartTotal__min').hide();
+					$('.cartTotal__min').addClass('is-hide');
 				}
 			}
 		};
@@ -2806,7 +2858,7 @@ class Order {
 
 						// Получаем новую итоговую стоимость заказа
 						const totalBlock = $(data).closest('#order_form').find('.order-total')
-						const totalSum = totalBlock.find('.cartSumNowWithDiscount').data('price')
+						const totalSum = totalBlock.find('.cartSumDiscount').data('price')
 						const deliveryPrice = parseInt($('.cartSumDelivery:eq(0) .num').text())
 						const newTotalSum = totalSum + deliveryPrice
 						const cartSumTotal = $('.cartSumTotal:eq(0) .num').text().toString().replace(/\s/g, '')
@@ -2863,14 +2915,14 @@ class Order {
 				setTimeout(function(){
 					totalCouponBlock.hide()
 					totalDiscountBlock.show()
-					const cartSum = $('.cartSumDiscount').data('value')
+					const cartSum = $('.cartSumDiscount').data('price')
 					const deliveryPrice = parseInt($('.cartSumDelivery:eq(0) .num').text())
 					const newTotalSum = cartSum + deliveryPrice
 					// Возвращаем значение по умолчанию итоговой стоимости
 					$('.cartSumTotal .num').text(addSpaces(newTotalSum))
 					$('.cartSumTotal').attr('data-price', newTotalSum)
-					$('.cartSumCoupons').attr('data-value', newTotalSum)
-					$('.cartSumDiscount').attr('data-value', newTotalSum)
+					$('.cartSumCoupons').attr('data-price', newTotalSum)
+					$('.cartSumDiscount').attr('data-price', newTotalSum)
 					$('.cartSumDiscount .num').text(addSpaces(newTotalSum))
 					couponInput.val('').attr('placeholder', 'Введите купон').removeClass('focus').removeClass('error')
 					couponParent.removeClass('error').removeClass('success')
@@ -3060,7 +3112,7 @@ function counterDate(){
 				clearInterval(x);
 				t.hide();
 			}else{
-				t.css({'display':'flex'});
+				t.css({'display':'inline-flex'});
 				t.prev().hide();
 			}
 		}, 1000);
@@ -3406,8 +3458,8 @@ function swiperSlider(id){
 		watchSlidesVisibility: true,
 		simulateTouch: true,
 		grabCursor: true,
-		slidesPerView: '6',
-		spaceBetween: 20,
+		slidesPerView: '4',
+		spaceBetween: 16,
 		nested: true,
 		preloadImages: false,
 		lazy: {
@@ -3439,7 +3491,7 @@ function swiperSlider(id){
 				slidesPerView: '4',
 			},
 			1200: {
-				slidesPerView: '6',
+				slidesPerView: '4',
 			}
 		},
 	});
@@ -3464,7 +3516,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 	// Удаление классов загрузки для элементов страницы
 	$('.loading').addClass('loaded');
-	$('div, section, ul').removeClass('loading');
+	$('div, section, ul, body').removeClass('loading');
 
 	// Отправка формы по Ctrl+Enter
   $('form').bind('keypress', function(e){
