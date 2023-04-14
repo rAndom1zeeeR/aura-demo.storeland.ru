@@ -3328,8 +3328,8 @@ function swiperNews(){
 		watchSlidesVisibility: true,
 		simulateTouch: true,
 		grabCursor: true,
-		slidesPerView: '4',
-		spaceBetween: 32,
+		slidesPerView: '3',
+		spaceBetween: 16,
 		nested: true,
 		preloadImages: false,
 		autoHeight: false,
@@ -3356,13 +3356,13 @@ function swiperNews(){
 				slidesPerView: '2',
 			},
 			768: {
-				slidesPerView: '3',
+				slidesPerView: '2',
 			},
 			1024: {
-				slidesPerView: '4',
+				slidesPerView: '3',
 			},
 			1200: {
-				slidesPerView: '4',
+				slidesPerView: '3',
 			}
 		}
 	});

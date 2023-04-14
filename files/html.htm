@@ -2132,28 +2132,28 @@
 		<section id="promo">
 			<div class="container">
 				<div class="promo__items">
-					<div class="promo__item">
+					<div class="promo__item flex">
 						<div class="promo__image">
 							<img src="{ASSETS_IMAGES_PATH}banner_5.jpg?design=THEMENAME" alt=""/>
 						</div>
 						
 						<div class="promo__content">
 							<div class="promo__price">
-								<span class="price__now"><span class="num">355</span></span>
+								<span class="price__now {CURRENCY_CHAR_CODE}"><span class="num">355</span></span>
 							</div>
 							<div class="promo__title">Витамины Healty</div>
 							<div class="promo__subtitle">универсальный комплекс для восполнения дефицита витаминов</div>
 						</div>
 					</div>
 
-					<div class="promo__item">
+					<div class="promo__item flex">
 						<div class="promo__image">
 							<img src="{ASSETS_IMAGES_PATH}banner_6.jpg?design=THEMENAME" alt=""/>
 						</div>
 						
 						<div class="promo__content">
 							<div class="promo__price">
-								<span class="price__now"><span class="num">1 550</span></span>
+								<span class="price__now {CURRENCY_CHAR_CODE}"><span class="num">1 550</span></span>
 							</div>
 							<div class="promo__title">OMEGA - 3</div>
 							<div class="promo__subtitle">по лучшим ценам до конца февраля</div>
@@ -2163,6 +2163,163 @@
 				</div>
 			</div>
 		</section>
+
+		<!-- Подписка -->
+		<section id="subscribe">
+			<div class="container">
+				<div class="subscribe__inner flex">
+					<div class="subscribe__content">
+						<div class="subscribe__title">Промокод за подписку!</div>
+						<div class="subscribe__subtitle">Будь в курсе новостей и интересных статей, подпишись на рассылку и получи промокод на скидку!</div>
+					</div>
+					<form class="subscribe__form form__callback" method="post" action="{CALLBACK_URL}" enctype="multipart/form-data">
+						<input type="hidden" name="hash" value="{HASH}" />
+						<input class="callbackredirect" type="hidden" name="return_to" value="{CALLBACK_URL}" />
+						<input class="form__person" type="hidden" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="Заказать звонок - {FORM_CALLBACK_PERSON}" placeholder="Ваше имя" autocomplete="off" />
+						<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
+						{ANTISPAM_CODE}
+
+						<div class="form__fields flex">
+							<div class="form__field">
+								<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
+							</div>
+							<button class="form__button button-secondary" type="submit" title="Подписаться">
+								<span>Подписаться</span>
+							</button>
+						</div>
+
+						<div class="form__pp">
+							<span>Я принимаю условия</span>
+							<span data-fancybox data-src="#fancybox__pp">политики конфиденциальности</span>
+						</div>
+
+					</form>
+
+				</div>
+			</div>
+		</section>
+
+		<!-- Новости -->
+		{% IF news_list_all_empty=0 || news_list_shop_empty=0 || news_list_articles_empty=0 || news_list_mass_media_empty=0 %}
+		<section id="news" class="loading">
+			<div class="container">
+				<div class="block__title block__nav">
+					<a class="title" href="{NEWS_ALL_URL}">Наш блог</a>
+				</div>
+
+				<!-- Список ВСЕХ новостей магазина. Если в настройках отмечено "Группировать новости в блоке навигации на сайте" -->
+				{% IFNOT news_list_all_empty %}
+				<div class="swiper">
+					<div class="swiper-wrapper">
+						{% FOR news_list_all %}
+						<div class="swiper-slide">
+							<article class="news__item">
+								<a class="news__image flex-center" href="{news_list_all.URL}" title="Перейти к странице &laquo;{news_list_all.TITLE}&raquo;">
+									<noscript>
+										<img class="noscript-lozad" 
+												src="{% IF news_list_all.IMG %}{news_list_all.IMG}{% ELSE %}{ASSETS_IMAGES_PATH}news.png?design=THEMENAME{% ENDIF %}" 
+												alt="{news_list_all.TITLE}" 
+												width="378"
+												height="240"
+										/>
+									</noscript>
+									<img class="lozad" 
+											data-src="{% IF news_list_all.IMG %}{news_list_all.IMG}{% ELSE %}{ASSETS_IMAGES_PATH}news.png?design=THEMENAME{% ENDIF %}" 
+											alt="{news_list_all.TITLE}" 
+											width="378"
+											height="240"
+									/>
+								</a>
+							
+								<div class="news__content flex-center">
+									{% IF news_list_all.SHOW_TIME %}
+									<time class="news__date flex-column" datetime="{news_list_all.TIME | date('d.m.Y')}">
+										<span class="news__date-day">{news_list_all.TIME | date('d')}</span>
+										<span class="news__date-month">{news_list_all.TIME | date('M')}</span>
+									</time>
+									{% ENDIF %}
+							
+									<a class="news__title" href="{news_list_all.URL}" title="Перейти к странице &laquo;{news_list_all.TITLE}&raquo;">
+										<span>{news_list_all.TITLE}</span>
+									</a>
+							
+									{% IF news_list_all.TEXT_SHORT %}
+									<div class="news__desc">
+										<span>{news_list_all.TEXT_SHORT}</span>
+									</div>
+									{% ENDIF %}
+							
+									<a class="news__button button-more" href="{news_list_all.URL}" title="Перейти к странице &laquo;{news_list_all.TITLE}&raquo;">
+										<span>Подробнее</span>
+										<i class="icon-chevron_right"></i>
+									</a>
+								</div>
+							
+							</article>
+						</div>
+						{% ENDFOR %}
+					</div>						
+				</div>
+				{% ENDIF news_list_all_empty %}
+
+				<!-- Список Новости -->
+				{% IFNOT news_list_shop_empty %}
+				<div class="swiper">
+					<div class="swiper-wrapper flex-stretch">
+						{% FOR news_list_shop %}
+						<div class="swiper-slide">
+							<article class="news__item">
+								<a class="news__image flex-center" href="{news_list_shop.URL}" title="Перейти к странице &laquo;{news_list_shop.TITLE}&raquo;">
+									<noscript>
+										<img class="noscript-lozad" 
+												src="{% IF news_list_shop.IMG %}{news_list_shop.IMG}{% ELSE %}{ASSETS_IMAGES_PATH}news.png?design=THEMENAME{% ENDIF %}" 
+												alt="{news_list_shop.TITLE}" 
+												width="378"
+												height="240"
+										/>
+									</noscript>
+									<img class="lozad" 
+											data-src="{% IF news_list_shop.IMG %}{news_list_shop.IMG}{% ELSE %}{ASSETS_IMAGES_PATH}news.png?design=THEMENAME{% ENDIF %}" 
+											alt="{news_list_shop.TITLE}" 
+											width="378"
+											height="240"
+									/>
+								</a>
+
+								<div class="news__content flex-center">
+									{% IF news_list_shop.SHOW_TIME %}
+									<time class="news__date flex-column" datetime="{news_list_shop.TIME | date('d.m.Y')}">
+										<span class="news__date-day">{news_list_shop.TIME | date('d')}</span>
+										<span class="news__date-month">{news_list_shop.TIME | date('M')}</span>
+									</time>
+									{% ENDIF %}
+
+									<a class="news__title" href="{news_list_shop.URL}" title="Перейти к странице &laquo;{news_list_shop.TITLE}&raquo;">
+										<span>{news_list_shop.TITLE}</span>
+									</a>
+
+									{% IF news_list_shop.TEXT_SHORT %}
+									<div class="news__desc">
+										<span>{news_list_shop.TEXT_SHORT}</span>
+									</div>
+									{% ENDIF %}
+
+									<a class="news__button button-more" href="{news_list_shop.URL}" title="Перейти к странице &laquo;{news_list_shop.TITLE}&raquo;">
+										<span>Подробнее</span>
+										<i class="icon-chevron_right"></i>
+									</a>
+								</div>
+
+							</article>
+						</div>
+						{% ENDFOR %}
+					</div>						
+				</div>
+				{% ENDIF news_list_shop_empty %}
+
+			</div>
+		</section>
+		{% ENDIF %}
 
 		{% ELSE %}
 
