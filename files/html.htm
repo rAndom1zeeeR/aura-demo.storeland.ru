@@ -115,7 +115,7 @@
 					<div class="header__right flex">
 						<!-- Шапка. Каталог -->
 						<div class="header-catalog dropdown">
-							<a class="header-catalog__icon" href="{CATALOG_URL}" title="Перейти в каталог">
+							<a class="header-catalog__icon button-white" href="{CATALOG_URL}" title="Перейти в каталог">
 								<span>Каталог</span>
 								<i class="icon-catalog"></i>
 							</a>
@@ -2164,41 +2164,6 @@
 			</div>
 		</section>
 
-		<!-- Подписка -->
-		<section id="subscribe">
-			<div class="container">
-				<div class="subscribe__inner flex">
-					<div class="subscribe__content">
-						<div class="subscribe__title">Промокод за подписку!</div>
-						<div class="subscribe__subtitle">Будь в курсе новостей и интересных статей, подпишись на рассылку и получи промокод на скидку!</div>
-					</div>
-					<form class="subscribe__form form__callback" method="post" action="{CALLBACK_URL}" enctype="multipart/form-data">
-						<input type="hidden" name="hash" value="{HASH}" />
-						<input class="callbackredirect" type="hidden" name="return_to" value="{CALLBACK_URL}" />
-						<input class="form__person" type="hidden" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="Заказать звонок - {FORM_CALLBACK_PERSON}" placeholder="Ваше имя" autocomplete="off" />
-						<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
-						{ANTISPAM_CODE}
-
-						<div class="form__fields flex">
-							<div class="form__field">
-								<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
-							</div>
-							<button class="form__button button-secondary" type="submit" title="Подписаться">
-								<span>Подписаться</span>
-							</button>
-						</div>
-
-						<div class="form__pp">
-							<span>Я принимаю условия</span>
-							<span data-fancybox data-src="#fancybox__pp">политики конфиденциальности</span>
-						</div>
-
-					</form>
-
-				</div>
-			</div>
-		</section>
-
 		<!-- Новости -->
 		{% IF news_list_all_empty=0 || news_list_shop_empty=0 || news_list_articles_empty=0 || news_list_mass_media_empty=0 %}
 		<section id="news" class="loading">
@@ -2320,6 +2285,41 @@
 			</div>
 		</section>
 		{% ENDIF %}
+
+		<!-- Подписка -->
+		<section id="subscribe">
+			<div class="container">
+				<div class="subscribe__inner flex">
+					<div class="subscribe__content">
+						<div class="subscribe__title">Промокод за подписку!</div>
+						<div class="subscribe__subtitle">Будь в курсе новостей и интересных статей, подпишись на рассылку и получи промокод на скидку!</div>
+					</div>
+					<form class="subscribe__form form__callback" method="post" action="{CALLBACK_URL}" enctype="multipart/form-data">
+						<input type="hidden" name="hash" value="{HASH}" />
+						<input class="callbackredirect" type="hidden" name="return_to" value="{CALLBACK_URL}" />
+						<input class="form__person" type="hidden" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="Заказать звонок - {FORM_CALLBACK_PERSON}" placeholder="Ваше имя" autocomplete="off" />
+						<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
+						{ANTISPAM_CODE}
+
+						<div class="form__fields flex">
+							<div class="form__field">
+								<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
+							</div>
+							<button class="form__button button-white" type="submit" title="Подписаться">
+								<span>Подписаться</span>
+							</button>
+						</div>
+
+						<div class="form__pp">
+							<span>Я принимаю условия</span>
+							<span data-fancybox data-src="#fancybox__pp">политики конфиденциальности</span>
+						</div>
+
+					</form>
+
+				</div>
+			</div>
+		</section>
 
 		{% ELSE %}
 
@@ -2591,7 +2591,6 @@
 
 			</div>
 		</main>
-
 
 		<!-- Вы смотрели -->
 		{% IFNOT recently_viewed_goods_empty %}
@@ -2925,6 +2924,227 @@
 		{% ENDIF recently_viewed_goods_empty %}
 
 		{% ENDIF index_page %}
+
+		<footer id="footer">
+			<div class="footer__top">
+				<div class="container">
+					<div class="footer__inner flex-start">
+
+						<div class="footer__block">
+							<!-- Логотип -->
+							<div class="footer-logo" itemscope itemtype="http://schema.org/Organization">
+								<a href="{INDEX_PAGE_URL}" title="{SETTINGS_STORE_NAME}" itemprop="url">
+									<svg width="409" height="78" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 78C65 78 108.999 0 201 0c92 0 161 78 201 78H2.5Z" fill="#fff"/></svg>
+									<img src="{ASSETS_IMAGES_PATH}logo.jpg?design=THEMENAME" alt="{SETTINGS_STORE_NAME}" itemprop="image" width="190" height="70">
+									<meta itemprop="image" content="{ASSETS_IMAGES_PATH}logo.jpg?design=THEMENAME">
+									<meta itemprop="name" content="{SETTINGS_STORE_NAME}">
+									<meta itemprop="telephone" content="{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}">
+									<span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+										<meta itemprop="addressLocality" content="{SETTINGS_STORE_REGION}" />
+									</span>
+								</a>
+							</div>
+
+							<!-- Телефон 1 -->
+							{% IF SETTINGS_STORE_PHONE_NUMBER1 %}
+							<div class="contacts__block contacts__phone contacts__phone-big">
+								<a class="contacts__link flex" href="tel:{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}" title="{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}">
+									<div class="contacts__icon"><i class="icon-phone"></i></div>
+									<div class="contacts__content">
+										<span>{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}</span>
+									</div>
+								</a>
+							</div>
+							{% ENDIF SETTINGS_STORE_PHONE_NUMBER1 %}
+
+							<!-- Телефон 2 -->
+							{% IF SETTINGS_STORE_PHONE_NUMBER2 %}
+							<div class="contacts__block contacts__phone">
+								<a class="contacts__link flex" href="tel:{SETTINGS_STORE_PHONE_COUNTRY_CODE2}({SETTINGS_STORE_PHONE_CITY_CODE2}){SETTINGS_STORE_PHONE_NUMBER2}" title="{SETTINGS_STORE_PHONE_COUNTRY_CODE2}({SETTINGS_STORE_PHONE_CITY_CODE2}){SETTINGS_STORE_PHONE_NUMBER2}">
+									<div class="contacts__content">
+										<span>{SETTINGS_STORE_PHONE_COUNTRY_CODE2}({SETTINGS_STORE_PHONE_CITY_CODE2}){SETTINGS_STORE_PHONE_NUMBER2}</span>
+									</div>
+								</a>
+							</div>
+							{% ENDIF SETTINGS_STORE_PHONE_NUMBER2 %}
+
+							<!-- Телефон 3 -->
+							{% IF SETTINGS_STORE_PHONE_NUMBER3 %}
+							<div class="contacts__block contacts__phone">
+								<a class="contacts__link flex" href="tel:{SETTINGS_STORE_PHONE_COUNTRY_CODE3}({SETTINGS_STORE_PHONE_CITY_CODE3}){SETTINGS_STORE_PHONE_NUMBER3}" title="{SETTINGS_STORE_PHONE_COUNTRY_CODE3}({SETTINGS_STORE_PHONE_CITY_CODE3}){SETTINGS_STORE_PHONE_NUMBER3}">
+									<div class="contacts__content">
+										<span>{SETTINGS_STORE_PHONE_COUNTRY_CODE3}({SETTINGS_STORE_PHONE_CITY_CODE3}){SETTINGS_STORE_PHONE_NUMBER3}</span>
+									</div>
+								</a>
+							</div>
+							{% ENDIF SETTINGS_STORE_PHONE_NUMBER3 %}
+
+							<div class="contacts__button button-white" data-fancybox data-src="#fancybox__callback">
+								<span>Заказать звонок</span>
+							</div>
+
+						</div>
+
+						<!-- Контакты -->
+						<div class="footer__block">
+							<div class="footer__title"><span>Контакты</span></div>
+							<div class="footer__contacts">
+								<!-- Почта -->
+								{% IF SETTINGS_STORE_EMAIL_MAIN %}
+								<div class="contacts__block contacts__email">
+									<a class="contacts__link flex" href="mailto:{SETTINGS_STORE_EMAIL_MAIN}" title="{SETTINGS_STORE_EMAIL_MAIN}">
+										<div class="contacts__icon"><i class="icon-mail"></i></div>
+										<div class="contacts__content">
+											<span>{SETTINGS_STORE_EMAIL_MAIN}</span>
+										</div>
+									</a>
+								</div>
+								{% ENDIF %}
+					
+								<!-- Адрес -->
+								{% IF SETTINGS_STORE_REGION %}
+								<div class="contacts__block contacts__region" target="_blank">
+									<a class="contacts__link flex" href="https://yandex.ru/maps/?text={SETTINGS_STORE_REGION}&z=17" target="_blank">
+										<div class="contacts__icon"><i class="icon-location"></i></div>
+										<div class="contacts__content">
+											<span>{SETTINGS_STORE_REGION}</span>
+										</div>
+									</a>
+								</div>
+								{% ENDIF %}
+					
+								<!-- Время работы -->
+								{% IF SETTINGS_STORE_WORK_TIME %}
+								<div class="contacts__block contacts__worktime">
+									<a class="contacts__link flex" href="{FEEDBACK_URL}" title="Режим работы">
+										<div class="contacts__icon"><i class="icon-hourglass"></i></div>
+										<div class="contacts__content">
+											<span>{SETTINGS_STORE_WORK_TIME}</span>
+										</div>
+									</a>
+								</div>
+								{% ENDIF %}
+							</div>
+
+						</div>
+
+						<div class="footer__block">
+							<div class="footer__title"><span>Мы в соц сетях</span></div>
+							<!-- Подвал. Соц сети -->
+							<div class="footer__social flex">
+								<a class="telegram" href="https://www.telegram.com/" title="telegram.com" target="_blank">
+									<i class="icon-telegram"></i>
+									<span>telegram</span>
+								</a>
+								<a class="instagram" href="https://www.instagram.com/" title="Instagram.com" target="_blank">
+									<i class="icon-instagram"></i>
+									<span>instagram</span>
+								</a>
+								<a class="viber" href="https://viber.com/" title="Viber.com" target="_blank">
+									<i class="icon-viber"></i>
+									<span>viber</span>
+								</a>
+								<a class="whatsapp" href="https://whatsapp.com/" title="Whatsapp.com" target="_blank">
+									<i class="icon-whatsapp"></i>
+									<span>whatsapp</span>
+								</a>
+								<a class="facebook" href="https://www.facebook.com/" title="FaceBook.com" target="_blank">
+									<i class="icon-facebook"></i>
+									<span>facebook</span>
+								</a>
+								<a class="twitter" href="https://twitter.com/" title="Twitter.com" target="_blank">
+									<i class="icon-twitter"></i>
+									<span>twitter</span>
+								</a>
+								<!-- <a class="tiktok" href="https://tiktok.com/" title="tiktok.com" target="_blank">
+									<i class="icon-tiktok"></i>
+									<span>tiktok</span>
+								</a> -->
+								<a class="odnoklassniki" href="https://ok.ru/" title="Odnoklassniki" target="_blank">
+									<i class="icon-odnoklassniki"></i>
+									<span>odnoklassniki</span>
+								</a>
+								<a class="vk" href="https://vk.com/" title="VK.com" target="_blank">
+									<i class="icon-vk"></i>
+									<span>vk</span>
+								</a>
+								<a class="youtube" href="https://youtube.com/" title="YouTube.com" target="_blank">
+									<i class="icon-youtube"></i>
+									<span>YouTube</span>
+								</a>
+								<a class="skype" href="https://skype.com/" title="skype.com" target="_blank">
+									<i class="icon-skype"></i>
+									<span>skype</span>
+								</a>
+							</div>
+
+							<!-- Подвал. Оплата -->
+							<div class="footer__payments flex">
+								<a href="#" class="mir" title="Способы оплаты">
+									<i class="icon-mir"></i>
+								</a>
+								<a href="#" class="yandex" title="Способы оплаты">
+									<i class="icon-yandex"></i>
+								</a>
+								<a href="#" class="yandexmoney" title="Способы оплаты">
+									<i class="icon-yandexmoney"></i>
+								</a>
+								<a href="#" class="visa" title="Способы оплаты">
+									<i class="icon-visa"></i>
+								</a>
+								<a href="#" class="mastercard" title="Способы оплаты">
+									<i class="icon-mastercard"></i>
+								</a>
+								<a href="#" class="qiwi" title="Способы оплаты">
+									<i class="icon-qiwi"></i>
+								</a>
+								<a href="#" class="sber" title="Способы оплаты">
+									<i class="icon-sber"></i>
+								</a>
+								<a href="#" class="walletone" title="Способы оплаты">
+									<i class="icon-walletone"></i>
+								</a>
+								<a href="#" class="webmoney" title="Способы оплаты">
+									<i class="icon-webmoney"></i>
+								</a>
+							</div>
+
+						</div>
+
+						<!-- Подвал. Меню --> 
+						<div class="footer__block">
+							<div class="footer__title"><span>Меню</span></div>
+							<ul class="footer__links flex unstyled" itemscope itemtype="https://schema.org/SiteNavigationElement">
+								{% FOR menu %}
+									{% FOR footer %}
+										{% FOR links %}
+										<li>
+											<a class="footer__link {% IF menu.footer.links.SELECTED %}is-actived{%ENDIF%}" href="{menu.footer.links.URL}" title="{% IF menu.footer.links.TITLE %}{menu.footer.links.TITLE}{% ELSE%}{menu.footer.links.NAME}{% ENDIF %}" itemprop="url">
+												<span itemprop="name">{menu.footer.links.NAME}</span>
+											</a>
+										</li>
+										{% ENDFOR %}
+									{% ENDFOR %}
+								{% ENDFOR %}
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="footer__bottom">
+				<div class="container">
+					<!-- Подвал. Копирайт -->
+					<div class="footer__copyright flex">
+						<div>&copy;{DATE_YEAR} {SETTINGS_STORE_NAME}. Все права защищены.</div>
+						<div>{SETTINGS_STORE_ORG_NAME}.</div>
+						<div>{COPYRIGHT_FOR_DESIGN_THEMENAME}</div>
+						<div style="display: none;">{SETTINGS_STORE_HTML_CODE}</div>
+					</div>
+				</div>
+			</div>
+		</footer>
 
 		<!-- Наверх -->
 		<div id="toTop" class="toTop flex-center">

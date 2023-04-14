@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?9w58mc');
-  src:  url('fonts/icomoon.eot?9w58mc#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?9w58mc') format('truetype'),
-    url('fonts/icomoon.woff?9w58mc') format('woff'),
-    url('fonts/icomoon.svg?9w58mc#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?jmcmjk');
+  src:  url('fonts/icomoon.eot?jmcmjk#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?jmcmjk') format('truetype'),
+    url('fonts/icomoon.woff?jmcmjk') format('woff'),
+    url('fonts/icomoon.svg?jmcmjk#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,6 +25,66 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-facebook:before {
+  content: "\e92b";
+}
+.icon-instagram:before {
+  content: "\e92c";
+}
+.icon-mastercard:before {
+  content: "\e92d";
+}
+.icon-mir:before {
+  content: "\e92e";
+}
+.icon-odnoklassniki:before {
+  content: "\e92f";
+}
+.icon-qiwi:before {
+  content: "\e930";
+}
+.icon-sber:before {
+  content: "\e931";
+}
+.icon-skype:before {
+  content: "\e932";
+}
+.icon-telegram:before {
+  content: "\e933";
+}
+.icon-tiktok:before {
+  content: "\e934";
+}
+.icon-twitter:before {
+  content: "\e935";
+}
+.icon-viber:before {
+  content: "\e936";
+}
+.icon-visa:before {
+  content: "\e937";
+}
+.icon-vk:before {
+  content: "\e938";
+}
+.icon-walletone:before {
+  content: "\e939";
+}
+.icon-webmoney:before {
+  content: "\e93a";
+}
+.icon-whatsapp:before {
+  content: "\e93b";
+}
+.icon-yandex:before {
+  content: "\e93c";
+}
+.icon-yandexmoney:before {
+  content: "\e93d";
+}
+.icon-youtube:before {
+  content: "\e93e";
+}
 .icon-delivery:before {
   content: "\e926";
 }

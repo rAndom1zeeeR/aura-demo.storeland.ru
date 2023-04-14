@@ -76,6 +76,10 @@ button:hover, [class*="button-"]:hover, .paymentFormSubmitLink:hover, .paymentFo
 /** Кнопка. Подробнее **/
 .button-more {gap: 10px;color: var(--color-darkgray);font-size: 14px;height: auto;background: transparent;border: 0;padding: 0;}
 .button-more:hover {color: var(--color-primary);background: transparent;}
+/** Кнопка. Белая **/
+.button-white {color: var(--color-primary);background: var(--color-white);}
+.button-white:hover {color: var(--color-white);background: var(--color-primary);border-color: var(--color-primary);}
+
 
 /**************************************/
 /*** Заголовки ***/
@@ -158,7 +162,7 @@ header {padding: 16px 0;background: var(--color-bg);}
 }
 
 /* Шапка. Каталог */
-.header-catalog__icon {color: var(--color-primary);background: var(--color-white);border-radius: 6px;font-weight: 700;padding: 10px 12px;gap: 10px;display: inline-flex;align-items: center;}
+.header-catalog__icon {border-radius: 6px;font-weight: 700;padding: 10px 12px;gap: 10px;display: inline-flex;align-items: center;}
 .header-catalog__icon i {font-size: 24px;}
 .header-catalog__content {display: none;}
 @media all and (max-width: 1023px) {
@@ -267,7 +271,6 @@ header {padding: 16px 0;background: var(--color-bg);}
 .slideshow__buttons {margin-top: 24px;}
 #slideshow .swiper-button-prev, #slideshow .swiper-button-next {border-radius: 0 40px 40px 0;width: 40px;height: 80px;position: absolute;top: calc(50% - 40px);left: -8px;}
 #slideshow .swiper-button-next {border-radius: 40px 0 0 40px;right: -8px;left: auto;}
-
 
 
 /**************************************/
@@ -487,7 +490,7 @@ header {padding: 16px 0;background: var(--color-bg);}
 .news__item {height: 100%;}
 .news__image {height: 240px;border-radius: 20px;overflow: hidden;}
 .news__image img {object-fit: cover;width: 100%;height: 100%;}
-.news__content {width: calc(100% - 40px);height: calc(100% - 220px);gap: 8px;margin: -20px auto 0;padding: 48px 12px 16px 12px;background: var(--color-bg2);border-radius: 20px;line-height: 1.25;position: relative;}
+.news__content {width: calc(100% - 40px);height: calc(100% - 192px);gap: 8px;margin: -48px auto 0;padding: 48px 12px 16px 12px;background: var(--color-bg2);border-radius: 20px;line-height: 1.25;position: relative;}
 .news__date {color: var(--color-white);top: -36px;width: 72px;height: 72px;border-radius: 20px;background: var(--color-primary);position: absolute;display: flex;align-items: center;justify-content: center;}
 .news__date:before {content: '';width: calc(100% - 12px);height: calc(100% - 12px);border: 2px solid rgba(255, 255, 255, 0.2);border-radius: inherit;position: absolute;transition: all 0.3s ease;}
 .news__item:hover .news__date {background: var(--color-gradient);}
@@ -512,6 +515,50 @@ header {padding: 16px 0;background: var(--color-bg);}
 #subscribe .form__input {color: var(--color-black);background: var(--color-white);height: 54px;border-radius: 10px;}
 #subscribe .form__pp {margin-top: 8px;opacity: 0.8;text-align: right;}
 #subscribe .form__button {height: 54px;}
+@media all and (min-width: 1600px) {
+	#subscribe {border-radius: 60px;max-width: 80%;margin: 0 auto;}
+}
+
+
+/****************************************/
+/*** Подвал ***/
+/****************************************/
+footer {color: var(--color-white);background: var(--color-black);margin-top: 80px;}
+footer a {color: var(--color-white);}
+.footer__top {padding: 40px 0;}
+.footer__bottom {padding: 12px 0;color: var(--color-darkgray);background: var(--color-bg);font-size: 14px;}
+.footer__inner {gap: 32px;}
+.footer__block {width: calc(25% - 24px);}
+.footer__title {margin-bottom: 20px;font-size: 20px;font-weight: 600;}
+/** Подвал. Меню **/
+.footer__links {gap: 12px 32px;}
+.footer__links li {width: calc(50% - 24px);}
+/** Подвал. Оплата **/
+.footer__payments {font-size: 28px;gap: 16px;margin-top: 32px;}
+/** Подвал. Соц сети **/
+.footer__social {font-size: 20px;gap: 12px;}
+.footer__social a {width: 40px;height: 40px;background: var(--color-primary);border-radius: 100%;display: flex;align-items: center;justify-content: center;}
+.footer__social a:hover {color: var(--color-white);background: var(--color-gradient);}
+.footer__social span {display: none;}
+/** Подвал. Контакты **/
+footer .contacts__block {margin-bottom: 16px;}
+footer .contacts__block:last-child {margin-bottom: 0;}
+footer .contacts__link {gap: 12px;}
+footer .contacts__link:hover .contacts__icon {color: var(--color-primary);}
+footer .contacts__icon {width: 28px;transition: all 0.3s ease;}
+footer .contacts__content {width: calc(100% - 28px - 12px);}
+footer .contacts__button {height: 54px;margin: 8px 0 0 40px;padding: 0 28px;}
+/** Подвал. Телефон **/
+footer .contacts__phone {padding-left: 40px;margin-bottom: 8px;}
+footer .contacts__phone-big {font-size: 22px;font-weight: 700;padding-left: 0;}
+/** Подвал. Логотип **/
+.footer-logo {position: relative;margin: -72px 0 60px;}
+.footer-logo svg {top: 32px;left: -40%;position: absolute;z-index: 1;transform: rotateX(180deg);}
+.footer-logo img {position: relative;z-index: 2;}
+
+
+
+
 
 
 

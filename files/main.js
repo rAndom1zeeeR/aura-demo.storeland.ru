@@ -172,12 +172,12 @@ function pdtVisibleScroll(content, obj){
 	// Верхний отступ до контента + высота контента - высота окна + отступ снизу
 	const contentBottom = content.offsetTop + content.clientHeight - window.innerHeight + 16;
 	// Переход
-	scrollTop(obj.matches('.is-actived') ? false : content.offsetTop)
+	scrollTop(obj.matches('.is-actived') ? true : content.offsetTop)
 }
 
 // Переход к контенту сверху
 function scrollTop(offsetTop){
-	if (offsetTop == false) {return false}
+	if (offsetTop == true) return false
 	window.scrollTo({
 		top: offsetTop,
 		left: 0,
