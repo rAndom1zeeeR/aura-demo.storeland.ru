@@ -79,7 +79,7 @@ function SearchFieldInit(obj) {
 		},20);
 	}).bind('cut', function(e){
 		$('.search-results').hide();
-		$('.search-results__inner > div').remove();
+		$('.search-results__item').remove();
 		obj.__SearchFieldCheck();
 	});
 
@@ -274,6 +274,10 @@ $(function(){
 		}
 
 		function showDropdownSearch(data){
+			console.log('showDropdownSearch data', data);
+			
+			console.log('data.category.length1', data.category.length);
+			console.log('data.goods.length1', data.goods.length);
 			// Отображение категорий в поиске
 			if(data.category.length!=undefined && data.category.length>0){
 				$(".search-results__category .search-results__item").remove();
@@ -287,18 +291,29 @@ $(function(){
 					}
 					// Отображаем результат поиска
 					if(с <= 3){
-						$(".search-results__category").append('<a class="search-results__item flex" href="'+ data.category[с].url +'" data-id="'+ data.category[с].goods_cat_id +'"><div class="search-results__image flex-center"><img src="'+ data.category[с].image_icon +'" /></div><div class="search-results__name"><span>'+ data.category[с].goods_cat_name +'</span></div></a>');
+						$(".search-results__category").append(`
+							<a class="search-results__item flex" href="${data.category[с].url}" data-id="${data.category[с].goods_cat_id}">
+								<div class="search-results__image flex-center">
+									<img src="${data.category[с].image_icon}" />
+								</div>
+								<div class="search-results__name"><span>${data.category[с].goods_cat_name}</span></div>
+							</a>
+						`);
 					}
 				}
 			}else{
 				$(".search-results__category .search-results__item").remove();
 				$(".search-results").hide();
 			}
+
 			// Отображение товаров в поиске
 			if(data.goods.length!=undefined && data.goods.length>0){
 				$(".search-results__goods .search-results__item").remove();
 				$(".search-results").hide();
+				console.log('data', data);
+				console.log('data.goods', data.goods);
 				for(i=0; i < data.goods.length; i++){
+					console.log('i', i);
 					// Проверка наличия изображения
 					if (data.goods[i].image_icon == null) {
 						data.goods[i].image_icon = '/design/no-photo.png'
@@ -306,11 +321,22 @@ $(function(){
 						data.goods[i].image_icon = data.goods[i].image_icon;
 					}
 					// Отображаем результат поиска
-					if(i <= 3){
-						$(".search-results__goods").append('<a class="search-results__item flex" href="'+ data.goods[i].url +'" data-id="'+ data.goods[i].goods_id +'"><div class="search-results__image flex-center"><img src="'+ data.goods[i].image_icon +'" /></div><div class="search-results__name"><span>'+ data.goods[i].goods_name +'</span></div></a>');
+					if(i <= 4){
+						$('.search-results__showAll').addClass('is-hide');
+						$(".search-results__goods").append(`
+							<a class="search-results__item flex" href="${data.goods[i].url}" data-id="${data.goods[i].goods_id}">
+								<div class="search-results__image flex-center">
+									<img src="${data.goods[i].image_icon}" />
+								</div>
+								<div class="search-results__content">
+									<div class="search-results__name"><span>${data.goods[i].goods_name}</span></div>
+									<div class="search-results__price RUB"><span class="num">${addSpaces(parseInt(data.goods[i].min_price_now))}</span></div>
+								</div>
+							</a>
+						`);
 					}
 					// Если последняя итерация цикла вставим кнопку "показать все"
-					if(i > 3){
+					if(i > 4){
 						$('.search-results__showAll').removeClass('is-hide');
 					}
 				}
@@ -318,24 +344,12 @@ $(function(){
 				$(".search-results__goods .search-results__item").remove();
 				$(".search-results").hide();
 			}
+
 			// Скрываем результаты поиска если ничего не найдено
-			if((data.category.length + data.goods.length) > 0){
-				$(".search-results").show();
-			}else{
-				$(".search-results").hide();
-			}
+			data.category.length + data.goods.length > 0 ? $(".search-results").show() : $(".search-results").hide();
+			data.category.length > 0 ? $(".search-results__category").show() : $(".search-results__category").hide();
+			data.goods.length > 0 ? $(".search-results__goods").show() : $(".search-results__goods").hide();
 
-			if((data.category.length) > 0){
-				$(".search-results__category").show();
-			}else{
-				$(".search-results__category").hide();
-			}
-
-			if((data.goods.length) > 0){
-				$(".search-results__goods").show();
-			}else{
-				$(".search-results__goods").hide();
-			}
 			// Убираем информацию о том что запрос грузится.
 			searchBlock.f_search.removeClass("search__loading");
 		}

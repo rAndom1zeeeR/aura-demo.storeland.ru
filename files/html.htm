@@ -81,18 +81,16 @@
 					<div class="header__left flex">
 						<!-- Шапка. Телефон 1 -->
 						{% IF SETTINGS_STORE_PHONE_NUMBER1 %}
-						<div class="header-contacts__block header-contacts__block-phone">
-							<a class="contacts__link flex" href="tel:{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}" title="{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}">
-								<div class="contacts__icon">
-									<i class="icon-phone"></i>
-								</div>
-								<div class="contacts__content">
-									<span>{SETTINGS_STORE_PHONE_COUNTRY_CODE1} ({SETTINGS_STORE_PHONE_CITY_CODE1}) {SETTINGS_STORE_PHONE_NUMBER1}</span>
-								</div>
-								<div class="contacts__dropdown">
-									<i class="icon-chevron_down"></i>
-								</div>
+						<div class="header-contacts__block header-contacts__block-phone flex">
+							<div class="contacts__icon" data-fancybox data-src="#fancybox__contacts">
+								<i class="icon-phone"></i>
+							</div>
+							<a class="contacts__link" href="tel:{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}" title="{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}">
+								<span>{SETTINGS_STORE_PHONE_COUNTRY_CODE1} ({SETTINGS_STORE_PHONE_CITY_CODE1}) {SETTINGS_STORE_PHONE_NUMBER1}</span>
 							</a>
+							<div class="contacts__dropdown" data-fancybox data-src="#fancybox__contacts">
+								<i class="icon-chevron_down"></i>
+							</div>
 						</div>
 						{% ENDIF SETTINGS_STORE_PHONE_NUMBER1 %}
 
@@ -115,7 +113,7 @@
 					<div class="header__right flex">
 						<!-- Шапка. Каталог -->
 						<div class="header-catalog dropdown">
-							<a class="header-catalog__icon button-white" href="{CATALOG_URL}" title="Перейти в каталог">
+							<a class="header-catalog__icon button-secondary" href="{CATALOG_URL}" title="Перейти в каталог">
 								<span>Каталог</span>
 								<i class="icon-catalog"></i>
 							</a>
@@ -180,7 +178,7 @@
 									<span>Сравнение</span>
 								</a>
 
-								<div class="addto__compare dropdown__content">
+								<div class="addto__compare addto__dropdown dropdown__content">
 									<div class="addto__title">
 										<span>В Сравнении</span>
 									</div>
@@ -207,7 +205,7 @@
 													{% ENDIF %}
 												</div>
 
-												<a class="addto__remove button-rotate button-link" 
+												<a class="addto__remove button-rotate" 
 													href="{COMPARE_DELETE_URL}?id={compare_goods.MIN_PRICE_NOW_ID}" 
 													data-id="{compare_goods.ID}" 
 													title="Убрать товар из списка сравнения"
@@ -221,8 +219,11 @@
 									</div>
 
 									<div class="addto__buttons">
-										<a class="addto__removeAll button-tertiary" href="{COMPARE_RESET_URL}" title="Очистить список сравнения"><span>Очистить</span></a>
-										<a class="button-secondary" href="{COMPARE_URL}" title="Перейти к Сравнению"><span>В Сравнение</span></a>
+										<a class="addto__removeAll button-rotate" href="{COMPARE_RESET_URL}" title="Очистить список сравнения">
+											<span>Очистить</span>
+											<i class="icon-close"></i>
+										</a>
+										<a class="button-primary" href="{COMPARE_URL}" title="Перейти к Сравнению"><span>В Сравнение</span></a>
 									</div>
 
 									<!-- Пустая корзина -->
@@ -241,7 +242,7 @@
 									<span>Избранное</span>
 								</a>
 
-								<div class="addto__favorites dropdown__content">
+								<div class="addto__favorites addto__dropdown dropdown__content">
 									<div class="addto__title">
 										<span>В Избранном</span>
 									</div>
@@ -268,7 +269,7 @@
 													{% ENDIF %}
 												</div>
 											
-												<a class="addto__remove button-rotate button-link" 
+												<a class="addto__remove button-rotate" 
 													href="{favorites_goods.FAVORITES_DELETE_URL}" 
 													data-id="{favorites_goods.ID}" 
 													title="Убрать товар из списка избранного"
@@ -283,8 +284,11 @@
 									</div>
 
 									<div class="addto__buttons">
-										<a class="addto__removeAll button-tertiary" href="{FAVORITES_RESET_URL}" title="Очистить избранное"><span>Очистить</span></a>
-										<a class="button-secondary" href="{FAVORITES_URL}" title="Перейти к Избранное"><span>В Избранное</span></a>
+										<a class="addto__removeAll button-rotate" href="{FAVORITES_RESET_URL}" title="Очистить избранное">
+											<span>Очистить</span>
+											<i class="icon-close"></i>
+										</a>
+										<a class="button-primary" href="{FAVORITES_URL}" title="Перейти к Избранное"><span>В Избранное</span></a>
 									</div>
 									
 									<!-- Пустая корзина -->
@@ -323,16 +327,12 @@
 
 							<!-- Результаты поиска -->
 							<div class="search-results">
-								<div class="search-results__inner flex-start">
-									<div class="search-results__category flex-start">
-										<div class="search-results__title">Категории товаров</div>
-									</div>
-									<div class="search-results__goods flex-start">
-										<div class="search-results__title">Товары</div>
-									</div>
-									<div class="search-results__showAll is-hide button-rotate button-link">
-										<i class="icon-reload"></i>
-										<span>Все результаты</span>
+								<div class="search-results__inner flex-stretch">
+									<div class="search-results__category flex-column"></div>
+									<div class="search-results__goods flex-column"></div>
+									<div class="search-results__showAll button-more is-hide">
+										<span>Смотреть все результаты</span>
+										<i class="icon-chevron_right"></i>
 									</div>
 								</div>
 							</div>
@@ -408,11 +408,11 @@
 							<a class="addto__link flex cart__icon dropdown__open" href="{CART_URL}" title="Перейти в корзину">
 								<i class="icon-cart"></i>
 								<span class="addto__count cart-count" data-count="{CART_COUNT_TOTAL}">{CART_COUNT_TOTAL}</span>
-								<span>Корзина</span>
+								<span class="cartSumDiscount" data-price="{CART_SUM_NOW_WITH_DISCOUNT}">{CART_SUM_NOW_WITH_DISCOUNT | money_format}</span>
 							</a>
 
 							<!-- Выпадаюзая Корзина -->
-							<div class="addto__cart dropdown__content">
+							<div class="addto__cart addto__dropdown dropdown__content">
 								{% IFNOT cart_items_empty %}
 								<div class="addto__title">
 									<span>В Корзине</span>
@@ -440,19 +440,18 @@
 												{% ENDIF %}
 
 												<div class="addto__qty qty flex {% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE %}has-max{% ENDIF %}">
-														<span class="qty__select qty__select-minus" title="Уменьшить"><i class="icon-minus"></i></span>
-														<input class="qty__input" 
-																	type="text" 
-																	name="form[quantity][{cart_items.GOODS_MOD_ID}]" 
-																	maxlength="3" 
-																	{% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE %}max="{cart_items.GOODS_MOD_REST_VALUE}" {% ENDIF %}
-																	min="1" 
-																	value="{cart_items.ORDER_LINE_QUANTITY}" 
-																	title="Количество, {cart_items.GOODS_MOD_MEASURE_NAME}"
-																	autocomplete="off" 
-																	
-														/>
-														<span class="qty__select qty__select-plus" title="Увеличить"><i class="icon-plus"></i></span>
+													<span class="qty__select qty__select-minus" title="Уменьшить"><i class="icon-minus"></i></span>
+													<input class="qty__input" 
+																type="text" 
+																name="form[quantity][{cart_items.GOODS_MOD_ID}]" 
+																maxlength="3" 
+																{% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE %}max="{cart_items.GOODS_MOD_REST_VALUE}" {% ENDIF %}
+																min="1" 
+																value="{cart_items.ORDER_LINE_QUANTITY}" 
+																title="Количество, {cart_items.GOODS_MOD_MEASURE_NAME}"
+																autocomplete="off" 
+													/>
+													<span class="qty__select qty__select-plus" title="Увеличить"><i class="icon-plus"></i></span>
 												</div>
 
 												<div class="addto__price flex {CURRENCY_CHAR_CODE}">
@@ -462,7 +461,7 @@
 													{% ENDIF %}
 												</div>
 
-												<a class="addto__remove button-rotate button-link" 
+												<a class="addto__remove button-rotate" 
 													href="{cart_items.ORDER_LINE_DELETE_URL}" 
 													data-qty="{cart_items.ORDER_LINE_QUANTITY}" 
 													data-id="{cart_items.GOODS_ID}" 
@@ -479,7 +478,7 @@
 
 								<div class="addto__total {CURRENCY_CHAR_CODE}">
 									<!-- Скидки, действующие на заказ -->
-									<div class="addto__total-discount is-hide flex justify-between">
+									<div class="addto__total-discount flex is-hide">
 										<span class="addto__total-label">Скидка:</span>
 										<span class="addto__total-price flex">
 											{% FOR cart_discount %}
@@ -492,17 +491,22 @@
 									</div>
 
 									<!-- Итого -->
-									<div class="addto__total-block flex justify-between">
+									<div class="addto__total-block flex">
 										<span class="addto__total-label">Итого:</span>
-										<span class="addto__total-price cartSumNowDiscount" data-price="{CART_SUM_NOW_WITH_DISCOUNT}">{CART_SUM_NOW_WITH_DISCOUNT | money_format}</span>
+										<span class="addto__total-price price__now cartSumDiscount" data-price="{CART_SUM_NOW_WITH_DISCOUNT}">{CART_SUM_NOW_WITH_DISCOUNT | money_format}</span>
+										<a class="addto__removeAll button-more button-rotate" href="{CART_TRUNCATE_URL}" title="Очистить корзину">
+											<span>Очистить</span>
+											<i class="icon-close"></i>
+										</a>
 									</div>
 
 								</div>
 								{% ENDIF cart_items_empty %}
 
 								<div class="addto__buttons">
-									<a class="addto__removeAll button-tertiary" href="{CART_TRUNCATE_URL}" title="Очистить корзину"><span>Очистить</span></a>
-									<a class="button-secondary" href="{CART_URL}" title="Перейти в Корзину"><span>В Корзину</span></a>
+									<a class="button-gradient" href="{CART_URL}" title="Перейти в Корзину">
+										<span>В Корзину</span>
+									</a>
 								</div>
 
 								<!-- Пустая корзина -->
@@ -2305,7 +2309,7 @@
 							<div class="form__field">
 								<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
 							</div>
-							<button class="form__button button-white" type="submit" title="Подписаться">
+							<button class="form__button button-secondary" type="submit" title="Подписаться">
 								<span>Подписаться</span>
 							</button>
 						</div>
@@ -2979,7 +2983,7 @@
 							</div>
 							{% ENDIF SETTINGS_STORE_PHONE_NUMBER3 %}
 
-							<div class="contacts__button button-white" data-fancybox data-src="#fancybox__callback">
+							<div class="contacts__button button-secondary" data-fancybox data-src="#fancybox__callback">
 								<span>Заказать звонок</span>
 							</div>
 
@@ -3151,12 +3155,12 @@
 			<i class="icon-arrow-double_up"></i>
 		</div>
 
-		<noindex style="display: none;">
+		<noindex>
 			<!-- Скрытое обновление корзины -->
 			<div class="hiddenUpdate" style="display: none;"></div>
 
 			<!-- Мобильный Каталог -->
-			<div class="adaptive__sideblock adaptive__sideblock-catalog">
+			<div class="adaptive__sideblock adaptive__sideblock-catalog" style="display:none">
 				<div class="adaptive__sideblock-title">
 					<span>Каталог</span>
 					<i class="icon-close"></i>
@@ -3181,7 +3185,7 @@
 			</div>
 
 			<!-- Мобильное Меню -->
-			<div class="adaptive__sideblock adaptive__sideblock-menu">
+			<div class="adaptive__sideblock adaptive__sideblock-menu" style="display:none">
 				<div class="adaptive__sideblock-title">
 					<span>Меню</span>
 					<i class="icon-close"></i>
@@ -3267,7 +3271,7 @@
 			</div>
 
 			<!-- Адаптивная навигация -->
-			<div class="adaprive__navigate">
+			<div class="adaprive__navigate" style="display:none">
 				<div class="adaprive__navigate-inner flex">
 					<a class="adaprive__navigate-item adaprive__navigate-catalog" href="{CATALOG_URL}" title="Перейти в каталог">
 						<div class="adaprive__navigate-icon">
@@ -3326,10 +3330,146 @@
 				</div>
 			</div>
 
+			<!-- Контакты в модальном окне -->
+			<div id="fancybox__contacts" class="modal" style="display: none;">
+				<div class="modal__title block__title">
+					<h2 class="title">Контактная информация</h2>
+				</div>
+				<div class="modal__content flex-start">
+					<div class="contacts__blocks">
+						<!-- Телефон 1 -->
+						{% IF SETTINGS_STORE_PHONE_NUMBER1 %}
+						<div class="contacts__block contacts__phone contacts__phone-big">
+							<a class="contacts__link flex" href="tel:{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}" title="{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}">
+								<div class="contacts__icon"><i class="icon-phone"></i></div>
+								<div class="contacts__content">
+									<span>{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}</span>
+								</div>
+							</a>
+						</div>
+						{% ENDIF SETTINGS_STORE_PHONE_NUMBER1 %}
+
+						<!-- Телефон 2 -->
+						{% IF SETTINGS_STORE_PHONE_NUMBER2 %}
+						<div class="contacts__block contacts__phone">
+							<a class="contacts__link flex" href="tel:{SETTINGS_STORE_PHONE_COUNTRY_CODE2}({SETTINGS_STORE_PHONE_CITY_CODE2}){SETTINGS_STORE_PHONE_NUMBER2}" title="{SETTINGS_STORE_PHONE_COUNTRY_CODE2}({SETTINGS_STORE_PHONE_CITY_CODE2}){SETTINGS_STORE_PHONE_NUMBER2}">
+								<div class="contacts__content">
+									<span>{SETTINGS_STORE_PHONE_COUNTRY_CODE2}({SETTINGS_STORE_PHONE_CITY_CODE2}){SETTINGS_STORE_PHONE_NUMBER2}</span>
+								</div>
+							</a>
+						</div>
+						{% ENDIF SETTINGS_STORE_PHONE_NUMBER2 %}
+
+						<!-- Телефон 3 -->
+						{% IF SETTINGS_STORE_PHONE_NUMBER3 %}
+						<div class="contacts__block contacts__phone">
+							<a class="contacts__link flex" href="tel:{SETTINGS_STORE_PHONE_COUNTRY_CODE3}({SETTINGS_STORE_PHONE_CITY_CODE3}){SETTINGS_STORE_PHONE_NUMBER3}" title="{SETTINGS_STORE_PHONE_COUNTRY_CODE3}({SETTINGS_STORE_PHONE_CITY_CODE3}){SETTINGS_STORE_PHONE_NUMBER3}">
+								<div class="contacts__content">
+									<span>{SETTINGS_STORE_PHONE_COUNTRY_CODE3}({SETTINGS_STORE_PHONE_CITY_CODE3}){SETTINGS_STORE_PHONE_NUMBER3}</span>
+								</div>
+							</a>
+						</div>
+						{% ENDIF SETTINGS_STORE_PHONE_NUMBER3 %}
+
+						<!-- Обратный звонок -->
+						<div class="contacts__button button-link" data-fancybox data-src="#fancybox__callback">
+							<span>Заказать звонок</span>
+						</div>
+						
+						<!-- Соц сети -->
+						<div class="footer__social flex">
+							<a class="telegram" href="https://www.telegram.com/" title="telegram.com" target="_blank">
+								<i class="icon-telegram"></i>
+								<span>telegram</span>
+							</a>
+							<!-- <a class="instagram" href="https://www.instagram.com/" title="Instagram.com" target="_blank">
+								<i class="icon-instagram"></i>
+								<span>instagram</span>
+							</a> -->
+							<a class="viber" href="https://viber.com/" title="Viber.com" target="_blank">
+								<i class="icon-viber"></i>
+								<span>viber</span>
+							</a>
+							<a class="whatsapp" href="https://whatsapp.com/" title="Whatsapp.com" target="_blank">
+								<i class="icon-whatsapp"></i>
+								<span>whatsapp</span>
+							</a>
+							<!-- <a class="facebook" href="https://www.facebook.com/" title="FaceBook.com" target="_blank">
+								<i class="icon-facebook"></i>
+								<span>facebook</span>
+							</a> -->
+							<!-- <a class="twitter" href="https://twitter.com/" title="Twitter.com" target="_blank">
+								<i class="icon-twitter"></i>
+								<span>twitter</span>
+							</a> -->
+							<!-- <a class="tiktok" href="https://tiktok.com/" title="tiktok.com" target="_blank">
+								<i class="icon-tiktok"></i>
+								<span>tiktok</span>
+							</a> -->
+							<a class="odnoklassniki" href="https://ok.ru/" title="Odnoklassniki" target="_blank">
+								<i class="icon-odnoklassniki"></i>
+								<span>odnoklassniki</span>
+							</a>
+							<a class="vk" href="https://vk.com/" title="VK.com" target="_blank">
+								<i class="icon-vk"></i>
+								<span>vk</span>
+							</a>
+							<!-- <a class="youtube" href="https://youtube.com/" title="YouTube.com" target="_blank">
+								<i class="icon-youtube"></i>
+								<span>YouTube</span>
+							</a> -->
+							<!-- <a class="skype" href="https://skype.com/" title="skype.com" target="_blank">
+								<i class="icon-skype"></i>
+								<span>skype</span>
+							</a> -->
+						</div>
+
+					</div>
+					<div class="contacts__blocks">
+						<!-- Почта -->
+						{% IF SETTINGS_STORE_EMAIL_MAIN %}
+						<div class="contacts__block contacts__email">
+							<a class="contacts__link flex" href="mailto:{SETTINGS_STORE_EMAIL_MAIN}" title="{SETTINGS_STORE_EMAIL_MAIN}">
+								<div class="contacts__icon"><i class="icon-mail"></i></div>
+								<div class="contacts__content">
+									<span>{SETTINGS_STORE_EMAIL_MAIN}</span>
+								</div>
+							</a>
+						</div>
+						{% ENDIF %}
+			
+						<!-- Адрес -->
+						{% IF SETTINGS_STORE_REGION %}
+						<div class="contacts__block contacts__region" target="_blank">
+							<a class="contacts__link flex" href="https://yandex.ru/maps/?text={SETTINGS_STORE_REGION}&z=17" target="_blank">
+								<div class="contacts__icon"><i class="icon-location"></i></div>
+								<div class="contacts__content">
+									<span>{SETTINGS_STORE_REGION}</span>
+								</div>
+							</a>
+						</div>
+						{% ENDIF %}
+			
+						<!-- Время работы -->
+						{% IF SETTINGS_STORE_WORK_TIME %}
+						<div class="contacts__block contacts__worktime">
+							<a class="contacts__link flex" href="{FEEDBACK_URL}" title="Режим работы">
+								<div class="contacts__icon"><i class="icon-hourglass"></i></div>
+								<div class="contacts__content">
+									<span>{SETTINGS_STORE_WORK_TIME}</span>
+								</div>
+							</a>
+						</div>
+						{% ENDIF %}
+					</div>
+				</div>
+			</div>
+
 			<!-- Обратный звонок в модальном окне -->
 			<div id="fancybox__callback" class="modal" style="display:none">
-				<div class="modal__title">
-					<span>Обратный звонок</span>
+				<div class="modal__title block__title">
+					<h2 class="title">Обратный звонок</h2>
+					<div class="subtitle">Возникли вопросы? Заполните форму и мы бесплатно Вас проконсультируем!</div>
 				</div>
 				<div class="modal__content">
 					<form method="post" action="{CALLBACK_URL}" class="form__callback" enctype="multipart/form-data">
@@ -3344,11 +3484,11 @@
 							<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
 						</div>
 						<div class="form__buttons">
+							<button class="form__button button-primary button-big" type="submit" title="Заказать звонок"><span>Заказать звонок</span></button>
 							<div class="form__pp">
-								<span>Нажимая на кнопку &laquo;Отправить&raquo;, Вы соглашаетесь с</span>
-								<span data-fancybox data-src="#fancybox__pp">правилами обработки данных</span>
+								<span>Я принимаю условия</span>
+								<span data-fancybox data-src="#fancybox__pp">политики конфиденциальности</span>
 							</div>
-							<button class="form__button button-secondary" type="submit" title="Заказать звонок"><span>Отправить</span></button>
 						</div>
 					</form>
 				</div>
@@ -3356,8 +3496,8 @@
 
 			<!-- Обратный звонок в модальном окне -->
 			<div id="fancybox__feedback" class="modal" style="display:none">
-				<div class="modal__title">
-					<span>Обратная связь</span>
+				<div class="modal__title block__title">
+					<h2 class="title">Обратная связь</h2>
 				</div>
 				<div class="modal__content">
 					<form class="form__callback" method="post" action="{CALLBACK_URL}" enctype="multipart/form-data">
@@ -3375,11 +3515,11 @@
 							<textarea class="form__textarea" rows="2" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_COMMENT}]" placeholder="Комментарий" >{FORM_CALLBACK_COMMENT}</textarea>
 						</div>
 						<div class="form__buttons">
+							<button class="form__button button-primary" type="submit" title="Отправить"><span>Отправить</span></button>
 							<div class="form__pp">
-								<span>Нажимая на кнопку &laquo;Отправить&raquo;, Вы соглашаетесь с</span>
-								<span data-fancybox data-src="#fancybox__pp">правилами обработки данных</span>
+								<span>Я принимаю условия</span>
+								<span data-fancybox data-src="#fancybox__pp">политики конфиденциальности</span>
 							</div>
-							<button class="form__button button-secondary" type="submit" title="Отправить"><span>Отправить</span></button>
 						</div>
 					</form>
 				</div>
@@ -3387,8 +3527,8 @@
 
 			<!-- Уведомить о поступлении в модальном окне -->
 			<div id="fancybox__notify" class="modal" style="display:none">
-				<div class="modal__title">
-					<span>Уведомить</span>
+				<div class="modal__title block__title">
+					<h2 class="title">Уведомить</h2>
 				</div>
 				<div class="modal__content">
 					<form method="post" action="{CALLBACK_URL}" class="form__callback" enctype="multipart/form-data">
@@ -3410,20 +3550,20 @@
 							<input class="form__input form__email" type="email" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_EMAIL}]" value="{FORM_CALLBACK_EMAIL}" placeholder="email@email.ru *" autocomplete="off" />
 						</div>
 						<div class="form__buttons">
+							<button class="form__button button-primary" type="submit" title="Уведомить"><span>Уведомить</span></button>
 							<div class="form__pp">
-								<span>Нажимая на кнопку &laquo;Уведомить&raquo;, Вы соглашаетесь с</span>
-								<span data-fancybox data-src="#fancybox__pp">правилами обработки данных</span>
+								<span>Я принимаю условия</span>
+								<span data-fancybox data-src="#fancybox__pp">политики конфиденциальности</span>
 							</div>
-							<button class="form__button button-secondary" type="submit" title="Уведомить"><span>Уведомить</span></button>
 						</div>
 					</form>
 				</div>
 			</div>
 
 			<!-- Политика конфиденциальности в модальном окне -->
-			<div id="fancybox__pp" style="display:none">
-				<div class="modal__title">
-					<span>Политика приватности</span>
+			<div id="fancybox__pp" class="modal" style="display:none">
+				<div class="modal__title block__title">
+					<h2 class="title">Политика приватности</h2>
 				</div>
 				<div class="modal__content">
 					<div>

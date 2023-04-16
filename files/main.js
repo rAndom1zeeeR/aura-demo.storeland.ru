@@ -867,7 +867,7 @@ class Product {
 							<div class="addto__price ${pDataChar}">
 								<div class="price__now" data-price="${pDataPrice}"><span title="${pDataPrice} российских рублей"><span class="num">${pDataPrice}</span><span>р.</span></span></div>
 							</div>
-							<a class="addto__remove button-rotate button-link" href="${delUrl}?id=${pDataid}" data-id="${pDataid}" title="Убрать товар из списка"><i class="icon-close"></i></a>
+							<a class="addto__remove button-rotate" href="${delUrl}?id=${pDataid}" data-id="${pDataid}" title="Убрать товар из списка"><i class="icon-close"></i></a>
 						</div>
 					</div>
 				`;
@@ -2887,8 +2887,8 @@ class Order {
 							// Обновляем значение итоговой стоимости
 							$('.cartSumTotal').attr('data-price', newTotalSum)
 							$('.cartSumTotal .num').text(addSpaces(newTotalSum))
-							$('.cartSumCoupons').attr('data-value', newTotalSum)
-							$('.cartSumDiscount').attr('data-value', totalSum)
+							$('.cartSumCoupons').attr('data-price', newTotalSum)
+							$('.cartSumDiscount').attr('data-price', totalSum)
 							$('.cartSumDiscount .num').text(addSpaces(totalSum))
 						}
 
@@ -3511,8 +3511,7 @@ document.addEventListener('DOMContentLoaded', function(){
 	lazyload()
 	catalogHover()
 	remove.onClick()
-	// quantityAddto.onAddto()
-	// quantityAddto.updAddtoSale()
+	quantity.updAddtoSale()
 
 	// Удаление классов загрузки для элементов страницы
 	$('.loading').addClass('loaded');

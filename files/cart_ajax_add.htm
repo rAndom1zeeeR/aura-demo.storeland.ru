@@ -29,12 +29,12 @@
 <!-- Блок для обновления данных корзины. Не виден пользователю -->
 <div style="display:none;" id="newCartCount">{CART_COUNT_TOTAL}</div>
 <div style="display:none;" id="newCartWord">товар{CART_COUNT_TOTAL | gen_word_end("","а","ов")}</div>
-<div style="display:none;" id="newCartSumNow">{CART_SUM_NOW}</div>
-<div style="display:none;" id="newCartSumNowFormated">{CART_SUM_NOW | money_format}</div>
-<div style="display:none;" id="newCartSumNowDiscount">{CART_SUM_NOW_WITH_DISCOUNT}</div>
-<div style="display:none;" id="newCartSumNowDiscountFormated">{CART_SUM_NOW_WITH_DISCOUNT | money_format}</div>
-<div style="display:none;" id="newCartSumNowTotal">{CART_SUM_NOW_WITH_DELIVERY_AND_DISCOUNT}</div>
-<div style="display:none;" id="newCartSumNowTotalFormated">{CART_SUM_NOW_WITH_DELIVERY_AND_DISCOUNT | money_format}</div>
+<div style="display:none;" id="newCartSum">{CART_SUM_NOW}</div>
+<div style="display:none;" id="newCartSumFormated">{CART_SUM_NOW | money_format}</div>
+<div style="display:none;" id="newCartSumDiscount">{CART_SUM_NOW_WITH_DISCOUNT}</div>
+<div style="display:none;" id="newCartSumDiscountFormated">{CART_SUM_NOW_WITH_DISCOUNT | money_format}</div>
+<div style="display:none;" id="newCartSumTotal">{CART_SUM_NOW_WITH_DELIVERY_AND_DISCOUNT}</div>
+<div style="display:none;" id="newCartSumTotalFormated">{CART_SUM_NOW_WITH_DELIVERY_AND_DISCOUNT | money_format}</div>
 <div style="display:none;" id="newCartData">
 	<div class="addto__title">
 		<span>В Корзине</span>
@@ -53,31 +53,29 @@
 				</a>
 
 				<div class="addto__content flex">
-
 					<a class="addto__name" href="{cart_items.GOODS_URL}" title="{cart_items.GOODS_NAME}">
 						<span>{cart_items.GOODS_NAME}</span>
 					</a>
 
 					{% IFNOT cart_items.distinctive_properties_empty %}
-					<div class="addto__mod">{% FOR distinctive_properties %}{cart_items.distinctive_properties.NAME}: {cart_items.distinctive_properties.VALUE}{% IFNOT cart_items.distinctive_properties.last %}, {% ENDIF %}{% ENDFOR %}</div>
+					<div class="addto__mod">{% FOR distinctive_properties %}{cart_items.distinctive_properties.NAME}: {cart_items.distinctive_properties.VALUE}{% IFNOT cart_items.distinctive_properties.last %}; {% ENDIF %}{% ENDFOR %}</div>
 					{% ENDIF %}
 
 					<div class="addto__qty qty flex {% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE %}has-max{% ENDIF %}">
-							<span class="qty__select qty__select-minus" title="Уменьшить"><i class="icon-minus"></i></span>
-							<input class="qty__input" 
-										type="text" 
-										name="form[quantity][{cart_items.GOODS_MOD_ID}]" 
-										maxlength="3" 
-										{% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE %}max="{cart_items.GOODS_MOD_REST_VALUE}" {% ENDIF %}
-										min="1" 
-										value="{cart_items.ORDER_LINE_QUANTITY}" 
-										title="Количество, {cart_items.GOODS_MOD_MEASURE_NAME}"
-										autocomplete="off" 
-										
-							/>
-							<span class="qty__select qty__select-plus" title="Увеличить"><i class="icon-plus"></i></span>
+						<span class="qty__select qty__select-minus" title="Уменьшить"><i class="icon-minus"></i></span>
+						<input class="qty__input" 
+									type="text" 
+									name="form[quantity][{cart_items.GOODS_MOD_ID}]" 
+									maxlength="3" 
+									{% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE %}max="{cart_items.GOODS_MOD_REST_VALUE}" {% ENDIF %}
+									min="1" 
+									value="{cart_items.ORDER_LINE_QUANTITY}" 
+									title="Количество, {cart_items.GOODS_MOD_MEASURE_NAME}"
+									autocomplete="off" 
+						/>
+						<span class="qty__select qty__select-plus" title="Увеличить"><i class="icon-plus"></i></span>
 					</div>
-					
+
 					<div class="addto__price flex {CURRENCY_CHAR_CODE}">
 						<span class="price__now" data-price="{cart_items.ORDER_LINE_PRICE_NOW}">{cart_items.ORDER_LINE_PRICE_NOW | money_format}</span>
 						{% IF cart_items.ORDER_LINE_PRICE_OLD > cart_items.ORDER_LINE_PRICE_NOW %}
@@ -85,7 +83,7 @@
 						{% ENDIF %}
 					</div>
 
-					<a class="addto__remove button-rotate button-link" 
+					<a class="addto__remove button-rotate" 
 						href="{cart_items.ORDER_LINE_DELETE_URL}" 
 						data-qty="{cart_items.ORDER_LINE_QUANTITY}" 
 						data-id="{cart_items.GOODS_ID}" 
@@ -102,7 +100,7 @@
 
 	<div class="addto__total {CURRENCY_CHAR_CODE}">
 		<!-- Скидки, действующие на заказ -->
-		<div class="addto__total-discount is-hide flex justify-between">
+		<div class="addto__total-discount flex is-hide">
 			<span class="addto__total-label">Скидка:</span>
 			<span class="addto__total-price flex">
 				{% FOR cart_discount %}
@@ -115,16 +113,21 @@
 		</div>
 
 		<!-- Итого -->
-		<div class="addto__total-block flex justify-between">
+		<div class="addto__total-block flex">
 			<span class="addto__total-label">Итого:</span>
-			<span class="addto__total-price cartSumNowDiscount" data-price="{CART_SUM_NOW_WITH_DISCOUNT}">{CART_SUM_NOW_WITH_DISCOUNT | money_format}</span>
+			<span class="addto__total-price price__now cartSumDiscount" data-price="{CART_SUM_NOW_WITH_DISCOUNT}">{CART_SUM_NOW_WITH_DISCOUNT | money_format}</span>
+			<a class="addto__removeAll button-more button-rotate" href="{CART_TRUNCATE_URL}" title="Очистить корзину">
+				<span>Очистить</span>
+				<i class="icon-close"></i>
+			</a>
 		</div>
 
 	</div>
 
 	<div class="addto__buttons">
-		<a class="addto__removeAll button-tertiary" href="{CART_TRUNCATE_URL}" title="Очистить корзину"><span>Очистить</span></a>
-		<a class="button-secondary" href="{CART_URL}" title="Перейти в Корзину"><span>В Корзину</span></a>
+		<a class="button-gradient" href="{CART_URL}" title="Перейти в Корзину">
+			<span>В Корзину</span>
+		</a>
 	</div>
 
 	<!-- Пустая корзина -->
@@ -137,9 +140,9 @@
 	$('.addto__cart').html($('#newCartData').html());
 	$('.cart-count').attr('data-count', $('#newCartCount').html()).html($('#newCartCount').html());
 	$('.cart-wordend').html($('#newCartWord').html());
-	$('.cartSumNow').attr('data-price', $('#newCartSumNow').html()).html(addSpaces($('#newCartSumNowFormated').html()));
-	$('.cartSumNowDiscount').attr('data-price', $('#newCartSumNowDiscount').html()).html(addSpaces($('#newCartSumNowDiscountFormated').html()));
-	$('.cartSumNowTotal').attr('data-price', $('#newCartSumNowTotal').html()).html(addSpaces($('#newCartSumNowTotalFormated').html()));
+	$('.cartSumNow').attr('data-price', $('#newCartSum').html()).html(addSpaces($('#newCartSumFormated').html()));
+	$('.cartSumDiscount').attr('data-price', $('#newCartSumDiscount').html()).html(addSpaces($('#newCartSumDiscountFormated').html()));
+	$('.cartSumTotal').attr('data-price', $('#newCartSumTotal').html()).html(addSpaces($('#newCartSumTotalFormated').html()));
 	// Обновление скидки
 	// quantityAddto.onAddto();
 </script>

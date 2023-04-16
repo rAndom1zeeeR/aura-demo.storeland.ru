@@ -1320,7 +1320,7 @@ header .catalog__items::-webkit-scrollbar {width: 4px;}
 	.adaprive__navigate-icon i {display: block;}
 	.adaprive__navigate-inner {justify-content: space-around;padding: 8px;}
 	.adaprive__navigate-title {font-size: 14px;font-weight: 500;margin-top: 4px;}
-	.adaprive__navigate-title .cartSumNowDiscount {display: none;}
+	.adaprive__navigate-title .cartSumDiscount {display: none;}
 	.has-items .adaprive__navigate-icon:before {content: '';width: 8px;height: 8px;background-color: var(--color-primary);border-radius: 100%;top: -2px;right: -4px;position: absolute;}
 }
 @media all and (max-width: 479px) {
