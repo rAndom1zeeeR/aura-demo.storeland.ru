@@ -61,7 +61,7 @@ describe("changeTxt object", () => {
   // HTML content
   document.body.innerHTML = `
     <div class="products__buttons">
-      <a class="pdt__visible-button button-rotate button-link" title="Показать все">
+      <a class="visible__button button-rotate button-link" title="Показать все">
         <i class="icon-reload"></i>
         <span slot="Скрыть">Показать все</span>
       </a>
@@ -69,7 +69,7 @@ describe("changeTxt object", () => {
   `;
     
   // Object from content
-  const button = document.querySelector('.pdt__visible-button')
+  const button = document.querySelector('.visible__button')
   const hideText = button.querySelector('[slot]').getAttribute('slot')
   const showText = button.querySelector('[slot]').textContent.trim()
 

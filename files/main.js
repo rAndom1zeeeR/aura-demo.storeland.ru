@@ -137,9 +137,9 @@ function changeTxt(obj){
 function pdtVisible(id){
 	const content = document.querySelector(id);
 	if (!content) {return false}
-	const button = content.querySelector('.pdt__visible-button');
+	const button = content.querySelector('.visible__button');
 	if (!button) {return false}
-	const items = content.querySelectorAll('.product__item');
+	const items = content.querySelectorAll('.visible__item');
 	
 	// Скрываем кнопку показать все если мало товаров
 	pdtVisibleButton(content, button, items)
@@ -163,7 +163,7 @@ function pdtVisible(id){
 
 // Скрываем кнопку показать все если мало товаров
 function pdtVisibleButton(content, button, items) {
-	const visible = $(content).find('.product__item:visible').length;
+	const visible = $(content).find('.visible__item:visible').length;
 	button.parentElement.style.display = items.length > visible ? 'block' : 'none';
 }
 
@@ -3342,6 +3342,11 @@ function swiperNews(){
 			nextEl: id + ' .swiper-button-next',
 			prevEl: id + ' .swiper-button-prev',
 		},
+		scrollbar: {
+			el: id + ' .swiper-scrollbar',
+			draggable: true,
+			hide: false,
+		},
 		breakpoints: {
 			0: {
 				slidesPerView: '1',
@@ -3359,7 +3364,7 @@ function swiperNews(){
 				slidesPerView: '2',
 			},
 			1024: {
-				slidesPerView: '3',
+				slidesPerView: '2',
 			},
 			1200: {
 				slidesPerView: '3',
@@ -3409,12 +3414,12 @@ function swiperSales(){
 		watchSlidesVisibility: true,
 		simulateTouch: true,
 		grabCursor: true,
-		slidesPerView: '3',
-		spaceBetween: 32,
+		slidesPerView: '1',
+		spaceBetween: 16,
 		nested: true,
 		preloadImages: false,
 		lazy: {
-			enabled: true,
+			enabled: false,
 			loadPrevNext: true,
 			loadOnTransitionStart: true,
 		},
@@ -3422,28 +3427,10 @@ function swiperSales(){
 			nextEl: id + ' .swiper-button-next',
 			prevEl: id + ' .swiper-button-prev',
 		},
-		breakpoints: {
-			0: {
-				slidesPerView: '1',
-			},
-			320: {
-				slidesPerView: '1',
-			},
-			480: {
-				slidesPerView: '1',
-			},
-			640: {
-				slidesPerView: '2',
-			},
-			768: {
-				slidesPerView: '2',
-			},
-			1024: {
-				slidesPerView: '2',
-			},
-			1200: {
-				slidesPerView: '3',
-			}
+		scrollbar: {
+			el: id + ' .swiper-scrollbar',
+			draggable: true,
+			hide: false,
 		},
 	});
 
@@ -3463,13 +3450,18 @@ function swiperSlider(id){
 		nested: true,
 		preloadImages: false,
 		lazy: {
-			enabled: true,
+			enabled: false,
 			loadPrevNext: true,
 			loadOnTransitionStart: true,
 		},
 		navigation: {
 			nextEl: id + ' .swiper-button-next',
 			prevEl: id + ' .swiper-button-prev',
+		},
+		scrollbar: {
+			el: id + ' .swiper-scrollbar',
+			draggable: true,
+			hide: false,
 		},
 		breakpoints: {
 			0: {
@@ -3498,6 +3490,55 @@ function swiperSlider(id){
 
 }
 
+// Слайдер Предложений
+function swiperOffers(){
+	const id = '#offers'
+	// Свайпер слайдер новостей
+	const swiper = new Swiper(id + ' .swiper', {
+		loop: false,
+		autoplay: false,
+		watchSlidesVisibility: true,
+		simulateTouch: true,
+		grabCursor: true,
+		slidesPerView: '3',
+		spaceBetween: 16,
+		nested: true,
+		preloadImages: false,
+		autoHeight: false,
+		lazy: {
+			enabled: false,
+			loadPrevNext: true,
+			loadOnTransitionStart: true,
+		},
+		navigation: {
+			nextEl: id + ' .swiper-button-next',
+			prevEl: id + ' .swiper-button-prev',
+		},
+		breakpoints: {
+			0: {
+				slidesPerView: '1',
+			},
+			320: {
+				slidesPerView: '1',
+			},
+			480: {
+				slidesPerView: '2',
+			},
+			640: {
+				slidesPerView: '2',
+			},
+			768: {
+				slidesPerView: '3',
+			},
+			1024: {
+				slidesPerView: '3',
+			},
+			1200: {
+				slidesPerView: '3',
+			}
+		}
+	});
+}
 
 ///////////////////////////////////////
 // Загрузка основных функций шаблона
