@@ -303,7 +303,7 @@
 						<!-- Поиск -->
 						<div class="header-search search" itemscope itemtype="https://schema.org/WebSite">
 							<link itemprop="url" href="{INDEX_PAGE_URL}" />
-							<div class="header-search__icon flex-center">
+							<div class="header-search__icon button-secondary">
 								<i class="icon-search"></i>
 							</div>
 							<!-- Форма поиска -->
@@ -542,9 +542,7 @@
 								</ul>
 								<div class="slideshow__buttons">
 									<div class="slideshow__price"></div>
-									<div class="slideshow__button">
-										<a class="button-gradient" href="{CATALOG_URL}" title=""><span>Купить</span></a>
-									</div>
+									<a class="slideshow__button button-gradient" href="{CATALOG_URL}" title=""><span>Купить</span></a>
 								</div>
 							</div>
 							<div class="slideshow__product">
@@ -567,9 +565,7 @@
 								</ul>
 								<div class="slideshow__buttons">
 									<div class="slideshow__price"></div>
-									<div class="slideshow__button">
-										<a class="button-gradient" href="{CATALOG_URL}" title=""><span>Купить</span></a>
-									</div>
+									<a class="slideshow__button button-gradient" href="{CATALOG_URL}" title=""><span>Купить</span></a>
 								</div>
 							</div>
 							<div class="slideshow__product">
@@ -592,9 +588,7 @@
 								</ul>
 								<div class="slideshow__buttons">
 									<div class="slideshow__price"></div>
-									<div class="slideshow__button">
-										<a class="button-gradient" href="{CATALOG_URL}" title=""><span>Купить</span></a>
-									</div>
+									<a class="slideshow__button button-gradient" href="{CATALOG_URL}" title=""><span>Купить</span></a>
 								</div>
 							</div>
 							<div class="slideshow__product">
@@ -1178,7 +1172,7 @@
 									</div>
 
 									<!-- Счетчик обратного отсчета. end дата окончания акции в формате Месяц:День:Год Часы:Минуты:Секунды -->
-									<div class="product__counter product__margin">
+									<div class="product__counter">
 										<div class="counter" data-expired="{index_page_sale_goods.MAX_DISCOUNT_EXPIRED_AT | date('m/d/Y H:i:s')}" data-time="{CURRENT_TIME | date('m/d/Y H:i:s')}">
 											<div class="counter__icon flex-center">
 												<i class="icon-schedule"></i>
@@ -2333,7 +2327,7 @@
 							<div class="form__field">
 								<input class="form__input form__email" type="email" name="form[callback_email]" value="{FORM_CALLBACK_EMAIL}" placeholder="email@email.ru *" autocomplete="off" />
 							</div>
-							<button class="form__button button-secondary" type="submit" title="Подписаться">
+							<button class="form__button button-secondary button-big" type="submit" title="Подписаться">
 								<span>Подписаться</span>
 							</button>
 						</div>
@@ -3184,7 +3178,7 @@
 			<div class="hiddenUpdate" style="display: none;"></div>
 
 			<!-- Мобильный Каталог -->
-			<div class="adaptive__sideblock adaptive__sideblock-catalog" style="display:none">
+			<div class="adaptive__sideblock adaptive__sideblock-catalog">
 				<div class="adaptive__sideblock-title">
 					<span>Каталог</span>
 					<i class="icon-close"></i>
@@ -3209,7 +3203,7 @@
 			</div>
 
 			<!-- Мобильное Меню -->
-			<div class="adaptive__sideblock adaptive__sideblock-menu" style="display:none">
+			<div class="adaptive__sideblock adaptive__sideblock-menu">
 				<div class="adaptive__sideblock-title">
 					<span>Меню</span>
 					<i class="icon-close"></i>
@@ -3295,7 +3289,7 @@
 			</div>
 
 			<!-- Адаптивная навигация -->
-			<div class="adaprive__navigate" style="display:none">
+			<div class="adaprive__navigate">
 				<div class="adaprive__navigate-inner flex">
 					<a class="adaprive__navigate-item adaprive__navigate-catalog" href="{CATALOG_URL}" title="Перейти в каталог">
 						<div class="adaprive__navigate-icon">

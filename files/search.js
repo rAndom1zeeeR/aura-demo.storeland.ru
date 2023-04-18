@@ -321,7 +321,7 @@ $(function(){
 						data.goods[i].image_icon = data.goods[i].image_icon;
 					}
 					// Отображаем результат поиска
-					if(i <= 4){
+					if(i <= 3){
 						$('.search-results__showAll').addClass('is-hide');
 						$(".search-results__goods").append(`
 							<a class="search-results__item flex" href="${data.goods[i].url}" data-id="${data.goods[i].goods_id}">
@@ -336,7 +336,7 @@ $(function(){
 						`);
 					}
 					// Если последняя итерация цикла вставим кнопку "показать все"
-					if(i > 4){
+					if(i > 3){
 						$('.search-results__showAll').removeClass('is-hide');
 					}
 				}
