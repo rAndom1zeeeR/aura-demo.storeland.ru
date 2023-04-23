@@ -122,8 +122,8 @@
 									<ul class="catalog__items catalog__items-main unstyled">
 										{% FOR catalog_full %}
 											{% IF catalog_full.LEVEL > 0 %}{continue}{% ENDIF %}
-											<li class="catalog__item {% IF catalog_full.ISSET_VISIBLE_SUB %}parent{% ENDIF %} {% IF catalog_full.CURRENT_PARENT || catalog_full.CURRENT %}is-opened{% ENDIF %}" data-level="{catalog_full.LEVEL}" data-id="{catalog_full.ID}" {% IF catalog_full.HIDE %}style="display:none;"{% ENDIF %}>
-												<a class="catalog__link flex {% IF catalog_full.CURRENT %}is-opened{% ENDIF %}" href="{catalog_full.URL}" data-level="{catalog_full.LEVEL}">
+											<li class="catalog__item {% IF catalog_full.ISSET_VISIBLE_SUB %}parent{% ENDIF %} {% IF catalog_full.CURRENT_PARENT || catalog_full.CURRENT %}is-actived{% ENDIF %}" data-level="{catalog_full.LEVEL}" data-id="{catalog_full.ID}" {% IF catalog_full.HIDE %}style="display:none;"{% ENDIF %}>
+												<a class="catalog__link flex {% IF catalog_full.CURRENT %}is-actived{% ENDIF %}" href="{catalog_full.URL}" data-level="{catalog_full.LEVEL}">
 													<span>{catalog_full.NAME}</span>
 													{% IF catalog_full.ISSET_VISIBLE_SUB %}<i class="icon-chevron_right"></i>{% ENDIF %}
 												</a>
@@ -134,8 +134,8 @@
 									<ul class="catalog__items catalog__items-sub unstyled">
 										{% FOR catalog_full %}
 											{% IF catalog_full.FIRST && catalog_full.LEVEL > 0 %}<ul data-level="{catalog_full.LEVEL}" class="catalog__sub unstyled">{% ENDIF %}
-											<li class="catalog__item {% IF catalog_full.ISSET_VISIBLE_SUB %}parent{% ENDIF %} {% IF catalog_full.CURRENT_PARENT %}is-opened{% ENDIF %}" data-level="{catalog_full.LEVEL}" data-id="{catalog_full.ID}" {% IF catalog_full.HIDE %}style="display:none;"{% ENDIF %}>
-												<a class="catalog__link flex {% IF catalog_full.CURRENT %}is-opened{% ENDIF %}" href="{catalog_full.URL}" data-level="{catalog_full.LEVEL}">
+											<li class="catalog__item {% IF catalog_full.ISSET_VISIBLE_SUB %}parent{% ENDIF %} {% IF catalog_full.CURRENT_PARENT %}is-actived{% ENDIF %}" data-level="{catalog_full.LEVEL}" data-id="{catalog_full.ID}" {% IF catalog_full.HIDE %}style="display:none;"{% ENDIF %}>
+												<a class="catalog__link flex {% IF catalog_full.CURRENT %}is-actived{% ENDIF %}" href="{catalog_full.URL}" data-level="{catalog_full.LEVEL}">
 													<span>{catalog_full.NAME}</span>
 													{% IF catalog_full.ISSET_VISIBLE_SUB %}<i class="icon-chevron_right"></i>{% ENDIF %}
 												</a>
@@ -1738,6 +1738,9 @@
 						</div>
 
 					</div>
+					<!-- Навигация -->
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-next"></div>
 				</div>
 
 			</div>
@@ -2575,7 +2578,7 @@
 						{% ELSEIF MOD_LNAME=order && ACT=stage %}
 						<h1 class="title"><span>Оформление заказа. Шаг {ORDER_STAGE_NUM} из 4</span></h1>
 						{% ELSEIF MOD_LNAME=search %}
-						<h1 class="title">
+						<h1 class="title flex-center">
 							<span>Результат поиска по запросу: {% IFNOT search_query_empty %}&laquo;{SEARCH_QUERY}&raquo;{% ENDIF %}</span>
 							{% IF GOODS_PAGES_RESULTS > 0 %}<span class="subtitle">({GOODS_PAGES_RESULTS} товар{GOODS_PAGES_RESULTS | gen_word_end("","а","ов")} найд{GOODS_PAGES_RESULTS | gen_word_end("ен","ено","ено")} по запросу)</span>{% ENDIF %}
 						</h1>
@@ -2600,7 +2603,7 @@
 						{% ELSEIF MOD_LNAME=catalog %}
 						<h1 class="title flex-center">
 							<span>{CATEGORY_NAME}</span>
-							{% IFNOT IS_FULL_CATALOG && GOODS_PAGES_RESULTS != 0 %}<span class="subtitle">{GOODS_PAGES_RESULTS} товар{GOODS_PAGES_RESULTS | gen_word_end("","а","ов")}</span>{% ENDIF %}
+							<!-- {% IFNOT IS_FULL_CATALOG && GOODS_PAGES_RESULTS != 0 %}<span class="subtitle">{GOODS_PAGES_RESULTS} товар{GOODS_PAGES_RESULTS | gen_word_end("","а","ов")}</span>{% ENDIF %} -->
 						</h1>
 						{% ELSEIF MOD_LNAME=cart %}
 						<h1 class="title"><a href="{CART_URL}" title="Корзина"><span>Корзина</span></a></h1>
@@ -2939,6 +2942,7 @@
 					</div>
 						{% ENDFOR %}
 					</div>
+					<div class="swiper-scrollbar"></div>
 				</div>
 
 			</div>
@@ -3177,176 +3181,263 @@
 			<!-- Скрытое обновление корзины -->
 			<div class="hiddenUpdate" style="display: none;"></div>
 
-			<!-- Мобильный Каталог -->
-			<div class="adaptive__sideblock adaptive__sideblock-catalog">
-				<div class="adaptive__sideblock-title">
-					<span>Каталог</span>
-					<i class="icon-close"></i>
-				</div>
-
-				<div class="adaptive__sideblock-content">
-					<ul class="catalog__items unstyled">
-						{% FOR catalog_full %}
-							{% IFNOT catalog_full.LEVEL = 0 && catalog_full.FIRST %}
-							<ul class="catalog__sub" data-level="{catalog_full.LEVEL}">
-							{% ENDIF %}
-								<li class="catalog__item {% IF catalog_full.ISSET_VISIBLE_SUB %}parent{% ENDIF %} {% IF catalog_full.CURRENT_PARENT || catalog_full.CURRENT %}is-opened{% ENDIF %}" data-level="{catalog_full.LEVEL}" {% IF catalog_full.HIDE %}style="display: none;"{% ENDIF %}>
-									<a class="catalog__link flex {% IF catalog_full.CURRENT %}is-opened{% ENDIF %}" href="{catalog_full.URL}" data-level="{catalog_full.LEVEL}">
-										<span class="catalog__name">{catalog_full.NAME}</span>
-										{% IF catalog_full.ISSET_VISIBLE_SUB %}<span class="catalog__open"></span>{% ENDIF %}
-									</a>
-								{% IF catalog_full.ISSET_SUB=0 %}</li>{% ENDIF %}
-							{% IF catalog_full.LAST %}{% FOR out %}</li>{% IFNOT catalog_full.out.LAST %}</ul>{% ENDIF out.LAST %}{% ENDFOR out %}{% ENDIF LAST %}
-						{% ENDFOR catalog_full %}
-				</div>
-
-			</div>
-
-			<!-- Мобильное Меню -->
-			<div class="adaptive__sideblock adaptive__sideblock-menu">
-				<div class="adaptive__sideblock-title">
-					<span>Меню</span>
-					<i class="icon-close"></i>
-				</div>
-
-				<div class="adaptive__sideblock-content">
-					<ul class="unstyled">
-						{% FOR menu %}
-							{% FOR header %}
-								{% FOR links %}
-								<li>
-									<a class="catalog__link flex {% IF menu.header.links.SELECTED %}is-actived{% ENDIF %} {% IF menu.header.links.NAME = Акции %}mainnav__link-discount{% ENDIF %}" href="{menu.header.links.URL}" title="{% IF menu.header.links.TITLE %}{menu.header.links.TITLE}{% ELSE%}{menu.header.links.NAME}{% ENDIF %}">
-										<span>{menu.header.links.NAME}</span>
-									</a>
-								</li>
-								{% ENDFOR %}
-							{% ENDFOR %}
-						{% ENDFOR %}
-					</ul>
-
-					<div class="contacts" itemscope itemtype="https://schema.org/Organization">
-						<!-- Время работы -->
-						{% IF SETTINGS_STORE_WORK_TIME %}
-						<div class="contacts__block contacts__worktime">
-							<div class="contacts__label">График работы</div>
-							<a class="contacts__link flex" href="{FEEDBACK_URL}" title="Режим работы">
-								<div class="contacts__icon"><i class="icon-schedule"></i></div>
-								<div class="contacts__content">
-									<span>{SETTINGS_STORE_WORK_TIME}</span>
-								</div>
+			<div class="adaptive">
+				<!-- Адаптивная навигация -->
+				<div class="adaptive__navigate">
+					<!-- Закрыть -->
+					<div class="adaptive__navigate-close flex">
+						<!-- Логотип -->
+						<div class="adaptive__navigate-logo">
+							<a href="{INDEX_PAGE_URL}" title="{SETTINGS_STORE_NAME}">
+								<img src="{ASSETS_IMAGES_PATH}logo.jpg?design=THEMENAME" alt="{SETTINGS_STORE_NAME}" width="140" height="50">
 							</a>
 						</div>
-						{% ENDIF %}
+						<i class="icon-close"></i>
+					</div>
+
+					<!-- Навигация -->
+					<div class="adaptive__navigate-inner flex">
+						<a class="adaptive__navigate-item adaptive__navigate-catalog is-actived" href="{CATALOG_URL}" title="Перейти в каталог" data-open="catalog">
+							<div class="adaptive__navigate-icon">
+								<i class="icon-catalog"></i>
+							</div>
+							<div class="adaptive__navigate-title">
+								<span>Каталог</span>
+							</div>
+						</a>
+
+						<a class="adaptive__navigate-item adaptive__navigate-compare compare {% IF COMPARE_GOODS_COUNT > 0 %}has-items{% ENDIF %}" href="{COMPARE_URL}" title="Перейти в Сравнение" data-open="compare">
+							<div class="adaptive__navigate-icon">
+								<i class="icon-compare"></i>
+							</div>
+							<div class="adaptive__navigate-title">
+								<span>Сравнение</span>
+							</div>
+						</a>
+
+						<a class="adaptive__navigate-item adaptive__navigate-cart cart {% IF CART_COUNT_TOTAL > 0 %}has-items{% ENDIF %}" href="{CART_URL}" title="Перейти в Корзину" data-open="cart">
+							<div class="adaptive__navigate-icon">
+								<i class="icon-cart"></i>
+							</div>
+							<div class="adaptive__navigate-title">
+								<span>Корзина</span>
+							</div>
+						</a>
 						
-						<!-- Адрес -->
-						{% IF SETTINGS_STORE_REGION %}
-						<div class="contacts__block contacts__region">
-							<div class="contacts__label">Адрес магазина</div>
-							<a class="contacts__link flex" href="https://yandex.ru/maps/?text={SETTINGS_STORE_REGION}&z=17" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress" target="_blank" title="Открыть карту по адресу {SETTINGS_STORE_REGION}">
-								<div class="contacts__icon"><i class="icon-location"></i></div>
-								<div class="contacts__content">
-									<span itemprop="addressLocality">{SETTINGS_STORE_REGION}</span>
-								</div>
-							</a>
-						</div>
-						{% ENDIF %}
+						<a class="adaptive__navigate-item adaptive__navigate-favorites favorites {% IF FAVORITES_GOODS_COUNT > 0 %}has-items{% ENDIF %}" href="{FAVORITES_URL}" title="Перейти в Избранное" data-open="favorites">
+							<div class="adaptive__navigate-icon">
+								<i class="icon-favorites"></i>
+							</div>
+							<div class="adaptive__navigate-title">
+								<span>Избранное</span>
+							</div>
+						</a>
 
-						<!-- Почта -->
-						{% IF SETTINGS_STORE_EMAIL_MAIN %}
-						<div class="contacts__block contacts__email">
-							<!-- <div class="contacts__label">Электронная почта</div> -->
-							<a class="contacts__link flex" href="mailto:{SETTINGS_STORE_EMAIL_MAIN}" title="{SETTINGS_STORE_EMAIL_MAIN}">
-								<div class="contacts__icon"><i class="icon-mail"></i></div>
-								<div class="contacts__content">
-									<span itemprop="email">{SETTINGS_STORE_EMAIL_MAIN}</span>
-									<div class="contacts__fancy" data-fancybox data-src="#fancybox__feedback"><span>Написать нам</span></div>
-								</div>
-							</a>
-						</div>
-						{% ENDIF SETTINGS_STORE_EMAIL_MAIN %}
+						<a class="adaptive__navigate-item adaptive__navigate-menu" href="{CATALOG_URL}" title="Перейти в меню" data-open="menu">
+							<div class="adaptive__navigate-icon">
+								<i class="icon-menu"></i>
+							</div>
+							<div class="adaptive__navigate-title">
+								<span>Меню</span>
+							</div>
+						</a>
 
-						<!-- Телефон 1 -->
-						{% IF SETTINGS_STORE_PHONE_NUMBER1 %}
-						<div class="contacts__block">
-							<a class="contacts__link flex" href="tel:{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}" title="{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}">
-								<div class="contacts__icon">
-									<i class="icon-phone"></i>
-								</div>
-								<div class="contacts__content">
-									<strong>{SETTINGS_STORE_PHONE_COUNTRY_CODE1} ({SETTINGS_STORE_PHONE_CITY_CODE1}) {SETTINGS_STORE_PHONE_NUMBER1}</strong>
-									<div class="contacts__fancy" data-fancybox data-src="#fancybox__callback"><span>Заказать звонок</span></div>
-								</div>
-							</a>
-						</div>
-						{% ENDIF SETTINGS_STORE_PHONE_NUMBER1 %}
+						<!-- <a class="adaptive__navigate-item adaptive__navigate-user" href="{USER_SETTINGS_URL}" title="Перейти в Личный кабинет" data-open="user">
+							<div class="adaptive__navigate-icon">
+								<i class="icon-person"></i>
+							</div>
+							<div class="adaptive__navigate-title">
+								<span>ЛК</span>
+							</div>
+						</a> -->
 
-						<!-- Название магазина -->
-						<meta itemprop="name" content="{SETTINGS_STORE_ORG_NAME}" />
-						<meta itemprop="image" content="{ASSETS_IMAGES_PATH}logo.jpg?design=THEMENAME">
+					</div>
+				</div>
+
+				<!-- Мобильный Каталог -->
+				<div class="adaptive__block adaptive__block-catalog is-actived" data-opened="catalog">
+					<div class="adaptive__block-content">
+						<ul class="catalog__items unstyled">
+							{% FOR catalog_full %}
+								{% IFNOT catalog_full.LEVEL = 0 && catalog_full.FIRST %}
+								<ul class="catalog__sub" data-level="{catalog_full.LEVEL}">
+								{% ENDIF %}
+									<li class="catalog__item {% IF catalog_full.ISSET_VISIBLE_SUB %}parent{% ENDIF %} {% IF catalog_full.CURRENT_PARENT || catalog_full.CURRENT %}is-actived{% ENDIF %}" data-level="{catalog_full.LEVEL}" {% IF catalog_full.HIDE %}style="display: none;"{% ENDIF %}>
+										<a class="catalog__link flex {% IF catalog_full.CURRENT %}is-actived{% ENDIF %}" href="{catalog_full.URL}" data-level="{catalog_full.LEVEL}">
+											<span class="catalog__name">{catalog_full.NAME}</span>
+											{% IF catalog_full.ISSET_VISIBLE_SUB %}<span class="catalog__open"></span>{% ENDIF %}
+										</a>
+									{% IF catalog_full.ISSET_SUB=0 %}</li>{% ENDIF %}
+								{% IF catalog_full.LAST %}{% FOR out %}</li>{% IFNOT catalog_full.out.LAST %}</ul>{% ENDIF out.LAST %}{% ENDFOR out %}{% ENDIF LAST %}
+							{% ENDFOR catalog_full %}
 					</div>
 
 				</div>
-			</div>
 
-			<!-- Адаптивная навигация -->
-			<div class="adaprive__navigate">
-				<div class="adaprive__navigate-inner flex">
-					<a class="adaprive__navigate-item adaprive__navigate-catalog" href="{CATALOG_URL}" title="Перейти в каталог">
-						<div class="adaprive__navigate-icon">
-							<i class="icon-menu"></i>
-						</div>
-						<div class="adaprive__navigate-title">
-							<span>Каталог</span>
-						</div>
-					</a>
+				<!-- Мобильное Меню -->
+				<div class="adaptive__block adaptive__block-menu" data-opened="menu">
+					<div class="adaptive__block-content">
+						<ul class="unstyled">
+							{% FOR menu %}
+								{% FOR header %}
+									{% FOR links %}
+									<li>
+										<a class="catalog__link flex {% IF menu.header.links.SELECTED %}is-actived{% ENDIF %} {% IF menu.header.links.NAME = Акции %}mainnav__link-discount{% ENDIF %}" href="{menu.header.links.URL}" title="{% IF menu.header.links.TITLE %}{menu.header.links.TITLE}{% ELSE%}{menu.header.links.NAME}{% ENDIF %}">
+											<span>{menu.header.links.NAME}</span>
+										</a>
+									</li>
+									{% ENDFOR %}
+								{% ENDFOR %}
+							{% ENDFOR %}
+						</ul>
+
+						<div class="contacts">
+							<div class="contacts__blocks">
+								<!-- Телефон 1 -->
+								{% IF SETTINGS_STORE_PHONE_NUMBER1 %}
+								<div class="contacts__block contacts__phone contacts__phone-big">
+									<a class="contacts__link flex" href="tel:{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}" title="{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}">
+										<div class="contacts__icon"><i class="icon-phone"></i></div>
+										<div class="contacts__content">
+											<span>{SETTINGS_STORE_PHONE_COUNTRY_CODE1}({SETTINGS_STORE_PHONE_CITY_CODE1}){SETTINGS_STORE_PHONE_NUMBER1}</span>
+										</div>
+									</a>
+								</div>
+								{% ENDIF SETTINGS_STORE_PHONE_NUMBER1 %}
+		
+								<!-- Телефон 2 -->
+								{% IF SETTINGS_STORE_PHONE_NUMBER2 %}
+								<div class="contacts__block contacts__phone">
+									<a class="contacts__link flex" href="tel:{SETTINGS_STORE_PHONE_COUNTRY_CODE2}({SETTINGS_STORE_PHONE_CITY_CODE2}){SETTINGS_STORE_PHONE_NUMBER2}" title="{SETTINGS_STORE_PHONE_COUNTRY_CODE2}({SETTINGS_STORE_PHONE_CITY_CODE2}){SETTINGS_STORE_PHONE_NUMBER2}">
+										<div class="contacts__content">
+											<span>{SETTINGS_STORE_PHONE_COUNTRY_CODE2}({SETTINGS_STORE_PHONE_CITY_CODE2}){SETTINGS_STORE_PHONE_NUMBER2}</span>
+										</div>
+									</a>
+								</div>
+								{% ENDIF SETTINGS_STORE_PHONE_NUMBER2 %}
+		
+								<!-- Телефон 3 -->
+								{% IF SETTINGS_STORE_PHONE_NUMBER3 %}
+								<div class="contacts__block contacts__phone">
+									<a class="contacts__link flex" href="tel:{SETTINGS_STORE_PHONE_COUNTRY_CODE3}({SETTINGS_STORE_PHONE_CITY_CODE3}){SETTINGS_STORE_PHONE_NUMBER3}" title="{SETTINGS_STORE_PHONE_COUNTRY_CODE3}({SETTINGS_STORE_PHONE_CITY_CODE3}){SETTINGS_STORE_PHONE_NUMBER3}">
+										<div class="contacts__content">
+											<span>{SETTINGS_STORE_PHONE_COUNTRY_CODE3}({SETTINGS_STORE_PHONE_CITY_CODE3}){SETTINGS_STORE_PHONE_NUMBER3}</span>
+										</div>
+									</a>
+								</div>
+								{% ENDIF SETTINGS_STORE_PHONE_NUMBER3 %}
+		
+								<!-- Обратный звонок -->
+								<div class="contacts__button button-link" data-fancybox data-src="#fancybox__callback">
+									<span>Заказать звонок</span>
+								</div>
+								
+								<!-- Соц сети -->
+								<div class="footer__social flex">
+									<a class="telegram" href="https://www.telegram.com/" title="telegram.com" target="_blank">
+										<i class="icon-telegram"></i>
+										<span>telegram</span>
+									</a>
+									<!-- <a class="instagram" href="https://www.instagram.com/" title="Instagram.com" target="_blank">
+										<i class="icon-instagram"></i>
+										<span>instagram</span>
+									</a> -->
+									<a class="viber" href="https://viber.com/" title="Viber.com" target="_blank">
+										<i class="icon-viber"></i>
+										<span>viber</span>
+									</a>
+									<a class="whatsapp" href="https://whatsapp.com/" title="Whatsapp.com" target="_blank">
+										<i class="icon-whatsapp"></i>
+										<span>whatsapp</span>
+									</a>
+									<!-- <a class="facebook" href="https://www.facebook.com/" title="FaceBook.com" target="_blank">
+										<i class="icon-facebook"></i>
+										<span>facebook</span>
+									</a> -->
+									<!-- <a class="twitter" href="https://twitter.com/" title="Twitter.com" target="_blank">
+										<i class="icon-twitter"></i>
+										<span>twitter</span>
+									</a> -->
+									<!-- <a class="tiktok" href="https://tiktok.com/" title="tiktok.com" target="_blank">
+										<i class="icon-tiktok"></i>
+										<span>tiktok</span>
+									</a> -->
+									<a class="odnoklassniki" href="https://ok.ru/" title="Odnoklassniki" target="_blank">
+										<i class="icon-odnoklassniki"></i>
+										<span>odnoklassniki</span>
+									</a>
+									<a class="vk" href="https://vk.com/" title="VK.com" target="_blank">
+										<i class="icon-vk"></i>
+										<span>vk</span>
+									</a>
+									<!-- <a class="youtube" href="https://youtube.com/" title="YouTube.com" target="_blank">
+										<i class="icon-youtube"></i>
+										<span>YouTube</span>
+									</a> -->
+									<!-- <a class="skype" href="https://skype.com/" title="skype.com" target="_blank">
+										<i class="icon-skype"></i>
+										<span>skype</span>
+									</a> -->
+								</div>
+		
+							</div>
+							<div class="contacts__blocks">
+								<!-- Почта -->
+								{% IF SETTINGS_STORE_EMAIL_MAIN %}
+								<div class="contacts__block contacts__email">
+									<a class="contacts__link flex" href="mailto:{SETTINGS_STORE_EMAIL_MAIN}" title="{SETTINGS_STORE_EMAIL_MAIN}">
+										<div class="contacts__icon"><i class="icon-mail"></i></div>
+										<div class="contacts__content">
+											<span>{SETTINGS_STORE_EMAIL_MAIN}</span>
+										</div>
+									</a>
+								</div>
+								{% ENDIF %}
 					
-					<a class="adaprive__navigate-item adaprive__navigate-favorites favorites {% IF FAVORITES_GOODS_COUNT > 0 %}has-items{% ENDIF %}" href="{FAVORITES_URL}" title="Перейти в Избранное">
-						<div class="adaprive__navigate-icon">
-							<i class="icon-favorites"></i>
-						</div>
-						<div class="adaprive__navigate-title">
-							<span>Избранное</span>
-						</div>
-					</a>
+								<!-- Адрес -->
+								{% IF SETTINGS_STORE_REGION %}
+								<div class="contacts__block contacts__region" target="_blank">
+									<a class="contacts__link flex" href="https://yandex.ru/maps/?text={SETTINGS_STORE_REGION}&z=17" target="_blank">
+										<div class="contacts__icon"><i class="icon-location"></i></div>
+										<div class="contacts__content">
+											<span>{SETTINGS_STORE_REGION}</span>
+										</div>
+									</a>
+								</div>
+								{% ENDIF %}
+					
+								<!-- Время работы -->
+								{% IF SETTINGS_STORE_WORK_TIME %}
+								<div class="contacts__block contacts__worktime">
+									<a class="contacts__link flex" href="{FEEDBACK_URL}" title="Режим работы">
+										<div class="contacts__icon"><i class="icon-hourglass"></i></div>
+										<div class="contacts__content">
+											<span>{SETTINGS_STORE_WORK_TIME}</span>
+										</div>
+									</a>
+								</div>
+								{% ENDIF %}
+							</div>
 
-					<a class="adaprive__navigate-item adaprive__navigate-cart cart {% IF CART_COUNT_TOTAL > 0 %}has-items{% ENDIF %}" href="{CART_URL}" title="Перейти в Корзину">
-						<div class="adaprive__navigate-icon">
-							<i class="icon-cart"></i>
 						</div>
-						<div class="adaprive__navigate-title">
-							<span>Корзина</span>
-						</div>
-					</a>
 
-					<a class="adaprive__navigate-item adaprive__navigate-compare compare {% IF COMPARE_GOODS_COUNT > 0 %}has-items{% ENDIF %}" href="{COMPARE_URL}" title="Перейти в Сравнение">
-						<div class="adaprive__navigate-icon">
-							<i class="icon-compare"></i>
-						</div>
-						<div class="adaprive__navigate-title">
-							<span>Сравнение</span>
-						</div>
-					</a>
-
-					<a class="adaprive__navigate-item adaprive__navigate-user" href="{USER_SETTINGS_URL}" title="Перейти в Личный кабинет">
-						<div class="adaprive__navigate-icon">
-							<i class="icon-person"></i>
-						</div>
-						<div class="adaprive__navigate-title">
-							<span>ЛК</span>
-						</div>
-					</a>
-
-					<a class="adaprive__navigate-item adaprive__navigate-toTop toTop" href="{CURRENT_URL}" title="Перейти наверх">
-						<div class="adaprive__navigate-icon">
-							<i class="icon-chevron_up"></i>
-						</div>
-						<div class="adaprive__navigate-title">
-							<span>Наверх</span>
-						</div>
-					</a>
-
+					</div>
 				</div>
+				
+				<!-- Мобильный Сравнение -->
+				<div class="adaptive__block adaptive__block-cart cart {% IF CART_COUNT_TOTAL > 0 %}has-items{% ENDIF %}" data-opened="cart"></div>
+
+				<!-- Мобильный Сравнение -->
+				<div class="adaptive__block adaptive__block-compare compare {% IF COMPARE_GOODS_COUNT > 0 %}has-items{% ENDIF %}" data-opened="compare"></div>
+
+				<!-- Мобильный Избранное -->
+				<div class="adaptive__block adaptive__block-favorites favorites {% IF FAVORITES_GOODS_COUNT > 0 %}has-items{% ENDIF %}" data-opened="favorites"></div>
+
+				<!-- Мобильный Личный кабинет -->
+				<div class="adaptive__block adaptive__block-user" data-opened="user"></div>
+
 			</div>
+
 
 			<!-- Контакты в модальном окне -->
 			<div id="fancybox__contacts" class="modal" style="display: none;">
@@ -3502,7 +3593,9 @@
 							<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
 						</div>
 						<div class="form__buttons">
-							<button class="form__button button-primary button-big" type="submit" title="Заказать звонок"><span>Заказать звонок</span></button>
+							<button class="form__button button-primary button-big" type="submit" title="Заказать звонок">
+								<span>Заказать звонок</span>
+							</button>
 							<div class="form__pp">
 								<span>Я принимаю условия</span>
 								<span data-fancybox data-src="#fancybox__pp">политики конфиденциальности</span>
@@ -3533,7 +3626,9 @@
 							<textarea class="form__textarea" rows="2" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_COMMENT}]" placeholder="Комментарий" >{FORM_CALLBACK_COMMENT}</textarea>
 						</div>
 						<div class="form__buttons">
-							<button class="form__button button-primary" type="submit" title="Отправить"><span>Отправить</span></button>
+							<button class="form__button button-primary" type="submit" title="Отправить">
+								<span>Отправить</span>
+							</button>
 							<div class="form__pp">
 								<span>Я принимаю условия</span>
 								<span data-fancybox data-src="#fancybox__pp">политики конфиденциальности</span>
@@ -3568,7 +3663,9 @@
 							<input class="form__input form__email" type="email" name="form[callback_email]" value="{FORM_CALLBACK_EMAIL}" placeholder="email@email.ru *" autocomplete="off" />
 						</div>
 						<div class="form__buttons">
-							<button class="form__button button-primary" type="submit" title="Уведомить"><span>Уведомить</span></button>
+							<button class="form__button button-primary" type="submit" title="Уведомить">
+								<span>Уведомить</span>
+							</button>
 							<div class="form__pp">
 								<span>Я принимаю условия</span>
 								<span data-fancybox data-src="#fancybox__pp">политики конфиденциальности</span>

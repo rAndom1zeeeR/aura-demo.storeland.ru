@@ -1,5 +1,43 @@
 <!-- В корне каталога товаров отобразим все корневые категории если они есть на сайте -->
 <div class="products">
+
+	<!-- Вывод категорий -->
+	{% IFNOT nested_categories_list_empty %}
+	<div class="categories {% IFNOT IS_FULL_CATALOG && goods_empty=0 %}has-goods{% ENDIF %}">
+		<div class="categories__grid">
+			{% FOR nested_categories_list %}
+			<div class="categories__item" data-id="{nested_categories_list.ID}">
+				<a class="categories__image flex-center" href="{nested_categories_list.URL}" title="Перейти к категории &laquo;{nested_categories_list.NAME}&raquo;">
+					<noscript>
+						<img class="noscript-lozad" src="{% IF nested_categories_list.IMAGE_MEDIUM %}{nested_categories_list.IMAGE_MEDIUM}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}" alt="{nested_categories_list.NAME}">
+					</noscript>
+					<img class="lozad" data-src="{% IF nested_categories_list.IMAGE_MEDIUM %}{nested_categories_list.IMAGE_MEDIUM}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}" alt="{nested_categories_list.NAME}">
+				</a>
+				<a class="categories__name" href="{nested_categories_list.URL}" title="Перейти к категории &laquo;{nested_categories_list.NAME}&raquo;">
+					<span>{nested_categories_list.NAME}</span>
+				</a>
+			</div>
+			{% ENDFOR %}
+		</div>
+	</div>
+	{% ENDIF %}
+
+	<!-- Если нет товаров, выводим сообщение пользователю -->
+	{% IF nested_categories_list_empty && goods_empty %}
+		{% IF goods_filters_empty %}
+		<div class="notice-attention">Нет товаров в выбранной категории</div>
+		<a class="button-primary" href="{CATALOG_URL}" title="Вернуться в каталог">
+			<span>Вернуться в каталог</span>
+		</a>
+		{% ELSE %}
+		<div class="notice-attention">Нет товаров для выбранных условий</div>
+		<a class="button-primary" href="{PAGE_CANONICAL}" title="Очистить фильтры">
+			<span>Очистить фильтры</span>
+		</a>
+		{% ENDIF %}
+	{% ENDIF %}
+	<!-- /Если нет товаров, выводим сообщение пользователю -->
+
 	<!-- Верхний блок, изменяющий отображение данных выдачи товаров -->
 	{% IFNOT IS_FULL_CATALOG && goods_empty=0 || goods_filters_empty=0 %}
 	<div class="toolbar {% FOR filter_attr_list %}{% FOR values %}{% IF filter_attr_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}{% ENDFOR %} {% FOR filter_prop_list %}{% FOR values %}{% IF filter_prop_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}{% ENDFOR %}">
@@ -35,7 +73,7 @@
 			</div>
 
 			<!-- Показывать по: (Шаг для выбора пользователем лимита выдачи товаров на страницу от 1 до 100) -->
-			<div class="toolbar__show flex">
+			<!-- <div class="toolbar__show flex">
 				<label class="toolbar__label">Показать по:</label>
 				<div class="toolbar__items flex">
 					{% FOR goods_per_page_list %}
@@ -43,8 +81,15 @@
 						<a class="toolbar__item {% IF goods_per_page_list.SELECTED %}is-actived{% ENDIF %}" href="?per_page={goods_per_page_list.LIMIT}">{goods_per_page_list.LIMIT}</a>
 					{% ENDFOR %}
 				</div>
+			</div> -->
+
+			<!-- Открыть Фильтры -->
+			<div class="toolbar__filters">
+				<a class="filters__icon button-link" data-fancybox data-src="#filters">
+					<i class="icon-filter"></i>
+					<span>Все фильтры</span>
+				</a>
 			</div>
-			<!-- /END Показывать по: -->
 
 			<!-- Вид Таблица/Список -->
 			<div class="toolbar__view flex">
@@ -63,10 +108,6 @@
 		<div class="filters-active {% FOR filter_attr_list %}{% FOR values %}{% IF filter_attr_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}{% ENDFOR %} {% FOR filter_prop_list %}{% FOR values %}{% IF filter_prop_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}{% ENDFOR %}">
 			<!-- Фильтры по характеристикам товаров (Например: Производитель, разрешение экрана, заряд аккомулятора) -->
 			<div class="filters-active__items flex">
-				<a class="filters__icon flex-center">
-					<i class="icon-filter"></i>
-					<span>Фильтры</span>
-				</a>
 				
 				{% FOR filter_attr_list %}{% FOR values %}{% IF filter_attr_list.values.CHECKED %}
 				<label class="filters-active__item flex" for="filterAttrVal{filter_attr_list.values.ID}" title="Удалить фильтр: {filter_attr_list.NAME}">
@@ -84,9 +125,8 @@
 				</label>
 				{% ENDIF %}{% ENDFOR %}{% ENDFOR %}
 
-				<a class="filters-active__clear button-rotate button-link" href="{PAGE_CANONICAL}" title="Очистить фильтры">
-					<i class="icon-reload"></i>
-					<span>Очистить фильтры</span>
+				<a class="filters-active__clear button-tertiary" href="{PAGE_CANONICAL}" title="Очистить фильтры">
+					<span>Сбросить все</span>
 				</a>
 			</div>
 			<!-- Фильтры по свойствам товарных модификаций (Например: Цвет, размер, модификация) -->
@@ -98,13 +138,11 @@
 	
 	{% IF SHOW_GOODS_PRICE_FILTERS || SHOW_GOODS_FILTERS %}
 	<!-- Если в тарифном плане подключен модуль фильтров по товарам -->
-	<div id="filters" class="sidebar__block sidebar__block-filters">
-		<div class="sidebar__title flex">
-			<i class="icon-filter"></i>
-			<span>Фильтры</span>
-			<a class="sidebar__close" onclick="closeAll()"><i class="icon-close"></i></a>
+	<div id="filters" class="modal" style="display: none;">
+		<div class="modal__title block__title">
+			<h2 class="title">Фильтры</h2>
 		</div>
-		<div class="sidebar__content {% FOR filter_attr_list %}{% FOR values %}{% IF filter_attr_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}{% ENDFOR %} {% FOR filter_prop_list %}{% FOR values %}{% IF filter_prop_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}{% ENDFOR %}">
+		<div class="modal__content {% FOR filter_attr_list %}{% FOR values %}{% IF filter_attr_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}{% ENDFOR %} {% FOR filter_prop_list %}{% FOR values %}{% IF filter_prop_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}{% ENDFOR %}">
 			<form action="" method="get" class="form__filters">
 				<!-- Если есть возможность фильтрации товаров по ценам -->
 				{% IF SHOW_GOODS_PRICE_FILTERS %}
@@ -120,27 +158,41 @@
 					<div class="filter__content">
 						<input type="hidden" name="form[filter][available_price][min]" value="{GOODS_FILTER_MIN_AVAILABLE_PRICE}" />
 						<input type="hidden" name="form[filter][available_price][max]" value="{GOODS_FILTER_MAX_AVAILABLE_PRICE}" />
+						<!-- Мин и Макс цена -->
+						<div class="filters-price__minmax {CURRENCY_CHAR_CODE} flex justify-between">
+							<span class="filters-price__min">
+								<span class="num">{GOODS_FILTER_MIN_AVAILABLE_PRICE}</span>
+							</span>
+							<span class="filters-price__max">
+								<span class="num">{GOODS_FILTER_MAX_AVAILABLE_PRICE}</span>
+							</span>
+						</div>
 						<!-- Ползунок фильтров по цене -->
 						<div id="goods-filter-price-slider"></div>
 						<!-- Фильтры по цене -->
 						<div class="filters-price__range flex justify-between">
-							<span class="min" style="display:none;">{GOODS_FILTER_MIN_AVAILABLE_PRICE}</span>
-							<span class="max" style="display:none;">{GOODS_FILTER_MAX_AVAILABLE_PRICE}</span>
-							<span>от</span>
-							<input id="goods-filter-min-price" class="form__input" type="text" name="form[filter][price][min]" value="{% IF GOODS_FILTER_MIN_PRICE %}{GOODS_FILTER_MIN_PRICE}{% ELSE %}{GOODS_FILTER_MIN_AVAILABLE_PRICE}{% ENDIF %}" min="1" onkeypress="return keyPress(this, event);" onpaste="return false;" />
-							<span>до</span>
-							<input id="goods-filter-max-price" class="form__input" type="text" name="form[filter][price][max]" value="{% IF GOODS_FILTER_MAX_PRICE %}{GOODS_FILTER_MAX_PRICE}{% ELSE %}{GOODS_FILTER_MAX_AVAILABLE_PRICE}{% ENDIF %}" min="1" onkeypress="return keyPress(this, event);" onpaste="return false;" />
+							<div class="filters-price__range-block">
+								<span>от</span>
+								<input id="goods-filter-min-price" class="filters-price__input form__input" type="text" name="form[filter][price][min]" value="{% IF GOODS_FILTER_MIN_PRICE %}{GOODS_FILTER_MIN_PRICE}{% ELSE %}{GOODS_FILTER_MIN_AVAILABLE_PRICE}{% ENDIF %}" min="1" onkeypress="return keyPress(this, event);" onpaste="return false;" />
+							</div>
+							<div class="filters-price__range-block">
+								<span>до</span>
+								<input id="goods-filter-max-price" class="filters-price__input form__input" type="text" name="form[filter][price][max]" value="{% IF GOODS_FILTER_MAX_PRICE %}{GOODS_FILTER_MAX_PRICE}{% ELSE %}{GOODS_FILTER_MAX_AVAILABLE_PRICE}{% ENDIF %}" min="1" onkeypress="return keyPress(this, event);" onpaste="return false;" />
+							</div>
 						</div>
 						<!-- Кнопки Фильтров -->
 						<div class="filters-price__buttons flex justify-between">
 							<a class="filters-price__button button-link" href="{PAGE_CANONICAL}" title="Очистить фильтры">
+								<i class="icon-close"></i>
 								<span>Очистить</span>
 							</a>
 							<button class="filters-price__button button-link" type="submit" title="Показать">
+								<i class="icon-check"></i>
 								<span>Применить</span>
 							</button>
 						</div>
 					</div>
+
 				</div>
 				{% ENDIF %}
 
@@ -215,47 +267,13 @@
 				{% ENDFOR %}
 			</form>
 			<div class="filters__buttons">
-				<a class="button-rotate button-link" href="{PAGE_CANONICAL}" title="Очистить фильтры">
-					<i class="icon-reload"></i>
-					<span>Очистить фильтры</span>
+				<a class="filters__button button-tertiary" href="{PAGE_CANONICAL}" title="Очистить фильтры">
+					<span>Сбросить все</span>
 				</a>
 			</div>
 		</div>
 	</div>
 	{% ENDIF filters %}
-
-	<!-- Вывод категорий -->
-	{% IFNOT nested_categories_list_empty %}
-	<div class="categories {% IF IS_FULL_CATALOG %}is-full{% ENDIF %}">
-		<div class="categories__grid">
-			{% FOR nested_categories_list %}
-			<div class="categories__item" data-id="{nested_categories_list.ID}">
-				<a class="categories__image flex-center" href="{nested_categories_list.URL}" title="Перейти к категории &laquo;{nested_categories_list.NAME}&raquo;">
-					<noscript>
-						<img class="noscript-lozad" src="{% IF nested_categories_list.IMAGE_MEDIUM %}{nested_categories_list.IMAGE_MEDIUM}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}" alt="{nested_categories_list.NAME}">
-					</noscript>
-					<img class="lozad" data-src="{% IF nested_categories_list.IMAGE_MEDIUM %}{nested_categories_list.IMAGE_MEDIUM}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}" alt="{nested_categories_list.NAME}">
-				</a>
-				<a class="categories__name" href="{nested_categories_list.URL}" title="Перейти к категории &laquo;{nested_categories_list.NAME}&raquo;">
-					<span>{nested_categories_list.NAME}</span>
-				</a>
-			</div>
-			{% ENDFOR %}
-		</div>
-	</div>
-	{% ENDIF %}
-
-	<!-- Если нет товаров, выводим сообщение пользователю -->
-	{% IF nested_categories_list_empty && goods_empty %}
-		{% IF goods_filters_empty %}
-		<div class="notice-attention">Нет товаров в выбранной категории</div>
-		<a class="button-secondary" href="{CATALOG_URL}" title="Вернуться в каталог">Вернуться в каталог</a>
-		{% ELSE %}
-		<div class="notice-attention">Нет товаров для выбранных условий</div>
-		<a class="button-secondary" href="{PAGE_CANONICAL}" title="Очистить фильтры">Очистить фильтры</a>
-		{% ENDIF %}
-	{% ENDIF %}
-	<!-- /Если нет товаров, выводим сообщение пользователю -->
 
 	<!-- Если нет товаров, либо у пользователя не сработало javascript ограничение на фильтре по товарам и так получилось что их не нашлось, отобразим блок изменяющий отображение данных выдачи товаров -->
 	{% IFNOT IS_FULL_CATALOG && goods_empty=0 || goods_filters_empty=0 %}
@@ -906,7 +924,7 @@
 
 	<!-- Страницы -->
 	{% IF show_pages %}
-	<div class="toolbar-bottom">
+	<div class="toolbar-bottom flex justify-between">
 		<!-- TODO Ajax подгрузка товаров -->
 		<div class="pages__ajax">
 			<span>Показано</span>
@@ -936,6 +954,21 @@
 			</li>
 			{% ENDIF %}
 		</ol>
+
+		<!-- Показывать по: (Шаг для выбора пользователем лимита выдачи товаров на страницу от 1 до 100) -->
+		<div class="toolbar__show flex">
+			<label class="toolbar__label">
+				<span>Показать по:</span>
+				<span>по:</span>
+			</label>
+			<div class="selectBox">
+				<select class="select" name="per_page" title="Лимит товаров на странице" onchange="this.form.submit();">
+					{% FOR goods_per_page_list %}
+						<option value="{goods_per_page_list.LIMIT}" {% IF goods_per_page_list.SELECTED %}selected="selected"{% ENDIF %}>{goods_per_page_list.LIMIT}</option>
+					{% ENDFOR %}
+				</select>
+			</div>
+		</div>
 
 	</div>
 	{% ENDIF %}

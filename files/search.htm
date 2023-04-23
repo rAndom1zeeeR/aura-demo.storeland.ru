@@ -58,18 +58,6 @@
 				</div>
 			</div>
 
-			<!-- Показывать по: (Шаг для выбора пользователем лимита выдачи товаров на страницу от 1 до 100) -->
-			<div class="toolbar__show flex">
-				<label class="toolbar__label">Показать по:</label>
-				<div class="toolbar__items flex">
-					{% FOR goods_per_page_list %}
-						{% IF goods_per_page_list.index > 5 %}{break}{% ENDIF %}
-						<a class="toolbar__item {% IF goods_per_page_list.SELECTED %}is-actived{% ENDIF %}" href="?q={SEARCH_QUERY}&per_page={goods_per_page_list.LIMIT}">{goods_per_page_list.LIMIT}</a>
-					{% ENDFOR %}
-				</div>
-			</div>
-			<!-- /END Показывать по: -->
-
 			<!-- Вид Таблица/Список -->
 			<div class="toolbar__view flex">
 				{% IF GOODS_VIEW_TYPE=1 %}
@@ -110,22 +98,19 @@
 					<input type="hidden" name="form[goods_id]" value="{goods.ID}" />
 					<input type="hidden" name="form[goods_count]" value="1" class="goodsDataCount" />
 					<link itemprop="image" href="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}" />
+
+					<!-- Артикул товара -->
+					<meta itemprop="sku" content="{goods.ART_NUMBER}" />			
+					<!-- Цена для поисковиков -->
+					<div itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer" style="display: none;">
+						<meta itemprop="priceCurrency" content="{CURRENCY_CHAR_CODE}" />
+						<meta itemprop="lowPrice" content="{goods.MIN_PRICE_NOW}">
+						<meta itemprop="highPrice" content="{goods.MAX_PRICE_NOW}">
+						<meta itemprop="offerCount" content="{% FOR mods %}{% IF goods.mods.last %}{goods.mods.length}{% ENDIF %}{% ENDFOR %}">
+					</div>
+
 					<!-- Изображение товара -->
 					<div class="product__image">
-						<!-- Стикеры -->
-						<div class="product__sticker flex">
-							{% IF goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > goods.MIN_PRICE_NOW %}
-							<span class="sticker__sales">%</span>
-							{% ELSEIF goods.MIN_PRICE_OLD > goods.MIN_PRICE_NOW %}
-							<span class="sticker__sales">%</span>
-							{% ENDIF %}
-							{% IF goods.IS_TOP %}
-							<span class="sticker__best"></span>
-							{% ENDIF %}
-							{% IF goods.IS_NEW %}
-							<span class="sticker__new"></span>
-							{% ENDIF %}
-						</div>
 			
 						<!-- Изображение -->
 						<a class="product__img flex-center" href="{goods.URL_MIN_PRICE_NOW | url_amp}" title="{goods.NAME}" itemprop="url" data-id="{goods.IMAGE_ID}">
@@ -134,9 +119,24 @@
 							</noscript>
 							<img class="lozad" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME" data-src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}" alt="{goods.NAME}" />
 						</a>
-
+						
+						<!-- Быстрый просмотр -->
+						<a class="product__quickview"
+							title="Быстрый просмотр &laquo;{goods.NAME}&raquo;"
+							data-tooltip="Быстрый просмотр"
+							rel="nofollow"
+							href="{goods.URL_MIN_PRICE_NOW}"
+						>
+							<span>Быстрый просмотр</span>
+						</a>
+			
+					</div>
+					
+					<!-- Информация товара -->
+					<div class="product__shop flex-column">
+						
 						<!-- Добавление товара в избранное и сравнение и в корзину -->
-						<div class="product__links">
+						<div class="product__links flex">
 							<!-- Если в тарифном плане подключен модуль сравнения товаров и он не выключен в настройках магазина -->
 							{% IFNOT SETTINGS_COMPARE_DISABLE && goods.IS_HAS_IN_COMPARE_LIST %}
 							<a class="product__link add-compare is-added"
@@ -244,31 +244,22 @@
 							</a>
 							{% ENDIF %}
 						</div>
-						
-						<!-- Быстрый просмотр -->
-						<a class="product__quickview"
-							title="Быстрый просмотр &laquo;{goods.NAME}&raquo;"
-							data-tooltip="Быстрый просмотр"
-							rel="nofollow"
-							href="{goods.URL_MIN_PRICE_NOW}"
-						>
-							<span>Быстрый просмотр</span>
-						</a>
-			
-					</div>
-					
-					<!-- Информация товара -->
-					<div class="product__shop flex-column">
-						<!-- Артикул товара -->
-						<meta itemprop="sku" content="{goods.ART_NUMBER}" />			
-						<!-- Цена для поисковиков -->
-						<div itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer" style="display: none;">
-							<meta itemprop="priceCurrency" content="{CURRENCY_CHAR_CODE}" />
-							<meta itemprop="lowPrice" content="{goods.MIN_PRICE_NOW}">
-							<meta itemprop="highPrice" content="{goods.MAX_PRICE_NOW}">
-							<meta itemprop="offerCount" content="{% FOR mods %}{% IF goods.mods.last %}{goods.mods.length}{% ENDIF %}{% ENDFOR %}">
+
+						<!-- Стикеры -->
+						<div class="product__sticker flex">
+							{% IF goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > goods.MIN_PRICE_NOW %}
+							<span class="sticker__sales">%</span>
+							{% ELSEIF goods.MIN_PRICE_OLD > goods.MIN_PRICE_NOW %}
+							<span class="sticker__sales">%</span>
+							{% ENDIF %}
+							{% IF goods.IS_TOP %}
+							<span class="sticker__best"></span>
+							{% ENDIF %}
+							{% IF goods.IS_NEW %}
+							<span class="sticker__new"></span>
+							{% ENDIF %}
 						</div>
-			
+
 						<!-- Название товара -->
 						<a class="product__name" href="{goods.URL_MIN_PRICE_NOW | url_amp}" title="{goods.NAME}">
 							<span itemprop="name">{goods.NAME}</span>
@@ -751,6 +742,21 @@
 			</li>
 			{% ENDIF %}
 		</ol>
+
+		<!-- Показывать по: (Шаг для выбора пользователем лимита выдачи товаров на страницу от 1 до 100) -->
+		<div class="toolbar__show flex">
+			<label class="toolbar__label">
+				<span>Показать по:</span>
+				<span>по:</span>
+			</label>
+			<div class="selectBox">
+				<select class="select" name="per_page" title="Лимит товаров на странице" onchange="this.form.submit();">
+					{% FOR goods_per_page_list %}
+						<option value="{goods_per_page_list.LIMIT}" {% IF goods_per_page_list.SELECTED %}selected="selected"{% ENDIF %}>{goods_per_page_list.LIMIT}</option>
+					{% ENDFOR %}
+				</select>
+			</div>
+		</div>
 	</div>
 	{% ENDIF %}
 

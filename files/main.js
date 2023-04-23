@@ -1732,7 +1732,7 @@ class Catalog {
 			// Если нет контента
 			if (!content) {return false;}
 
-			content.addEventListener('click', function(event){
+			document.addEventListener('click', function(event){
 				// Объявление переменных
 				const filterInput = event.target.closest('.filter__item input');
 				const filterTitle = event.target.closest('.filter__collapsible .filter__title');
@@ -1759,10 +1759,11 @@ class Catalog {
 
 				// Открыть фильтры по иконке
 				else if (filterIcon){
-					event.preventDefault();
+					// event.preventDefault();
 					filterIcon.classList.toggle('is-opened');
-					document.querySelector('#filters').classList.toggle('is-opened');
-					document.querySelector('#overlay').classList.toggle('is-opened');
+					catalog.onClick();
+					// document.querySelector('#filters').classList.toggle('is-opened');
+					// document.querySelector('#overlay').classList.toggle('is-opened');
 				}
 
 				// Сборосить категорию фильтра
@@ -1783,8 +1784,8 @@ class Catalog {
 		this.priceFilter = function(){
 
 			const
-				priceFilterMinAvailable = parseInt($('.filters-price__range .min').text()), // Минимальное значение цены для фильтра
-				priceFilterMaxAvailable = parseInt($('.filters-price__range .max').text()), // Максимальное значение цены для фильтра
+				priceFilterMinAvailable = parseInt($('[name="form[filter][available_price][min]"]').val()), // Минимальное значение цены для фильтра
+				priceFilterMaxAvailable = parseInt($('[name="form[filter][available_price][max]"]').val()), // Максимальное значение цены для фильтра
 				priceSliderBlock = $('#goods-filter-price-slider'), // Максимальное значение цены для фильтра
 				priceInputMin = $('#goods-filter-min-price'), // Поле ввода текущего значения цены "От"
 				priceInputMax = $('#goods-filter-max-price'), // Поле ввода текущего значения цены 'До'
@@ -3189,30 +3190,54 @@ function openMenu(){
 	});
 
 	// Каталог на мобильных устройствах
-	$('.header-catalog__icon, .adaprive__navigate-catalog').on('click',function(event){
-		event.preventDefault();
+	// $('.header-catalog__icon, .adaptive__navigate-catalog').on('click',function(event){
+	// 	event.preventDefault();
 
-		if(getClientWidth() > 1023) {
-			// window.location = this.href;
-			return false
-		}
+	// 	if(getClientWidth() > 1023) {
+	// 		// window.location = this.href;
+	// 		return false
+	// 	}
 
-		$('.adaptive__sideblock-menu').removeClass('is-opened');
-		$('.adaptive__sideblock-catalog').toggleClass('is-opened');
-		$('.adaptive__sideblock-catalog').hasClass('is-opened') ? $('#overlay').addClass('is-opened'): $('#overlay').removeClass('is-opened')
-	})
+	// 	$('.adaptive__sideblock-menu').removeClass('is-opened');
+	// 	$('.adaptive__sideblock-catalog').toggleClass('is-opened');
+	// 	$('.adaptive__sideblock-catalog').hasClass('is-opened') ? $('#overlay').addClass('is-opened'): $('#overlay').removeClass('is-opened')
+	// })
 
 	// Открыть Меню
-	$('.adaprive__navigate-user').on('click',function(event){
-		event.preventDefault();
-		$('.adaptive__sideblock-catalog').removeClass('is-opened');
-		$('.adaptive__sideblock-menu').toggleClass('is-opened');
-		$('.adaptive__sideblock-menu').hasClass('is-opened') ? $('#overlay').addClass('is-opened'): $('#overlay').removeClass('is-opened')
-	})
+	// $('.adaptive__navigate-user').on('click',function(event){
+	// 	event.preventDefault();
+	// 	$('.adaptive__sideblock-catalog').removeClass('is-opened');
+	// 	$('.adaptive__sideblock-menu').toggleClass('is-opened');
+	// 	$('.adaptive__sideblock-menu').hasClass('is-opened') ? $('#overlay').addClass('is-opened'): $('#overlay').removeClass('is-opened')
+	// })
 
 	// Закрыть
-	$('.adaptive__sideblock-title').on('click',function(event){
+	$('.adaptive__navigate-close').on('click',function(){
 		closeAll();
+	})
+
+	$('.adaptive__navigate-item').on('click', function(event){
+		event.preventDefault();
+		const open = this.getAttribute('data-open')
+		$('.adaptive__navigate-item').removeClass('is-actived')
+		$('.adaptive__block').removeClass('is-actived')
+		this.classList.add('is-actived')
+		$('.adaptive__block[data-opened="'+ open +'"]').addClass('is-actived')
+
+		if (open == 'compare'){
+			const content = document.querySelector('.addto__compare')
+			document.querySelector('.adaptive__block-compare').innerHTML = content.innerHTML
+		}
+
+		if (open == 'favorites'){
+			const content = document.querySelector('.addto__favorites')
+			document.querySelector('.adaptive__block-favorites').innerHTML = content.innerHTML
+		}
+
+		if (open == 'cart'){
+			const content = document.querySelector('.addto__cart')
+			document.querySelector('.adaptive__block-cart').innerHTML = content.innerHTML
+		}
 	})
 
 	// Открыть поиск
@@ -3221,6 +3246,13 @@ function openMenu(){
 		$('.search').addClass('is-opened');
 		$('#overlay').addClass('is-opened transparent');
 		$('.search__input').focus();
+	})
+
+	// Открыть адаптивное меню
+	$('.header-catalog__icon').on('click',function(event){
+		event.preventDefault();
+		$('.adaptive').addClass('is-opened');
+		$('#overlay').addClass('is-opened');
 	})
 
 }
@@ -3390,14 +3422,8 @@ function swiperShow(){
 			loadPrevNext: true,
 			loadOnTransitionStart: true,
 		},
-		pagination: {
-			el: id + ' .swiper-pagination',
-			type: 'bullets',
-			dynamicBullets: false,
-			clickable: true,
-		},
 		navigation: {
-			enabled: false,
+			enabled: true,
 			nextEl: id + ' .swiper-button-next',
 			prevEl: id + ' .swiper-button-prev',
 		},
@@ -3511,6 +3537,7 @@ function swiperOffers(){
 			loadOnTransitionStart: true,
 		},
 		navigation: {
+			enabled: true,
 			nextEl: id + ' .swiper-button-next',
 			prevEl: id + ' .swiper-button-prev',
 		},

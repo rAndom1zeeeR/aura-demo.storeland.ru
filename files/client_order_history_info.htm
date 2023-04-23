@@ -142,7 +142,9 @@
       </div>
 
       <div class="client__buttons">
-        <a class="button-primary" href="{CLIENT_ORDER_INFO_URL}"><span>Cтраница заказа</span></a>
+        <a class="button-primary" href="{CLIENT_ORDER_INFO_URL}">
+          <span>Cтраница заказа</span>
+        </a>
       </div>
 
     </div>
@@ -219,10 +221,14 @@
       </div>
     
       <div class="client__buttons flex-start">
-        <a class="button-primary" href="{USER_HISTORY_LIST_URL}" title="Назад к списку моих заказов"><span>Назад</span></a>
+        <a class="button-primary" href="{USER_HISTORY_LIST_URL}" title="Назад к списку моих заказов">
+          <span>Назад</span>
+        </a>
         {% IF CLIENT_ORDER_NUM %}
           <form class="order__repeat-form" action="{USER_ORDER_REPEAT_URL}/{CLIENT_ORDER_NUM}" method="GET">
-            <button class="button-secondary" type="submit" title="Повторить заказ"><span>Повторить заказ</span></button>
+            <button class="button-secondary" type="submit" title="Повторить заказ">
+              <span>Повторить заказ</span>
+            </button>
           </form>
         {% ENDIF %}
       </div>
