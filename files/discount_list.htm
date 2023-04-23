@@ -5,37 +5,48 @@
 <div class="promotion__grid">
 	{% FOR promotion_campaign %}
 	<div class="promotion__item {% IFNOT promotion_campaign.IS_WORK %}promotion__empty{% ENDIF %}" data-id="{promotion_campaign.ID}">
-		<a class="promotion__form flex" href="{promotion_campaign.URL | url_amp}" title="Скидка -{promotion_campaign.PERCENTAGE}% {promotion_campaign.NAME}">
-			<div class="promotion__counter counter flex-center" data-expired="{promotion_campaign.EXPIRED_TIME | date('m/d/Y H:i:s')}" data-time="{CURRENT_TIME | date('m/d/Y H:i:s')}">
-				<div class="counter__item days">
-					<span>0</span>
-				</div>
-				<div class="counter__item hours">
-					<span>0</span>
-				</div>
-				<div class="counter__item minutes">
-					<span>0</span>
-				</div>
-				<div class="counter__item seconds">
-					<span>0</span>
-				</div>
-			</div>
-
-			<div class="promotion__percentage">
+		<div class="promotion__inner flex">
+			<div class="promotion__percentage flex-center">
 				<span>-{promotion_campaign.PERCENTAGE}%</span>
 			</div>
 
-			<div class="promotion__name">
-				<span>{promotion_campaign.NAME}</span>
-			</div>
+			<div class="promotion__shop">
+				<a class="promotion__name" href="{promotion_campaign.URL | url_amp}" title="{promotion_campaign.NAME}">
+					<span>{promotion_campaign.NAME}</span>
+				</a>
 
-			{% IF promotion_campaign.DESCRIPTION_SHORT %}
-			<div class="promotion__desc">
-				<span>{promotion_campaign.DESCRIPTION_SHORT}</span>
-			</div>
-			{% ENDIF %}
+				<div class="promotion__counter counter flex-center" data-expired="{promotion_campaign.EXPIRED_TIME | date('m/d/Y H:i:s')}" data-time="{CURRENT_TIME | date('m/d/Y H:i:s')}">
+					<div class="counter__icon flex-center">
+						<i class="icon-schedule"></i>
+					</div>
+					<div class="counter__end">
+						<span>закончилась</span>
+					</div>
+					<div class="counter__item days">
+						<span>0</span>
+						<label>д</label>
+					</div>
+					<div class="counter__item hours">
+						<span>0</span>
+						<label>ч</label>
+					</div>
+					<div class="counter__item minutes">
+						<span>0</span>
+						<label>м</label>
+					</div>
+					<div class="counter__item seconds">
+						<span>0</span>
+						<label>с</label>
+					</div>
+				</div>
 
-		</a>
+				{% IF promotion_campaign.DESCRIPTION_SHORT %}
+				<div class="promotion__desc">
+					<span>{promotion_campaign.DESCRIPTION_SHORT}</span>
+				</div>
+				{% ENDIF %}
+			</div>
+		</div>
 	</div>
 	{% ENDFOR promotion_campaign %}
 </div>

@@ -3111,10 +3111,12 @@ function counterDate(){
 			// Счетчик завершен
 			if (distance < 0){
 				clearInterval(x);
-				t.hide();
+				// t.hide();
+				t.closest('promotion__item').addClass('.promotion__empty')
 			}else{
-				t.css({'display':'inline-flex'});
-				t.prev().hide();
+				// t.css({'display':'inline-flex'});
+				// t.prev().hide();
+				t.closest('promotion__item').removeClass('.promotion__empty')
 			}
 		}, 1000);
 	})
