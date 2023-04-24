@@ -2,7 +2,11 @@
 	<div class="client flex-start">
 
 		<!-- Контакты -->
-		<div class="client__block contacts" itemscope itemtype="https://schema.org/Organization">
+		<div class="client__block contacts" itemscope itemtype="https://schema.org/Organization">			
+			<!-- Название магазина -->
+			<meta itemprop="name" content="{SETTINGS_STORE_ORG_NAME}" />
+			<meta itemprop="image" content="{ASSETS_IMAGES_PATH}logo.jpg?design=THEMENAME">
+			
 			<!-- Телефоны -->
 			<div class="contacts__block contacts__phones">
 				<div class="contacts__label">Телефоны</div>
@@ -81,16 +85,7 @@
 				</a>
 			</div>
 			{% ENDIF %}
-			
-			<!-- Название магазина -->
-			<meta itemprop="name" content="{SETTINGS_STORE_ORG_NAME}" />
-			<meta itemprop="image" content="{ASSETS_IMAGES_PATH}logo.jpg?design=THEMENAME">
 		</div>
-		
-		<!-- Карта -->
-	  <div class="client__block maps">
-	    <iframe src="https://api-maps.yandex.ru/frame/v1/-/CZRYYCOw" width="100%" height="400" frameborder="0"></iframe>
-	  </div>
 
 	  {% IFNOT FORM_SEND_OK %}
 	  <div class="client__block feedback">
@@ -101,43 +96,40 @@
 	      {ANTISPAM_CODE}
 
 	      <div class="form__list">
-					<div class="form__fields form__left flex">
-						<div class="form__field">
-							<label for="feedback_name" class="form__label required"><span>Ваше имя</span><em>*</em></label>
-							<input id="feedback_name" class="form__input form__person" type="text" name="form[{ANTISPAM_FORM_FIELD_NAME_FEEDBACK_NAME}]" value="{FORM_FEEDBACK_NAME}" maxlength="50" placeholder="Ваше имя:" required>
-						</div>
-
-						<div class="form__field">
-							<label for="feedback_email" class="form__label required"><span>Электронная почта</span><em>*</em></label>
-							<input id="feedback_email" class="form__input form__email" type="email"  name="form[{ANTISPAM_FORM_FIELD_NAME_FEEDBACK_EMAIL}]" value="{FORM_FEEDBACK_EMAIL}" maxlength="100" placeholder="Электронная почта:" required>
-						</div>
-
-						<div class="form__field">
-							<label for="feedback_phone" class="form__label"><span>Телефон</span></label>
-							<input id="feedback_phone" class="form__input form__phone" type="text" name="form[Телефон]"  value="{FORM_FEEDBACK_PHONE}" maxlength="50" placeholder="Телефон:">
-						</div>
-
-						<div class="form__field form__file">
-							<label for="feedback_file" class="form__label">Прикрепить файл</label>
-							<input id="feedback_file" type="file" name="form[assets_file]" value=""  class="">
-						</div>
+					<div class="form__field">
+						<label for="feedback_name" class="form__label required"><span>Ваше имя</span><em>*</em></label>
+						<input id="feedback_name" class="form__input form__person" type="text" name="form[{ANTISPAM_FORM_FIELD_NAME_FEEDBACK_NAME}]" value="{FORM_FEEDBACK_NAME}" maxlength="50" placeholder="Ваше имя:" required>
 					</div>
 
-					<div class="form__fields form__right">
-						<div class="form__field form__message">
-							<label for="feedback_message" class="form__label required"><span>Cообщение</span><em>*</em></label>
-							<textarea id="feedback_message" rows="7" name="form[{ANTISPAM_FORM_FIELD_NAME_FEEDBACK_MESSAGE}]" class="form__textarea" placeholder="Текст сообщения:" required>{FORM_FEEDBACK_MESSAGE}</textarea>
-						</div>
+					<div class="form__field">
+						<label for="feedback_email" class="form__label required"><span>Электронная почта</span><em>*</em></label>
+						<input id="feedback_email" class="form__input form__email" type="email"  name="form[{ANTISPAM_FORM_FIELD_NAME_FEEDBACK_EMAIL}]" value="{FORM_FEEDBACK_EMAIL}" maxlength="100" placeholder="Электронная почта:" required>
+					</div>
+
+					<div class="form__field">
+						<label for="feedback_phone" class="form__label"><span>Телефон</span></label>
+						<input id="feedback_phone" class="form__input form__phone" type="text" name="form[Телефон]"  value="{FORM_FEEDBACK_PHONE}" maxlength="50" placeholder="Телефон:">
+					</div>
+
+					<div class="form__field form__message">
+						<label for="feedback_message" class="form__label required"><span>Cообщение</span><em>*</em></label>
+						<textarea id="feedback_message" rows="4" name="form[{ANTISPAM_FORM_FIELD_NAME_FEEDBACK_MESSAGE}]" class="form__textarea" placeholder="Текст сообщения:" required>{FORM_FEEDBACK_MESSAGE}</textarea>
+					</div>
+
+					<div class="form__field form__file">
+						<label for="feedback_file" class="form__label">Прикрепить файл</label>
+						<input id="feedback_file" type="file" name="form[assets_file]" value=""  class="">
 					</div>
 
 					<div class="form__buttons">
+						<button class="button-primary" type="submit" title="Отправить">
+							<span>Отправить</span>
+						</button>
+
 						<div class="form__pp">
 							<span>Нажимая на кнопку &laquo;Отправить&raquo;, Вы соглашаетесь с</span>
 							<span data-fancybox data-src="#fancybox__pp">правилами обработки данных</span>
 						</div>
-						<button class="button-secondary" type="submit" title="Отправить">
-							<span>Отправить</span>
-						</button>
 					</div>
 
 	      </div>
@@ -145,6 +137,11 @@
 	    </form>
 	  </div>
 	  {% ENDIF %}
+		
+		<!-- Карта -->
+	  <div class="client__block maps">
+	    <iframe src="https://api-maps.yandex.ru/frame/v1/-/CZRYYCOw" width="100%" height="400" frameborder="0"></iframe>
+	  </div>
 
 	</div>
 </div>

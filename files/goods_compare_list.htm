@@ -12,7 +12,7 @@
     <div class="compare__nav flex justify-between">
       <div class="compare__switch flex">
         <div class="compare__switch-icon"></div>
-        <span class="compare__switch-label" slot="Только отличия">Показывать все отличия</span>
+        <span class="compare__switch-label" slot="Только отличия">Показать все</span>
       </div>
       <div class="swiper-navigation">
         <div class="swiper-button-prev"></div>
@@ -28,10 +28,7 @@
           {% FOR goods_mod_info %}
           <div class="compare__item swiper-slide" data-index="{goods_mod_info.index}">
             <a class="compare__image flex-center" href="{goods_mod_info.GOODS_MOD_URL}" data-id="{goods_mod_info.GOODS_MOD_ID}" title="Перейти к странице &laquo;{goods_mod_info.GOODS_NAME}&raquo;">
-              <noscript>
-                <img class="noscript-lozad" src="{% IF goods_mod_info.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods_mod_info.IMAGE_MEDIUM}{% ENDIF %}" alt="{goods_mod_info.NAME}" />
-              </noscript>
-              <img class="lozad" data-src="{% IF goods_mod_info.GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods_mod_info.GOODS_IMAGE_SMALL}{% ENDIF %}" alt="{goods_mod_info.GOODS_NAME}" />
+              <img src="{% IF goods_mod_info.GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods_mod_info.GOODS_IMAGE_SMALL}{% ENDIF %}" alt="{goods_mod_info.GOODS_NAME}" />
             </a>
             <a class="compare__remove button-rotate button-link" href="{COMPARE_DELETE_URL}?id={goods_mod_info.GOODS_MOD_ID}" title="Убрать из таблицы сравнения"><i class="icon-close"></i></a>
           </div>
@@ -117,7 +114,7 @@
         <div class="compare__content swiper-wrapper">
           {% FOR goods_mod_info %}
           <div class="compare__item swiper-slide" data-index="{goods_mod_info.index}">
-            <div class="compare__price product__price {CURRENCY_CHAR_CODE}" data-id="{goods_mod_info.GOODS_MOD_ID}">
+            <div class="compare__price product__price flex {CURRENCY_CHAR_CODE}" data-id="{goods_mod_info.GOODS_MOD_ID}">
               <span class="price__now {CURRENCY_CHAR_CODE}" data-price="{goods_mod_info.PRICE_NOW}" itemprop="price">{goods_mod_info.PRICE_NOW | money_format}</span>
 	            {% IF goods_mod_info.PRICE_NOW_WITHOUT_DISCOUNT > goods_mod_info.PRICE_NOW %}
               <span class="price__old {CURRENCY_CHAR_CODE}" data-price="{goods_mod_info.PRICE_NOW_WITHOUT_DISCOUNT}">{goods_mod_info.PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>
@@ -262,7 +259,7 @@
         <i class="icon-visibility_off"></i>
         <span>Скрыть выбранные</span>
       </a>  
-      <a class="compare__showAll is-hide button-secondary" rel="nofollow" title="Отобразить скрытые">
+      <a class="compare__showAll button-primary is-hide" rel="nofollow" title="Отобразить скрытые">
         <i class="icon-visibility"></i>
         <span>Отобразить скрытые</span>
       </a>

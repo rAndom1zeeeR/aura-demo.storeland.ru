@@ -90,20 +90,20 @@
         <input id="coupon_code" class="form__input" type="text" name="form[coupon_code]" value="{FORM_COUPON_CODE}" maxlength="255" placeholder="Код купона на скидку"/>
       </div>
 
-    </div>
-
-    {% IFNOT FORM_SEND_OK %}
-    <div class="form__buttons">
-      <button class="button-primary" type="submit" title="Отправить">
-        <span>Отправить</span>
-      </button>
-
-      <div class="form__pp">
-        <span>Нажимая на кнопку &laquo;Отправить&raquo;, Вы соглашаетесь с</span>
-        <a data-fancybox data-src="#fancybox__pp">правилами обработки данных</a>
+      {% IFNOT FORM_SEND_OK %}
+      <div class="form__buttons">
+        <button class="button-primary" type="submit" title="Отправить">
+          <span>Отправить</span>
+        </button>
+  
+        <div class="form__pp">
+          <span>Нажимая на кнопку &laquo;Отправить&raquo;, Вы соглашаетесь с</span>
+          <a data-fancybox data-src="#fancybox__pp">правилами обработки данных</a>
+        </div>
       </div>
+      {% ENDIF %}
+
     </div>
-    {% ENDIF %}
 
   </form>
   {% ENDIF %}

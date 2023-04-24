@@ -721,7 +721,7 @@
 	
 	<!-- Для полного отображения страницы товаров оторазим элементы навигации и обёрточные блоки -->
 	{% IFNOT ONLY_BODY && show_pages %}
-	<div class="toolbar-bottom">
+	<div class="toolbar-bottom flex justify-between">
 		<!-- Страницы -->
 		<ol class="pages flex unstyled">
 			{% IF GOODS_PAGES_SHOW_FIRST %}

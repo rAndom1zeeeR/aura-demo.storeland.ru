@@ -31,11 +31,11 @@ body {font-size: 16px;font-family: 'Montserrat', sans-serif;color: var(--color-b
 /**************************************/
 /*** Инпут поля ***/
 /**************************************/
-input, select, textarea {padding: 0 20px;height: 44px;border-color: transparent;border-radius: 8px;}
+input, select, textarea {padding: 0 20px;height: 44px;background: var(--color-bg2);border-color: transparent;border-radius: 8px;}
 input:focus, select:focus, textarea:focus {border-color: var(--color-primary);}
 /* input.focus, select.focus, textarea.focus {border-color: var(--color-primary);} */
 input.error, textarea.error {border-color: var(--color-tertiary);}
-textarea {border-radius: 8px;}
+textarea {padding: 16px 24px;height: auto;resize: vertical;}
 
 /* Селекты */
 .selectBox {position: relative;display: flex;align-items: center;}
@@ -70,31 +70,35 @@ textarea {border-radius: 8px;}
 /**************************************/
 button, [class*="button-"], .paymentFormSubmitLink, .paymentFormTbodySubmitButton {color: var(--color-white);background: var(--color-primary);border: 2px solid transparent;border-radius: 10px;padding: 0 48px;height: 44px;font-size: 16px;font-weight: 600;}
 button:hover, [class*="button-"]:hover, .paymentFormSubmitLink:hover, .paymentFormTbodySubmitButton:hover {color: var(--color-white);background: var(--color-secondary);border-color: var(--color-secondary);cursor: pointer;}
+[class*="button-"]:before {content: '';width: calc(100% - 4px);height: calc(100% - 4px);border: 2px solid rgba(255, 255, 255, 0.2);border-radius: 10px;transition: all 0.3s ease;position: absolute;}
+[class*="button-"] span, [class*="button-"] i {position: relative;z-index: 3;}
 /** Кнопка. Градиент **/
-.button-gradient {background: var(--color-gradient);padding: 4px;height: 54px;}
+.button-gradient {background: var(--color-gradient);}
 .button-gradient:hover {background: var(--color-gradient);border-color: transparent;}
-.button-gradient:before {content: '';width: calc(100% - 4px);height: calc(100% - 4px);border: 2px solid rgba(255, 255, 255, 0.2);border-radius: 10px;transition: all 0.3s ease;position: absolute;}
 .button-gradient:hover:before {color: var(--color-secondary);background: var(--color-white);}
 .button-gradient span {padding: 12px 48px;}
 .button-gradient:hover span, .button-gradient:hover i {background: var(--color-gradient);-webkit-background-clip: text;-webkit-text-fill-color: transparent;background-clip: text;text-fill-color: transparent;position: relative;z-index: 3;}
 /** Кнопка. Уведомить **/
-.button-empty {background: var(--color-gray);color: var(--color-white);padding: 4px;height: 54px;}
-.button-empty:hover {background: var(--color-gray);}
+.button-empty {color: var(--color-white);background: var(--color-gray);}
+.button-empty:hover {color: var(--color-gray);background: var(--color-gray);border-color: var(--color-gray);}
 .button-empty:hover i {-webkit-text-fill-color: var(--color-gray)}
-/** Кнопка. Подробнее **/
-.button-more {font-size: 14px;color: var(--color-darkgray);background: transparent;height: auto;border: 0;padding: 0;}
-.button-more:hover {color: var(--color-primary);background: transparent;}
+.button-empty:hover:before {color: var(--color-primary);background: var(--color-white);}
 /** Кнопка. Основная **/
-.button-primary:before {content: '';width: calc(100% - 4px);height: calc(100% - 4px);border: 2px solid rgba(255, 255, 255, 0.2);border-radius: 10px;transition: all 0.3s ease;position: absolute;}
-.button-primary:hover:before {color: var(--color-primary);background: var(--color-white);}
 .button-primary:hover {color: var(--color-primary);background: var(--color-primary);border-color: var(--color-primary);}
-.button-primary span {position: relative;z-index: 3;}
+.button-primary:hover:before {color: var(--color-primary);background: var(--color-white);}
 /** Кнопка. Вторичная **/
 .button-secondary {color: var(--color-primary);background: var(--color-white);}
 .button-secondary:hover {color: var(--color-white);background: var(--color-primary);border-color: var(--color-primary);}
+.button-secondary:before {display: none;}
 /** Кнопка. Третичная **/
 .button-tertiary {color: inherit;background: var(--color-bg2);}
 .button-tertiary:hover {color: var(--color-white);background: var(--color-secondary);}
+/** Кнопка. Подробнее **/
+.button-more {font-size: 14px;color: var(--color-darkgray);background: transparent;height: auto;border: 0;padding: 0;}
+.button-more:hover {color: var(--color-primary);background: transparent;}
+/*** Кнопка. Без стилей ***/
+.button-link {color: var(--color-primary);background: transparent;height: auto;border: 0;padding: 0;}
+.button-link:hover {color: var(--color-secondary);background: transparent;}
 /*** Кнопка. Анимация поворота ***/
 .button-rotate {color: var(--color-darkgray);background: transparent;height: auto;border: 0;padding: 0;}
 .button-rotate:hover {color: var(--color-primary);background: transparent;}
@@ -102,12 +106,9 @@ button:hover, [class*="button-"]:hover, .paymentFormSubmitLink:hover, .paymentFo
 .button-rotate span {transition: all 0.3s ease;}
 .button-rotate:hover i, .button-rotate.is-actived i {transform: rotate(90deg);}
 .button-rotate.is-actived:hover i {transform: rotate(0deg);}
-/*** Кнопка. Без стилей ***/
-.button-link {color: var(--color-primary);background: transparent;height: auto;border: 0;padding: 0;}
-.button-link:hover {color: var(--color-secondary);background: transparent;}
 /*** Кнопка. Большая, Маленькая ***/
 .button-big {height: 54px;}
-.button-small {height: 34px;font-size: 14px;font-weight: 400;}
+.button-small {height: 34px;font-size: 14px;font-weight: 400;padding: 0 12px;}
 
 
 /**************************************/
@@ -173,7 +174,7 @@ h1, h2, h3, h4, h5, h6 {font-family: 'Alegreya Sans', sans-serif;}
 .swiper-button-next:after, .swiper-button-prev:after {font-size: 20px;font-family: 'icomoon';line-height: inherit;}
 .swiper-button-next:after {content: '\e909'}
 .swiper-button-prev:after {content: '\e908'}
-/* .swiper-button-next.swiper-button-disabled, .swiper-button-prev.swiper-button-disabled {opacity: 1;color: var(--color-white);background: var(--color-lightgray);} */
+/* .swiper-button-next.swiper-button-disabled, .swiper-button-prev.swiper-button-disabled {opacity: 1;color: var(--color-white);background: var(--color-gray);} */
 .swiper-horizontal>.swiper-scrollbar, .swiper-scrollbar.swiper-scrollbar-horizontal {margin-top: 20px;position: relative;background: var(--color-bg);border-radius: 4px;width: 100%;top: auto;right: auto;bottom: auto;left: auto;}
 .swiper-scrollbar-drag {background: var(--color-gray);border-radius: 4px;}
 
@@ -187,7 +188,8 @@ h1, h2, h3, h4, h5, h6 {font-family: 'Alegreya Sans', sans-serif;}
 .contacts__icon {width: 28px;color: var(--color-gray);font-size: 24px;transition: all 0.3s ease;}
 .contacts__link:hover .contacts__icon {color: var(--color-primary);}
 .contacts__content {width: calc(100% - 28px - 8px);}
-
+.contacts__label {margin-bottom: 8px;width: 100%;font-weight: 500;}
+.contacts__phone {margin-bottom: 8px;}
 
 
 /**************************************/
@@ -234,7 +236,7 @@ header .catalog__items {position: relative;max-height: 260px;overflow-y: auto;}
 header .catalog__items::-webkit-scrollbar {width: 4px;}
 .catalog__items-main {width: 25%;padding: 0 16px;}
 .header-catalog__inner {position: relative;}
-.header-catalog__inner:after {content: '';width: 1px;height: 100%;background-color: var(--color-lightgray);display: block;position: absolute;top: 0;left: calc(25% + 6px);}
+.header-catalog__inner:after {content: '';width: 1px;height: 100%;background-color: var(--color-gray);display: block;position: absolute;top: 0;left: calc(25% + 6px);}
 .catalog__items-main .catalog__item {font-size: 18px;font-weight: bold;}
 .catalog__items-main .catalog__item i {font-size: 12px;right: 8px;position: absolute;display: inline-block;transition: all 0.3s ease;}
 .catalog__items-main .catalog__link {padding: 8px 0;}
@@ -472,18 +474,18 @@ header .catalog__items::-webkit-scrollbar {width: 4px;}
 /**************************************/
 .ratings {font-size: 14px;display: flex;align-items: center;position: relative;overflow: hidden;}
 .ratings:before, .ratings__value:before {content: '\e91f\e91f\e91f\e91f\e91f';font-family: 'icomoon';letter-spacing: 4px;}
-.ratings:before {color: var(--color-lightgray);}
+.ratings:before {color: var(--color-gray);}
 .ratings__value {position: absolute;left: 0;top: 0;overflow: hidden;}
-.ratings__value:before {color: var(--color-yellow);white-space:nowrap;}
+.ratings__value:before {color: var(--color-tertiary);white-space:nowrap;}
 .ratings__count {margin-left: 4px;font-size: 12px;font-weight: 500;position: relative;}
 .ratings__count:before {content: '(';}
 .ratings__count:after {content: ')';}
 .stars {overflow: hidden;}
-.star {color: var(--color-lightgray);font-size: 16px;width: 20px;height: 20px;line-height: 20px;white-space: nowrap;float:left;cursor: pointer;zoom:1;display:block;}
+.star {color: var(--color-gray);font-size: 16px;width: 20px;height: 20px;line-height: 20px;white-space: nowrap;float:left;cursor: pointer;zoom:1;display:block;}
 .star:after {content: '\e91f';font-family: 'icomoon';}
-.stars .fullStar {color: var(--color-yellow);}
-.stars .tmp_fs {color: var(--color-yellow);}
-.stars .tmp_es {color: var(--color-lightgray);}
+.stars .fullStar {color: var(--color-tertiary);}
+.stars .tmp_fs {color: var(--color-tertiary);}
+.stars .tmp_es {color: var(--color-gray);}
 
 
 /**************************************/
@@ -526,7 +528,7 @@ header .catalog__items::-webkit-scrollbar {width: 4px;}
 .RUB .num {display: inline-flex;align-items: center;position: relative;overflow: hidden;}
 .RUB .num:after {content: '₽';margin-left: 6px;line-height: 1;display: inline-block;}
 .RUB .num + span {display: none;}
-.price__old .num:after {content: '';width: 150%;height: 1px;background: var(--color-gray);top: 8px;left: -16px;position: absolute;transform: rotate(10deg);}
+.price__old .num:before {content: '';width: 150%;height: 1px;background: var(--color-gray);top: 8px;left: -16px;position: absolute;transform: rotate(10deg);}
 @media all and (max-width: 767px) {
 	.price__now {font-size: 18px;}
 	.price__old {font-size: 14px;}
@@ -547,8 +549,8 @@ header .catalog__items::-webkit-scrollbar {width: 4px;}
 .product__link {color: var(--color-gray);font-size: 24px;}
 .product__link span {display: none;}
 .product__addto {gap: 12px;}
-.product__price {gap: 4px;flex-grow: 1;width: calc(100% - 54px - 12px);}
-.product__add {width: 54px;border-radius: 100%;}
+.product__price {gap: 4px 8px;flex-grow: 1;width: calc(100% - 54px - 12px);}
+.product__add {padding: 4px;width: 54px;height: 54px;border-radius: 100%;}
 .product__add:before {border-radius: 100%;}
 .product__add i {font-size: 24px;}
 .product__add span {display: none;}
@@ -973,7 +975,7 @@ footer a {color: var(--color-white);}
 /** Подвал. Контакты **/
 footer .contacts__button {margin: 8px 0 0 40px;padding: 0 28px;}
 /** Подвал. Телефон **/
-footer .contacts__phone {padding-left: 40px;margin-bottom: 8px;}
+footer .contacts__phone {padding-left: 40px;}
 footer .contacts__phone-big {font-size: 22px;font-weight: 700;padding-left: 0;}
 /** Подвал. Логотип **/
 .footer-logo {position: relative;margin: -72px 0 60px;}
@@ -1011,7 +1013,6 @@ footer .contacts__phone-big {font-size: 22px;font-weight: 700;padding-left: 0;}
 /****************************************/
 #fancybox__contacts {max-width: 772px;}
 #fancybox__contacts .contacts__blocks {width: 50%;padding-left: 80px;}
-#fancybox__contacts .contacts__phone {margin-bottom: 8px;}
 #fancybox__contacts .contacts__phone-big {margin-left: -40px;font-size: 22px;font-weight: 700;}
 #fancybox__contacts .contacts__button {margin-top: 4px;text-decoration: underline;}
 #fancybox__contacts .contacts__button:hover {text-decoration: none;}
@@ -1027,7 +1028,7 @@ footer .contacts__phone-big {font-size: 22px;font-weight: 700;padding-left: 0;}
 /****************************************/
 .adaptive__block-menu .catalog__link {font-weight: 600;}
 .adaptive__block-menu .contacts {margin-top: 32px;}
-.adaptive__block-menu .contacts__phone {margin: 0 0 8px 40px;}
+.adaptive__block-menu .contacts__phone {margin-left: 40px;}
 .adaptive__block-menu .contacts__phone-big {margin-left: 0;font-size: 22px;font-weight: 700;}
 .adaptive__block-menu .contacts__button {margin: 8px 0 16px 40px;text-decoration: underline;}
 .adaptive__block-menu .contacts__button:hover {text-decoration: none;}
@@ -1101,7 +1102,7 @@ footer .contacts__phone-big {font-size: 22px;font-weight: 700;padding-left: 0;}
 
 /** Показать по **/
 .toolbar__show {gap: 12px;}
-.toolbar__show select {height: auto;padding: 0 4px;font-weight: 600;border: 0;}
+.toolbar__show select {height: auto;padding: 0 4px;background: transparent;font-weight: 600;border: 0;}
 .toolbar__show .selectBox:hover select, .toolbar__show .selectBox select:focus {background: transparent;border: 0;}
 .toolbar__show .toolbar__label {font-size: 14px;color: var(--color-darkgray);}
 .toolbar__show .toolbar__label span + span {display: none;}
@@ -1161,10 +1162,10 @@ footer .contacts__phone-big {font-size: 22px;font-weight: 700;padding-left: 0;}
 	.promotion__counter {padding: 12px 24px;}
 }
 @media all and (max-width: 479px) {
-	.promotion__shop {margin-top: -40px;width: 100%;padding: 56px 16px 16px;background: var(--color-bg2);border-radius: 16px;}
 	.promotion__item {background: transparent;}
-	.promotion__percentage {width: 172px;z-index: 2;}
-	.promotion__counter {position: relative;top: auto;margin: 24px 0 0 12px;padding: 12px 16px;}
+	.promotion__percentage {width: 200px;z-index: 2;}
+	.promotion__shop {margin-top: -40px;width: 100%;padding: 56px 16px 16px;background: var(--color-bg2);border-radius: 16px;}
+	.promotion__counter {margin: 24px 0 0 12px;padding: 12px 16px;top: auto;position: relative;}
 }
 
 
@@ -1174,3 +1175,50 @@ footer .contacts__phone-big {font-size: 22px;font-weight: 700;padding-left: 0;}
 .promotion__content strong {margin: 0 4px;}
 .promotion__text {margin-top: 16px;line-height: 1.25;}
 .promotion__date-expired {color: var(--color-gray);}
+
+
+/**************************************/
+/*** Страница: Сравнение ***/
+/**************************************/
+.mod-compare #pdt__viewed {display: none;}
+.compare__nav {margin-bottom: 32px;}
+.compare__switch:hover {cursor: pointer;}
+.compare__switch-icon {background: var(--color-gray);display: inline-block;position: relative;width: 64px;height: 32px;border-radius: 24px;z-index: 0;margin: 0 10px 0 0;padding: 0;border: none;cursor: pointer;transition-duration: 300ms;}
+.compare__switch-icon:after {background: var(--color-white);content: '';position: absolute;top: 4px;left: 4px;height: 24px;width: 24px;border-radius: 16px;transition-duration: 300ms;z-index: 1;}
+.switch-on .compare__switch-icon {background: var(--color-primary);}
+.switch-on .compare__switch-icon:after {left: 36px;}
+.compare__buttons {gap: 16px;}
+.compare__line {border-bottom: 1px solid var(--color-gray);margin-bottom: 16px;padding-bottom: 16px;}
+.compare__line:nth-child(-n+2) {border-bottom: 0;padding-bottom: 0;}
+.compare__item {width: 25%;}
+.compare__title {gap: 12px;margin-bottom: 16px;width: 100%;font-weight: bold;}
+.compare__image {height: 280px;}
+.compare__remove {top: 8px;right: 8px;position: absolute;}
+.compare__remove i {font-size: 24px;display: block;}
+.compare__mod {margin-top: 8px;font-size: 12px;}
+.compare__price {width: 100%;}
+.compare__addCart i {display: none;}
+.compare__table .hide {display: none;}
+@media all and (max-width: 1199px) {
+	.compare__image {height: 236px;}
+}
+@media all and (max-width: 1023px) {
+	.compare__image {height: 234px;}
+	.compare__item {width: 33.333333%;}
+}
+@media all and (max-width: 767px) {
+	.compare__image {height: 192px;}
+}
+@media all and (max-width: 639px) {
+	.compare__item {width: 50%;}
+	.compare__image {height: 216px;}
+}
+@media all and (max-width: 479px) {
+	.compare__image {height: 164px;}
+	.compare__addCart a {padding: 0 16px;width: 100%;}
+	.compare__table .swiper-button-next, .compare__table .swiper-button-prev {width: 32px;height: 32px;}
+	.compare__buttons a {padding: 0 16px;}
+}
+@media all and (max-width: 374px) {
+	.compare__image {height: 136px;}
+}
