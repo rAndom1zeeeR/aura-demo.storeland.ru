@@ -1414,7 +1414,7 @@ class Product {
 			// Удаляем табы
 			selector.querySelector('.productView__tabs').remove();
 			// Замена ссылки в описании
-			const desc = selector.querySelector('.desc__more');
+			const desc = selector.querySelector('.productView__desc-more');
 			desc ? desc.setAttribute('href', desc.getAttribute('data-href')) : '';
 			return selector
 		}
@@ -1869,27 +1869,21 @@ class Goods {
 					},
 					320: {
 						slidesPerView: '3',
-						direction: 'horizontal',
 					},
 					480: {
 						slidesPerView: '4',
-						direction: 'horizontal',
 					},
 					640: {
 						slidesPerView: '3',
-						direction: 'horizontal',
 					},
 					768: {
 						slidesPerView: '4',
-						direction: 'vertical',
 					},
 					1024: {
 						slidesPerView: '4',
-						direction: 'vertical',
 					},
 					1200: {
 						slidesPerView: '4',
-						direction: 'vertical',
 					}
 				},
 			});
@@ -1900,6 +1894,11 @@ class Goods {
 				slidesPerView: '1',
 				spaceBetween: 16,
 				autoHeight: false,
+				scrollbar: {
+					el: '.thumblist .swiper-scrollbar',
+					draggable: true,
+					hide: false,
+				},
 				navigation: {
 					nextEl: ".swiper-button-next",
 					prevEl: ".swiper-button-prev",
@@ -1917,15 +1916,6 @@ class Goods {
 					640: {
 						autoHeight: false,
 					},
-					768: {
-						autoHeight: false,
-					},
-					1024: {
-						autoHeight: false,
-					},
-					1200: {
-						autoHeight: false,
-					}
 				},
 				on: {
 					init: function () {
@@ -2068,7 +2058,7 @@ class Goods {
 				const targetMod = event.target.closest('.modifications-values__value');
 				const targetAnswer = event.target.closest('.opinion__answer-button');
 				const opinionBlock = document.querySelector('.productView__opinion');
-				const moreDesc = event.target.closest('.desc__more');
+				const moreDesc = event.target.closest('.productView__desc-more');
 				const moreFeat = event.target.closest('.features__more');
 				if (!opinionBlock) {return false}
 				const parentButton = opinionBlock.querySelector('.opinion__buttons');
@@ -2360,18 +2350,18 @@ class Goods {
 
 						// Покажем артикул модификации товара, если он указан
 						if (modificationArtNumber.length > 0){
-							goodsArtNumberBlock.show();
+							goodsArtNumberBlock.removeClass('is-hide');
 							goodsArtNumber.html(modificationArtNumber);
 						} else {
-							goodsArtNumberBlock.hide();
+							goodsArtNumberBlock.add('is-hide');
 							goodsArtNumber.html('');
 						}
 
 						// Описание модификации товара. Покажем если оно есть, спрячем если его у модификации нет
 						if (modificationDescription.length > 0){
-							goodsModDescription.show().html('<div>' + modificationDescription + '</div>');
+							goodsModDescription.removeClass('is-hide').html('<div>' + modificationDescription + '</div>');
 						} else {
-							goodsModDescription.hide().html();
+							goodsModDescription.addClass('is-hide').html();
 						}
 
 						// Идентификатор товарной модификации 
