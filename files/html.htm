@@ -608,7 +608,7 @@
 
 		<!-- Хиты продаж -->
 		{% IFNOT index_page_favorites_goods_empty %}
-		<section id="pdt__best" class="pdt__slider">
+		<section id="pdt__best" class="">
 			<div class="container">
 				<!-- Заголовок -->
 				<div class="block__title">
@@ -977,7 +977,7 @@
 
 		<!-- Распродажа -->
 		{% IFNOT index_page_sale_goods_empty %}
-		<section id="pdt__sales" class="pdt__slider">
+		<section id="pdt__sales" class="">
 			<div class="container">
 				<!-- Заголовок -->
 				<div class="block__title">
@@ -3818,8 +3818,8 @@
 			goods.onClick()
 			goods.swiperImages()
 			// quantityGoods.onGoods()
-			swiperSlider('#related-views')
-			swiperSlider('#related-goods')
+			swiperSliderSmall('#related-views')
+			swiperSliderSmall('#related-goods')
 		});
 	</script>
 	<script defer type="text/javascript" src="{ASSETS_JS_PATH}jquery-star-rating.js?design=THEMENAME"></script>
@@ -3849,7 +3849,7 @@
 	</script>
 	{% ENDIF %}
 
-	<!-- Страница: Товар -->
+	<!-- Страница: Главная -->
 	{% IF index_page %}
 	<script async type="text/javascript">
 		document.addEventListener('DOMContentLoaded', function(){
@@ -3865,6 +3865,16 @@
 		});
 	</script>
 	{% ENDIF %}
+	
+	<!-- НЕ главная траница -->
+	{% IFNOT index_page %}
+	<script async type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function(){
+	    swiperSliderSmall('#pdt__viewed');
+		});
+	</script>
+	{% ENDIF %}
+	
 
 	<!-- Слайдер. Карусель -->
 	<script defer type="text/javascript" src="{ASSETS_JS_PATH}swiper-bundle.min.js?design=THEMENAME"></script>

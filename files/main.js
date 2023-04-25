@@ -1874,10 +1874,10 @@ class Goods {
 						slidesPerView: '4',
 					},
 					640: {
-						slidesPerView: '3',
+						slidesPerView: '5',
 					},
 					768: {
-						slidesPerView: '4',
+						slidesPerView: '6',
 					},
 					1024: {
 						slidesPerView: '4',
@@ -3508,6 +3508,61 @@ function swiperSlider(id){
 
 }
 
+// Функции стандартного слайдера
+function swiperSliderSmall(id){
+	// Слайдер товаров
+	const swiper = new Swiper(id + ' .swiper', {
+		loop: false,
+		autoplay: false,
+		watchSlidesVisibility: true,
+		simulateTouch: true,
+		grabCursor: true,
+		slidesPerView: '5',
+		spaceBetween: 16,
+		nested: true,
+		preloadImages: false,
+		lazy: {
+			enabled: false,
+			loadPrevNext: true,
+			loadOnTransitionStart: true,
+		},
+		navigation: {
+			nextEl: id + ' .swiper-button-next',
+			prevEl: id + ' .swiper-button-prev',
+		},
+		scrollbar: {
+			el: id + ' .swiper-scrollbar',
+			draggable: true,
+			hide: false,
+		},
+		breakpoints: {
+			0: {
+				slidesPerView: '1',
+			},
+			320: {
+				slidesPerView: '1',
+			},
+			480: {
+				slidesPerView: '2',
+			},
+			640: {
+				slidesPerView: '3',
+			},
+			768: {
+				slidesPerView: '4',
+			},
+			1024: {
+				slidesPerView: '4',
+			},
+			1200: {
+				slidesPerView: '5',
+			}
+		},
+	});
+
+}
+
+
 // Слайдер Предложений
 function swiperOffers(){
 	const id = '#offers'
@@ -3567,7 +3622,6 @@ document.addEventListener('DOMContentLoaded', function(){
 	openMenu();
 	toTop();
   mainnav('header .mainnav', '1', 991);
-	swiperSlider('#pdt__viewed');
 	lazyload()
 	catalogHover()
 	remove.onClick()

@@ -306,6 +306,7 @@
 				<div class="productView__addto flex">
 					<!-- Количество -->
 					<div class="productView__qty">
+					  <div class="qty__label">Кол-во:</div>
 						<div class="qty flex {% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE %}has-max{% ENDIF %}">
 							<a class="qty__select qty__select-minus" title="Уменьшить"><i class="icon-minus"></i></a>
 							<input class="qty__input" 
@@ -327,17 +328,17 @@
 					<!-- Добавление товара в корзину -->
 					<div class="productView__cart flex">
 						<!-- В корзину -->
-						<button class="productView__add add-cart" type="submit" title="Положить &laquo;{GOODS_NAME}&raquo; в корзину">
+						<button class="productView__add add-cart button-gradient button-big" type="submit" title="Положить &laquo;{GOODS_NAME}&raquo; в корзину">
 							<i class="icon-cart"></i>
 							<span>Купить</span>
 						</button>
 						<!-- Быстрая покупка -->
-						<button class="productView__add add-cart quick button-secondary" type="submit" title="Положить &laquo;{GOODS_NAME}&raquo; в корзину">
+						<button class="productView__add add-cart quick button-primary button-big" type="submit" title="Положить &laquo;{GOODS_NAME}&raquo; в корзину">
 							<i class="icon-check"></i>
-							<span>Купить в 1 клик</span>
+							<span>В 1 клик</span>
 						</button>
 						<!-- Уведомить -->
-						<a class="productView__add add-notify button-empty" 
+						<a class="productView__add add-notify button-empty button-big" 
 							title="Уведомить"
 							data-tooltip="Уведомить"
 							rel="nofollow"
@@ -357,24 +358,6 @@
 				</div>
 
 			</form>
-
-			<!-- След. Пред. товар в категории -->
-			{% IFNOT neighbor_goods_empty %}
-			<div class="productView__neighbor flex">
-				{% IF NEIGHBOR_PREVIOUS_GOODS_URL %}
-				<a class="neighbor__item button-link" href="{NEIGHBOR_PREVIOUS_GOODS_URL}" title="{NEIGHBOR_PREVIOUS_GOODS_NAME}">
-					<i class="icon-arrow_left"></i>
-					<span>Предыдущий товар</span>
-				</a>
-				{% ENDIF %}
-				{% IF NEIGHBOR_NEXT_GOODS_URL %}
-				<a class="neighbor__item button-link" href="{NEIGHBOR_NEXT_GOODS_URL}" title="{NEIGHBOR_NEXT_GOODS_NAME}">
-					<span>Следующий товар</span>
-					<i class="icon-arrow_right"></i>
-				</a>
-				{% ENDIF %}
-			</div>
-			{% ENDIF %}
 
 		</div>
 	</div>
@@ -437,8 +420,8 @@
 				<div class="goods-delivery__items flex-start">
 					{% FOR goods_delivery %}
 					<div class="goods-delivery__item">
-						<div class="goods-delivery__title">
-							<span class="goods-delivery__index">{goods_delivery.index}.</span>
+						<div class="goods-delivery__title flex">
+							<span class="goods-delivery__index">{goods_delivery.index}</span>
 							<span class="goods-delivery__name">{goods_delivery.NAME}</span>
 						</div>
 
