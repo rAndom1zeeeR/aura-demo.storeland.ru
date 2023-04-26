@@ -49,6 +49,42 @@ function addSpaces(str){
 
 
 ///////////////////////////////////////
+// Считает сумму  33 599,65 + 2000 - 1910-41,6
+///////////////////////////////////////
+function GetSum(val,precision) {
+  if(typeof (precision) == "undefined" || precision < 0) { precision = 0; }
+  // Возводим в степень точности 10 для округления
+  var p = Math.pow(10,precision);  
+  try {return Math.round(parseFloat(eval(val.toString().replace(/\s/gi, "").replace(/,/gi, ".")))*p)/p;} catch (e) {return 0;}
+}
+
+
+///////////////////////////////////////
+// Возвращает правильное окончание для слова
+///////////////////////////////////////
+function genWordEnd(num, e = '', m = 'а', mm = 'oв') {
+	console.log('num', num);
+	console.log('e', e);
+	console.log('m', m);
+	console.log('mm', mm);
+  // Если передали пустую строку, вместо цифры
+  if(0 == num.length) { num = 0; }
+  // Превращаем цифру в правильный INT
+  num = GetSum(num).toString();
+  // Получаем последний символ цифры
+  ch1 = num.substring(num.length-1);
+  // Получаем последний символ цифры
+  ch2 = num.length == 1 ? 0 : num.substring(num.length-2, num.length-1);
+  // Если последняя цифра - 1, вернем единственное число
+  if(ch2!=1 && ch1==1) {return e;}
+  // Если последняя цифра - от 2 до 4х , вернем множественное чило из массива с индексом 2
+  else if(ch2!=1 && ch1>1 && ch1<=4) {return m;}
+  // Если последняя цифра - от 5 до 0 , вернем множественное чило из массива с индексом 3
+  else if(ch2==1 || ch1>4 || ch1==0) {return mm;}
+}
+
+
+///////////////////////////////////////
 // Предзагрузчик. /JS/
 ///////////////////////////////////////
 function preload(){
@@ -1839,6 +1875,10 @@ class Catalog {
 				$('#filters').removeClass('has-filters');
 			}
 
+			// const result = $('.products__container .product__item').length
+			// console.log('result', result);
+			// $('.filters-active__result').html(`Найдено ${result} товар${genWordEnd(result)}:`)
+
 		};
 
 		console.timeEnd('Catalog test');
@@ -2017,14 +2057,23 @@ class Goods {
 
 			});
 
-			goods.opinionButtons();
+			// Показать все отзывы
+			goods.opinionButtons(document.querySelectorAll('.opinion__item'), document.querySelector('.opinion__buttons'));
+
+			// Скрыть/Показать кнопку описания
+			setTimeout(() => {
+				if (document.querySelector('.productView__desc-text').offsetHeight >= 70){
+					document.querySelector('.productView__desc-more').classList.remove('is-hide')
+				} else {
+					document.querySelector('.productView__desc-more').classList.add('is-hide')
+				}
+				
+			}, 1000);
 
 		};
 
 		// Скрываем кнопки Показать все. /JS/
-		this.opinionButtons = function(){
-			const items = document.querySelectorAll('.opinion__item')
-			const button = document.querySelector('.opinion__buttons')
+		this.opinionButtons = function(items, button){
 			// Если меньше 3 отзывов
 			if (button){
 				items.length > 3 ? button.classList.remove('is-hide') : button.classList.add('is-hide');
@@ -2060,6 +2109,7 @@ class Goods {
 				const opinionBlock = document.querySelector('.productView__opinion');
 				const moreDesc = event.target.closest('.productView__desc-more');
 				const moreFeat = event.target.closest('.features__more');
+				const moreDelivery = event.target.closest('.goods-delivery__button');
 				if (!opinionBlock) {return false}
 				const parentButton = opinionBlock.querySelector('.opinion__buttons');
 				const parentItems = opinionBlock.querySelector('.opinion__items');
@@ -2143,9 +2193,10 @@ class Goods {
 				// Ответ админа. /JS/
 				else if (targetAnswer){
 					event.preventDefault();
-					const next = targetAnswer.nextElementSibling;
+					const prev = targetAnswer.previousElementSibling;
 					isActived(targetAnswer);
-					targetAnswer.matches('.is-actived') ? next.classList.remove('is-hide') : next.classList.add('is-hide');
+					changeTxt(targetAnswer);
+					targetAnswer.matches('.is-actived') ? prev.classList.remove('is-hide') : prev.classList.add('is-hide');
 				}
 
 				// Переход к характеристикам
@@ -2158,6 +2209,13 @@ class Goods {
 				if (moreDesc){
 					const content = document.querySelector('.productView__tabs')
 					scrollTop(content.offsetTop + 32)
+				}
+
+				// Показать/Скрыть доставку
+				if (moreDelivery){
+					isActived(moreDelivery)
+					changeTxt(moreDelivery)
+					moreDelivery.previousElementSibling.classList.toggle('is-hide')
 				}
 
 			});
@@ -2353,7 +2411,7 @@ class Goods {
 							goodsArtNumberBlock.removeClass('is-hide');
 							goodsArtNumber.html(modificationArtNumber);
 						} else {
-							goodsArtNumberBlock.add('is-hide');
+							goodsArtNumberBlock.addClass('is-hide');
 							goodsArtNumber.html('');
 						}
 
@@ -3562,7 +3620,6 @@ function swiperSliderSmall(id){
 
 }
 
-
 // Слайдер Предложений
 function swiperOffers(){
 	const id = '#offers'
@@ -3613,6 +3670,35 @@ function swiperOffers(){
 		}
 	});
 }
+
+// Слайдер Предложений
+function swiperCategories(){
+	const id = '.categories'
+	// Свайпер слайдер новостей
+	const swiper = new Swiper(id + '.swiper', {
+		loop: false,
+		autoplay: false,
+		watchSlidesVisibility: true,
+		simulateTouch: true,
+		grabCursor: true,
+		slidesPerView: 'auto',
+		spaceBetween: 16,
+		nested: true,
+		preloadImages: false,
+		autoHeight: false,
+		navigation: {
+			enabled: true,
+			nextEl: id + ' .swiper-button-next',
+			prevEl: id + ' .swiper-button-prev',
+		},
+		scrollbar: {
+			el: id + ' .swiper-scrollbar',
+			draggable: true,
+			hide: false,
+		},
+	});
+}
+
 
 ///////////////////////////////////////
 // Загрузка основных функций шаблона

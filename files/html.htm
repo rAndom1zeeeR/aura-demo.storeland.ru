@@ -3209,6 +3209,15 @@
 							</div>
 						</a>
 
+						<a class="adaptive__navigate-item adaptive__navigate-menu" href="{CATALOG_URL}" title="Перейти в меню" data-open="menu">
+							<div class="adaptive__navigate-icon">
+								<i class="icon-menu"></i>
+							</div>
+							<div class="adaptive__navigate-title">
+								<span>Меню</span>
+							</div>
+						</a>
+
 						<a class="adaptive__navigate-item adaptive__navigate-compare compare {% IF COMPARE_GOODS_COUNT > 0 %}has-items{% ENDIF %}" href="{COMPARE_URL}" title="Перейти в Сравнение" data-open="compare">
 							<div class="adaptive__navigate-icon">
 								<i class="icon-compare"></i>
@@ -3236,23 +3245,14 @@
 							</div>
 						</a>
 
-						<a class="adaptive__navigate-item adaptive__navigate-menu" href="{CATALOG_URL}" title="Перейти в меню" data-open="menu">
-							<div class="adaptive__navigate-icon">
-								<i class="icon-menu"></i>
-							</div>
-							<div class="adaptive__navigate-title">
-								<span>Меню</span>
-							</div>
-						</a>
-
-						<!-- <a class="adaptive__navigate-item adaptive__navigate-user" href="{USER_SETTINGS_URL}" title="Перейти в Личный кабинет" data-open="user">
+						<a class="adaptive__navigate-item adaptive__navigate-user" href="{USER_SETTINGS_URL}" title="Перейти в Личный кабинет" data-open="user">
 							<div class="adaptive__navigate-icon">
 								<i class="icon-person"></i>
 							</div>
 							<div class="adaptive__navigate-title">
 								<span>ЛК</span>
 							</div>
-						</a> -->
+						</a>
 
 					</div>
 				</div>
@@ -3806,7 +3806,15 @@
 	});
 	</script>
 	<script defer type="text/javascript" src="{ASSETS_JS_PATH}jqueryui.js?design=THEMENAME"></script>
-	{% ENDIF %}
+	{% IFNOT IS_FULL_CATALOG && goods_empty=0 %}
+	<script type="text/javascript">	
+		// Загрузка основных функций шаблона Товары
+		document.addEventListener('DOMContentLoaded', function(){
+			swiperCategories();
+		});
+		</script>
+	{% ENDIF IS_FULL_CATALOG %}
+	{% ENDIF catalog %}
 
 	<!-- Страница: Товар -->
 	{% IF MOD_LNAME = goods %}

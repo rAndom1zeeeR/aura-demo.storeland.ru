@@ -192,7 +192,7 @@
 		</div>		
 		
 		<!-- Основная информация о товаре -->
-		<div class="productView__shop flex">		
+		<div class="productView__shop flex">
 			<!-- Имя товара -->
 			<h1 class="productView__name" itemprop="name">{GOODS_NAME}</h1>
 
@@ -220,9 +220,11 @@
 			{% IF GOODS_DESCRIPTION_SHORT %}
 			<div class="productView__desc">
 				<div class="productView__desc-text" itemprop="description">{GOODS_DESCRIPTION_SHORT}</div>
-				<a class="productView__desc-more button-more" href="#tab_1" data-href="{GOODS_URL}#tab_1">
+				{% IF GOODS_DESCRIPTION_SHORT %}
+				<a class="productView__desc-more button-more is-hide" href="#tab_1" data-href="{GOODS_URL}#tab_1">
 					<span>Читать описание</span>
 				</a>
+				{% ENDIF %}
 			</div>
 			{% ENDIF %}
 
@@ -405,7 +407,7 @@
 			<div class="productView__features" data-tab-content="2">
 				<div class="features__items flex-start">
 					{% FOR goods_features %}
-					<div class="features__item">
+					<div class="features__item flex">
 						<div class="features__name"><span>{goods_features.NAME}:</span></div>
 						<div class="features__value"><span>{goods_features.VALUE}</span></div>
 					</div>
@@ -422,19 +424,17 @@
 					<div class="goods-delivery__item">
 						<div class="goods-delivery__title flex">
 							<span class="goods-delivery__index">{goods_delivery.index}</span>
-							<span class="goods-delivery__name">{goods_delivery.NAME}</span>
+							<span class="goods-delivery__name">{goods_delivery.NAME} от</span>
+							<span class="goods-delivery__price {CURRENCY_CHAR_CODE}">{goods_delivery.PRICE | money_format}</span>
 						</div>
+						
+						{% IF goods_delivery.DESC || goods_delivery.rules_empty=0 || goods_delivery.zone_list_empty=0 %}
+						<div class="goods-delivery__content is-hide">
+							{% IF goods_delivery.DESC %}
+							<div class="goods-delivery__desc">{goods_delivery.DESC}</div>
+							{% ENDIF %}
 
-						{% IF goods_delivery.DESC %}
-						<div class="goods-delivery__desc">{goods_delivery.DESC}</div>
-						{% ENDIF %}
-
-						{% IF goods_delivery.rules_empty %}
-						<div class="goods-delivery__rule {CURRENCY_CHAR_CODE}">
-							<span>Стоимость доставки:</span>
-							<strong class="goods-delivery__price">{goods_delivery.PRICE | money_format}</strong>
-						</div>
-						{% ELSE %}
+							{% IFNOT goods_delivery.rules_empty %}
 							<div class="goods-delivery__sublabel">Стоимость доставки зависит от суммы заказа</div>
 							{% FOR rules %}
 							<div class="goods-delivery__rule {CURRENCY_CHAR_CODE}">
@@ -450,39 +450,46 @@
 								<label>доставка</label>
 								<strong class="goods-delivery__price">{goods_delivery.PRICE | money_format}</strong>
 							</div>
-						{% ENDIF %}
+							{% ENDIF %}
 
-						{% IFNOT goods_delivery.zone_list_empty %}
-						<div class="goods-delivery-zone__list">
-							{% FOR zone_list %}
-							<div class="goods-delivery-zone__item" data-index="{goods_delivery.zone_list.index}">
-								<div class="goods-delivery-zone__name">{goods_delivery.zone_list.NAME}</div>
-								{% IF goods_delivery.zone_list.rules_empty %}
-								<div class="goods-delivery__rule {CURRENCY_CHAR_CODE}">
-									<label>Стоимость доставки:</label>
-									<strong class="goods-delivery__price">{goods_delivery.zone_list.PRICE | money_format}</strong>
-								</div>
-								{% ELSE %}
-								<div class="goods-delivery__sublabel">Стоимость доставки зависит от суммы заказа:</div>
-								{% FOR rules %}
-								<div class="goods-delivery__rule {CURRENCY_CHAR_CODE}">
-									<label>Для заказов больше</label>
-									<strong class="goods-delivery__price">{goods_delivery.zone_list.rules.SUM_MORE_PRICE | money_format}</strong>
-									<label>доставка</label>
-									<strong class="goods-delivery__price">{goods_delivery.zone_list.rules.PRICE | money_format}</strong>
+							{% IFNOT goods_delivery.zone_list_empty %}
+							<div class="goods-delivery-zone__list">
+								{% FOR zone_list %}
+								<div class="goods-delivery-zone__item" data-index="{goods_delivery.zone_list.index}">
+									<div class="goods-delivery-zone__name">{goods_delivery.zone_list.NAME}</div>
+									{% IF goods_delivery.zone_list.rules_empty %}
+									<div class="goods-delivery__rule {CURRENCY_CHAR_CODE}">
+										<label>Стоимость доставки:</label>
+										<strong class="goods-delivery__price">{goods_delivery.zone_list.PRICE | money_format}</strong>
+									</div>
+									{% ELSE %}
+									<div class="goods-delivery__sublabel">Стоимость доставки зависит от суммы заказа:</div>
+									{% FOR rules %}
+									<div class="goods-delivery__rule {CURRENCY_CHAR_CODE}">
+										<label>Для заказов больше</label>
+										<strong class="goods-delivery__price">{goods_delivery.zone_list.rules.SUM_MORE_PRICE | money_format}</strong>
+										<label>доставка</label>
+										<strong class="goods-delivery__price">{goods_delivery.zone_list.rules.PRICE | money_format}</strong>
+									</div>
+									{% ENDFOR %}
+									<div class="goods-delivery__rule {CURRENCY_CHAR_CODE}">
+										<label>Для заказов меньше</label>
+										<strong class="goods-delivery__price">{goods_delivery.SUM_LESS_PRICE | money_format}</strong>
+										<label>доставка</label>
+										<strong class="goods-delivery__price">{goods_delivery.zone_list.PRICE | money_format}</strong>
+									</div>
+									{% ENDIF %}
 								</div>
 								{% ENDFOR %}
-								<div class="goods-delivery__rule {CURRENCY_CHAR_CODE}">
-									<label>Для заказов меньше</label>
-									<strong class="goods-delivery__price">{goods_delivery.SUM_LESS_PRICE | money_format}</strong>
-									<label>доставка</label>
-									<strong class="goods-delivery__price">{goods_delivery.zone_list.PRICE | money_format}</strong>
-								</div>
-								{% ENDIF %}
 							</div>
-							{% ENDFOR %}
+							{% ENDIF zone_list_empty %}
 						</div>
-						{% ENDIF zone_list_empty %}
+
+						<a class="goods-delivery__button button-rotate">
+							<span slot="Скрыть">Подробнее</span>
+							<i class="icon-chevron_down"></i>
+						</a>
+						{% ENDIF %}
 
 					</div>
 					{% ENDFOR %}
@@ -494,9 +501,13 @@
 			{% IFNOT SETTINGS_OPINION_DISABLE %}
 			<div class="productView__opinion" data-tab-content="4">
 				<div class="opinion__score flex {% IF opinion_list_empty %}opinion__score-empty{% ENDIF %}">
-					<div class="opinion__score-content flex">
-						{% IFNOT opinion_list_empty %}
+					<div class="opinion__score-icon flex-center">
+						<div class="opinion__score-label">общая оценка</div>
 						<div class="opinion__score-rate">{GOODS_OPINION_RATING_VALUE_ROUND | divide('2')}</div>
+					</div>
+
+					<div class="opinion__score-content">
+						{% IFNOT opinion_list_empty %}
 						
 						<div class="opinion__score-ratings ratings" title="Рейтинг товара">
 							{% IF GOODS_OPINION_RATING_VALUE_ROUND %}
@@ -512,24 +523,23 @@
 							{% ENDIF %}
 						</div>
 				
-						<div class="opinion__score-count">На основе {GOODS_OPINION_RATING_CNT_ALL} отзыв{GOODS_OPINION_RATING_CNT_ALL | gen_word_end("","а","ов")}</div>
+						<div class="opinion__score-count">На основе {GOODS_OPINION_RATING_CNT_ALL} оцен{GOODS_OPINION_RATING_CNT_ALL | gen_word_end("ка","ки","ок")} покупателей</div>
 						{% ELSE %}
-						<div class="opinion__score-label">У этого товара еще нет отзывов</div>
+						<div class="">У этого товара еще нет отзывов</div>
 						<div class="">Вы приобрели товар? Поделитесь своим мнением и, возможно, Вы поможете кому-то сделать правильный выбор!</div>
 						{% ENDIF %}
 
 					</div>
 
 					<div class="opinion__score-buttons">
-						<a class="opinion__add button-link" title="Написать отзыв">
-							<i class="icon-edit"></i>
-							<span>Написать отзыв</span>
+						<a class="opinion__add button-primary button-big" title="Написать отзыв">
+							<span>Оставить отзыв</span>
 						</a>
 					</div>
 
 				</div>
 				
-				<div class="opinion__info flex-start">
+				<div class="opinion__info">
 					{% IFNOT opinion_list_empty %}
 					<!-- Контент отзывов -->
 					<div class="opinion__container">
@@ -544,79 +554,86 @@
 						<div class="opinion__items" itemprop="review" itemscope itemtype="https://schema.org/Review">
 							{% FOR opinion_list %}
 							<div class="opinion__item" data-index="{opinion_list.index}" data-nav-content="{% IF opinion_list.GENERALLY_IS_GOOD %}good{% ELSE %}bad{% ENDIF %}" data-rating='{opinion_list.RATING | divide("2")}'>
-								<div class="opinion__inner flex">
-									{% IF opinion_list.NAME %}
-									<div class="opinion__name" itemprop="author" itemscope itemtype="https://schema.org/Person">
-										<span itemprop="name">{opinion_list.NAME}</span>
-									</div>
-									{% ENDIF %}
-
-									{% IF opinion_list.RATING %}
-									<div class="opinion__ratings">
-										<div class="ratings" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
-											<meta itemprop="worstRating" content="1">
-											<meta itemprop="bestRating" content="10">
-											<meta itemprop="ratingValue" content="{opinion_list.RATING}">
-											<!-- <meta itemprop="reviewCount" content="{GOODS_OPINION_RATING_CNT_ALL}"> -->
-											<div class="ratings__value" style="width:{opinion_list.RATING}0%" alt="{opinion_list.RATING}" title="Рейтинг товара"></div>
+								<div class="opinion__inner flex-start">
+									<div class="opinion__left">
+										{% IF opinion_list.NAME %}
+										<div class="opinion__name" itemprop="author" itemscope itemtype="https://schema.org/Person">
+											<span itemprop="name">{opinion_list.NAME}</span>
 										</div>
-									</div>
-									{% ENDIF %}
-									
-									{% IF opinion_list.DATE %}
-									<div class="opinion__date">
-										<span class="day">{opinion_list.DATE | date('d')}</span>
-										<span class="month">{opinion_list.DATE | date('M')}</span>
-										<span class="year">{opinion_list.DATE | date('Y')}</span>
-									</div>
-									<meta itemprop="datePublished" content="{opinion_list.DATE | date('d.m.Y')}">
-									{% ENDIF %}
+										{% ENDIF %}
+										
+										{% IF opinion_list.DATE %}
+										<div class="opinion__date">
+											<span>{opinion_list.DATE | date('d.m.y')}</span>
+										</div>
+										<meta itemprop="datePublished" content="{opinion_list.DATE | date('d.m.Y')}">
+										{% ENDIF %}
 
-								</div>
-								
-								{% IF opinion_list.TITLE %}
-								<div class="opinion__title" itemprop="name" style="display: none">{opinion_list.TITLE}</div>
-								{% ENDIF %}
+										{% IF opinion_list.RATING %}
+										<div class="opinion__ratings">
+											<div class="ratings" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
+												<meta itemprop="worstRating" content="1">
+												<meta itemprop="bestRating" content="10">
+												<meta itemprop="ratingValue" content="{opinion_list.RATING}">
+												<!-- <meta itemprop="reviewCount" content="{GOODS_OPINION_RATING_CNT_ALL}"> -->
+												<div class="ratings__value" style="width:{opinion_list.RATING}0%" alt="{opinion_list.RATING}" title="Рейтинг товара"></div>
+											</div>
+										</div>
+										{% ENDIF %}
 
-								<div class="opinion__text">
-									{% IF opinion_list.ACCOMPLISHMENTS %}
-									<div class="accomplishments" itemprop="description">
-										<label>Достоинства:</label>
-										<p>{opinion_list.ACCOMPLISHMENTS | nl2br}</p>
 									</div>
-									{% ENDIF %}
 									
-									{% IF opinion_list.LIMITATIONS %}
-									<div class="limitations" itemprop="description">
-										<label>Недостатки:</label>
-										<p>{opinion_list.LIMITATIONS | nl2br}</p>
-									</div>
-									{% ENDIF %}
-									
-									{% IF opinion_list.COMMENT %}
-									<div class="comment" itemprop="reviewBody">
-										<!-- <label>Комментарий:</label> -->
-										<p>{opinion_list.COMMENT | nl2br}</p>
-									</div>
-									{% ENDIF %}
-								</div>
+									<div class="opinion__right">
+										{% IF opinion_list.TITLE %}
+										<div class="opinion__title" itemprop="name" style="display: none">{opinion_list.TITLE}</div>
+										{% ENDIF %}
 
-								{% IF opinion_list.ANSWER %}
-								<div class="opinion__answer">
-									<div class="opinion__answer-button">Ответ администратора</div>
-									<div class="opinion__answer-content is-hide">{opinion_list.ANSWER | nl2br}</div>
+										<div class="opinion__text">
+											{% IF opinion_list.ACCOMPLISHMENTS %}
+											<div class="accomplishments" itemprop="description">
+												<label>Достоинства:</label>
+												<p>{opinion_list.ACCOMPLISHMENTS | nl2br}</p>
+											</div>
+											{% ENDIF %}
+											
+											{% IF opinion_list.LIMITATIONS %}
+											<div class="limitations" itemprop="description">
+												<label>Недостатки:</label>
+												<p>{opinion_list.LIMITATIONS | nl2br}</p>
+											</div>
+											{% ENDIF %}
+											
+											{% IF opinion_list.COMMENT %}
+											<div class="comment" itemprop="reviewBody">
+												<!-- <label>Комментарий:</label> -->
+												<p>{opinion_list.COMMENT | nl2br}</p>
+											</div>
+											{% ENDIF %}
+										</div>
+
+										{% IF opinion_list.ANSWER %}
+										<div class="opinion__answer">
+											<div class="opinion__answer-content is-hide">
+												<div class="opinion__answer-title">Администратор</div>
+												<span>{opinion_list.ANSWER | nl2br}</span>
+											</div>
+											<div class="opinion__answer-button button-rotate">
+												<span slot="Скрыть ответ магазина">Показать ответ магазина</span>
+												<i class="icon-chevron_down"></i>
+											</div>
+										</div>
+										{% ENDIF %}
+										
+										{% IF opinion_list.DELETE_URL %}
+										<div class="opinion__delete">
+											<a class="button-rotate button-link" href="{opinion_list.DELETE_URL}?return_to={CURRENT_URL | urlencode}%3Fgenerally_is_good%3D{GOODS_OPINION_GENERALLY_IS_GOOD | urlencode}%26page={OPINION_PAGES_LIST_CURRENT}" onclick="alert('Вы действительно хотите удалить отзыв?')">
+												<i class="icon-close"></i>
+												<span>Удалить</span>
+											</a>
+										</div>
+										{% ENDIF %}
+									</div>
 								</div>
-								{% ENDIF %}
-								
-								{% IF opinion_list.DELETE_URL %}
-								<div class="opinion__delete">
-									<a class="button-rotate button-link" href="{opinion_list.DELETE_URL}?return_to={CURRENT_URL | urlencode}%3Fgenerally_is_good%3D{GOODS_OPINION_GENERALLY_IS_GOOD | urlencode}%26page={OPINION_PAGES_LIST_CURRENT}" onclick="alert('Вы действительно хотите удалить отзыв?')">
-										<i class="icon-close"></i>
-										<span>Удалить</span>
-									</a>
-								</div>
-								{% ENDIF %}
-								
 							</div>
 							{% ENDFOR %}
 						</div>
@@ -624,8 +641,8 @@
 						<!-- Кнопка Показать все отзывы -->
 						<div class="opinion__buttons">
 							<a class="button-rotate button-link opinion__showAll">
-								<i class="icon-reload"></i>
 								<span slot="Скрыть">Показать все</span>
+								<i class="icon-chevron_down"></i>
 							</a>
 						</div>
 
@@ -647,88 +664,98 @@
 					{% ENDIF not opinion_list_empty %}
 
 					<!-- Форма добавления отзыва -->
-					<div class="opinion__addForm {% IF opinion_list_empty %}opinion__empty{% ENDIF %}">
+					<div class="opinion__addForm modal" style="display: none;">
 						<div class="block__title">
 							<h3 class="title">Оставить отзыв</h3>
 						</div>
-						<!-- Форма добавления нового отзыва о товаре -->
-						<form method="post" action="{CURRENT_URL}" class="opinion__form" enctype="multipart/form-data">
-							<input type="hidden" name="hash" value="{HASH}" />
-							<input type="hidden" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_FROM}]" value="{GOODS_FROM}" />
-							<input type="hidden" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_ID}]" value="{GOODS_ID}" />
-							<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
-							{ANTISPAM_CODE}
-							<!-- Форма добавления отзыва о товаре -->
-							<div class="opinion__block">
-								<label for="goods_opinion_name" class="required"><span>Представьтесь, пожалуйста:</span><em>*</em></label>
-								<input id="goods_opinion_name" class="form__input" type="text" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_NAME}]" value="{% IF CLIENT_IS_LOGIN %}{CLIENT_NAME}{% ELSE %}{FORM_GOODS_OPINION_NAME}{% ENDIF %}" maxlength="50" placeholder="Ваше имя:" required />
-							</div>
-
-							<div class="opinion__block" style="display: none;">
-								<label for="goods_opinion_title">Заголовок:</label>
-								<input type="text" id="goods_opinion_title" class="form__input" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_TITLE}]" value="{FORM_GOODS_OPINION_TITLE}" maxlength="255" placeholder="Заголовок" />
-							</div>
-
-							<div class="opinion__block" style="display: none;">
-								<label for="goods_opinion_accomplishments">Достоинства:</label>
-								<textarea id="goods_opinion_accomplishments" class="form__textarea" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_ACCOMPLISHMENTS}]" cols="100" rows="3" placeholder="Достоинства">{FORM_GOODS_OPINION_ACCOMPLISHMENTS}</textarea>
-							</div>
-
-							<div class="opinion__block" style="display: none;">
-								<label for="goods_opinion_limitations">Недостатки:</label>
-								<textarea id="goods_opinion_limitations" class="form__textarea" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_LIMITATIONS}]" cols="100" rows="3" placeholder="Недостатки">{FORM_GOODS_OPINION_LIMITATIONS}</textarea>
-							</div>
-
-							<div class="opinion__block">
-								<label for="goods_opinion_comment" class="required"><span>Ваш отзыв:</span><em>*</em></label>
-								<textarea id="goods_opinion_comment" class="form__textarea" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_COMMENT}]" cols="100" rows="5" placeholder="Ваш отзыв" required>{FORM_GOODS_OPINION_COMMENT}</textarea>
-							</div>
-
-							<div class="opinion__block rating flex">
-								<div class="opinion__label">Оценка товара</div>
-								<div class="goodsOpinionRating loading">
-									<input class="square" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_RATING}]" type="radio" value="2" {% IF FORM_GOODS_OPINION_RATING=2 %}checked="checked" {% ENDIF %} title="Ужасно" />
-									<input class="square" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_RATING}]" type="radio" value="4" {% IF FORM_GOODS_OPINION_RATING=4 %}checked="checked" {% ENDIF %} title="Плохо" />
-									<input class="square" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_RATING}]" type="radio" value="6" {% IF FORM_GOODS_OPINION_RATING=6 %}checked="checked" {% ENDIF %} title="Средне" />
-									<input class="square" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_RATING}]" type="radio" value="8" {% IF FORM_GOODS_OPINION_RATING=8 %}checked="checked" {% ENDIF %} title="Хорошо" />
-									<input class="square" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_RATING}]" type="radio" value="10" {% IF FORM_GOODS_OPINION_RATING=10 %}checked="checked" {% ENDIF %} title="Превосходно" />
+						<div class="modal__content">
+							<!-- Форма добавления нового отзыва о товаре -->
+							<form class="opinion__form" method="post" action="{CURRENT_URL}" enctype="multipart/form-data">
+								<input type="hidden" name="hash" value="{HASH}" />
+								<input type="hidden" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_FROM}]" value="{GOODS_FROM}" />
+								<input type="hidden" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_ID}]" value="{GOODS_ID}" />
+								<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
+								{ANTISPAM_CODE}
+								<div class="opinion__block-goods flex">
+									<div class="opinion__block-goods__image flex-center">
+										<img src="{% IF GOODS_IMAGE_ICON %}{GOODS_IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}" alt="{GOODS_NAME}">
+									</div>
+									<div class="opinion__block-goods__content">
+										<span>{GOODS_NAME}</span>
+									</div>
 								</div>
-							</div>
 
-							<div class="opinion__block flex">
-								<div class="opinion__label">В целом Ваш отзыв</div>
-								<div class="generally flex">
-									<input id="opinion_generally_is_good1" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_GENERALLY_IS_GOOD}]" type="radio" value="1" {% IF FORM_GOODS_OPINION_GENERALLY_IS_GOOD=1 %}checked="checked" {% ENDIF %} />
-									<label for="opinion_generally_is_good1"><i class="icon-thumb_up"></i></label>
-									<input id="opinion_generally_is_good0" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_GENERALLY_IS_GOOD}]" type="radio" value="0" {% IF FORM_GOODS_OPINION_GENERALLY_IS_GOOD=0 %}checked="checked" {% ENDIF %} />
-									<label for="opinion_generally_is_good0"><i class="icon-thumb_down"></i></label>
+								<div class="opinion__block rating flex">
+									<div class="opinion__label">Ваша оценка:</div>
+									<div class="goodsOpinionRating loading">
+										<input class="square" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_RATING}]" type="radio" value="2" {% IF FORM_GOODS_OPINION_RATING=2 %}checked="checked" {% ENDIF %} title="Ужасно" />
+										<input class="square" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_RATING}]" type="radio" value="4" {% IF FORM_GOODS_OPINION_RATING=4 %}checked="checked" {% ENDIF %} title="Плохо" />
+										<input class="square" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_RATING}]" type="radio" value="6" {% IF FORM_GOODS_OPINION_RATING=6 %}checked="checked" {% ENDIF %} title="Средне" />
+										<input class="square" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_RATING}]" type="radio" value="8" {% IF FORM_GOODS_OPINION_RATING=8 %}checked="checked" {% ENDIF %} title="Хорошо" />
+										<input class="square" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_RATING}]" type="radio" value="10" {% IF FORM_GOODS_OPINION_RATING=10 %}checked="checked" {% ENDIF %} title="Превосходно" />
+									</div>
 								</div>
-							</div>
 
-							{% IF USE_CAPTCHA %}
-							<div class="opinion__block">
-								<label for="opinion_captcha_string" title="Введите код с картинки">Введите код:</label>
-								<div class="opinion__captcha">
-									<input class="captcha__input form__input" type="text" id="opinion_captcha_string" name="form[{ANTISPAM_FORM_FIELD_NAME_CAPTCHA_STRING}]" autocomplete="off" value="{FORM_}" placeholder="Введите капчу"/>
-									<img class="captcha__image" src="{CAPTCHA_URL}" alt="Код" title="Проверочный код, который нужно ввести в соседнее поле" />
-									<a class="captcha__refresh button-rotate button-link"><i class="icon-reload"></i></a>
+								<div class="opinion__block">
+									<label for="goods_opinion_name" class="required"><span>Представьтесь, пожалуйста:</span><em>*</em></label>
+									<input id="goods_opinion_name" class="form__input" type="text" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_NAME}]" value="{% IF CLIENT_IS_LOGIN %}{CLIENT_NAME}{% ELSE %}{FORM_GOODS_OPINION_NAME}{% ENDIF %}" maxlength="50" placeholder="Ваше имя:" required />
 								</div>
-							</div>
-							{% ENDIF %}
-							
-							<!-- Кнопка отправки формы -->
-							<div class="opinion__block opinion__block-buttons flex-start">
-								<div class="form__pp">
-									<span>Нажимая на кнопку &laquo;Добавить отзыв&raquo;, Вы соглашаетесь</span>
-									<a data-fancybox data-src="#fancybox__pp">с правилами обработки данных</a>
-								</div>
-								<button class="button-primary" type="submit" title="Добавить отзыв о &laquo;{GOODS_NAME}&raquo;">
-									<span>Добавить отзыв</span>
-								</button>
-							</div>
 
-						</form>
-						<!-- Если по товару есть хотя бы один отзыв -->
+								<div class="opinion__block" style="display: none;">
+									<label for="goods_opinion_title">Заголовок:</label>
+									<input type="text" id="goods_opinion_title" class="form__input" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_TITLE}]" value="{FORM_GOODS_OPINION_TITLE}" maxlength="255" placeholder="Заголовок" />
+								</div>
+
+								<div class="opinion__block" style="display: none;">
+									<label for="goods_opinion_accomplishments">Достоинства:</label>
+									<textarea id="goods_opinion_accomplishments" class="form__textarea" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_ACCOMPLISHMENTS}]" cols="100" rows="3" placeholder="Достоинства">{FORM_GOODS_OPINION_ACCOMPLISHMENTS}</textarea>
+								</div>
+
+								<div class="opinion__block" style="display: none;">
+									<label for="goods_opinion_limitations">Недостатки:</label>
+									<textarea id="goods_opinion_limitations" class="form__textarea" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_LIMITATIONS}]" cols="100" rows="3" placeholder="Недостатки">{FORM_GOODS_OPINION_LIMITATIONS}</textarea>
+								</div>
+
+								<div class="opinion__block">
+									<label for="goods_opinion_comment" class="required"><span>Ваш отзыв:</span><em>*</em></label>
+									<textarea id="goods_opinion_comment" class="form__textarea" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_COMMENT}]" cols="100" rows="5" placeholder="Ваш отзыв" required>{FORM_GOODS_OPINION_COMMENT}</textarea>
+								</div>
+
+								<div class="opinion__block flex" style="display: none;">
+									<div class="opinion__label">В целом Ваш отзыв</div>
+									<div class="generally flex">
+										<input id="opinion_generally_is_good1" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_GENERALLY_IS_GOOD}]" type="radio" value="1" {% IF FORM_GOODS_OPINION_GENERALLY_IS_GOOD=1 %}checked="checked" {% ENDIF %} />
+										<label for="opinion_generally_is_good1"><i class="icon-thumb_up"></i></label>
+										<input id="opinion_generally_is_good0" name="form[{ANTISPAM_FORM_FIELD_NAME_GOODS_OPINION_GENERALLY_IS_GOOD}]" type="radio" value="0" {% IF FORM_GOODS_OPINION_GENERALLY_IS_GOOD=0 %}checked="checked" {% ENDIF %} />
+										<label for="opinion_generally_is_good0"><i class="icon-thumb_down"></i></label>
+									</div>
+								</div>
+
+								<!-- Форма добавления отзыва о товаре -->
+								{% IF USE_CAPTCHA %}
+								<div class="opinion__block">
+									<label for="opinion_captcha_string" title="Введите код с картинки">Введите код:</label>
+									<div class="opinion__captcha">
+										<input class="captcha__input form__input" type="text" id="opinion_captcha_string" name="form[{ANTISPAM_FORM_FIELD_NAME_CAPTCHA_STRING}]" autocomplete="off" value="{FORM_}" placeholder="Введите капчу"/>
+										<img class="captcha__image" src="{CAPTCHA_URL}" alt="Код" title="Проверочный код, который нужно ввести в соседнее поле" />
+										<a class="captcha__refresh button-rotate button-link"><i class="icon-reload"></i></a>
+									</div>
+								</div>
+								{% ENDIF %}
+								
+								<!-- Кнопка отправки формы -->
+								<div class="opinion__block-buttons flex-start">
+									<button class="opinion__block-button button-primary button-big" type="submit" title="Добавить отзыв о &laquo;{GOODS_NAME}&raquo;">
+										<span>Добавить отзыв</span>
+									</button>
+									<div class="form__pp">
+										<span>Я принимаю условия</span>
+										<a data-fancybox data-src="#fancybox__pp">политики конфиденциальности</a>
+									</div>
+								</div>
+
+							</form>
+						</div>
 					</div>
 
 				</div>
@@ -748,11 +775,6 @@
 <div id="related-goods" class="related pdt__slider loading">
 	<div class="block__title block__nav">
 		<h2 class="title"><span>Сопутствующие</span></h2>
-		<!-- Навигация -->
-		<div class="swiper-navigation flex">
-			<div class="swiper-button-prev"></div>
-			<div class="swiper-button-next"></div>
-		</div>
 	</div>
 	<!-- Слайдер -->
 	<div class="swiper swiper-products">
@@ -1083,11 +1105,6 @@
 <div id="related-views" class="related pdt__slider loading">
 	<div class="block__title block__nav">
 		<h2 class="title"><span>Рекомендуем</span></h2>
-		<!-- Навигация -->
-		<div class="swiper-navigation flex">
-			<div class="swiper-button-prev"></div>
-			<div class="swiper-button-next"></div>
-		</div>
 	</div>
 	<!-- Слайдер -->
 	<div class="swiper swiper-products">

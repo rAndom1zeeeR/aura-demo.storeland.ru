@@ -3,10 +3,10 @@
 
 	<!-- Вывод категорий -->
 	{% IFNOT nested_categories_list_empty %}
-	<div class="categories {% IFNOT IS_FULL_CATALOG && goods_empty=0 %}has-goods{% ENDIF %}">
-		<div class="categories__grid">
+	<div class="categories {% IFNOT IS_FULL_CATALOG && goods_empty=0 %}swiper has-goods{% ENDIF %}">
+		<div class="categories__grid {% IFNOT IS_FULL_CATALOG && goods_empty=0 %}swiper-wrapper{% ENDIF %}">
 			{% FOR nested_categories_list %}
-			<div class="categories__item" data-id="{nested_categories_list.ID}">
+			<div class="categories__item {% IFNOT IS_FULL_CATALOG && goods_empty=0 %}swiper-slide{% ENDIF %}" data-id="{nested_categories_list.ID}">
 				<a class="categories__image flex-center" href="{nested_categories_list.URL}" title="Перейти к категории &laquo;{nested_categories_list.NAME}&raquo;">
 					<noscript>
 						<img class="noscript-lozad" src="{% IF nested_categories_list.IMAGE_MEDIUM %}{nested_categories_list.IMAGE_MEDIUM}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}" alt="{nested_categories_list.NAME}">
@@ -19,6 +19,7 @@
 			</div>
 			{% ENDFOR %}
 		</div>
+		<div class="swiper-scrollbar"></div>
 	</div>
 	{% ENDIF %}
 
@@ -84,12 +85,14 @@
 			</div> -->
 
 			<!-- Открыть Фильтры -->
+			{% IF SHOW_GOODS_PRICE_FILTERS || SHOW_GOODS_FILTERS %}
 			<div class="toolbar__filters">
 				<a class="filters__icon button-link" data-fancybox data-src="#filters">
 					<i class="icon-filter"></i>
 					<span>Все фильтры</span>
 				</a>
 			</div>
+			{% ENDIF %}
 
 			<!-- Вид Таблица/Список -->
 			<div class="toolbar__view flex">
@@ -106,9 +109,10 @@
 
 		<!-- Активные Фильтры -->
 		<div class="filters-active {% FOR filter_attr_list %}{% FOR values %}{% IF filter_attr_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}{% ENDFOR %} {% FOR filter_prop_list %}{% FOR values %}{% IF filter_prop_list.values.CHECKED %}has-filters {% ENDIF %}{% ENDFOR %}{% ENDFOR %}">
-			<!-- Фильтры по характеристикам товаров (Например: Производитель, разрешение экрана, заряд аккомулятора) -->
 			<div class="filters-active__items flex">
+				<div class="filters-active__result">Найдено {GOODS_PAGES_RESULTS} товар{GOODS_PAGES_RESULTS | gen_word_end("","а","ов")}:</div>
 				
+				<!-- Фильтры по характеристикам товаров (Например: Производитель, разрешение экрана, заряд аккомулятора) -->
 				{% FOR filter_attr_list %}{% FOR values %}{% IF filter_attr_list.values.CHECKED %}
 				<label class="filters-active__item flex" for="filterAttrVal{filter_attr_list.values.ID}" title="Удалить фильтр: {filter_attr_list.NAME}">
 					<div class="filters-active__name">{filter_attr_list.NAME}:</div>
@@ -117,6 +121,7 @@
 				</label>
 				{% ENDIF %}{% ENDFOR %}{% ENDFOR %}
 
+				<!-- Фильтры по свойствам товарных модификаций (Например: Цвет, размер, модификация) -->
 				{% FOR filter_prop_list %}{% FOR values %}{% IF filter_prop_list.values.CHECKED %}
 				<label class="filters-active__item flex" for="filterPropVal{filter_prop_list.values.ID}" title="Удалить фильтр: {filter_prop_list.NAME}">
 					<div class="filters-active__name">{filter_prop_list.NAME}:</div>
@@ -129,7 +134,6 @@
 					<span>Сбросить все</span>
 				</a>
 			</div>
-			<!-- Фильтры по свойствам товарных модификаций (Например: Цвет, размер, модификация) -->
 		</div>
 
 	</div>
