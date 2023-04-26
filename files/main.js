@@ -2062,10 +2062,12 @@ class Goods {
 
 			// Скрыть/Показать кнопку описания
 			setTimeout(() => {
-				if (document.querySelector('.productView__desc-text').offsetHeight >= 70){
-					document.querySelector('.productView__desc-more').classList.remove('is-hide')
-				} else {
-					document.querySelector('.productView__desc-more').classList.add('is-hide')
+				if (document.querySelector('.productView__desc-text')){
+					if (document.querySelector('.productView__desc-text').offsetHeight >= 70){
+						document.querySelector('.productView__desc-more').classList.remove('is-hide')
+					} else {
+						document.querySelector('.productView__desc-more').classList.add('is-hide')
+					}
 				}
 				
 			}, 1000);
@@ -2155,9 +2157,12 @@ class Goods {
 
 					// Активный класс кнопки
 					isActived(targetShowAll);
-
+					
 					// Переход к контенту
 					scrollTop(opinionBlock.offsetTop + 100);
+
+					console.log('targetShowAll', targetShowAll);
+					console.log('parentItems', parentItems);
 
 					// Показать все отзывы
 					targetShowAll.matches('.is-actived') ? parentItems.classList.add('is-actived') : parentItems.classList.remove('is-actived');
@@ -3563,11 +3568,10 @@ function swiperSlider(id){
 			}
 		},
 	});
-
 }
 
 // Функции стандартного слайдера
-function swiperSliderSmall(id){
+function swiperSmall(id){
 	// Слайдер товаров
 	const swiper = new Swiper(id + ' .swiper', {
 		loop: false,
@@ -3617,7 +3621,6 @@ function swiperSliderSmall(id){
 			}
 		},
 	});
-
 }
 
 // Слайдер Предложений
@@ -3699,6 +3702,60 @@ function swiperCategories(){
 	});
 }
 
+// Cлайдер Сопутствующие товары 
+function swiperRelated(){
+	const id = '#related-goods'
+	// Слайдер товаров
+	const swiper = new Swiper(id + ' .swiper', {
+		loop: false,
+		autoplay: false,
+		watchSlidesVisibility: true,
+		simulateTouch: true,
+		grabCursor: true,
+		slidesPerView: '2',
+		spaceBetween: 16,
+		nested: true,
+		preloadImages: false,
+		lazy: {
+			enabled: false,
+			loadPrevNext: true,
+			loadOnTransitionStart: true,
+		},
+		navigation: {
+			nextEl: id + ' .swiper-button-next',
+			prevEl: id + ' .swiper-button-prev',
+		},
+		scrollbar: {
+			el: id + ' .swiper-scrollbar',
+			draggable: true,
+			hide: false,
+		},
+		breakpoints: {
+			0: {
+				slidesPerView: '1',
+			},
+			320: {
+				slidesPerView: '1',
+			},
+			480: {
+				slidesPerView: '1',
+			},
+			640: {
+				slidesPerView: '2',
+			},
+			768: {
+				slidesPerView: '2',
+			},
+			1024: {
+				slidesPerView: '1',
+			},
+			1200: {
+				slidesPerView: '2',
+			}
+		}
+	});
+
+}
 
 ///////////////////////////////////////
 // Загрузка основных функций шаблона

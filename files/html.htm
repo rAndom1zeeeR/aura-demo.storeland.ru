@@ -3826,8 +3826,8 @@
 			goods.onClick()
 			goods.swiperImages()
 			// quantityGoods.onGoods()
-			swiperSliderSmall('#related-views')
-			swiperSliderSmall('#related-goods')
+			swiperSmall('#related-views')
+			swiperRelated()
 		});
 	</script>
 	<script defer type="text/javascript" src="{ASSETS_JS_PATH}jquery-star-rating.js?design=THEMENAME"></script>
@@ -3878,7 +3878,7 @@
 	{% IFNOT index_page %}
 	<script async type="text/javascript">
 		document.addEventListener('DOMContentLoaded', function(){
-	    swiperSliderSmall('#pdt__viewed');
+	    swiperSmall('#pdt__viewed');
 		});
 	</script>
 	{% ENDIF %}
