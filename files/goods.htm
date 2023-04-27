@@ -190,8 +190,8 @@
 			</div>
 			{% ELSE %}
 			<!-- Главное изображение -->
-			<a class="productView__image flex-center" href="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=GRAND{% ELSE %}{GOODS_IMAGE_LARGE}{% ENDIF %}" data-fancybox="images">
-				<img src="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=GRAND{% ELSE %}{GOODS_IMAGE_MEDIUM}{% ENDIF %}" title="{GOODS_NAME}" alt="{GOODS_NAME}" itemprop="image" />
+			<a class="productView__image flex-center" href="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{GOODS_IMAGE_LARGE}{% ENDIF %}" data-fancybox="images">
+				<img src="{% IF GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{GOODS_IMAGE_MEDIUM}{% ENDIF %}" title="{GOODS_NAME}" alt="{GOODS_NAME}" itemprop="image" />
 			</a>
 			{% ENDIF %}
 		</div>		
@@ -706,16 +706,16 @@
 	<div class="productView__tabs">
 		<div class="tabs__navs flex">
 			{% IF GOODS_DESCRIPTION_LARGE || GOODS_SEO_DESCRIPTION_SHORT || GOODS_SEO_DESCRIPTION_LARGE %}
-			<a href="javascript:goods.tabSwitch(1);" class="tabs__nav is-actived" data-tab="1"><span>Описание</span></a>
+			<a class="tabs__nav is-actived" href="javascript:goods.tabSwitch(1);" data-tab="1"><span>Описание</span></a>
 			{% ENDIF %}
 			{% IFNOT goods_features_empty %}
-			<a href="javascript:goods.tabSwitch(2);" class="tabs__nav" data-tab="2"><span>Характеристики</span></a>
+			<a class="tabs__nav" href="javascript:goods.tabSwitch(2);" data-tab="2"><span>Характеристики</span></a>
 			{% ENDIF %}
 			{% IFNOT goods_delivery_empty %}
-			<a href="javascript:goods.tabSwitch(3);" class="tabs__nav" data-tab="3"><span>Доставка</span></a>
+			<a class="tabs__nav" href="javascript:goods.tabSwitch(3);" data-tab="3"><span>Доставка</span></a>
 			{% ENDIF %}
 			{% IF SETTINGS_OPINION_DISABLE=0 %}
-			<a href="javascript:goods.tabSwitch(4);" class="tabs__nav" data-tab="4"><span>Отзывы({GOODS_OPINION_RATING_CNT_ALL})</span></a>
+			<a class="tabs__nav" href="javascript:goods.tabSwitch(4);" data-tab="4"><span>Отзывы({GOODS_OPINION_RATING_CNT_ALL})</span></a>
 			{% ENDIF %}
 		</div>
 

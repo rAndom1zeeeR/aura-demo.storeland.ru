@@ -213,6 +213,7 @@ function pdtVisibleScroll(content, obj){
 
 // Переход к контенту сверху
 function scrollTop(offsetTop){
+	// console.log('offsetTop', offsetTop);
 	if (offsetTop == true) return false
 	window.scrollTo({
 		top: offsetTop,
@@ -2246,8 +2247,8 @@ class Goods {
 				return false;
 			}
 			// Добавляем аткивные классы на первый элемент
-			tabs.find('[data-tab]').first().addClass('is-actived');
-			tabs.find('[data-tab-content]').first().addClass('is-show');
+			$('.tabs__nav').first().addClass('is-actived');
+			$('[data-tab-content]').first().addClass('is-show');
 			// Проверяет хэш и если по нему была открыта вкладка, то эта функция автоматически откроет её.
 			goods.checkTabHash();
 			// Если используется хеш, то скролим до контента
@@ -2260,13 +2261,13 @@ class Goods {
 
 		// Переключение табов
 		this.tabSwitch = function(nb){
-			const tabs = $('.productView__tabs');
-			const tab = tabs.find('[data-tab="' + nb + '"]');
-			const content = tabs.find('[data-tab-content="' + nb + '"]');
-			tabs.find('[data-tab]').removeClass('is-actived');
-			tabs.find('[data-tab-content]').removeClass('is-show');
+			const tab = $('[data-tab="' + nb + '"]');
+			const content = $('[data-tab-content="' + nb + '"]');
+			$('[data-tab]').removeClass('is-actived');
+			$('[data-tab-content]').removeClass('is-show');
 			tab.addClass('is-actived');
 			content.addClass('is-show');
+			scrollTop(tab.hasClass('.is-actived') ? true : $('.productView__tabs').offset().top)
 			document.location.hash = '#tab_' + nb;
 		};
 
