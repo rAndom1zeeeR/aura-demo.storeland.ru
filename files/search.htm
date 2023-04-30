@@ -35,26 +35,31 @@
 			
 			<!-- Сортировать по: (Поле сортировки товаров по умолчанию) -->
 			<div class="toolbar__sort flex">
-				<label class="toolbar__label">Сортировать по:</label>
+				<label class="toolbar__label">
+					<span>Сортировать по:</span>
+					<span>по:</span>
+				</label>
 				<!-- Сортировка выпадающим списком	-->
-				<div class="toolbar__items flex">
-					{% FOR goods_order_fields %}
-						{% IF goods_order_fields.ID = 1 || goods_order_fields.ID = 2 || goods_order_fields.ID = 5 || goods_order_fields.ID = 11 || goods_order_fields.ID = 13 %}
-						<a class="toolbar__item {% IF goods_order_fields.SELECTED %}is-actived{% ENDIF %}" href="?q={SEARCH_QUERY}&goods_search_field_id={goods_order_fields.ID}">
-							{% IF goods_order_fields.ID = 1 %}
-								Цена ↓
-							{% ELSEIF goods_order_fields.ID = 2 %}
-								Цена ↑
-							{% ELSEIF goods_order_fields.ID = 5 %}
-								Наличие
-							{% ELSEIF goods_order_fields.ID = 11 %}
-								Рейтинг
-							{% ELSEIF goods_order_fields.ID = 13 %}
-								Отзывы
+				<div class="toolbar__selectBox selectBox">
+					<select class="select" name="goods_search_field_id" title="Название сортировки" onchange="this.form.submit();">
+						{% FOR goods_order_fields %}
+							{% IF goods_order_fields.ID = 1 || goods_order_fields.ID = 2 || goods_order_fields.ID = 5 || goods_order_fields.ID = 11 || goods_order_fields.ID = 13 %}
+							<option value="{goods_order_fields.ID}" {% IF goods_order_fields.SELECTED %}selected="selected"{% ENDIF %}>
+								{% IF goods_order_fields.ID = 1%}
+									Цена ↓
+								{% ELSEIF goods_order_fields.ID = 2 %}
+									Цена ↑
+								{% ELSEIF goods_order_fields.ID = 5 %}
+									Наличие
+								{% ELSEIF goods_order_fields.ID = 11 %}
+									Рейтинг
+								{% ELSEIF goods_order_fields.ID = 13 %}
+									Отзывы
+								{% ENDIF %}
+							</option>
 							{% ENDIF %}
-						</a>
-						{% ENDIF %}
-					{% ENDFOR %}
+						{% ENDFOR %}
+					</select>
 				</div>
 			</div>
 

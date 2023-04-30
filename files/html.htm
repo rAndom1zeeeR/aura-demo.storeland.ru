@@ -1043,7 +1043,7 @@
 
 				<!-- Товары списком -->
 				<div class="swiper">
-					<div class="products__list swiper-wrapper">
+					<div class="products__grid swiper-wrapper">
 						{% FOR index_page_sale_goods %}
 						<div class="product__item swiper-slide
 								{% IF index_page_sale_goods.MAX_REST_VALUE = 0 %}product__empty{% ENDIF %} 
@@ -2409,7 +2409,7 @@
 
 						<div class="form__pp">
 							<span>Я принимаю условия</span>
-							<span data-fancybox data-src="#fancybox__pp">политики конфиденциальности</span>
+							<a data-fancybox data-src="#fancybox__pp">политики конфиденциальности</a>
 						</div>
 
 					</form>
@@ -3858,7 +3858,7 @@
 							</button>
 							<div class="form__pp">
 								<span>Я принимаю условия</span>
-								<span data-fancybox data-src="#fancybox__pp">политики конфиденциальности</span>
+								<a data-fancybox data-src="#fancybox__pp">политики конфиденциальности</a>
 							</div>
 						</div>
 					</form>
@@ -3886,12 +3886,12 @@
 							<textarea class="form__textarea" rows="2" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_COMMENT}]" placeholder="Комментарий" >{FORM_CALLBACK_COMMENT}</textarea>
 						</div>
 						<div class="form__buttons">
-							<button class="form__button button-primary" type="submit" title="Отправить">
+							<button class="form__button button-primary button-big" type="submit" title="Отправить">
 								<span>Отправить</span>
 							</button>
 							<div class="form__pp">
 								<span>Я принимаю условия</span>
-								<span data-fancybox data-src="#fancybox__pp">политики конфиденциальности</span>
+								<a data-fancybox data-src="#fancybox__pp">политики конфиденциальности</a>
 							</div>
 						</div>
 					</form>
@@ -3923,12 +3923,12 @@
 							<input class="form__input form__email" type="email" name="form[callback_email]" value="{FORM_CALLBACK_EMAIL}" placeholder="email@email.ru *" autocomplete="off" />
 						</div>
 						<div class="form__buttons">
-							<button class="form__button button-primary" type="submit" title="Уведомить">
+							<button class="form__button button-primary button-big" type="submit" title="Уведомить">
 								<span>Уведомить</span>
 							</button>
 							<div class="form__pp">
 								<span>Я принимаю условия</span>
-								<span data-fancybox data-src="#fancybox__pp">политики конфиденциальности</span>
+								<a data-fancybox data-src="#fancybox__pp">политики конфиденциальности</a>
 							</div>
 						</div>
 					</form>

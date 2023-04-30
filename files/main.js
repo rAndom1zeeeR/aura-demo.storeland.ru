@@ -1789,10 +1789,13 @@ class Catalog {
 				// Открытие/Скрытие фильтров в сайдбаре
 				else if (filterTitle){
 					event.preventDefault();
+					console.log('filterTitle', filterTitle);
 					if (filterTitle.classList.contains('is-actived')){
+						console.log('act', filterTitle.classList.contains('is-actived'));
 						filterTitle.classList.remove('is-actived');
 						$(filterTitle).next().slideDown(600);
 					} else {
+						console.log('not act', filterTitle.classList.contains('is-actived'));
 						filterTitle.classList.add('is-actived');
 						$(filterTitle).next().slideUp(600);
 					}
@@ -1803,7 +1806,7 @@ class Catalog {
 				else if (filterIcon){
 					// event.preventDefault();
 					filterIcon.classList.toggle('is-opened');
-					catalog.onClick();
+					// catalog.onClick();
 					// document.querySelector('#filters').classList.toggle('is-opened');
 					// document.querySelector('#overlay').classList.toggle('is-opened');
 				}

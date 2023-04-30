@@ -248,6 +248,7 @@ main {margin: 32px 0 48px;position: relative;display: block;}
 .news-list__title {margin-bottom: 8px;font-weight: 600;display: block;}
 .news-list__title span {display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;}
 .news-list__date {text-align: right;font-style: italic;display: block;}
+.news-list + .pages {margin-top: 24px;}
 
 
 /**************************************/
