@@ -291,7 +291,7 @@ header .catalog__items::-webkit-scrollbar {width: 4px;}
 .addto__buttons a {width: 100%;}
 .addto__dropdown {padding: 0;}
 .addto__image {width: 72px;height: 72px;border-radius: 20px;}
-.addto__content {gap: 8px;width: calc(100% - 72px);padding: 0 20px 4px 8px;}
+.addto__content {gap: 8px;width: calc(100% - 72px);padding: 0 20px 4px 8px;flex-direction: column;align-items: flex-start;}
 .addto__name {font-size: 14px;}
 .addto__title {margin: 16px 16px 0 16px;font-size: 18px;font-weight: 600;}
 .addto__empty {margin: 16px 24px;}
@@ -1311,7 +1311,7 @@ footer .contacts__phone-big {font-size: 20px;font-weight: 700;padding-left: 0;}
   .productView__shop {width: 100%;padding: 32px 0 0 0;}
 }
 @media all and (max-width: 479px) {
-	.productView__sticker {width: calc(100% - 120px);}
+	.productView__sticker {width: calc(100% - 140px);}
 }
 
 /* Товар. Модификации */
