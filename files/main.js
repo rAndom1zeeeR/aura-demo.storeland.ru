@@ -180,11 +180,6 @@ function pdtVisible(id){
 	// Скрываем кнопку показать все если мало товаров
 	pdtVisibleButton(content, button, items)
 
-	// Скрываем кнопку при изменении экрана
-	window.addEventListener('resize', function(){
-		pdtVisibleButton(content, button, items)
-	})
-
 	// Функция открытия скрытых товаров
 	button.addEventListener('click', function(event){
 		event.preventDefault();
@@ -192,7 +187,7 @@ function pdtVisible(id){
 		isActived(this)
 		isActived(content)
 		setTimeout(() => {
-			pdtVisibleScroll(content, this)			
+			scrollTop(this.matches('.is-actived') ? true : content.offsetTop)
 		}, 100);
 	})
 }
@@ -201,14 +196,6 @@ function pdtVisible(id){
 function pdtVisibleButton(content, button, items) {
 	const visible = $(content).find('.visible__item:visible').length;
 	button.parentElement.style.display = items.length > visible ? 'block' : 'none';
-}
-
-// Переход к контенту
-function pdtVisibleScroll(content, obj){
-	// Верхний отступ до контента + высота контента - высота окна + отступ снизу
-	const contentBottom = content.offsetTop + content.clientHeight - window.innerHeight + 16;
-	// Переход
-	scrollTop(obj.matches('.is-actived') ? true : content.offsetTop)
 }
 
 // Переход к контенту сверху
@@ -252,17 +239,25 @@ function updateCount(selector, count){
 class Password {
 	// Нажатие иконки Показать пароль. /JS/
 	onClick(){
-		const btnPass = document.querySelector('.password__icon')
+		const btnPass = document.querySelectorAll('.password__icon')
 		const btnReg = document.querySelector('#registration')
+		console.log('btnReg', btnReg)
 
 		// Если нет объекта
 		if (!btnPass) {return false}
 
 		// Действие нажатие Показать пароль
-		btnPass.addEventListener('click', () => password.showPass(btnPass, btnPass.previousElementSibling))
+		btnPass.forEach(e => {
+			e.addEventListener('click', function(){
+				console.log('e', e)
+				console.log('e.previousElementSibling', e.previousElementSibling)
+				password.showPass(e, e.previousElementSibling)
+			})
+		})
 
 		// Если нет объекта
 		if (!btnReg) {return false}
+		console.log('btnReg2', btnReg)
 
 		// Действие нажатие Регистрация
 		btnReg.addEventListener('click', () => password.registration(btnReg))
@@ -282,9 +277,11 @@ class Password {
 		
 	// Регистрация. /JS/
 	registration(obj){
-		// console.log('registration', obj.checked)
-		const email = document.querySelector('#sites_client_email')
-		const pass = document.querySelector('.password')
+		console.log('registration', obj)
+		const content = obj.closest('.form__list')
+		console.log('content', content)
+		const email = content.querySelector('.form__list .form__email')
+		const pass = content.querySelector('.form__list .password')
 		if (obj.checked){
 			obj.checked = true
 			email.setAttribute('required', true)
@@ -302,7 +299,7 @@ class Password {
 
 	// Определения capslock в поле пароля. /JS/
 	capsWarning(){
-		const pass = document.querySelector('#sites_client_pass');
+		const pass = document.querySelector('.password__input');
 		if (!pass) return false
 		
 		pass.addEventListener('keyup', event => {
@@ -882,26 +879,29 @@ class Product {
 			function createNoty(title, message, image, prod_link, prod_name, status, link, link_name){
 				return `
 					<div class="noty__addto ${status} flex">
-						<div class="noty__title">${title}</div>
 						<a class="noty__image flex-center" href="${prod_link}" title="${prod_name}">
 							<img src="${image}" alt="${prod_name}" />
 						</a>
-						<div class="noty__content">${message}</div>
-						<div class="noty__buttons">
-							<a class="button-primary" href="${link}" title="${link_name}"><span>${link_name}</span></a>
+						<div class="noty__content">
+							<div class="noty__title">${title}</div>
+							<div class="noty__message">${message}</div>
+							<div class="noty__buttons">
+								<a class="button-primary" href="${link}" title="${link_name}"><span>${link_name}</span></a>
+							</div>
 						</div>
 					</div>
 				`;
 			}
 
 			// Создать товара в списке
-			function createItem(pDataid, pUrl, pName, pImg, pDataChar, pDataPrice, delUrl){
+			function createItem(pDataid, pUrl, pName, pImg, pDataChar, pDataPrice, pDataPriceOld, delUrl){
 				return `
 					<div class="addto__item flex" data-id="${pDataid}">
 						<a class="addto__image flex-center" href="${pUrl}" title="${pName}"><img src="${pImg}" alt="${pName}" /></a>
 						<div class="addto__content flex">
 							<a class="addto__name" href="${pUrl}" title="${pName}"><span>${pName}</span></a>
 							<div class="addto__price ${pDataChar}">
+								<div class="price__old" data-price="${pDataPriceOld}"><span title="${pDataPriceOld} российских рублей"><span class="num">${pDataPriceOld}</span><span>р.</span></span></div>
 								<div class="price__now" data-price="${pDataPrice}"><span title="${pDataPrice} российских рублей"><span class="num">${pDataPrice}</span><span>р.</span></span></div>
 							</div>
 							<a class="addto__remove button-rotate" href="${delUrl}?id=${pDataid}" data-id="${pDataid}" title="Убрать товар из списка"><i class="icon-close"></i></a>
@@ -938,6 +938,7 @@ class Product {
 					pImg = a.attr('data-prodimg'),
 					pDataid = a.attr('data-id'),
 					pDataPrice = a.attr('data-mod-price'),
+					pDataPriceOld = a.attr('data-mod-price-old'),
 					pDataChar = a.attr('data-char-code'),
 					// addTooltip = a.attr('data-add-tooltip'),
 					// delTooltip = a.attr('data-del-tooltip'),
@@ -976,7 +977,7 @@ class Product {
 								// Рендер элементов в список
 								if (flag == 0){
 									if ($(addtoComapre).length){
-										$(addtoComapre).find('.addto__items').prepend(createItem(pDataid, pUrl, pName, pImg, pDataChar, pDataPrice, delUrl));
+										$(addtoComapre).find('.addto__items').prepend(createItem(pDataid, pUrl, pName, pImg, pDataChar, pDataPrice, pDataPriceOld, delUrl));
 									}
 								}
 
@@ -1077,6 +1078,7 @@ class Product {
 					pImg = a.attr('data-prodimg'),
 					pDataid = a.attr('data-id'),
 					pDataPrice = a.attr('data-mod-price'),
+					pDataPriceOld = a.attr('data-mod-price-old'),
 					pDataChar = a.attr('data-char-code'),
 					// addTooltip = a.attr('data-add-tooltip'),
 					// delTooltip = a.attr('data-del-tooltip'),
@@ -1115,7 +1117,7 @@ class Product {
 								// Рендер элементов в список
 								if (flag == 0){
 									if ($(addtoFavorites).length){
-										$(addtoFavorites).find('.addto__items').prepend(createItem(pDataid, pUrl, pName, pImg, pDataChar, pDataPrice, delUrl));
+										$(addtoFavorites).find('.addto__items').prepend(createItem(pDataid, pUrl, pName, pImg, pDataChar, pDataPrice, pDataPriceOld, delUrl));
 									}
 								}
 
@@ -1450,9 +1452,10 @@ class Product {
 		this.quickViewContent = function(selector){
 			// Удаляем табы
 			selector.querySelector('.productView__tabs').remove();
-			// Замена ссылки в описании
-			const desc = selector.querySelector('.productView__desc-more');
-			desc ? desc.setAttribute('href', desc.getAttribute('data-href')) : '';
+			// Удаляем аналоги
+			if(selector.querySelector('#related-goods')){
+				selector.querySelector('#related-goods').remove();
+			}
 			return selector
 		}
 
@@ -2214,7 +2217,7 @@ class Goods {
 				// Переход к описанию
 				if (moreDesc){
 					const content = document.querySelector('.productView__tabs')
-					scrollTop(content.offsetTop + 32)
+					scrollTop(content.offsetTop)
 				}
 
 				// Показать/Скрыть доставку
@@ -3293,6 +3296,11 @@ function openMenu(){
 		if (open == 'cart'){
 			const content = document.querySelector('.addto__cart')
 			document.querySelector('.adaptive__block-cart').innerHTML = content.innerHTML
+		}
+
+		if (open == 'user'){
+			const content = document.querySelector('.addto__user')
+			document.querySelector('.adaptive__block-user').innerHTML = content.innerHTML
 		}
 	})
 

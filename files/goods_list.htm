@@ -52,37 +52,28 @@
 			<div class="toolbar__sort flex">
 				<label class="toolbar__label">Сортировать по:</label>
 				<!-- Сортировка выпадающим списком	-->
-				<div class="toolbar__items flex">
-					{% FOR goods_order_fields %}
-						{% IF goods_order_fields.ID = 1 || goods_order_fields.ID = 2 || goods_order_fields.ID = 5 || goods_order_fields.ID = 11 || goods_order_fields.ID = 13 %}
-						<a class="toolbar__item {% IF goods_order_fields.SELECTED %}is-actived{% ENDIF %}" href="?goods_search_field_id={goods_order_fields.ID}">
-							{% IF goods_order_fields.ID = 1 %}
-								Цена ↓
-							{% ELSEIF goods_order_fields.ID = 2 %}
-								Цена ↑
-							{% ELSEIF goods_order_fields.ID = 5 %}
-								Наличие
-							{% ELSEIF goods_order_fields.ID = 11 %}
-								Рейтинг
-							{% ELSEIF goods_order_fields.ID = 13 %}
-								Отзывы
+				<div class="toolbar__selectBox selectBox">
+					<select class="select" name="goods_search_field_id" title="Название сортировки" onchange="this.form.submit();">
+						{% FOR goods_order_fields %}
+							{% IF goods_order_fields.ID = 1 || goods_order_fields.ID = 2 || goods_order_fields.ID = 5 || goods_order_fields.ID = 11 || goods_order_fields.ID = 13 %}
+							<option value="{goods_order_fields.ID}" {% IF goods_order_fields.SELECTED %}selected="selected"{% ENDIF %}>
+								{% IF goods_order_fields.ID = 1%}
+									Цена ↓
+								{% ELSEIF goods_order_fields.ID = 2 %}
+									Цена ↑
+								{% ELSEIF goods_order_fields.ID = 5 %}
+									Наличие
+								{% ELSEIF goods_order_fields.ID = 11 %}
+									Рейтинг
+								{% ELSEIF goods_order_fields.ID = 13 %}
+									Отзывы
+								{% ENDIF %}
+							</option>
 							{% ENDIF %}
-						</a>
-						{% ENDIF %}
-					{% ENDFOR %}
+						{% ENDFOR %}
+					</select>
 				</div>
 			</div>
-
-			<!-- Показывать по: (Шаг для выбора пользователем лимита выдачи товаров на страницу от 1 до 100) -->
-			<!-- <div class="toolbar__show flex">
-				<label class="toolbar__label">Показать по:</label>
-				<div class="toolbar__items flex">
-					{% FOR goods_per_page_list %}
-						{% IF goods_per_page_list.index > 5 %}{break}{% ENDIF %}
-						<a class="toolbar__item {% IF goods_per_page_list.SELECTED %}is-actived{% ENDIF %}" href="?per_page={goods_per_page_list.LIMIT}">{goods_per_page_list.LIMIT}</a>
-					{% ENDFOR %}
-				</div>
-			</div> -->
 
 			<!-- Открыть Фильтры -->
 			{% IF SHOW_GOODS_PRICE_FILTERS || SHOW_GOODS_FILTERS %}
@@ -359,6 +350,7 @@
 								data-id="{goods.ID}"
 								data-mod-id="{goods.MIN_PRICE_NOW_ID}"
 								data-mod-price="{goods.MIN_PRICE_NOW}"
+								data-mod-price-old="{goods.MIN_PRICE_OLD}"
 								data-char-code="{CURRENCY_CHAR_CODE}"
 								data-add-tooltip="Сравнить"
 								data-del-tooltip="В сравнении"
@@ -384,6 +376,7 @@
 								data-id="{goods.ID}"
 								data-mod-id="{goods.MIN_PRICE_NOW_ID}"
 								data-mod-price="{goods.MIN_PRICE_NOW}"
+								data-mod-price-old="{goods.MIN_PRICE_OLD}"
 								data-char-code="{CURRENCY_CHAR_CODE}"
 								data-add-tooltip="Сравнить"
 								data-del-tooltip="В сравнении"
@@ -413,6 +406,7 @@
 								data-id="{goods.ID}"
 								data-mod-id="{goods.MIN_PRICE_NOW_ID}"
 								data-mod-price="{goods.MIN_PRICE_NOW}"
+								data-mod-price-old="{goods.MIN_PRICE_OLD}"
 								data-char-code="{CURRENCY_CHAR_CODE}"
 								data-add-tooltip="Отложить"
 								data-del-tooltip="Отложено"
@@ -438,6 +432,7 @@
 								data-id="{goods.ID}"
 								data-mod-id="{goods.MIN_PRICE_NOW_ID}"
 								data-mod-price="{goods.MIN_PRICE_NOW}"
+								data-mod-price-old="{goods.MIN_PRICE_OLD}"
 								data-char-code="{CURRENCY_CHAR_CODE}"
 								data-add-tooltip="Отложить"
 								data-del-tooltip="Отложено"
@@ -668,6 +663,7 @@
 								data-id="{goods.ID}"
 								data-mod-id="{goods.MIN_PRICE_NOW_ID}"
 								data-mod-price="{goods.MIN_PRICE_NOW}"
+								data-mod-price-old="{goods.MIN_PRICE_OLD}"
 								data-char-code="{CURRENCY_CHAR_CODE}"
 								data-add-tooltip="Сравнить"
 								data-del-tooltip="В сравнении"
@@ -693,6 +689,7 @@
 								data-id="{goods.ID}"
 								data-mod-id="{goods.MIN_PRICE_NOW_ID}"
 								data-mod-price="{goods.MIN_PRICE_NOW}"
+								data-mod-price-old="{goods.MIN_PRICE_OLD}"
 								data-char-code="{CURRENCY_CHAR_CODE}"
 								data-add-tooltip="Сравнить"
 								data-del-tooltip="В сравнении"
@@ -722,6 +719,7 @@
 								data-id="{goods.ID}"
 								data-mod-id="{goods.MIN_PRICE_NOW_ID}"
 								data-mod-price="{goods.MIN_PRICE_NOW}"
+								data-mod-price-old="{goods.MIN_PRICE_OLD}"
 								data-char-code="{CURRENCY_CHAR_CODE}"
 								data-add-tooltip="Отложить"
 								data-del-tooltip="Отложено"
@@ -747,6 +745,7 @@
 								data-id="{goods.ID}"
 								data-mod-id="{goods.MIN_PRICE_NOW_ID}"
 								data-mod-price="{goods.MIN_PRICE_NOW}"
+								data-mod-price-old="{goods.MIN_PRICE_OLD}"
 								data-char-code="{CURRENCY_CHAR_CODE}"
 								data-add-tooltip="Отложить"
 								data-del-tooltip="Отложено"
@@ -928,7 +927,7 @@
 
 	<!-- Страницы -->
 	{% IF show_pages %}
-	<div class="toolbar-bottom flex justify-between">
+	<div class="toolbar toolbar-bottom flex justify-between">
 		<!-- TODO Ajax подгрузка товаров -->
 		<div class="pages__ajax">
 			<span>Показано</span>
@@ -965,7 +964,7 @@
 				<span>Показать по:</span>
 				<span>по:</span>
 			</label>
-			<div class="selectBox">
+			<div class="toolbar__selectBox selectBox">
 				<select class="select" name="per_page" title="Лимит товаров на странице" onchange="this.form.submit();">
 					{% FOR goods_per_page_list %}
 						<option value="{goods_per_page_list.LIMIT}" {% IF goods_per_page_list.SELECTED %}selected="selected"{% ENDIF %}>{goods_per_page_list.LIMIT}</option>

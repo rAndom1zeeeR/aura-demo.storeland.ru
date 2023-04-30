@@ -197,12 +197,12 @@
 												</a>
 
 												<div class="addto__price flex {CURRENCY_CHAR_CODE}">
-													<div class="price__now" data-price="{compare_goods.MIN_PRICE_NOW}">{compare_goods.MIN_PRICE_NOW | money_format}</div>
 													{% IF compare_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > compare_goods.MIN_PRICE_NOW %}
 													<span class="price__old" data-price="{compare_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{compare_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>
 													{% ELSEIF compare_goods.MIN_PRICE_OLD > compare_goods.MIN_PRICE_NOW %}
 													<span class="price__old" data-price="{compare_goods.MIN_PRICE_OLD}">{compare_goods.MIN_PRICE_OLD | money_format}</span>
 													{% ENDIF %}
+													<div class="price__now" data-price="{compare_goods.MIN_PRICE_NOW}">{compare_goods.MIN_PRICE_NOW | money_format}</div>
 												</div>
 
 												<a class="addto__remove button-rotate" 
@@ -261,12 +261,12 @@
 												</a>
 
 												<div class="addto__price flex {CURRENCY_CHAR_CODE}">
-													<div class="price__now" data-price="{favorites_goods.MIN_PRICE_NOW}">{favorites_goods.MIN_PRICE_NOW | money_format}</div>
 													{% IF favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > favorites_goods.MIN_PRICE_NOW %}
 													<span class="price__old" data-price="{favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>
 													{% ELSEIF favorites_goods.MIN_PRICE_OLD > favorites_goods.MIN_PRICE_NOW %}
 													<span class="price__old" data-price="{favorites_goods.MIN_PRICE_OLD}">{favorites_goods.MIN_PRICE_OLD | money_format}</span>
 													{% ENDIF %}
+													<div class="price__now" data-price="{favorites_goods.MIN_PRICE_NOW}">{favorites_goods.MIN_PRICE_NOW | money_format}</div>
 												</div>
 											
 												<a class="addto__remove button-rotate" 
@@ -340,7 +340,9 @@
 						</div>
 
 						<!-- Личный кабинет -->
-						<div class="addto__block login dropdown">
+						{% IFNOT MOD_LNAME = cart %}
+						{% IFNOT MOD_LNAME = user %}
+						<div class="addto__block user dropdown {% IF CLIENT_IS_LOGIN %}is-loggined{% ENDIF %}">
 							<a class="addto__link flex dropdown__open" href="{USER_LOGIN_URL}" title="Личный кабинет">
 								{% IF CLIENT_IS_LOGIN %}
 								<span>Личный кабинет</span>
@@ -348,7 +350,8 @@
 								<span>Войти/Регистрация</span>
 								{% ENDIF %}
 							</a>
-							<div class="addto__login dropdown__content">
+							<div class="addto__user dropdown__content">
+								{% IF CLIENT_IS_LOGIN %}
 								<!-- ЛК для авторизованных пользователей -->
 								<ul class="mainnav__list flex-column unstyled">
 									{% IF CLIENT_IS_LOGIN %}
@@ -400,15 +403,63 @@
 									{% ENDIF CLIENT_IS_LOGIN %}
 
 								</ul>
+								{% ELSE %}
+								<div class="addto__user-title">Личный кабинет</div>
+								<div class="addto__user-subtitle">Если вы уже зарегистрированны в нашем магазине, войдите в свой аккаунт, заполнив форму ниже</div>
+								<form class="client__form" action="{USER_LOGIN_URL}" method="post">
+									<input type="hidden" name="hash" value="{HASH}" />
+									<input type="hidden" name="from" value="{FROM}" />
+									<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
+									{ANTISPAM_CODE}
+					
+									<div class="form__list">
+										<div class="form__field">
+											<label for="sites_client_mail" class="form__label required"><span>Электронная почта</span><em>*</em></label>
+											<input id="sites_client_mail" class="form__input form__email" type="email" name="form[sites_client_mail]" value="{FORM_SITES_CLIENT_MAIL}" maxlength="255" placeholder="Email" required/>
+										</div>
+					
+										<div class="form__field password">
+											<label class="form__label required"><span>Пароль:</span><em>*</em></label>
+											<input class="form__input password__input" type="password" name="form[sites_client_pass]" value="{FORM_SITES_CLIENT_PASS}" maxlength="50" minlength="6" placeholder="Пароль" required/>
+											<div class="password__icon" title="Показать пароль"></div>
+										</div>
+										
+										<!-- Капслок -->
+										<div id="capslock">
+											<div class="capslock__icon flex">
+												<i class="icon-warning"></i>
+												<strong>Caps Lock включен.</strong>
+											</div>
+											<div class="capslock__text">Пароль может быть введен неверно.</div>
+										</div>
+					
+										<div class="client__buttons flex justify-between">
+											<button class="button-primary" type="submit" name="send" title="Войти">
+												<span>Войти</span>
+											</button>
+											<a class="button-more" href="{USER_RECOVERY_URL}" title="Забыли пароль">
+												<span>Забыли пароль?</span>
+											</a>
+											<a class="button-more" href="{USER_REGISTER_URL}" title="Зарегистроваться">
+												<span>Зарегистроваться</span>
+											</a>
+										</div>
+					
+									</div>
+					
+								</form>
+								{% ENDIF %}
 							</div>
 						</div>
+						{% ENDIF %}
+						{% ENDIF %}
 
 						<!-- Корзина -->
 						<div class="addto__block cart dropdown {% IF CART_COUNT_TOTAL > 0 %}has-items{% ENDIF %}">
 							<a class="addto__link flex cart__icon dropdown__open" href="{CART_URL}" title="Перейти в корзину">
 								<i class="icon-cart"></i>
 								<span class="addto__count cart-count" data-count="{CART_COUNT_TOTAL}">{CART_COUNT_TOTAL}</span>
-								<span class="cartSumDiscount" data-price="{CART_SUM_NOW_WITH_DISCOUNT}">{CART_SUM_NOW_WITH_DISCOUNT | money_format}</span>
+								<span class="cartSumDiscount {CURRENCY_CHAR_CODE}" data-price="{CART_SUM_NOW_WITH_DISCOUNT}">{CART_SUM_NOW_WITH_DISCOUNT | money_format}</span>
 							</a>
 
 							<!-- Выпадаюзая Корзина -->
@@ -455,10 +506,10 @@
 												</div>
 
 												<div class="addto__price flex {CURRENCY_CHAR_CODE}">
-													<span class="price__now" data-price="{cart_items.ORDER_LINE_PRICE_NOW}">{cart_items.ORDER_LINE_PRICE_NOW | money_format}</span>
 													{% IF cart_items.ORDER_LINE_PRICE_OLD > cart_items.ORDER_LINE_PRICE_NOW %}
 													<span class="price__old" data-price="{cart_items.ORDER_LINE_PRICE_OLD}">{cart_items.ORDER_LINE_PRICE_OLD | money_format}</span>
 													{% ENDIF %}
+													<span class="price__now" data-price="{cart_items.ORDER_LINE_PRICE_NOW}">{cart_items.ORDER_LINE_PRICE_NOW | money_format}</span>
 												</div>
 
 												<a class="addto__remove button-rotate" 
@@ -679,6 +730,7 @@
 											data-id="{index_page_favorites_goods.ID}"
 											data-mod-id="{index_page_favorites_goods.MIN_PRICE_NOW_ID}"
 											data-mod-price="{index_page_favorites_goods.MIN_PRICE_NOW}"
+											data-mod-price-old="{index_page_favorites_goods.MIN_PRICE_OLD}"
 											data-char-code="{CURRENCY_CHAR_CODE}"
 											data-add-tooltip="Сравнить"
 											data-del-tooltip="В сравнении"
@@ -704,6 +756,7 @@
 											data-id="{index_page_favorites_goods.ID}"
 											data-mod-id="{index_page_favorites_goods.MIN_PRICE_NOW_ID}"
 											data-mod-price="{index_page_favorites_goods.MIN_PRICE_NOW}"
+											data-mod-price-old="{index_page_favorites_goods.MIN_PRICE_OLD}"
 											data-char-code="{CURRENCY_CHAR_CODE}"
 											data-add-tooltip="Сравнить"
 											data-del-tooltip="В сравнении"
@@ -733,6 +786,7 @@
 											data-id="{index_page_favorites_goods.ID}"
 											data-mod-id="{index_page_favorites_goods.MIN_PRICE_NOW_ID}"
 											data-mod-price="{index_page_favorites_goods.MIN_PRICE_NOW}"
+											data-mod-price-old="{index_page_favorites_goods.MIN_PRICE_OLD}"
 											data-char-code="{CURRENCY_CHAR_CODE}"
 											data-add-tooltip="Отложить"
 											data-del-tooltip="Отложено"
@@ -758,6 +812,7 @@
 											data-id="{index_page_favorites_goods.ID}"
 											data-mod-id="{index_page_favorites_goods.MIN_PRICE_NOW_ID}"
 											data-mod-price="{index_page_favorites_goods.MIN_PRICE_NOW}"
+											data-mod-price-old="{index_page_favorites_goods.MIN_PRICE_OLD}"
 											data-char-code="{CURRENCY_CHAR_CODE}"
 											data-add-tooltip="Отложить"
 											data-del-tooltip="Отложено"
@@ -1054,6 +1109,7 @@
 											data-id="{index_page_sale_goods.ID}"
 											data-mod-id="{index_page_sale_goods.MIN_PRICE_NOW_ID}"
 											data-mod-price="{index_page_sale_goods.MIN_PRICE_NOW}"
+											data-mod-price-old="{index_page_sale_goods.MIN_PRICE_OLD}"
 											data-char-code="{CURRENCY_CHAR_CODE}"
 											data-add-tooltip="Сравнить"
 											data-del-tooltip="В сравнении"
@@ -1079,6 +1135,7 @@
 											data-id="{index_page_sale_goods.ID}"
 											data-mod-id="{index_page_sale_goods.MIN_PRICE_NOW_ID}"
 											data-mod-price="{index_page_sale_goods.MIN_PRICE_NOW}"
+											data-mod-price-old="{index_page_sale_goods.MIN_PRICE_OLD}"
 											data-char-code="{CURRENCY_CHAR_CODE}"
 											data-add-tooltip="Сравнить"
 											data-del-tooltip="В сравнении"
@@ -1108,6 +1165,7 @@
 											data-id="{index_page_sale_goods.ID}"
 											data-mod-id="{index_page_sale_goods.MIN_PRICE_NOW_ID}"
 											data-mod-price="{index_page_sale_goods.MIN_PRICE_NOW}"
+											data-mod-price-old="{index_page_sale_goods.MIN_PRICE_OLD}"
 											data-char-code="{CURRENCY_CHAR_CODE}"
 											data-add-tooltip="Отложить"
 											data-del-tooltip="Отложено"
@@ -1133,6 +1191,7 @@
 											data-id="{index_page_sale_goods.ID}"
 											data-mod-id="{index_page_sale_goods.MIN_PRICE_NOW_ID}"
 											data-mod-price="{index_page_sale_goods.MIN_PRICE_NOW}"
+											data-mod-price-old="{index_page_sale_goods.MIN_PRICE_OLD}"
 											data-char-code="{CURRENCY_CHAR_CODE}"
 											data-add-tooltip="Отложить"
 											data-del-tooltip="Отложено"
@@ -1340,7 +1399,7 @@
 
 		<!-- Новинки -->
 		{% IFNOT index_page_new_goods_empty %}
-		<section id="pdt__new" class="pdt__visible">
+		<section id="pdt__new" class="pdt__visible pdt__small">
 			<div class="container">
 				<!-- Заголовок -->
 				<div class="block__title">
@@ -1410,6 +1469,7 @@
 										data-id="{index_page_new_goods.ID}"
 										data-mod-id="{index_page_new_goods.MIN_PRICE_NOW_ID}"
 										data-mod-price="{index_page_new_goods.MIN_PRICE_NOW}"
+										data-mod-price-old="{index_page_new_goods.MIN_PRICE_OLD}"
 										data-char-code="{CURRENCY_CHAR_CODE}"
 										data-add-tooltip="Сравнить"
 										data-del-tooltip="В сравнении"
@@ -1435,6 +1495,7 @@
 										data-id="{index_page_new_goods.ID}"
 										data-mod-id="{index_page_new_goods.MIN_PRICE_NOW_ID}"
 										data-mod-price="{index_page_new_goods.MIN_PRICE_NOW}"
+										data-mod-price-old="{index_page_new_goods.MIN_PRICE_OLD}"
 										data-char-code="{CURRENCY_CHAR_CODE}"
 										data-add-tooltip="Сравнить"
 										data-del-tooltip="В сравнении"
@@ -1464,6 +1525,7 @@
 										data-id="{index_page_new_goods.ID}"
 										data-mod-id="{index_page_new_goods.MIN_PRICE_NOW_ID}"
 										data-mod-price="{index_page_new_goods.MIN_PRICE_NOW}"
+										data-mod-price-old="{index_page_new_goods.MIN_PRICE_OLD}"
 										data-char-code="{CURRENCY_CHAR_CODE}"
 										data-add-tooltip="Отложить"
 										data-del-tooltip="Отложено"
@@ -1489,6 +1551,7 @@
 										data-id="{index_page_new_goods.ID}"
 										data-mod-id="{index_page_new_goods.MIN_PRICE_NOW_ID}"
 										data-mod-price="{index_page_new_goods.MIN_PRICE_NOW}"
+										data-mod-price-old="{index_page_new_goods.MIN_PRICE_OLD}"
 										data-char-code="{CURRENCY_CHAR_CODE}"
 										data-add-tooltip="Отложить"
 										data-del-tooltip="Отложено"
@@ -1886,6 +1949,7 @@
 										data-id="{index_page_goods.ID}"
 										data-mod-id="{index_page_goods.MIN_PRICE_NOW_ID}"
 										data-mod-price="{index_page_goods.MIN_PRICE_NOW}"
+										data-mod-price-old="{index_page_goods.MIN_PRICE_OLD}"
 										data-char-code="{CURRENCY_CHAR_CODE}"
 										data-add-tooltip="Сравнить"
 										data-del-tooltip="В сравнении"
@@ -1911,6 +1975,7 @@
 										data-id="{index_page_goods.ID}"
 										data-mod-id="{index_page_goods.MIN_PRICE_NOW_ID}"
 										data-mod-price="{index_page_goods.MIN_PRICE_NOW}"
+										data-mod-price-old="{index_page_goods.MIN_PRICE_OLD}"
 										data-char-code="{CURRENCY_CHAR_CODE}"
 										data-add-tooltip="Сравнить"
 										data-del-tooltip="В сравнении"
@@ -1940,6 +2005,7 @@
 										data-id="{index_page_goods.ID}"
 										data-mod-id="{index_page_goods.MIN_PRICE_NOW_ID}"
 										data-mod-price="{index_page_goods.MIN_PRICE_NOW}"
+										data-mod-price-old="{index_page_goods.MIN_PRICE_OLD}"
 										data-char-code="{CURRENCY_CHAR_CODE}"
 										data-add-tooltip="Отложить"
 										data-del-tooltip="Отложено"
@@ -1965,6 +2031,7 @@
 										data-id="{index_page_goods.ID}"
 										data-mod-id="{index_page_goods.MIN_PRICE_NOW_ID}"
 										data-mod-price="{index_page_goods.MIN_PRICE_NOW}"
+										data-mod-price-old="{index_page_goods.MIN_PRICE_OLD}"
 										data-char-code="{CURRENCY_CHAR_CODE}"
 										data-add-tooltip="Отложить"
 										data-del-tooltip="Отложено"
@@ -2622,7 +2689,7 @@
 
 		<!-- Вы смотрели -->
 		{% IFNOT recently_viewed_goods_empty %}
-		<section id="pdt__viewed" class="pdt__slider loading">
+		<section id="pdt__viewed" class="pdt__small loading">
 			<div class="container">
 				<div class="block__title">
 					<div class="title"><span>Вы смотрели</span></div>
@@ -2691,6 +2758,7 @@
 										data-id="{recently_viewed_goods.ID}"
 										data-mod-id="{recently_viewed_goods.MIN_PRICE_NOW_ID}"
 										data-mod-price="{recently_viewed_goods.MIN_PRICE_NOW}"
+										data-mod-price-old="{recently_viewed_goods.MIN_PRICE_OLD}"
 										data-char-code="{CURRENCY_CHAR_CODE}"
 										data-add-tooltip="Сравнить"
 										data-del-tooltip="В сравнении"
@@ -2716,6 +2784,7 @@
 										data-id="{recently_viewed_goods.ID}"
 										data-mod-id="{recently_viewed_goods.MIN_PRICE_NOW_ID}"
 										data-mod-price="{recently_viewed_goods.MIN_PRICE_NOW}"
+										data-mod-price-old="{recently_viewed_goods.MIN_PRICE_OLD}"
 										data-char-code="{CURRENCY_CHAR_CODE}"
 										data-add-tooltip="Сравнить"
 										data-del-tooltip="В сравнении"
@@ -2745,6 +2814,7 @@
 										data-id="{recently_viewed_goods.ID}"
 										data-mod-id="{recently_viewed_goods.MIN_PRICE_NOW_ID}"
 										data-mod-price="{recently_viewed_goods.MIN_PRICE_NOW}"
+										data-mod-price-old="{recently_viewed_goods.MIN_PRICE_OLD}"
 										data-char-code="{CURRENCY_CHAR_CODE}"
 										data-add-tooltip="Отложить"
 										data-del-tooltip="Отложено"
@@ -2770,6 +2840,7 @@
 										data-id="{recently_viewed_goods.ID}"
 										data-mod-id="{recently_viewed_goods.MIN_PRICE_NOW_ID}"
 										data-mod-price="{recently_viewed_goods.MIN_PRICE_NOW}"
+										data-mod-price-old="{recently_viewed_goods.MIN_PRICE_OLD}"
 										data-char-code="{CURRENCY_CHAR_CODE}"
 										data-add-tooltip="Отложить"
 										data-del-tooltip="Отложено"
@@ -3443,6 +3514,7 @@
 			</div>
 
 			<!-- Фиксированная карточка товара -->
+			{% IF MOD_LNAME = goods %}
 			<div class="fixed-goods">
 				<div class="container">
 					<div class="fixed-goods__inner flex">
@@ -3488,6 +3560,7 @@
 									data-id="{GOODS_ID}"
 									data-mod-id="{GOODS_MOD_ID}"
 									data-mod-price="{GOODS_MOD_PRICE_NOW}"
+									data-mod-price-old="{GOODS_MOD_PRICE_OLD}"
 									data-add-tooltip="В сравнение"
 									data-del-tooltip="В сравнении"
 									data-tooltip="Убрать из избранного"
@@ -3511,6 +3584,7 @@
 									data-id="{GOODS_ID}"
 									data-mod-id="{GOODS_MOD_ID}"
 									data-mod-price="{GOODS_MOD_PRICE_NOW}"
+									data-mod-price-old="{GOODS_MOD_PRICE_OLD}"
 									data-add-tooltip="В сравнение"
 									data-del-tooltip="В сравнении"
 									data-tooltip="Добавить в сравнение"
@@ -3538,6 +3612,7 @@
 									data-id="{GOODS_ID}"
 									data-mod-id="{GOODS_MIN_PRICE_NOW_ID}"
 									data-mod-price="{GOODS_MOD_PRICE_NOW}"
+									data-mod-price-old="{GOODS_MOD_PRICE_OLD}"
 									data-add-tooltip="Отложить"
 									data-del-tooltip="Отложенно"
 									data-tooltip="Убрать из избранного"
@@ -3562,6 +3637,7 @@
 									data-id="{GOODS_ID}"
 									data-mod-id="{GOODS_MIN_PRICE_NOW_ID}"
 									data-mod-price="{GOODS_MOD_PRICE_NOW}"
+									data-mod-price-old="{GOODS_MOD_PRICE_OLD}"
 									data-add-tooltip="Отложить"
 									data-del-tooltip="Отложенно"
 									data-tooltip="Убрать из избранного"
@@ -3619,6 +3695,7 @@
 					</div>
 				</div>
 			</div>
+			{% ENDIF %}
 
 			<!-- Контакты в модальном окне -->
 			<div id="fancybox__contacts" class="modal" style="display: none;">
@@ -3956,14 +4033,14 @@
 	{% ENDIF %}
 
 	<!-- Страница: ЛК, Заказ -->
-	{% IF MOD_LNAME = user || MOD_LNAME = order %}
+	<!-- {% IF MOD_LNAME = user || MOD_LNAME = order %} -->
 	<script async type="text/javascript">
 		document.addEventListener('DOMContentLoaded', function(){
 			password.onClick();
 			password.capsWarning();
 		});
 	</script>
-	{% ENDIF %}
+	<!-- {% ENDIF %} -->
 
 	<!-- Страница: Сравнение -->
 	{% IF MOD_LNAME = compare %}
