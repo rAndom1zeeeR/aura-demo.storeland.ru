@@ -1658,7 +1658,7 @@ footer .contacts__phone-big {font-size: 20px;font-weight: 700;padding-left: 0;}
 .order-payment__item:nth-child(n+2) {margin-top: 16px;}
 
 /* Доставка */
-.order-delivery__items {display: none;}
+.order-fast__form .order-delivery__items {display: none;}
 .order-delivery__item:nth-child(n+2) {margin-top: 24px;}
 .order-delivery__title {margin-bottom: 12px;font-weight: bold;}
 .order-delivery__radio {margin-right: 12px;}

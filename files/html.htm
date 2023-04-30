@@ -342,6 +342,7 @@
 						<!-- Личный кабинет -->
 						{% IFNOT MOD_LNAME = cart %}
 						{% IFNOT MOD_LNAME = user %}
+						{% IFNOT MOD_LNAME = order %}
 						<div class="addto__block user dropdown {% IF CLIENT_IS_LOGIN %}is-loggined{% ENDIF %}">
 							<a class="addto__link flex dropdown__open" href="{USER_LOGIN_URL}" title="Личный кабинет">
 								{% IF CLIENT_IS_LOGIN %}
@@ -451,6 +452,7 @@
 								{% ENDIF %}
 							</div>
 						</div>
+						{% ENDIF %}
 						{% ENDIF %}
 						{% ENDIF %}
 

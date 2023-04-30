@@ -278,10 +278,12 @@ class Password {
 	// Регистрация. /JS/
 	registration(obj){
 		console.log('registration', obj)
-		const content = obj.closest('.form__list')
+		const content = obj.closest('#main')
 		console.log('content', content)
-		const email = content.querySelector('.form__list .form__email')
-		const pass = content.querySelector('.form__list .password')
+		const email = content.querySelector('.form__email')
+		const pass = content.querySelector('.password')
+		console.log('email', email)
+		console.log('pass', pass)
 		if (obj.checked){
 			obj.checked = true
 			email.setAttribute('required', true)
