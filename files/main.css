@@ -1200,9 +1200,10 @@ footer .contacts__phone-big {font-size: 20px;font-weight: 700;padding-left: 0;}
 	.promotion__counter {padding: 12px 24px;}
 }
 @media all and (max-width: 479px) {
+	.promotion__grid {gap: 24px 16px;margin-top: 24px;}
 	.promotion__item {background: transparent;}
 	.promotion__percentage {width: 200px;z-index: 2;}
-	.promotion__shop {margin-top: -40px;width: 100%;padding: 56px 16px 16px;background: var(--color-bg2);border-radius: 16px;}
+	.promotion__shop {margin-top: -40px;width: 100%;padding: 56px 16px 16px;background: var(--color-bg2);border-radius: 16px;text-align: center;}
 	.promotion__counter {margin: 24px 0 0 12px;padding: 12px 16px;top: auto;position: relative;}
 }
 
@@ -1312,6 +1313,7 @@ footer .contacts__phone-big {font-size: 20px;font-weight: 700;padding-left: 0;}
 }
 @media all and (max-width: 479px) {
 	.productView__sticker {width: calc(100% - 140px);}
+	.promotion__inner {justify-content: center;}
 }
 
 /* Товар. Модификации */
@@ -1415,6 +1417,7 @@ footer .contacts__phone-big {font-size: 20px;font-weight: 700;padding-left: 0;}
 
 /* Товар. Оценка Отзыва */
 .opinion__score {margin-bottom: 24px;gap: 16px 32px;}
+.opinion__score-empty {margin-bottom: 0;}
 .opinion__score-icon {width: 140px;height: 140px;background: var(--color-gradient);border-radius: 100%;padding: 28px;text-align: center;position: relative;line-height: 1.25;}
 .opinion__score-icon:before {content: '';background: var(--color-bg2);border-radius: 100%;width: calc(100% - 16px);height: calc(100% - 16px);position: absolute;}
 .opinion__score-label {font-size: 14px;font-weight: 600;color: var(--color-darkgray);z-index: 2;}
@@ -1422,7 +1425,7 @@ footer .contacts__phone-big {font-size: 20px;font-weight: 700;padding-left: 0;}
 .opinion__score-buttons {width: 240px;}
 .opinion__score-buttons a {width: 100%;padding: 0;}
 .opinion__score-container {width: calc(100% - 140px - 32px);gap: 16px;}
-.opinion__score-content {width: calc(100% - 240px - 16px);}
+.opinion__score-content {width: calc(100% - 240px - 16px);line-height: 1.25;}
 .opinion__score-count {margin-top: 16px;}
 @media all and (max-width: 1023px) {
 	.opinion__score-content {width: 100%;}
