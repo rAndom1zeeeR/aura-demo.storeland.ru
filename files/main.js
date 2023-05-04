@@ -3341,8 +3341,12 @@ function openMenu(){
 	// Открыть адаптивное меню
 	$('.header-catalog__icon').on('click',function(event){
 		event.preventDefault();
-		$('.adaptive').addClass('is-opened');
-		$('#overlay').addClass('is-opened');
+		if (getClientWidth() > 1024){
+			$.fancybox.open($('#fancybox__catalog'))
+		} else {
+			$('.adaptive').addClass('is-opened');
+			$('#overlay').addClass('is-opened');
+		}
 	})
 
 }
@@ -3351,12 +3355,12 @@ function openMenu(){
 function closeAll(){
 	$('div, a, form, span, nav, ul, li').removeClass('is-opened');
 	$('.overflowMenu').removeClass('is-actived');
-	$('.search__reset').click();
+	// $('.search__reset').click();
 	$('#overlay').click();
 	setTimeout(function(){
 		$('#overlay').removeClass('transparent');
-		$('.search__reset').click();
-		$('.search__input').blur(); 
+		// $('.search__reset').click();
+		// $('.search__input').blur(); 
 		$('#overlay').click();
 	},100)
 }

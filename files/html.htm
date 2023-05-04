@@ -117,7 +117,7 @@
 								<span>Каталог</span>
 								<i class="icon-catalog"></i>
 							</a>
-							<div class="header-catalog__content dropdown__content">
+							<!-- <div class="header-catalog__content dropdown__content">
 								<div class="header-catalog__inner flex-start">
 									<ul class="catalog__items catalog__items-main unstyled">
 										{% FOR catalog_full %}
@@ -143,7 +143,7 @@
 											{% IF catalog_full.LAST %}{% FOR out %}</li>{% IFNOT catalog_full.out.LAST %}</ul>{% ENDIF %}{% ENDFOR %}{% ENDIF %}
 										{% ENDFOR %}
 								</div>
-							</div>
+							</div> -->
 						</div>
 
 						<!-- Шапка. Меню -->
@@ -340,9 +340,8 @@
 						</div>
 
 						<!-- Личный кабинет -->
-						{% IFNOT MOD_LNAME = cart %}
-						{% IFNOT MOD_LNAME = user %}
-						{% IFNOT MOD_LNAME = order %}
+						{% IF MOD_LNAME = cart || MOD_LNAME = user || MOD_LNAME = order %}
+						{% ELSE %}
 						<div class="addto__block user dropdown {% IF CLIENT_IS_LOGIN %}is-loggined{% ENDIF %}">
 							<a class="addto__link flex dropdown__open" href="{USER_LOGIN_URL}" title="Личный кабинет">
 								{% IF CLIENT_IS_LOGIN %}
@@ -452,8 +451,6 @@
 								{% ENDIF %}
 							</div>
 						</div>
-						{% ENDIF %}
-						{% ENDIF %}
 						{% ENDIF %}
 
 						<!-- Корзина -->
@@ -3513,7 +3510,10 @@
 				<div class="adaptive__block adaptive__block-favorites favorites {% IF FAVORITES_GOODS_COUNT > 0 %}has-items{% ENDIF %}" data-opened="favorites"></div>
 
 				<!-- Мобильный Личный кабинет -->
+				{% IF MOD_LNAME = cart || MOD_LNAME = user || MOD_LNAME = order %}
+				{% ELSE %}
 				<div class="adaptive__block adaptive__block-user" data-opened="user"></div>
+				{% ENDIF %}
 
 			</div>
 
@@ -3700,6 +3700,40 @@
 				</div>
 			</div>
 			{% ENDIF %}
+
+			<!-- Контакты в модальном окне -->
+			<div id="fancybox__catalog" class="modal" style="display: none;">
+				<div class="modal__title block__title">
+					<h2 class="title">Каталог</h2>
+				</div>
+				<div class="modal__content">
+					<div class="modal-catalog__inner flex-start">
+						<ul class="catalog__items catalog__items-main unstyled">
+							{% FOR catalog_full %}
+								{% IF catalog_full.LEVEL > 0 %}{continue}{% ENDIF %}
+								<li class="catalog__item {% IF catalog_full.ISSET_VISIBLE_SUB %}parent{% ENDIF %} {% IF catalog_full.CURRENT_PARENT || catalog_full.CURRENT %}is-actived{% ENDIF %}" data-level="{catalog_full.LEVEL}" data-id="{catalog_full.ID}" {% IF catalog_full.HIDE %}style="display:none;"{% ENDIF %}>
+									<a class="catalog__link flex {% IF catalog_full.CURRENT %}is-actived{% ENDIF %}" href="{catalog_full.URL}" data-level="{catalog_full.LEVEL}">
+										<span>{catalog_full.NAME}</span>
+										{% IF catalog_full.ISSET_VISIBLE_SUB %}<i class="icon-chevron_right"></i>{% ENDIF %}
+									</a>
+								</li>
+							{% ENDFOR %}
+						</ul>
+
+						<ul class="catalog__items catalog__items-sub unstyled">
+							{% FOR catalog_full %}
+								{% IF catalog_full.FIRST && catalog_full.LEVEL > 0 %}<ul data-level="{catalog_full.LEVEL}" class="catalog__sub unstyled">{% ENDIF %}
+								<li class="catalog__item {% IF catalog_full.ISSET_VISIBLE_SUB %}parent{% ENDIF %} {% IF catalog_full.CURRENT_PARENT %}is-actived{% ENDIF %}" data-level="{catalog_full.LEVEL}" data-id="{catalog_full.ID}" {% IF catalog_full.HIDE %}style="display:none;"{% ENDIF %}>
+									<a class="catalog__link flex {% IF catalog_full.CURRENT %}is-actived{% ENDIF %}" href="{catalog_full.URL}" data-level="{catalog_full.LEVEL}">
+										<span>{catalog_full.NAME}</span>
+										{% IF catalog_full.ISSET_VISIBLE_SUB %}<i class="icon-chevron_right"></i>{% ENDIF %}
+									</a>
+									{% IF catalog_full.ISSET_SUB=0 %}</li>{% ENDIF %}
+								{% IF catalog_full.LAST %}{% FOR out %}</li>{% IFNOT catalog_full.out.LAST %}</ul>{% ENDIF %}{% ENDFOR %}{% ENDIF %}
+							{% ENDFOR %}
+					</div>
+				</div>
+			</div>
 
 			<!-- Контакты в модальном окне -->
 			<div id="fancybox__contacts" class="modal" style="display: none;">
