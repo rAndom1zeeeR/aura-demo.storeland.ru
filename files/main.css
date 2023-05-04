@@ -291,15 +291,19 @@ header .catalog__items::-webkit-scrollbar {width: 4px;}
 .addto__buttons a {width: 100%;}
 .addto__dropdown {padding: 0;}
 .addto__image {width: 72px;height: 72px;border-radius: 20px;}
-.addto__content {gap: 8px;width: calc(100% - 72px);padding: 0 20px 4px 8px;flex-direction: column;align-items: flex-start;}
-.addto__name {font-size: 14px;}
+.addto__content {gap: 8px 16px;width: calc(100% - 72px);padding: 0 20px 4px 8px;}
+.addto__name {font-size: 14px;width: 100%;}
+.addto__mod {width: 100%;}
 .addto__title {margin: 16px 16px 0 16px;font-size: 18px;font-weight: 600;}
 .addto__empty {margin: 16px 24px;}
 .addto__items {margin: 16px;display: none;}
 .addto__total {margin: 0 16px 16px 16px;}
+.addto__price {flex-direction: column;align-items: flex-start;gap: 4px 16px;}
 .addto__price .price__now {font-size: 18px;}
 .addto__price .price__old {font-size: 14px;}
 .addto__remove {font-size: 20px;right: 2px;bottom: 0;position: absolute;}
+.addto__qty .qty__input {width: 40px;height: 28px;}
+.addto__qty .qty__select {width: 28px;height: 28px;}
 @media all and (max-width: 1199px) {
 	.header-addto .addto__link span {display: none;}
 }
@@ -551,7 +555,7 @@ header .catalog__items::-webkit-scrollbar {width: 4px;}
 .qty {border: 4px solid var(--color-bg2);border-radius: 10px;position: relative;display: flex;}
 .qty__select {color: var(--color-gray);width: 36px;height: 36px;border-radius: 10px;font-size: 18px;transition: all 0.3s ease;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;display: flex;align-items: center;justify-content: center;}
 .qty__select:hover {color: var(--color-primary);cursor: pointer;}
-.qty__input {width: 80px;height: 36px;text-align: center;padding: 0 8px;border: 0;border-radius: 0;font-weight: bold;}
+.qty__input {width: 80px;height: 36px;text-align: center;padding: 0 4px;border: 0;border-radius: 0;font-weight: bold;}
 .qty__label {margin-bottom: 8px;color: var(--color-darkgray);font-size: 14px;font-weight: 600;display: block;}
 
 
@@ -1303,7 +1307,7 @@ footer .contacts__phone-big {font-size: 20px;font-weight: 700;padding-left: 0;}
 .productView__price .price__now {font-size: 30px;font-weight: 900;}
 .productView__price .price__old {font-size: 18px;font-weight: 500;}
 .productView__form {width: 100%;}
-.productView__name {width: 100%;}
+.productView__name {width: 100%;display: none;}
 .productView__desc {width: 100%;line-height: 1.25;}
 .productView__desc-more {margin-top: 8px;}
 .productView__desc-text {font-size: 14px;display: -webkit-box;-webkit-line-clamp: 4;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;}
@@ -1323,7 +1327,7 @@ footer .contacts__phone-big {font-size: 20px;font-weight: 700;padding-left: 0;}
 /* Товар. Модификации */
 .modifications__description {margin-top: 16px;}
 .modifications-props {gap: 16px 24px;}
-.modifications-props__selectBox {width: calc(50% - 12px);flex-grow: 1;}
+.modifications-props__selectBox {width: calc(50% - 12px);}
 .modifications-props__name {margin-bottom: 8px;color: var(--color-darkgray);font-size: 14px;font-weight: 600;display: block;}
 .modifications-values {display: none;}
 .modifications-props__select {font-weight: 600;}
@@ -1513,6 +1517,10 @@ footer .contacts__phone-big {font-size: 20px;font-weight: 700;padding-left: 0;}
 .fixed-goods__cart a {padding: 0;width: 100%;}
 .fixed-goods__cart a i {display: none;}
 .fixed-goods__cart span {padding: 0;}
+.fixed-goods__cart .button-empty {display: none;}
+.fixed-goods__cart .button-gradient {display: inline-flex;}
+.fixed-goods__cart.is-empty .button-empty {display: inline-flex;}
+.fixed-goods__cart.is-empty .button-gradient {display: none;}
 @media all and (max-width: 1199px) {
 	.fixed-goods__content {gap: 12px 32px;padding-right: 32px;}
 }
@@ -1532,6 +1540,8 @@ footer .contacts__phone-big {font-size: 20px;font-weight: 700;padding-left: 0;}
 	.fixed-goods__links {display: none;}
 	.fixed-goods__image {display: none;}
 	.fixed-goods__content {width: calc(100% - 54px);padding: 0 32px 0 0;}
+	.fixed-goods__name span {-webkit-line-clamp: 2;}
+	.mod-goods .wrapper {padding-bottom: 90px;}
 }
 @media all and (max-width: 479px) {
 	.fixed-goods__name {width: 100%;}
@@ -1550,7 +1560,7 @@ footer .contacts__phone-big {font-size: 20px;font-weight: 700;padding-left: 0;}
 .productViewMod .productView__available {display: none;}
 .productViewMod .productView__articles {display: none;}
 .productViewMod .productView__desc {display: none;}
-.productViewMod .productView__name {text-align: center;}
+.productViewMod .productView__name {text-align: center;display: flex;}
 .productViewMod .productView__price {justify-content: center;width: 100%;}
 .productViewMod .productView__cart {justify-content: center;}
 .productViewMod .modifications-props__selectBox {width: 100%;}

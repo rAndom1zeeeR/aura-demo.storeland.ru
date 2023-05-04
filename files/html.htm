@@ -202,7 +202,7 @@
 													{% ELSEIF compare_goods.MIN_PRICE_OLD > compare_goods.MIN_PRICE_NOW %}
 													<del class="price__old" data-price="{compare_goods.MIN_PRICE_OLD}">{compare_goods.MIN_PRICE_OLD | money_format}</del>
 													{% ENDIF %}
-													<div class="price__now" data-price="{compare_goods.MIN_PRICE_NOW}">{compare_goods.MIN_PRICE_NOW | money_format}</div>
+													<span class="price__now" data-price="{compare_goods.MIN_PRICE_NOW}">{compare_goods.MIN_PRICE_NOW | money_format}</span>
 												</div>
 
 												<a class="addto__remove button-rotate" 
@@ -266,7 +266,7 @@
 													{% ELSEIF favorites_goods.MIN_PRICE_OLD > favorites_goods.MIN_PRICE_NOW %}
 													<del class="price__old" data-price="{favorites_goods.MIN_PRICE_OLD}">{favorites_goods.MIN_PRICE_OLD | money_format}</del>
 													{% ENDIF %}
-													<div class="price__now" data-price="{favorites_goods.MIN_PRICE_NOW}">{favorites_goods.MIN_PRICE_NOW | money_format}</div>
+													<span class="price__now" data-price="{favorites_goods.MIN_PRICE_NOW}">{favorites_goods.MIN_PRICE_NOW | money_format}</span>
 												</div>
 											
 												<a class="addto__remove button-rotate" 
@@ -511,7 +511,7 @@
 													{% IF cart_items.ORDER_LINE_PRICE_OLD > cart_items.ORDER_LINE_PRICE_NOW %}
 													<del class="price__old" data-price="{cart_items.ORDER_LINE_PRICE_OLD}">{cart_items.ORDER_LINE_PRICE_OLD | money_format}</del>
 													{% ENDIF %}
-													<del class="price__now" data-price="{cart_items.ORDER_LINE_PRICE_NOW}">{cart_items.ORDER_LINE_PRICE_NOW | money_format}</del>
+													<span class="price__now" data-price="{cart_items.ORDER_LINE_PRICE_NOW}">{cart_items.ORDER_LINE_PRICE_NOW | money_format}</span>
 												</div>
 
 												<a class="addto__remove button-rotate" 
@@ -878,7 +878,7 @@
 											{% ELSEIF index_page_favorites_goods.MIN_PRICE_OLD > index_page_favorites_goods.MIN_PRICE_NOW %}
 											<del class="price__old" data-price="{index_page_favorites_goods.MIN_PRICE_OLD}">{index_page_favorites_goods.MIN_PRICE_OLD | money_format}</del>
 											{% ENDIF %}
-											<del class="price__now" data-price="{index_page_favorites_goods.MIN_PRICE_NOW}" itemprop="price">{index_page_favorites_goods.MIN_PRICE_NOW | money_format}</del>
+											<span class="price__now" data-price="{index_page_favorites_goods.MIN_PRICE_NOW}" itemprop="price">{index_page_favorites_goods.MIN_PRICE_NOW | money_format}</span>
 										</div>
 
 										<!-- Добавление товара в корзину -->
@@ -1280,7 +1280,7 @@
 											{% ELSEIF index_page_sale_goods.MIN_PRICE_OLD > index_page_sale_goods.MIN_PRICE_NOW %}
 											<del class="price__old" data-price="{index_page_sale_goods.MIN_PRICE_OLD}">{index_page_sale_goods.MIN_PRICE_OLD | money_format}</del>
 											{% ENDIF %}
-											<del class="price__now" data-price="{index_page_sale_goods.MIN_PRICE_NOW}" itemprop="price">{index_page_sale_goods.MIN_PRICE_NOW | money_format}</del>
+											<span class="price__now" data-price="{index_page_sale_goods.MIN_PRICE_NOW}" itemprop="price">{index_page_sale_goods.MIN_PRICE_NOW | money_format}</span>
 										</div>
 
 										<!-- Добавление товара в корзину -->
@@ -1617,7 +1617,7 @@
 										{% ELSEIF index_page_new_goods.MIN_PRICE_OLD > index_page_new_goods.MIN_PRICE_NOW %}
 										<del class="price__old" data-price="{index_page_new_goods.MIN_PRICE_OLD}">{index_page_new_goods.MIN_PRICE_OLD | money_format}</del>
 										{% ENDIF %}
-										<del class="price__now" data-price="{index_page_new_goods.MIN_PRICE_NOW}" itemprop="price">{index_page_new_goods.MIN_PRICE_NOW | money_format}</del>
+										<span class="price__now" data-price="{index_page_new_goods.MIN_PRICE_NOW}" itemprop="price">{index_page_new_goods.MIN_PRICE_NOW | money_format}</span>
 									</div>
 
 									<!-- Добавление товара в корзину -->
@@ -2679,6 +2679,8 @@
 						</h1>
 						{% ELSEIF MOD_LNAME=cart %}
 						<h1 class="title"><a href="{CART_URL}" title="Корзина"><span>Корзина</span></a></h1>
+						{% ELSEIF MOD_LNAME=goods %}
+						<h1 class="title"><span>{GOODS_NAME}</span></h1>
 						{% ENDIF %}
 					</div>
 				</div>
@@ -3655,21 +3657,22 @@
 
 							<!-- Цена -->
 							<div class="fixed-goods__price flex-column {CURRENCY_CHAR_CODE}">
-								{% IF GOODS_MIN_PRICE_NOW_WITHOUT_DISCOUNT > GOODS_MIN_PRICE_NOW %}
-								<del class="price__old" data-price="{GOODS_MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{GOODS_MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</del>
-								{% ELSEIF GOODS_MIN_PRICE_OLD > GOODS_MIN_PRICE_NOW %}
-								<del class="price__old" data-price="{GOODS_MIN_PRICE_OLD}">{GOODS_MIN_PRICE_OLD | money_format}</del>
+								{% IF GOODS_MOD_PRICE_NOW_WITHOUT_DISCOUNT>GOODS_MOD_PRICE_NOW %}
+								<del class="price__old" data-price="{GOODS_MOD_PRICE_NOW_WITHOUT_DISCOUNT}">{GOODS_MOD_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</del>
+								{% ELSEIF GOODS_MOD_PRICE_OLD>GOODS_MOD_PRICE_NOW %}
+								<del class="price__old" data-price="{GOODS_MOD_PRICE_OLD}">{GOODS_MOD_PRICE_OLD | money_format}</del>
+								<!-- {% ELSE %}
+								<del class="price__old" data-price=""></del> -->
 								{% ENDIF %}
-								<span class="price__now" data-price="{GOODS_MIN_PRICE_NOW}">{GOODS_MIN_PRICE_NOW | money_format}</span>
+								<span class="price__now" data-price="{GOODS_MOD_PRICE_NOW}" itemprop="price">{GOODS_MOD_PRICE_NOW | money_format}</span>
 							</div>
 	
 						</div>
 
 						<!-- Добавление товара в корзину -->
-						<div class="fixed-goods__cart">
-							<!-- Добавление в корзину -->
-							{% IF GOODS_MOD_REST_VALUE=0 %}
-							<a class="add-notify button-empty button-big"
+						<div class="fixed-goods__cart {% IF GOODS_MOD_REST_VALUE=0 %}is-empty{% ENDIF %}">
+							<!-- Уведомить -->
+							<a class="button-empty button-big"
 								title="Уведомить"
 								data-tooltip="Уведомить"
 								rel="nofollow"
@@ -3681,17 +3684,16 @@
 								<i class="icon-notification"></i>
 								<span>Уведомить</span>
 							</a>
-							{% ELSE %}
-							<a class="add-cart button-gradient button-big"
+							<!-- Добавление в корзину -->
+							<a class="button-gradient button-big"
 								title="Добавить в корзину &laquo;{GOODS_NAME}&raquo;"
 								data-tooltip="В корзину"
 								rel="nofollow"
-								href="{CART_ADD_GOODS_MODIFICATION_URL | url_amp}?hash={HASH | url_amp}&amp;form%5Bgoods_from%5D={FORM_GOODS_FROM}&amp;form%5Bgoods_mod_id%5D={GOODS_MIN_PRICE_NOW_ID}"
+								onclick="$('.productView__add').eq(0).click()"
 							>
 								<i class="icon-cart"></i>
 								<span>Купить</span>
 							</a>
-							{% ENDIF %}
 						</div>
 
 					</div>

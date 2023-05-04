@@ -909,7 +909,7 @@ class Product {
 							<a class="addto__name" href="${pUrl}" title="${pName}"><span>${pName}</span></a>
 							<div class="addto__price ${pDataChar}">
 								<del class="price__old" data-price="${pDataPriceOld}"><span title="${pDataPriceOld} российских рублей"><span class="num">${pDataPriceOld}</span><span>р.</span></span></del>
-								<div class="price__now" data-price="${pDataPrice}"><span title="${pDataPrice} российских рублей"><span class="num">${pDataPrice}</span><span>р.</span></span></div>
+								<span class="price__now" data-price="${pDataPrice}"><span title="${pDataPrice} российских рублей"><span class="num">${pDataPrice}</span><span>р.</span></span></span>
 							</div>
 							<a class="addto__remove button-rotate" href="${delUrl}?id=${pDataid}" data-id="${pDataid}" title="Убрать товар из списка"><i class="icon-close"></i></a>
 						</div>
@@ -1989,25 +1989,25 @@ class Goods {
 				const ids = []
 				const mods = document.querySelectorAll('.modifications-props__select')
 				mods.forEach(e => {
-					console.log('e1', e);
-					console.log('e2', e.value);
+					// console.log('e1', e);
+					// console.log('e2', e.value);
 					e.addEventListener('change', function(){
-						console.log('e2', this);
-						console.log('this.value', this.value);
-						console.log('e3', e.value);
-						console.log('ids',ids);
+						// console.log('e2', this);
+						// console.log('this.value', this.value);
+						// console.log('e3', e.value);
+						// console.log('ids',ids);
 						const mod = e.closest('.productView__modifications').querySelector('.goodsModificationsSlug[rel="'+ getModId() +'"]')
 						// console.log('getModId()',getModId());
 						console.log('mod',mod);
 						
 						if (!mod) {return false}
 						const id = mod.querySelector('[name="goods_mod_image_id"]').value
-						console.log('id', id);
+						// console.log('id', id);
 						if (!id) {return false}
 						const thumb = document.querySelector('.thumblist__item[data-id="'+ id +'"]')
 						const index = thumb.getAttribute('data-swiper-slide-index')
-						console.log('thumb', thumb);
-						console.log('index', index);
+						// console.log('thumb', thumb);
+						// console.log('index', index);
 						swiperImage.slideTo(index)
 						
 					})
@@ -2025,8 +2025,8 @@ class Goods {
 					const arr = []
 					const slugs = document.querySelectorAll('.goodsModificationsSlug')
 					slugs.forEach(e => arr.push(e.getAttribute('rel')))
-					console.log('items', items);
-					console.log('arr', arr);
+					// console.log('items', items);
+					// console.log('arr', arr);
 					return items.sort(compareNumeric).join('_')
 				}
 				// mods.forEach(e => {
@@ -2372,57 +2372,72 @@ class Goods {
 						modificationDescription = modificationBlock.find('.description').html(), 
 						modificationGoodsModImageId = modificationBlock.find('[name="goods_mod_image_id"]').val(), 
 						goodsModId = goodsModView.find('[name="form[goods_mod_id]"]'), 
-						goodsPriceNow = goodsModView.find('.price__now'), 
-						goodsPriceOld = goodsModView.find('.price__old'), 
-						goodsAvailableQty = goodsModView.find('.productView__qty'), 
-						goodsModQty = goodsModView.find('.qty__input'), 
+						goodsPriceBlock = goodsModView.find('.productView__price'),
+						goodsPriceNow = goodsPriceBlock.find('.price__now'), 
+						goodsPriceOld = goodsPriceBlock.find('.price__old'), 
+						goodsQty = goodsModView.find('.productView__qty'), 
+						goodsQtyInput = goodsQty.find('.qty__input'), 
 						goodsArtNumberBlock = goodsModView.find('.productView__articles'), 
 						goodsArtNumber = goodsModView.find('.productView__article'), 
 						goodsModDescription = goodsModView.find('.modifications__description'), 
-						productRestValue = goodsModView.find('.productRestValue');
+						goodsModRestBlock = goodsModView.find('.productView__available'),
+						goodsModRestValue = goodsModRestBlock.find('.productRestValue');
 
 					// Изменяем данные товара для выбранных параметров. Если нашлась выбранная модификация
 					if (modificationBlock.length){
 						// Цена товара
-						goodsPriceNow.html(modificationPriceNowFormated);
-						goodsPriceNow.attr('data-price', modificationPriceNow);
+						goodsPriceNow.attr('data-price', modificationPriceNow).html(modificationPriceNowFormated);
+						// Цена товара в фиксированном блоке
+						$('.fixed-goods__price .price__now').attr('data-price', modificationPriceNow).html(modificationPriceNowFormated);
 
 						// Старая цена товара
+						// console.log('modificationPriceOld', modificationPriceOld);
+						// console.log('modificationPriceNow', modificationPriceNow);
 						if (modificationPriceOld > modificationPriceNow){
-							goodsPriceOld.html(modificationPriceOldFormated);
-							goodsPriceOld.attr('data-price', modificationPriceOld);
+							// console.log(' > ', goodsPriceOld);
+							// console.log(' goodsPriceOld.length ', goodsPriceOld.length);
+							if(goodsPriceOld.length == 0){
+								// console.log(' goodsPriceOld ', goodsPriceOld);
+								goodsPriceBlock.prepend(`<del class="price__old" data-price="${modificationPriceOld}">${modificationPriceOldFormated}</del>`)
+								$('.fixed-goods__price').prepend(`<del class="price__old" data-price="${modificationPriceOld}">${modificationPriceOldFormated}</del>`)
+							}
+							goodsPriceOld.attr('data-price', modificationPriceOld).html(modificationPriceOldFormated).show();
+							$('.fixed-goods__price .price__old').attr('data-price', modificationPriceOld).html(modificationPriceOldFormated).show();
 						} else {
+							// console.log(' < ', goodsPriceOld);
 							goodsPriceOld.hide();
-							goodsPriceOld.html('');
+							$('.fixed-goods__price .price__old').hide();
 						}
 
 						// Есть ли товар есть в наличии. Много Мало Отсутствует 
 						if (modificationRestValue > 0){
 							goodsModView.removeClass('productView__empty');
-							productRestValue.parent().removeClass('rest-alot').removeClass('rest-zero').addClass('rest-few');
+							goodsModRestBlock.removeClass('rest-alot').removeClass('rest-zero').addClass('rest-few');
 
 							// Если остаток больше 9
 							if (modificationRestValue > 9){
-								productRestValue.parent().removeClass('rest-few').removeClass('rest-zero').addClass('rest-alot');
+								goodsModRestBlock.removeClass('rest-few').removeClass('rest-zero').addClass('rest-alot');
 							}
 
 							// Если включено в настройках 'Отключить возможность класть в корзину больше товара, чем есть в наличии'
-							if (goodsAvailableQty.hasClass('.has-max')){
-								goodsModQty.val('1').attr('max', modificationRestValue);
+							if (goodsQty.hasClass('.has-max')){
+								goodsQtyInput.val('1').attr('max', modificationRestValue);
 							} else {
-								goodsModQty.val('1').attr('max', 99999);
+								goodsQtyInput.val('1').attr('max', 99999);
 							}
 
 							// Обновляем кол-во и меру 
-							productRestValue.find('b').text(modificationRestValue + ' ' + modificationMeasure);
+							goodsModRestValue.find('b').text(modificationRestValue + ' ' + modificationMeasure);
+							$('.fixed-goods__cart').removeClass('is-empty');
 
 						} else {
 							// Нет в наличии
 							goodsModView.addClass('productView__empty');
-							productRestValue.parent().removeClass('rest-few').removeClass('rest-zero').addClass('rest-zero');
-							productRestValue.attr('data-value', modificationRestValue);
-							productRestValue.find('b').text('Нет');
-							goodsModQty.val('1').attr('max', 1);
+							goodsModRestBlock.removeClass('rest-few').removeClass('rest-zero').addClass('rest-zero');
+							goodsModRestValue.attr('data-value', modificationRestValue);
+							goodsModRestValue.find('b').text('Нет');
+							goodsQtyInput.val('1').attr('max', 1);
+							$('.fixed-goods__cart').addClass('is-empty');
 						}
 
 						// Покажем артикул модификации товара, если он указан

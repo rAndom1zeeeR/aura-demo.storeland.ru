@@ -238,7 +238,7 @@
 			{% ENDIF %}
 
 			<!-- Цена товара -->
-			<div class="productView__price flex {CURRENCY_CHAR_CODE}" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+			<div class="productView__price flex {CURRENCY_CHAR_CODE} {% IF GOODS_MOD_PRICE_NOW_WITHOUT_DISCOUNT>GOODS_MOD_PRICE_NOW || GOODS_MOD_PRICE_OLD>GOODS_MOD_PRICE_NOW %}has-priceOld{% ENDIF %}" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
 				<!-- информация для поисковика о наличии товара -->
 				<meta itemprop="availability" content="{% IF GOODS_MOD_REST_VALUE>0 %}http://schema.org/InStock{% ELSE %}http://schema.org/OutOfStock{% ENDIF %}">
 				<!-- информация для поисковика о валюте товара -->
