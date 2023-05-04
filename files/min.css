@@ -204,6 +204,7 @@ main {margin: 32px 0 48px;position: relative;display: block;}
 .form__registration {gap: 8px;}
 .form__fields-duo {gap: 16px;}
 .form__fields-duo .form__field {width: calc(50% - 8px);flex-grow: 1;}
+fieldset {margin: 0;padding: 0;border: 0;}
 
 
 

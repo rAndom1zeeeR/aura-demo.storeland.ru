@@ -290,9 +290,9 @@
 								<meta itemprop="availability" content="{% IF goods.MAX_REST_VALUE>0 %}http://schema.org/InStock{% ELSE %}http://schema.org/OutOfStock{% ENDIF %}" />
 								<meta itemprop="priceValidUntil" content="{goods.MAX_DISCOUNT_EXPIRED_AT | date('Y-m-d')}" />
 								{% IF goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > goods.MIN_PRICE_NOW %}
-								<span class="price__old" data-price="{goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>
+								<del class="price__old" data-price="{goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</del>
 								{% ELSEIF goods.MIN_PRICE_OLD > goods.MIN_PRICE_NOW %}
-								<span class="price__old" data-price="{goods.MIN_PRICE_OLD}">{goods.MIN_PRICE_OLD | money_format}</span>
+								<del class="price__old" data-price="{goods.MIN_PRICE_OLD}">{goods.MIN_PRICE_OLD | money_format}</del>
 								{% ENDIF %}
 								<span class="price__now" data-price="{goods.MIN_PRICE_NOW}" itemprop="price">{goods.MIN_PRICE_NOW | money_format}</span>
 							</div>
@@ -612,9 +612,9 @@
 								<meta itemprop="availability" content="{% IF goods.MAX_REST_VALUE>0 %}http://schema.org/InStock{% ELSE %}http://schema.org/OutOfStock{% ENDIF %}" />
 								<meta itemprop="priceValidUntil" content="{goods.MAX_DISCOUNT_EXPIRED_AT | date('Y-m-d')}" />
 								{% IF goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > goods.MIN_PRICE_NOW %}
-								<span class="price__old" data-price="{goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>
+								<del class="price__old" data-price="{goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</del>
 								{% ELSEIF goods.MIN_PRICE_OLD > goods.MIN_PRICE_NOW %}
-								<span class="price__old" data-price="{goods.MIN_PRICE_OLD}">{goods.MIN_PRICE_OLD | money_format}</span>
+								<del class="price__old" data-price="{goods.MIN_PRICE_OLD}">{goods.MIN_PRICE_OLD | money_format}</del>
 								{% ENDIF %}
 								<span class="price__now" data-price="{goods.MIN_PRICE_NOW}" itemprop="price">{goods.MIN_PRICE_NOW | money_format}</span>
 							</div>

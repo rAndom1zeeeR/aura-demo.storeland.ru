@@ -903,7 +903,7 @@ class Product {
 						<div class="addto__content flex">
 							<a class="addto__name" href="${pUrl}" title="${pName}"><span>${pName}</span></a>
 							<div class="addto__price ${pDataChar}">
-								<div class="price__old" data-price="${pDataPriceOld}"><span title="${pDataPriceOld} российских рублей"><span class="num">${pDataPriceOld}</span><span>р.</span></span></div>
+								<del class="price__old" data-price="${pDataPriceOld}"><span title="${pDataPriceOld} российских рублей"><span class="num">${pDataPriceOld}</span><span>р.</span></span></del>
 								<div class="price__now" data-price="${pDataPrice}"><span title="${pDataPrice} российских рублей"><span class="num">${pDataPrice}</span><span>р.</span></span></div>
 							</div>
 							<a class="addto__remove button-rotate" href="${delUrl}?id=${pDataid}" data-id="${pDataid}" title="Убрать товар из списка"><i class="icon-close"></i></a>

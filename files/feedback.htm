@@ -96,30 +96,30 @@
 	      {ANTISPAM_CODE}
 
 	      <div class="form__list">
-					<div class="form__field">
-						<label for="feedback_name" class="form__label required"><span>Ваше имя</span><em>*</em></label>
+					<fieldset class="form__field">
+						<legend for="feedback_name" class="form__label required"><span>Ваше имя</span><em>*</em></legend>
 						<input id="feedback_name" class="form__input form__person" type="text" name="form[{ANTISPAM_FORM_FIELD_NAME_FEEDBACK_NAME}]" value="{FORM_FEEDBACK_NAME}" maxlength="50" placeholder="Ваше имя:" required>
-					</div>
+					</fieldset>
 
-					<div class="form__field">
-						<label for="feedback_email" class="form__label required"><span>Электронная почта</span><em>*</em></label>
+					<fieldset class="form__field">
+						<legend for="feedback_email" class="form__label required"><span>Электронная почта</span><em>*</em></legend>
 						<input id="feedback_email" class="form__input form__email" type="email"  name="form[{ANTISPAM_FORM_FIELD_NAME_FEEDBACK_EMAIL}]" value="{FORM_FEEDBACK_EMAIL}" maxlength="100" placeholder="Электронная почта:" required>
-					</div>
+					</fieldset>
 
-					<div class="form__field">
-						<label for="feedback_phone" class="form__label"><span>Телефон</span></label>
+					<fieldset class="form__field">
+						<legend for="feedback_phone" class="form__label"><span>Телефон</span></legend>
 						<input id="feedback_phone" class="form__input form__phone" type="text" name="form[Телефон]"  value="{FORM_FEEDBACK_PHONE}" maxlength="50" placeholder="Телефон:">
-					</div>
+					</fieldset>
 
-					<div class="form__field form__message">
-						<label for="feedback_message" class="form__label required"><span>Cообщение</span><em>*</em></label>
+					<fieldset class="form__field form__message">
+						<legend for="feedback_message" class="form__label required"><span>Cообщение</span><em>*</em></legend>
 						<textarea id="feedback_message" rows="4" name="form[{ANTISPAM_FORM_FIELD_NAME_FEEDBACK_MESSAGE}]" class="form__textarea" placeholder="Текст сообщения:" required>{FORM_FEEDBACK_MESSAGE}</textarea>
-					</div>
+					</fieldset>
 
-					<div class="form__field form__file">
-						<label for="feedback_file" class="form__label">Прикрепить файл</label>
+					<fieldset class="form__field form__file">
+						<legend for="feedback_file" class="form__label">Прикрепить файл</legend>
 						<input id="feedback_file" type="file" name="form[assets_file]" value=""  class="">
-					</div>
+					</fieldset>
 
 					<div class="form__buttons">
 						<button class="button-primary" type="submit" title="Отправить">

@@ -198,9 +198,9 @@
 
 												<div class="addto__price flex {CURRENCY_CHAR_CODE}">
 													{% IF compare_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > compare_goods.MIN_PRICE_NOW %}
-													<span class="price__old" data-price="{compare_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{compare_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>
+													<del class="price__old" data-price="{compare_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{compare_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</del>
 													{% ELSEIF compare_goods.MIN_PRICE_OLD > compare_goods.MIN_PRICE_NOW %}
-													<span class="price__old" data-price="{compare_goods.MIN_PRICE_OLD}">{compare_goods.MIN_PRICE_OLD | money_format}</span>
+													<del class="price__old" data-price="{compare_goods.MIN_PRICE_OLD}">{compare_goods.MIN_PRICE_OLD | money_format}</del>
 													{% ENDIF %}
 													<div class="price__now" data-price="{compare_goods.MIN_PRICE_NOW}">{compare_goods.MIN_PRICE_NOW | money_format}</div>
 												</div>
@@ -262,9 +262,9 @@
 
 												<div class="addto__price flex {CURRENCY_CHAR_CODE}">
 													{% IF favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > favorites_goods.MIN_PRICE_NOW %}
-													<span class="price__old" data-price="{favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>
+													<del class="price__old" data-price="{favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</del>
 													{% ELSEIF favorites_goods.MIN_PRICE_OLD > favorites_goods.MIN_PRICE_NOW %}
-													<span class="price__old" data-price="{favorites_goods.MIN_PRICE_OLD}">{favorites_goods.MIN_PRICE_OLD | money_format}</span>
+													<del class="price__old" data-price="{favorites_goods.MIN_PRICE_OLD}">{favorites_goods.MIN_PRICE_OLD | money_format}</del>
 													{% ENDIF %}
 													<div class="price__now" data-price="{favorites_goods.MIN_PRICE_NOW}">{favorites_goods.MIN_PRICE_NOW | money_format}</div>
 												</div>
@@ -414,16 +414,16 @@
 									{ANTISPAM_CODE}
 					
 									<div class="form__list">
-										<div class="form__field">
-											<label for="sites_client_mail" class="form__label required"><span>Электронная почта</span><em>*</em></label>
+										<fieldset class="form__field">
+											<legend for="sites_client_mail" class="form__label required"><span>Электронная почта</span><em>*</em></legend>
 											<input id="sites_client_mail" class="form__input form__email" type="email" name="form[sites_client_mail]" value="{FORM_SITES_CLIENT_MAIL}" maxlength="255" placeholder="Email" required/>
-										</div>
+										</fieldset>
 					
-										<div class="form__field password">
-											<label class="form__label required"><span>Пароль:</span><em>*</em></label>
+										<fieldset class="form__field password">
+											<legend class="form__label required"><span>Пароль:</span><em>*</em></legend>
 											<input class="form__input password__input" type="password" name="form[sites_client_pass]" value="{FORM_SITES_CLIENT_PASS}" maxlength="50" minlength="6" placeholder="Пароль" required/>
 											<div class="password__icon" title="Показать пароль"></div>
-										</div>
+										</fieldset>
 										
 										<!-- Капслок -->
 										<div id="capslock">
@@ -509,9 +509,9 @@
 
 												<div class="addto__price flex {CURRENCY_CHAR_CODE}">
 													{% IF cart_items.ORDER_LINE_PRICE_OLD > cart_items.ORDER_LINE_PRICE_NOW %}
-													<span class="price__old" data-price="{cart_items.ORDER_LINE_PRICE_OLD}">{cart_items.ORDER_LINE_PRICE_OLD | money_format}</span>
+													<del class="price__old" data-price="{cart_items.ORDER_LINE_PRICE_OLD}">{cart_items.ORDER_LINE_PRICE_OLD | money_format}</del>
 													{% ENDIF %}
-													<span class="price__now" data-price="{cart_items.ORDER_LINE_PRICE_NOW}">{cart_items.ORDER_LINE_PRICE_NOW | money_format}</span>
+													<del class="price__now" data-price="{cart_items.ORDER_LINE_PRICE_NOW}">{cart_items.ORDER_LINE_PRICE_NOW | money_format}</del>
 												</div>
 
 												<a class="addto__remove button-rotate" 
@@ -874,11 +874,11 @@
 											<meta itemprop="availability" content="{% IF index_page_favorites_goods.MAX_REST_VALUE>0 %}http://schema.org/InStock{% ELSE %}http://schema.org/OutOfStock{% ENDIF %}" />
 											<meta itemprop="priceValidUntil" content="{index_page_favorites_goods.MAX_DISCOUNT_EXPIRED_AT | date('Y-m-d')}" />
 											{% IF index_page_favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > index_page_favorites_goods.MIN_PRICE_NOW %}
-											<span class="price__old" data-price="{index_page_favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{index_page_favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>
+											<del class="price__old" data-price="{index_page_favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{index_page_favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</del>
 											{% ELSEIF index_page_favorites_goods.MIN_PRICE_OLD > index_page_favorites_goods.MIN_PRICE_NOW %}
-											<span class="price__old" data-price="{index_page_favorites_goods.MIN_PRICE_OLD}">{index_page_favorites_goods.MIN_PRICE_OLD | money_format}</span>
+											<del class="price__old" data-price="{index_page_favorites_goods.MIN_PRICE_OLD}">{index_page_favorites_goods.MIN_PRICE_OLD | money_format}</del>
 											{% ENDIF %}
-											<span class="price__now" data-price="{index_page_favorites_goods.MIN_PRICE_NOW}" itemprop="price">{index_page_favorites_goods.MIN_PRICE_NOW | money_format}</span>
+											<del class="price__now" data-price="{index_page_favorites_goods.MIN_PRICE_NOW}" itemprop="price">{index_page_favorites_goods.MIN_PRICE_NOW | money_format}</del>
 										</div>
 
 										<!-- Добавление товара в корзину -->
@@ -1276,11 +1276,11 @@
 											<meta itemprop="availability" content="{% IF index_page_sale_goods.MAX_REST_VALUE>0 %}http://schema.org/InStock{% ELSE %}http://schema.org/OutOfStock{% ENDIF %}" />
 											<meta itemprop="priceValidUntil" content="{index_page_sale_goods.MAX_DISCOUNT_EXPIRED_AT | date('Y-m-d')}" />
 											{% IF index_page_sale_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > index_page_sale_goods.MIN_PRICE_NOW %}
-											<span class="price__old" data-price="{index_page_sale_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{index_page_sale_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>
+											<del class="price__old" data-price="{index_page_sale_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{index_page_sale_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</del>
 											{% ELSEIF index_page_sale_goods.MIN_PRICE_OLD > index_page_sale_goods.MIN_PRICE_NOW %}
-											<span class="price__old" data-price="{index_page_sale_goods.MIN_PRICE_OLD}">{index_page_sale_goods.MIN_PRICE_OLD | money_format}</span>
+											<del class="price__old" data-price="{index_page_sale_goods.MIN_PRICE_OLD}">{index_page_sale_goods.MIN_PRICE_OLD | money_format}</del>
 											{% ENDIF %}
-											<span class="price__now" data-price="{index_page_sale_goods.MIN_PRICE_NOW}" itemprop="price">{index_page_sale_goods.MIN_PRICE_NOW | money_format}</span>
+											<del class="price__now" data-price="{index_page_sale_goods.MIN_PRICE_NOW}" itemprop="price">{index_page_sale_goods.MIN_PRICE_NOW | money_format}</del>
 										</div>
 
 										<!-- Добавление товара в корзину -->
@@ -1613,11 +1613,11 @@
 										<meta itemprop="availability" content="{% IF index_page_new_goods.MAX_REST_VALUE>0 %}http://schema.org/InStock{% ELSE %}http://schema.org/OutOfStock{% ENDIF %}" />
 										<meta itemprop="priceValidUntil" content="{index_page_new_goods.MAX_DISCOUNT_EXPIRED_AT | date('Y-m-d')}" />
 										{% IF index_page_new_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > index_page_new_goods.MIN_PRICE_NOW %}
-										<span class="price__old" data-price="{index_page_new_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{index_page_new_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>
+										<del class="price__old" data-price="{index_page_new_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{index_page_new_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</del>
 										{% ELSEIF index_page_new_goods.MIN_PRICE_OLD > index_page_new_goods.MIN_PRICE_NOW %}
-										<span class="price__old" data-price="{index_page_new_goods.MIN_PRICE_OLD}">{index_page_new_goods.MIN_PRICE_OLD | money_format}</span>
+										<del class="price__old" data-price="{index_page_new_goods.MIN_PRICE_OLD}">{index_page_new_goods.MIN_PRICE_OLD | money_format}</del>
 										{% ENDIF %}
-										<span class="price__now" data-price="{index_page_new_goods.MIN_PRICE_NOW}" itemprop="price">{index_page_new_goods.MIN_PRICE_NOW | money_format}</span>
+										<del class="price__now" data-price="{index_page_new_goods.MIN_PRICE_NOW}" itemprop="price">{index_page_new_goods.MIN_PRICE_NOW | money_format}</del>
 									</div>
 
 									<!-- Добавление товара в корзину -->
@@ -2093,9 +2093,9 @@
 										<meta itemprop="availability" content="{% IF index_page_goods.MAX_REST_VALUE>0 %}http://schema.org/InStock{% ELSE %}http://schema.org/OutOfStock{% ENDIF %}" />
 										<meta itemprop="priceValidUntil" content="{index_page_goods.MAX_DISCOUNT_EXPIRED_AT | date('Y-m-d')}" />
 										{% IF index_page_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > index_page_goods.MIN_PRICE_NOW %}
-										<span class="price__old" data-price="{index_page_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{index_page_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>
+										<del class="price__old" data-price="{index_page_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{index_page_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</del>
 										{% ELSEIF index_page_goods.MIN_PRICE_OLD > index_page_goods.MIN_PRICE_NOW %}
-										<span class="price__old" data-price="{index_page_goods.MIN_PRICE_OLD}">{index_page_goods.MIN_PRICE_OLD | money_format}</span>
+										<del class="price__old" data-price="{index_page_goods.MIN_PRICE_OLD}">{index_page_goods.MIN_PRICE_OLD | money_format}</del>
 										{% ENDIF %}
 										<span class="price__now" data-price="{index_page_goods.MIN_PRICE_NOW}" itemprop="price">{index_page_goods.MIN_PRICE_NOW | money_format}</span>
 									</div>
@@ -2399,9 +2399,9 @@
 						{ANTISPAM_CODE}
 
 						<div class="form__fields flex">
-							<div class="form__field">
+							<fieldset class="form__field">
 								<input class="form__input form__email" type="email" name="form[callback_email]" value="{FORM_CALLBACK_EMAIL}" placeholder="email@email.ru *" autocomplete="off" />
-							</div>
+							</fieldset>
 							<button class="form__button button-secondary button-big" type="submit" title="Подписаться">
 								<span>Подписаться</span>
 							</button>
@@ -2902,9 +2902,9 @@
 										<meta itemprop="availability" content="{% IF recently_viewed_goods.MAX_REST_VALUE>0 %}http://schema.org/InStock{% ELSE %}http://schema.org/OutOfStock{% ENDIF %}" />
 										<meta itemprop="priceValidUntil" content="{recently_viewed_goods.MAX_DISCOUNT_EXPIRED_AT | date('Y-m-d')}" />
 										{% IF recently_viewed_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT > recently_viewed_goods.MIN_PRICE_NOW %}
-										<span class="price__old" data-price="{recently_viewed_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{recently_viewed_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>
+										<del class="price__old" data-price="{recently_viewed_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{recently_viewed_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</del>
 										{% ELSEIF recently_viewed_goods.MIN_PRICE_OLD > recently_viewed_goods.MIN_PRICE_NOW %}
-										<span class="price__old" data-price="{recently_viewed_goods.MIN_PRICE_OLD}">{recently_viewed_goods.MIN_PRICE_OLD | money_format}</span>
+										<del class="price__old" data-price="{recently_viewed_goods.MIN_PRICE_OLD}">{recently_viewed_goods.MIN_PRICE_OLD | money_format}</del>
 										{% ENDIF %}
 										<span class="price__now" data-price="{recently_viewed_goods.MIN_PRICE_NOW}" itemprop="price">{recently_viewed_goods.MIN_PRICE_NOW | money_format}</span>
 									</div>
@@ -3656,9 +3656,9 @@
 							<!-- Цена -->
 							<div class="fixed-goods__price flex-column {CURRENCY_CHAR_CODE}">
 								{% IF GOODS_MIN_PRICE_NOW_WITHOUT_DISCOUNT > GOODS_MIN_PRICE_NOW %}
-								<span class="price__old" data-price="{GOODS_MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{GOODS_MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</span>
+								<del class="price__old" data-price="{GOODS_MIN_PRICE_NOW_WITHOUT_DISCOUNT}">{GOODS_MIN_PRICE_NOW_WITHOUT_DISCOUNT | money_format}</del>
 								{% ELSEIF GOODS_MIN_PRICE_OLD > GOODS_MIN_PRICE_NOW %}
-								<span class="price__old" data-price="{GOODS_MIN_PRICE_OLD}">{GOODS_MIN_PRICE_OLD | money_format}</span>
+								<del class="price__old" data-price="{GOODS_MIN_PRICE_OLD}">{GOODS_MIN_PRICE_OLD | money_format}</del>
 								{% ENDIF %}
 								<span class="price__now" data-price="{GOODS_MIN_PRICE_NOW}">{GOODS_MIN_PRICE_NOW | money_format}</span>
 							</div>
@@ -3846,12 +3846,12 @@
 						<input class="callbackredirect" type="hidden" name="return_to" value="{CALLBACK_URL}" />
 						<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
 						{ANTISPAM_CODE}
-						<div class="form__field">
+						<fieldset class="form__field">
 							<input class="form__input form__person" type="text" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="{FORM_CALLBACK_PERSON}" placeholder="Ваше имя" autocomplete="off" required />
-						</div>
-						<div class="form__field">
+						</fieldset>
+						<fieldset class="form__field">
 							<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
-						</div>
+						</fieldset>
 						<div class="form__buttons">
 							<button class="form__button button-primary button-big" type="submit" title="Заказать звонок">
 								<span>Заказать звонок</span>
@@ -3876,15 +3876,15 @@
 						<input class="callbackredirect" type="hidden" name="return_to" value="{CALLBACK_URL}" />
 						<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
 						{ANTISPAM_CODE}
-						<div class="form__field">
+						<fieldset class="form__field">
 							<input class="form__input form__person" type="text" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="{FORM_CALLBACK_PERSON}" placeholder="Ваше имя" autocomplete="off" required />
-						</div>
-						<div class="form__field">
+						</fieldset>
+						<fieldset class="form__field">
 							<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
-						</div>
-						<div class="form__field">
+						</fieldset>
+						<fieldset class="form__field">
 							<textarea class="form__textarea" rows="2" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_COMMENT}]" placeholder="Комментарий" >{FORM_CALLBACK_COMMENT}</textarea>
-						</div>
+						</fieldset>
 						<div class="form__buttons">
 							<button class="form__button button-primary button-big" type="submit" title="Отправить">
 								<span>Отправить</span>
@@ -3912,16 +3912,16 @@
 						<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
 						{ANTISPAM_CODE}
 						<!-- Для использования почты для уведомлений необходимо удалить блок с телефоном -->
-						<div class="form__field">
+						<fieldset class="form__field">
 							<input class="form__input form__person" type="text" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="{FORM_CALLBACK_PERSON}" placeholder="Ваше имя" autocomplete="off" required />
-						</div>
-						<div class="form__field">
+						</fieldset>
+						<fieldset class="form__field">
 							<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="+7 (987) 654-3210" autocomplete="off" required />
-						</div>
+						</fieldset>
 						<!-- Для использования почты для уведомлений необходимо удалить ниже style="display: none;" -->
-						<div class="form__field" style="display: none;">
+						<fieldset class="form__field" style="display: none;">
 							<input class="form__input form__email" type="email" name="form[callback_email]" value="{FORM_CALLBACK_EMAIL}" placeholder="email@email.ru *" autocomplete="off" />
-						</div>
+						</fieldset>
 						<div class="form__buttons">
 							<button class="form__button button-primary button-big" type="submit" title="Уведомить">
 								<span>Уведомить</span>
