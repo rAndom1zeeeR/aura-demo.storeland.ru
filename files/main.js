@@ -653,25 +653,30 @@ class Quantity {
 
 	// Обновление в корзине
 	updCartContent(doc, mod, priceNow){
-		// console.log('doc2', $doc);
-		// console.log('mod2', $mod);
-		// console.log('priceNow2', $priceNow);
+		console.log('doc2', doc);
+		console.log('mod2', mod);
+		console.log('priceNow2', priceNow);
 		// Обновить цену
 		const price = doc.querySelector('.cartTable__item[data-mod-id="' + mod + '"] .cartTable__price');
 		priceNow.innerHTML = price.innerHTML;
 		// Обновить кол-во
 		const newCount = doc.querySelector('.cart-count').innerHTML;
+		console.log('newCount', newCount);
 		// quantityAddto.updAddtoCount(newCount);
 		// Обновить итого
 		const newTotal = doc.querySelector('.cartTotal__items').innerHTML;
 		document.querySelector('.cartTotal__items').innerHTML = newTotal;
+		// Обновить итого
+		const newLabel = doc.querySelector('.cartTable__items-label').innerHTML;
+		document.querySelector('.cartTable__items-label').innerHTML = newLabel;
 		// Обновить минимальную сумму заказа
 		setTimeout(() => {
 			cart.minSum();			
 		}, 100);
-		// console.log('price', price);
-		// console.log('newCount', newCount);
-		// console.log('newTotal', newTotal);
+		console.log('price', price);
+		console.log('newCount', newCount);
+		console.log('newTotal', newTotal);
+		console.log('newLabel', newLabel);
 	};
 
 	// Выпадающая корзина
@@ -1572,24 +1577,24 @@ class Remove {
 						const newCount = oldCount - qty;
 						updateCount('.cart-count', newCount)
 						// Окончание кол-ва товаров
-						document.querySelectorAll('.cart-wordend').forEach(e => {
-							e.innerHTML = $(data).find('.cart-wordend').html()
+						document.querySelectorAll('.cart-wordend').forEach(element => {
+							element.innerHTML = $(data).find('.cart-wordend').html()
 						})
 						// Итоговая сумма со скидкой
-						document.querySelectorAll('.cartSumDiscount').forEach(e => {
+						document.querySelectorAll('.cartSumDiscount').forEach(element => {
 							const newPrice = Math.ceil($(data).find('.cartSumDiscount').attr('data-price'))
-							e.setAttribute('data-price', newPrice)
-							e.querySelector('.num').textContent = addSpaces(newPrice)
+							element.setAttribute('data-price', newPrice)
+							element.querySelector('.num').textContent = addSpaces(newPrice)
 						})
 
 						// Скрываем и удаляем товар из корзины
 						obj.closest('.cart').querySelector('.addto__item[data-id="' + id + '"]').remove();
 
 						if (newCount != 0){
-							document.querySelectorAll('.cart .addto__item').forEach((e) => {
+							document.querySelectorAll('.cart .addto__item').forEach(element => {
 								if (flag == 0){
-									if (e.style.display == 'none'){
-										e.style.display = 'flex'
+									if (element.style.display == 'none'){
+										element.style.display = 'flex'
 										flag++;
 									}
 								}
@@ -1597,13 +1602,13 @@ class Remove {
 						} else {
 							// Обновляем кол-во
 							updateCount('.cart-count', '0')
-							document.querySelectorAll('.cart').forEach(e => e.classList.remove('has-items'));
+							document.querySelectorAll('.cart').forEach(element => element.classList.remove('has-items'));
 						}
 
 						// Удаляем класс добавленного товара в корзину
-						document.querySelectorAll('.product__inCart[data-id="' + id + '"]').forEach(e => {
-							e.classList.remove('product__inCart')
-							e.querySelector('.qty__input').value = 1
+						document.querySelectorAll('.product__inCart[data-id="' + id + '"]').forEach(element => {
+							element.classList.remove('product__inCart')
+							element.querySelector('.qty__input').value = 1
 						})
 					}
 				});
@@ -2535,8 +2540,9 @@ class Cart {
 					cache: false,
 					success: function(data){
 						$('.page-cart').html($(data).find('.page-cart').html());
-						// Вызов функции быстрого заказа в корзине
+						// Вызов функции минимального заказа в корзине
 						cart.minSum();
+						quantity.init();
 					}
 				});
 			} else {
@@ -3243,9 +3249,9 @@ function openMenu(){
 	
 
 	// Открытие подвала
-	$('.footer__title').on('click', function(event){
+	$('.menu .footer__title').on('click', function(event){
     event.preventDefault();
-		if (getClientWidth() < 480){
+		if (getClientWidth() < 1023){
 			$(this).toggleClass('is-actived')
 			$(this).next().slideToggle();
 		}else{

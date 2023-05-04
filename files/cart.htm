@@ -1,17 +1,6 @@
 <div class="page-cart">
   {% IF cart_items_empty %}
-	<div class="page-cart__empty flex">
-		<div class="page-cart__empty-content">
-			<div class="page-cart__empty-label">В корзине пока пусто</div>
-			<div class="page-cart__empty-text">Загляните на главную, чтобы выбрать товары или найдите нужное в поиске </div>
-		</div>
-		<a class="page-cart__empty-link" href="{CATALOG_URL}">Перейти на главную</a>
-	</div>
-		
-		
-
-		
-    <!-- <div class="notice-attention">Корзина покупок пуста. Вы можете выбрать нужный товар из <a href="{CATALOG_URL}">каталога</a>.</div> -->
+	<div class="notice-attention">Корзина покупок пуста. Вы можете выбрать нужный товар из <a href="{CATALOG_URL}">каталога</a>.</div>
   {% ELSE %}
 		<!-- Корзина: Элементы -->
 		<div class="cartTable">
@@ -20,12 +9,14 @@
 				<input type="hidden" name="fast_order" value="1" />
 				<input type="hidden" name="hash" value="{HASH}" />
 
-				<div class="cartTable__items-total">
+				<div class="cartTable__items-label">
 					<span>В вашей корзине</span>
-					<span class="cart-wordend">{CART_COUNT_TOTAL} товар{CART_COUNT_TOTAL | gen_word_end("","а","ов")}</span>
+					<span class="cart-count" data-count="{CART_COUNT_TOTAL}">{CART_COUNT_TOTAL}</span>
+					<span class="cart-wordend">товар{CART_COUNT_TOTAL | gen_word_end("","а","ов")}</span>
 				</div>
 
 				<div class="cartTable__items">
+
 					{% FOR cart_items %}
 					<div class="cartTable__item flex" data-id="{cart_items.GOODS_ID}" data-mod-id="{cart_items.GOODS_MOD_ID}">
 
