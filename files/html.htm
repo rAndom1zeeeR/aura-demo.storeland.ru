@@ -579,7 +579,7 @@
 				<div class="slideshow-swiper swiper">
 					<!-- Слайдер -->
 					<div class="swiper-wrapper">
-						<div class="slideshow__item swiper-slide">
+						<div class="slideshow__item swiper-slide" data-product-id="">
 							<div class="slideshow__image">
 								<img src="{ASSETS_IMAGES_PATH}slide_1.jpg?design=THEMENAME" alt="">
 							</div>
@@ -590,19 +590,21 @@
 									<li class="slideshow__list-item flex">Дарует прилив счастья</li>
 									<li class="slideshow__list-item flex">Создает магическую ауру</li>
 								</ul>
-								<div class="slideshow__buttons">
-									<div class="slideshow__price"></div>
+								<div class="slideshow__buttons flex">
+									<div class="slideshow__price flex-column {CURRENCY_CHAR_CODE}"></div>
 									<a class="slideshow__button button-gradient button-big" href="{CATALOG_URL}" title=""><span>Купить</span></a>
 								</div>
 							</div>
 							<div class="slideshow__product">
-								<div class="slideshow__product-sale"></div>
-								<div class="slideshow__product-image"></div>
+								<div class="slideshow__product-sale">
+									<span class="sticker__sales"></span>
+								</div>
+								<div class="slideshow__product-image flex-center"></div>
 							</div>
 
 						</div>
 
-						<div class="slideshow__item swiper-slide">
+						<div class="slideshow__item swiper-slide" data-product-id="107629">
 							<div class="slideshow__image">
 								<img src="{ASSETS_IMAGES_PATH}slide_2.jpg?design=THEMENAME" alt="">
 							</div>
@@ -613,19 +615,21 @@
 									<li class="slideshow__list-item flex">Для повышения активности</li>
 									<li class="slideshow__list-item flex">Для мозговой деятельности</li>
 								</ul>
-								<div class="slideshow__buttons">
-									<div class="slideshow__price"></div>
+								<div class="slideshow__buttons flex">
+									<div class="slideshow__price flex-column {CURRENCY_CHAR_CODE}"></div>
 									<a class="slideshow__button button-gradient button-big" href="{CATALOG_URL}" title=""><span>Купить</span></a>
 								</div>
 							</div>
 							<div class="slideshow__product">
-								<div class="slideshow__product-sale"></div>
-								<div class="slideshow__product-image"></div>
+								<div class="slideshow__product-sale">
+									<span class="sticker__sales"></span>
+								</div>
+								<div class="slideshow__product-image flex-center"></div>
 							</div>
 
 						</div>
 
-						<div class="slideshow__item swiper-slide">
+						<div class="slideshow__item swiper-slide" data-product-id="21228010">
 							<div class="slideshow__image">
 								<img src="{ASSETS_IMAGES_PATH}slide_3.jpg?design=THEMENAME" alt="">
 							</div>
@@ -636,14 +640,16 @@
 									<li class="slideshow__list-item flex">Ускоряет засыпание</li>
 									<li class="slideshow__list-item flex">Дарит спокойствие</li>
 								</ul>
-								<div class="slideshow__buttons">
-									<div class="slideshow__price"></div>
+								<div class="slideshow__buttons flex">
+									<div class="slideshow__price flex-column {CURRENCY_CHAR_CODE}"></div>
 									<a class="slideshow__button button-gradient button-big" href="{CATALOG_URL}" title=""><span>Купить</span></a>
 								</div>
 							</div>
 							<div class="slideshow__product">
-								<div class="slideshow__product-sale"></div>
-								<div class="slideshow__product-image"></div>
+								<div class="slideshow__product-sale">
+									<span class="sticker__sales"></span>
+								</div>
+								<div class="slideshow__product-image flex-center"></div>
 							</div>
 
 						</div>
@@ -4167,6 +4173,7 @@
 			swiperNews();
 			swiperOffers();
 			counterDate();
+			productSlider()
 		});
 	</script>
 	{% ENDIF %}

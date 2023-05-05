@@ -2197,13 +2197,6 @@ class Goods {
 					$(form).submit();
 				}
 
-				// Иконка для обновления изображение капчи
-				// else if (targetCaptcha){
-				// 	console.log('captcha__refresh');
-				// 	goods.RefreshImageAction(event.target,1,1);
-				// 	$('.captcha__image').attr('src',$('.captcha__image').attr('src')+'&rand'+Math.random(0,10000));
-				// }
-
 				// Новый модификации
 				else if (targetMod){
 					event.preventDefault();
@@ -3870,6 +3863,34 @@ function catalogHover(){
 		})
 	})
 
+}
+
+// Товар в слайдере
+function productSlider(){
+	$('.slideshow__item').each(function(){
+		const slideID = $(this).attr('data-product-id') || 1;
+		const slidePrice = $(this).find('.slideshow__price')
+		const slideImage = $(this).find('.slideshow__product-image')
+		const slideSticker = $(this).find('.sticker__sales')
+		const product = $('.product__item[data-id="'+ slideID +'"]')
+		// Проверяем товар на странице по ИД
+		product.length > 0 ? $(this).removeClass('is-empty') : $(this).addClass('is-empty')
+		const price = product.find('.product__price').html()
+		const image = product.find('.product__img').html()
+		const sticker = product.find('.sticker__sales').html()
+
+		// Обновление данных
+		slidePrice.html(price)
+		slideImage.html(image)
+		sticker ? slideSticker.html(sticker) : slideSticker.hide()
+
+		// console.log('product', product);
+		// console.log('slideID', slideID);
+		// console.log('imgBlock', image);
+		// console.log('priceBlock', price);
+		// console.log('sticker', sticker);
+		
+	})
 }
 
 
