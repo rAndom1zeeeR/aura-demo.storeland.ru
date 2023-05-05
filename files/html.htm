@@ -1031,7 +1031,7 @@
 
 		<!-- Распродажа -->
 		{% IFNOT index_page_sale_goods_empty %}
-		<section id="pdt__sales" class="">
+		<section id="pdt__sales" class="pdt__small">
 			<div class="container">
 				<!-- Заголовок -->
 				<div class="block__title">
@@ -3318,6 +3318,8 @@
 							</div>
 						</a>
 
+						{% IF MOD_LNAME = cart || MOD_LNAME = user || MOD_LNAME = order %}
+						{% ELSE %}
 						<a class="adaptive__navigate-item adaptive__navigate-user" href="{USER_SETTINGS_URL}" title="Перейти в Личный кабинет" data-open="user">
 							<div class="adaptive__navigate-icon">
 								<i class="icon-person"></i>
@@ -3326,6 +3328,7 @@
 								<span>ЛК</span>
 							</div>
 						</a>
+						{% ENDIF %}
 
 					</div>
 				</div>
@@ -4118,6 +4121,7 @@
 			goods.onInit()
 			goods.onClick()
 			goods.swiperImages()
+			goods.captchaRefresh()
 			// quantityGoods.onGoods()
 			swiperSmall('#related-views')
 			swiperRelated()

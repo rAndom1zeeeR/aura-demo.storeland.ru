@@ -2118,7 +2118,7 @@ class Goods {
 				const targetNav = event.target.closest('.opinion__nav');
 				const targetAdd = event.target.closest('.opinion__add');
 				const targetFormButton = event.target.closest('.opinion__form button');
-				const targetCaptcha = event.target.closest('.captcha__refresh');
+				// const targetCaptcha = event.target.closest('.captcha__refresh');
 				const targetShowAll = event.target.closest('.opinion__showAll');
 				const targetMod = event.target.closest('.modifications-values__value');
 				const targetAnswer = event.target.closest('.opinion__answer-button');
@@ -2198,10 +2198,11 @@ class Goods {
 				}
 
 				// Иконка для обновления изображение капчи
-				else if (targetCaptcha){
-					goods.RefreshImageAction(event.target,1,1);
-					$('.captcha__image').attr('src',$('.captcha__image').attr('src')+'&rand'+Math.random(0,10000));
-				}
+				// else if (targetCaptcha){
+				// 	console.log('captcha__refresh');
+				// 	goods.RefreshImageAction(event.target,1,1);
+				// 	$('.captcha__image').attr('src',$('.captcha__image').attr('src')+'&rand'+Math.random(0,10000));
+				// }
 
 				// Новый модификации
 				else if (targetMod){
@@ -2250,6 +2251,16 @@ class Goods {
 				goods.RefreshImageAction(img, num + 1, cnt + 1);
 			}, 50);
 		};
+
+		// Капча
+		this.captchaRefresh = function(){
+			const button = $('.captcha__refresh');
+			const image = $('.captcha__image');
+			button.on('click', function(event){
+				goods.RefreshImageAction(event.target,1,1);
+				image.attr('src', image.attr('src')+'&rand'+Math.random(0,10000));
+			})
+		}
 
 
 		// Инициализация табов на странице товара
