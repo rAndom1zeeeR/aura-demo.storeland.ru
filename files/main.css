@@ -1602,13 +1602,13 @@ footer .contacts__phone-big {font-size: 20px;font-weight: 700;padding-left: 0;}
 .noty_bar {margin: 0 0 4px 0;overflow: hidden;position: relative;box-shadow: none;}
 .noty_has_progressbar .noty_progressbar {display: block;position: absolute;left: 0;bottom: 0;height: 4px;width: 100%;background: var(--color-black);opacity: 0.2;filter: alpha(opacity=20);}
 .noty_type__warning .noty_body {background: var(--color-tertiary);}
-.noty_body {padding: 16px;background: var(--color-gradient);border-radius: 16px;}
+.noty_body {padding: 16px;color: var(--color-white);background: var(--color-gradient);border-radius: 16px;}
 .noty__addto.flex {display: none;gap: 12px;}
 .noty__addto.flex:last-child {display: flex;}
 .noty__title {font-weight: 600;width: 100%;}
 .noty__buttons {display: none;width: 100%;}
 .noty__image {width: 60px;height: 60px;border-radius: 16px;overflow: hidden;}
-.noty__content {width: calc(100% - 60px - 16px);flex-grow: 1;font-size: 14px;line-height: 1.25;color: var(--color-white);display: flex;flex-direction: column;gap: 8px;}
+.noty__content {width: calc(100% - 60px - 16px);flex-grow: 1;font-size: 14px;line-height: 1.25;display: flex;flex-direction: column;gap: 8px;}
 .noty__content a {font-weight: 400;color: var(--color-white)}
 .noty__content a:hover {text-decoration: underline;}
 @media all and (max-width: 479px) {

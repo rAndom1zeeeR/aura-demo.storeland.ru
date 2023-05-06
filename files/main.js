@@ -3898,8 +3898,9 @@ function productSlider(){
 
 		// Проверяем стикер скидки
 		sticker ? slideSticker.html(sticker) : slideSticker.hide()
-		// Проверяем на остаток в наличии
-		goods_min_rest == 0 ? slideForm.addClass('is-empty') : slideForm.removeClass('is-empty')
+
+		// Проверяем остаток в наличии
+		goods_min_rest > 0 ? slideForm.removeClass('is-empty') : slideForm.addClass('is-empty')
 
 		// Добавление данных формы в слайдер
 		slideForm.prepend(`
