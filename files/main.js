@@ -141,7 +141,7 @@ function notyStart(content, type){
 // Функция Наверх. /JS/
 ///////////////////////////////////////
 function toTop(){
-	const goto = document.getElementById('toTop')
+	const goto = document.querySelector('.toTop')
 	// Показать при скроле
   window.addEventListener('scroll', function(){
 		window.pageYOffset > 99 ? goto.classList.remove('is-hidden') : goto.classList.add('is-hidden');
@@ -3868,27 +3868,57 @@ function catalogHover(){
 // Товар в слайдере
 function productSlider(){
 	$('.slideshow__item').each(function(){
+		// Переменные слайдера
 		const slideID = $(this).attr('data-product-id') || 1;
 		const slidePrice = $(this).find('.slideshow__price')
 		const slideImage = $(this).find('.slideshow__product-image')
 		const slideSticker = $(this).find('.sticker__sales')
-		const product = $('.product__item[data-id="'+ slideID +'"]')
+		const slideForm = $(this).find('.slideshow__buttons')
+		const slideButton = $(this).find('.slideshow__button.add-notify')
+		
 		// Проверяем товар на странице по ИД
+		const product = $('.product__item[data-id="'+ slideID +'"]').eq(0)
 		product.length > 0 ? $(this).removeClass('is-empty') : $(this).addClass('is-empty')
 		const price = product.find('.product__price').html()
 		const image = product.find('.product__img').html()
 		const sticker = product.find('.sticker__sales').html()
+		const name = product.find('.product__name').text()
 
-		// Обновление данных
+		// Данные формы товара для добавления в корзину
+		const hash = product.find('input[name="hash"]').val()
+		const goods_from = product.find('input[name="form[goods_from]"]').val()
+		const goods_mod_id = product.find('input[name="form[goods_mod_id]"]').val()
+		const goods_id = product.find('input[name="form[goods_id]"]').val()
+		const goods_min_rest = product.find('input[name="form[goods_min_rest]"]').val()
+
+		// Обновление данных товара
 		slidePrice.html(price)
 		slideImage.html(image)
+		slideButton.attr('data-name', name)
+
+		// Проверяем стикер скидки
 		sticker ? slideSticker.html(sticker) : slideSticker.hide()
+		// Проверяем на остаток в наличии
+		goods_min_rest == 0 ? slideForm.addClass('is-empty') : slideForm.removeClass('is-empty')
+
+		// Добавление данных формы в слайдер
+		slideForm.prepend(`
+			<input type="hidden" name="hash" value="${hash}" />
+			<input type="hidden" name="form[goods_from]" value="${goods_from}" />
+			<input type="hidden" name="form[goods_mod_id]" value="${goods_mod_id}" />
+			<input type="hidden" name="form[goods_id]" value="${goods_id}" />
+			<input type="hidden" name="form[goods_count]" value="1" class="goodsDataCount" />
+			<input type="hidden" name="form[goods_min_rest]" value="${goods_min_rest}" />
+		`)
+
+		
 
 		// console.log('product', product);
 		// console.log('slideID', slideID);
 		// console.log('imgBlock', image);
 		// console.log('priceBlock', price);
 		// console.log('sticker', sticker);
+		// console.log('goods_min_rest', goods_min_rest);
 		
 	})
 }

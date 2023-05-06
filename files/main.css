@@ -473,7 +473,10 @@ header .catalog__items::-webkit-scrollbar {width: 4px;}
 .slideshow__button {padding: 0;width: 180px;}
 .slideshow__button span {padding: 0;}
 .slideshow__item.is-empty .slideshow__product {display: none;}
-.slideshow__item.is-empty .slideshow__price {display: none;}
+.slideshow__item.is-empty .slideshow__buttons {display: none;}
+.slideshow__buttons .button-empty {display: none;}
+.slideshow__buttons.is-empty .button-gradient {display: none;}
+.slideshow__buttons.is-empty .button-empty {display: inline-flex;}
 @media all and (max-width: 1199px) {
 	.slideshow__product {right: 20%;}
 }
@@ -1731,3 +1734,13 @@ footer .contacts__phone-big {font-size: 20px;font-weight: 700;padding-left: 0;}
 .order-delivery-zone__item {margin-top: 12px;}
 .order-delivery-zone__name {padding: 0 12px;}
 .order-delivery-zone__price {font-weight: bold;}
+
+
+/**************************************/
+/*** Наверх ***/
+/**************************************/
+.toTop {padding: 0;border-radius: 100%;position: fixed;bottom: 16px;right: 16px;width: 54px;height: 54px;font-size: 24px;text-align: center;transition: all 0.3s ease;z-index: 9;}
+.toTop:hover {cursor: pointer;}
+.toTop i {opacity: .5;}
+.toTop:hover i {opacity: 1;}
+.toTop::before {border-radius: 100%;}
