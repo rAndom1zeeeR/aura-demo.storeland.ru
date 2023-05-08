@@ -632,7 +632,7 @@ header .catalog__items::-webkit-scrollbar {width: 4px;}
 }
 
 .product__actions {display: none;}
-.product__quickview {display: none;}
+.product__quickview {display: none;position: absolute;top: 50%;z-index: 2;}
 
 /*** Товары таблицей ***/
 .products__grid {gap: 16px;grid-template-columns: repeat(4, minmax(calc(100% / 4 - 12px), 1fr));display: grid;}
@@ -1578,6 +1578,7 @@ footer .contacts__phone-big {font-size: 20px;font-weight: 700;padding-left: 0;}
 /**************************************/
 /*** Быстрый просмотр ***/
 /**************************************/
+.fancybox-content .productView {width: 100%;}
 .fancybox-content .productView__add.quick {display: none;}
 .productViewMod.fancybox-content {max-width: 520px;}
 .productViewMod .productView__images {display: none;}

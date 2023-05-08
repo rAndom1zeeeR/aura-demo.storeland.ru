@@ -1359,21 +1359,23 @@ class Product {
 				let loaded = false;
 				let once = false;
 
+				// ID товара
+				const ID = item.getAttribute('data-id')
+
+				// Ссылка на товар
+				const link = item.querySelector('.product__name');
+				let url = link.getAttribute('href');
+				url += (false !== url.indexOf('?') ? '&' : '?') + 'only_body=1';
+
 				// Запуск Функции при наведении
 				item.addEventListener('mouseover', quickViewHover);
 
 				// Копка Быстрый просмотр
 				const quick = item.querySelector('.product__quickview');
-				const ID = item.getAttribute('data-id')
-
 				// Запуск Функции при клике
 				quick.addEventListener('click', () => {
 					quickViewClick('productView')
 				});
-
-				// Ссылка на товар
-				let url = quick.getAttribute('href');
-				url += (false !== url.indexOf('?') ? '&' : '?') + 'only_body=1';
 
 				// Запуск Функции выбора модификации при клике
 				const quickMod = item.querySelector('.add-mod')
@@ -1381,20 +1383,6 @@ class Product {
 					quickMod.addEventListener('click', () => {
 						quickViewClick('productViewMod')
 					})
-				}
-
-				// Обрабатываем полученные данные
-				async function quickViewFetch(url){
-					return await getFetch(url).then((html) => {
-						const selector = html.querySelector('.productViewBlock')
-						const content = product.quickViewContent(selector)
-						const id = selector.getAttribute('data-id')
-						// Если данные уже добавлены
-						if (quickViewPreload.find(e => e.id === ID)) {return false}
-						// Отправляем данные в общий массив для быстрой подгрузки
-						quickViewPreload.push({id, url, content});
-						return content
-					});
 				}
 
 				// Функции при наведении. Предзагрузка
@@ -1409,13 +1397,30 @@ class Product {
 					loaded = true;
 				}
 
+				// Обрабатываем полученные данные
+				async function quickViewFetch(url){
+					return await getFetch(url).then((html) => {
+						const block = html.querySelector('.productViewBlock')
+						const content = product.quickViewContent(block)
+						const id = block.getAttribute('data-id')
+						// Если данные уже добавлены
+						if (quickViewPreload.find(element => element.id == ID)) {return false}
+						// Отправляем данные в общий массив для быстрой подгрузки
+						quickViewPreload.push({id, url, content});
+						return content
+					});
+				}
+
 				// Функции при клике
 				function quickViewClick(mod){
 					event.preventDefault();
+					// alert('quickViewClick 4: ' + mod)
+					// alert('quickViewPreload: ' + quickViewPreload)
 					// Если есть совпадение в массиве предзагрузки
-					if (quickViewPreload.find(e => e.id === ID)){
+					if (quickViewPreload.find(element => element.id == ID)){
 						quickViewPreloadFilter(quickViewPreload, mod)
 					} else {
+						quickViewFetch(url)
 						// Если нет, то запуск функции через 1000мс
 						setTimeout(() => {
 							quickViewPreloadFilter(quickViewPreload, mod)
@@ -1425,12 +1430,12 @@ class Product {
 
 				// Фильтр контента из массива
 				function quickViewPreloadFilter(objects, mod){
-					return objects.filter((e) => {
-						if (ID === e.id) {
+					return objects.filter((element) => {
+						if (ID == element.id) {
 							// Открыть в модальном окне
-							$.fancybox.open(e.content)
+							$.fancybox.open(element.content)
 							// Выбор модификации
-							mod == 'productViewMod' ? e.content.classList.add('productViewMod') : e.content.classList.remove('productViewMod')
+							mod == 'productViewMod' ? element.content.classList.add('productViewMod') : element.content.classList.remove('productViewMod')
 	
 							// Обновление кол-ва
 							// e.content.querySelector('.qty__input').value = item.querySelector('.qty__input').value;
@@ -1442,11 +1447,11 @@ class Product {
 							product.addTo();
 							goods.onClick();
 							goods.swiperImages(mod);
-							goods.goodsModification(e.content);
-							quantity.init(e.content)
+							goods.goodsModification(element.content);
+							quantity.init(element.content)
 							// Отметка загруженности
 							once = true
-
+							return element.content
 						};
 					});
 				}
@@ -1456,14 +1461,15 @@ class Product {
 		}
 
 		// Обработка контента быстрого просмотра товара
-		this.quickViewContent = function(selector){
+		this.quickViewContent = function(block){
+			// console.log('block', block)
 			// Удаляем табы
-			selector.querySelector('.productView__tabs').remove();
+			block.querySelector('.productView__tabs').remove();
 			// Удаляем аналоги
-			if(selector.querySelector('#related-goods')){
-				selector.querySelector('#related-goods').remove();
+			if(block.querySelector('#related-goods')){
+				block.querySelector('#related-goods').remove();
 			}
-			return selector
+			return block
 		}
 
 	}
@@ -3561,9 +3567,9 @@ function swiperSales(){
 }
 
 // Функции стандартного слайдера
-function swiperSlider(id){
+function swiperSlider(selector){
 	// Слайдер товаров
-	const swiper = new Swiper(id + ' .swiper', {
+	const swiper = new Swiper(selector + ' .swiper', {
 		loop: false,
 		autoplay: false,
 		watchSlidesVisibility: true,
@@ -3578,12 +3584,12 @@ function swiperSlider(id){
 			loadPrevNext: true,
 			loadOnTransitionStart: true,
 		},
-		navigation: {
-			nextEl: id + ' .swiper-button-next',
-			prevEl: id + ' .swiper-button-prev',
-		},
+		// navigation: {
+		// 	nextEl: selector + ' .swiper-button-next',
+		// 	prevEl: selector + ' .swiper-button-prev',
+		// },
 		scrollbar: {
-			el: id + ' .swiper-scrollbar',
+			el: selector + ' .swiper-scrollbar',
 			draggable: true,
 			hide: false,
 		},

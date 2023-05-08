@@ -4150,7 +4150,7 @@
 	{% ENDIF %}
 
 	{% IF MOD_LNAME = catalog %}
-	<script type="text/javascript">	
+	<script type="text/javascript">
 	// Загрузка основных функций шаблона Товары
 	document.addEventListener('DOMContentLoaded', function(){
 		catalog.onClick();
@@ -4158,14 +4158,14 @@
 	});
 	</script>
 	<script defer type="text/javascript" src="{ASSETS_JS_PATH}jqueryui.js?design=THEMENAME"></script>
-	{% IFNOT IS_FULL_CATALOG && goods_empty=0 %}
-	<script type="text/javascript">	
-		// Загрузка основных функций шаблона Товары
-		document.addEventListener('DOMContentLoaded', function(){
-			swiperCategories();
-		});
-		</script>
-	{% ENDIF IS_FULL_CATALOG %}
+		{% IFNOT IS_FULL_CATALOG && goods_empty=0 %}
+		<script type="text/javascript">
+			// Загрузка основных функций шаблона Товары
+			document.addEventListener('DOMContentLoaded', function(){
+				swiperCategories();
+			});
+			</script>
+		{% ENDIF IS_FULL_CATALOG %}
 	{% ENDIF catalog %}
 
 	<!-- Страница: Товар -->
