@@ -241,8 +241,8 @@ function downloadFiles(done) {
 			}
 		})
 		.then(array =>{
-			console.log(`Всего файлов ${array.length}`);
 			const arrLength = array.length;
+			console.log(`Всего файлов ${arrLength}`);
 			let count = 1;
 			const getFile = (arr) => {
 				if(!arr.length){
@@ -283,6 +283,7 @@ function downloadFiles(done) {
 			getFile(array);
 		})
 }
+
 exports.browsersync = browsersync;
 exports.assets      = series(cleanimg, styles, scripts, images);
 exports.download    = parallel(checkConfig,downloadFiles);

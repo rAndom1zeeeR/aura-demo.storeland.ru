@@ -178,10 +178,10 @@ main {margin: 32px 0 48px;position: relative;display: block;}
 .addto__content {position: relative;}
 .addto__name {display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;}
 .addto__mod {font-size: 12px;}
-.addto__qty {display: none;}
+.addto__qty.qty {display: none;}
 .addto__price {gap: 8px 16px;}
-.addto__total-discount {justify-content: space-between;margin-bottom: 8px;}
-.addto__total-block {gap: 8px;}
+.addto__items {display: none;}
+.addto__total {display: none;}
 .addto__buttons {gap: 12px;display: none;}
 /* Есть в списке */
 .has-items .addto__buttons {display: flex;}

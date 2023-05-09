@@ -63,10 +63,10 @@ function GetSum(val,precision) {
 // Возвращает правильное окончание для слова
 ///////////////////////////////////////
 function genWordEnd(num, e = '', m = 'а', mm = 'oв') {
-	console.log('num', num);
-	console.log('e', e);
-	console.log('m', m);
-	console.log('mm', mm);
+	// console.log('num', num);
+	// console.log('e', e);
+	// console.log('m', m);
+	// console.log('mm', mm);
   // Если передали пустую строку, вместо цифры
   if(0 == num.length) { num = 0; }
   // Превращаем цифру в правильный INT
@@ -241,7 +241,7 @@ class Password {
 	onClick(){
 		const btnPass = document.querySelectorAll('.password__icon')
 		const btnReg = document.querySelector('#registration')
-		console.log('btnReg', btnReg)
+		// console.log('btnReg', btnReg)
 
 		// Если нет объекта
 		if (!btnPass) {return false}
@@ -249,15 +249,14 @@ class Password {
 		// Действие нажатие Показать пароль
 		btnPass.forEach(e => {
 			e.addEventListener('click', function(){
-				console.log('e', e)
-				console.log('e.previousElementSibling', e.previousElementSibling)
+				// console.log('e.previousElementSibling', e.previousElementSibling)
 				password.showPass(e, e.previousElementSibling)
 			})
 		})
 
 		// Если нет объекта
 		if (!btnReg) {return false}
-		console.log('btnReg2', btnReg)
+		// console.log('btnReg2', btnReg)
 
 		// Действие нажатие Регистрация
 		btnReg.addEventListener('click', () => password.registration(btnReg))
@@ -277,13 +276,13 @@ class Password {
 		
 	// Регистрация. /JS/
 	registration(obj){
-		console.log('registration', obj)
+		// console.log('registration', obj)
 		const content = obj.closest('#main')
-		console.log('content', content)
+		// console.log('content', content)
 		const email = content.querySelector('.form__email')
 		const pass = content.querySelector('.password')
-		console.log('email', email)
-		console.log('pass', pass)
+		// console.log('email', email)
+		// console.log('pass', pass)
 		if (obj.checked){
 			obj.checked = true
 			email.setAttribute('required', true)
@@ -329,12 +328,12 @@ class Password {
 ///////////////////////////////////////
 class Compare {
 	constructor(){
-		console.log('Compare start')
+		// console.log('Compare start')
 	}
 
 	// Функции при клике
 	onClick(){
-		console.log('Compare onClick')
+		// console.log('Compare onClick')
 		const element = document.querySelector('.compare__table')
 		// Если нет контента
 		if (!element) {return false;}
@@ -384,7 +383,7 @@ class Compare {
 
 	// Показать отличия
 	onSwitch(obj){
-		console.log('Compare onSwitch')
+		// console.log('Compare onSwitch')
 		// Обновляем текст
 		changeTxt(obj)
 		if (obj.classList.contains('switch-on')){
@@ -616,7 +615,7 @@ class Quantity {
 
 	// Корзина
 	updCart(obj){
-		console.log('updCart', obj);
+		// console.log('updCart', obj);
 		const item = obj.closest('.cartTable__item');
 		const mod = item.getAttribute('data-mod-id');
 		const priceNow = item.querySelector('.cartTable__price');
@@ -653,15 +652,15 @@ class Quantity {
 
 	// Обновление в корзине
 	updCartContent(doc, mod, priceNow){
-		console.log('doc2', doc);
-		console.log('mod2', mod);
-		console.log('priceNow2', priceNow);
+		// console.log('doc2', doc);
+		// console.log('mod2', mod);
+		// console.log('priceNow2', priceNow);
 		// Обновить цену
 		const price = doc.querySelector('.cartTable__item[data-mod-id="' + mod + '"] .cartTable__price');
 		priceNow.innerHTML = price.innerHTML;
 		// Обновить кол-во
 		const newCount = doc.querySelector('.cart-count').innerHTML;
-		console.log('newCount', newCount);
+		// console.log('newCount', newCount);
 		// quantityAddto.updAddtoCount(newCount);
 		// Обновить итого
 		const newTotal = doc.querySelector('.cartTotal__items').innerHTML;
@@ -673,10 +672,10 @@ class Quantity {
 		setTimeout(() => {
 			cart.minSum();			
 		}, 100);
-		console.log('price', price);
-		console.log('newCount', newCount);
-		console.log('newTotal', newTotal);
-		console.log('newLabel', newLabel);
+		// console.log('price', price);
+		// console.log('newCount', newCount);
+		// console.log('newTotal', newTotal);
+		// console.log('newLabel', newLabel);
 	};
 
 	// Выпадающая корзина
@@ -777,9 +776,6 @@ class Quantity {
 }
 
 
-const quantity = new Quantity();
-quantity.init()
-
 ///////////////////////////////////////
 // Конструктор функции Товара
 ///////////////////////////////////////
@@ -800,10 +796,10 @@ class Product {
 				const qty = e.querySelector('.qty__input')
 				const count = e.querySelector('.inCart__count')
 				const addtoItem = document.querySelector('.addto__item[data-id="'+ id +'"] .qty__input[name="'+ mod +'"]')
-				console.log('qty1', qty);
-				console.log('count1', count);
-				console.log('addtoItem1', addtoItem);
-				console.log('addtoItem2', addtoItem.value);
+				// console.log('qty1', qty);
+				// console.log('count1', count);
+				// console.log('addtoItem1', addtoItem);
+				// console.log('addtoItem2', addtoItem.value);
 				// Обновление данных
 				e.classList.add('product__inCart');
 				qty.value = addtoItem.value
@@ -1337,6 +1333,8 @@ class Product {
 							cart.minSum();
 							// Стили для новых селектов
 							$('.form__phone').mask('+7 (999) 999-9999');
+							// Скрытое обновление корзины
+							$('.hiddenUpdate').html(data)
 						}
 					});
 
@@ -1498,7 +1496,7 @@ async function getFetch(url){
 ///////////////////////////////////////
 class Remove {
 	constructor(){
-		console.log('Remove start');
+		// console.log('Remove start');
 
 		// Действия при клике
 		this.onClick = function(){
@@ -1517,22 +1515,22 @@ class Remove {
 
 				// Удалить из корзины
 				if (removeCart){
-					console.log('removeCart', event)
+					// console.log('removeCart', event)
 					event.preventDefault();
 					remove.fromCart(removeCart)
 				// Удалить из сравнения
 				} else if (removeCartAll){
-					console.log('removeCartAll', event)
+					// console.log('removeCartAll', event)
 					event.preventDefault();
 					remove.fromCartAll(removeCartAll)
 				// Удалить все из сравнения
 				} else if (removeCompare){
-					console.log('removeCompare', event)
+					// console.log('removeCompare', event)
 					event.preventDefault();
 					remove.fromCompare(removeCompare)
 				// Удалить все из сравнения
 				} else if (removeCompareAll){
-					console.log('removeCompareAll', event)
+					// console.log('removeCompareAll', event)
 					event.preventDefault();
 					remove.fromCompareAll(removeCompareAll)
 				// Удалить из избранного
@@ -1541,7 +1539,7 @@ class Remove {
 					remove.fromFavorites(removeFavorites)
 				// Удалить все из избранного
 				} else if (removeFavoritesAll){
-					console.log('fromFavoritesAll', event)
+					// console.log('fromFavoritesAll', event)
 					event.preventDefault();
 					remove.fromFavoritesAll(removeFavoritesAll)
 				} else {
@@ -1567,7 +1565,7 @@ class Remove {
 
 		// Удаление товара из корзины без обновлении страницы
 		this.fromCart = function(obj){
-			console.log('Remove fromCart', obj);
+			// console.log('Remove fromCart', obj);
 			if (confirm('Вы точно хотите удалить товар из корзины?')){
 				const href = obj.getAttribute('href');
 				const qty = obj.getAttribute('data-qty');
@@ -1623,7 +1621,7 @@ class Remove {
 
 		// Удаление ВСЕХ товаров из Корзины без обновлении страницы
 		this.fromCartAll = function(obj){
-			console.log('Remove fromCartAll');
+			// console.log('Remove fromCartAll');
 			if (confirm('Вы точно хотите очистить корзину?')){
 				$.ajax({
 					cache: false,
@@ -1644,7 +1642,7 @@ class Remove {
 
 		// Удаление товара из Сравнения без обновлении страницы
 		this.fromCompare = function(obj){
-			console.log('fromCompare', obj)
+			// console.log('fromCompare', obj)
 			if (confirm('Вы точно хотите удалить товар из сравнения?')){
 				const href = obj.getAttribute('href');
 				const id = obj.getAttribute('data-id');
@@ -1689,7 +1687,7 @@ class Remove {
 
 		// Удаление ВСЕХ товаров из Сравнения без обновлении страницы
 		this.fromCompareAll = function(obj){
-			console.log('fromCompareAll', obj)
+			// console.log('fromCompareAll', obj)
 			if (confirm('Вы точно хотите очистить сравнение?')){
 				$.ajax({
 					cache: false,
@@ -1707,7 +1705,7 @@ class Remove {
 
 		// Удаление товара из Избранного без обновлении страницы
 		this.fromFavorites = function(obj){
-			console.log('fromFavorites', obj)
+			// console.log('fromFavorites', obj)
 			if (confirm('Вы точно хотите удалить товар из Избранного?')){
 				const href = obj.getAttribute('href');
 				const id = obj.getAttribute('data-id');
@@ -1751,7 +1749,7 @@ class Remove {
 
 		// Удаление ВСЕХ товаров из Избранного без обновлении страницы
 		this.fromFavoritesAll = function(obj){
-			console.log('fromFavoritesAll', obj)
+			// console.log('fromFavoritesAll', obj)
 			if (confirm('Вы точно хотите очистить Избранное?')){
 				$.ajax({
 					cache: false,
@@ -1800,13 +1798,13 @@ class Catalog {
 				// Открытие/Скрытие фильтров в сайдбаре
 				else if (filterTitle){
 					event.preventDefault();
-					console.log('filterTitle', filterTitle);
+					// console.log('filterTitle', filterTitle);
 					if (filterTitle.classList.contains('is-actived')){
-						console.log('act', filterTitle.classList.contains('is-actived'));
+						// console.log('act', filterTitle.classList.contains('is-actived'));
 						filterTitle.classList.remove('is-actived');
 						$(filterTitle).next().slideDown(600);
 					} else {
-						console.log('not act', filterTitle.classList.contains('is-actived'));
+						// console.log('not act', filterTitle.classList.contains('is-actived'));
 						filterTitle.classList.add('is-actived');
 						$(filterTitle).next().slideUp(600);
 					}
@@ -1991,7 +1989,7 @@ class Goods {
 
 			// Функция смены изображений при изменении модификации
 			function changeImages(){
-				console.log('changeImages()');
+				// console.log('changeImages()');
 				const ids = []
 				const mods = document.querySelectorAll('.modifications-props__select')
 				mods.forEach(e => {
@@ -2004,7 +2002,7 @@ class Goods {
 						// console.log('ids',ids);
 						const mod = e.closest('.productView__modifications').querySelector('.goodsModificationsSlug[rel="'+ getModId() +'"]')
 						// console.log('getModId()',getModId());
-						console.log('mod',mod);
+						// console.log('mod',mod);
 						
 						if (!mod) {return false}
 						const id = mod.querySelector('[name="goods_mod_image_id"]').value
@@ -2181,8 +2179,8 @@ class Goods {
 					// Переход к контенту
 					scrollTop(opinionBlock.offsetTop + 100);
 
-					console.log('targetShowAll', targetShowAll);
-					console.log('parentItems', parentItems);
+					// console.log('targetShowAll', targetShowAll);
+					// console.log('parentItems', parentItems);
 
 					// Показать все отзывы
 					targetShowAll.matches('.is-actived') ? parentItems.classList.add('is-actived') : parentItems.classList.remove('is-actived');
@@ -2536,7 +2534,7 @@ class Cart {
 				} else if (close){
 					cart.orderClose();
 				} else if (make){
-					console.log('make', make);
+					// console.log('make', make);
 					event.preventDefault();
 					const form = $('.order-fast__form');
 					form.validate();
@@ -2580,8 +2578,8 @@ class Cart {
 			if ($('.cartTotal__min').length){
 				const minPrice = parseInt($('.cartTotal__min-price').data('price'));
 				const totalSum = parseInt($('.cartSumDiscount').data('price'));
-				console.log('minPrice', minPrice);
-				console.log('totalSum', totalSum);
+				// console.log('minPrice', minPrice);
+				// console.log('totalSum', totalSum);
 				if (minPrice > totalSum){
 					const diff = minPrice - totalSum;
 					$('.cartTotal__min-price').find('.num').text(addSpaces(diff));
@@ -2656,7 +2654,7 @@ class Order {
 
 		// Валидация формы в оформлении заказа
 		this.onValidate = function(){
-			console.log('onValidate');
+			// console.log('onValidate');
 			// Валидация формы
 			$('.order-fast__form').validate({
 				validClass: 'valid',
@@ -3089,6 +3087,9 @@ const goods = new Goods();
 const cart = new Cart();
 // Объявляем конструктор Заказа
 const order = new Order();
+// Объявляем конструктор Заказа
+const quantity = new Quantity();
+
 
 
 console.timeEnd('start test');
@@ -3382,7 +3383,7 @@ function closeAll(){
 ///////////////////////////////////////
 function ajaxForms(id,flag,successMessage,errorMessage){
   flag = false;
-  console.log('ajaxForms loaded ', id)
+  // console.log('ajaxForms loaded ', id)
 	if(!id) { return false}
   const form = $(id).find('.form__callback');
   form.on('submit',function(event){
@@ -3818,6 +3819,7 @@ document.addEventListener('DOMContentLoaded', function(){
 	catalogHover()
 	remove.onClick()
 	quantity.updAddtoSale()
+	quantity.init()
 
 	// Удаление классов загрузки для элементов страницы
 	$('.loading').addClass('loaded');
@@ -3887,6 +3889,7 @@ function productSlider(){
 		product.length > 0 ? $(this).removeClass('is-empty') : $(this).addClass('is-empty')
 		const price = product.find('.product__price').html()
 		const image = product.find('.product__img').html()
+		const link = product.find('.product__img').attr('href')
 		const sticker = product.find('.sticker__sales').html()
 		const name = product.find('.product__name').text()
 
@@ -3900,6 +3903,7 @@ function productSlider(){
 		// Обновление данных товара
 		slidePrice.html(price)
 		slideImage.html(image)
+		slideImage.attr('href', link)
 		slideButton.attr('data-name', name)
 
 		// Проверяем стикер скидки
