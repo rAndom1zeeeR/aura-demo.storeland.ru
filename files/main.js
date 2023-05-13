@@ -63,10 +63,6 @@ function GetSum(val,precision) {
 // Возвращает правильное окончание для слова
 ///////////////////////////////////////
 function genWordEnd(num, e = '', m = 'а', mm = 'oв') {
-	// console.log('num', num);
-	// console.log('e', e);
-	// console.log('m', m);
-	// console.log('mm', mm);
   // Если передали пустую строку, вместо цифры
   if(0 == num.length) { num = 0; }
   // Превращаем цифру в правильный INT
@@ -88,9 +84,9 @@ function genWordEnd(num, e = '', m = 'а', mm = 'oв') {
 // Предзагрузчик. /JS/
 ///////////////////////////////////////
 function preload(){
-	document.querySelectorAll('.preloader').forEach(e => {
-		e.firstElementChild.style.opacity = '0'
-		setTimeout(() => { el.style.display = 'none' }, 100);
+	document.querySelectorAll('.preloader').forEach(element => {
+		element.firstElementChild.style.opacity = '0'
+		setTimeout(() => { element.style.display = 'none' }, 100);
 	})
 }
 
@@ -194,8 +190,8 @@ function pdtVisible(id){
 
 // Скрываем кнопку показать все если мало товаров
 function pdtVisibleButton(content, button, items) {
-	const visible = $(content).find('.visible__item:visible').length;
-	button.parentElement.style.display = items.length > visible ? 'block' : 'none';
+	const visible = $(content).find('.visible__item:visible');
+	button.parentElement.style.display = items.length > visible.length ? 'block' : 'none';
 }
 
 // Переход к контенту сверху
@@ -247,10 +243,10 @@ class Password {
 		if (!btnPass) {return false}
 
 		// Действие нажатие Показать пароль
-		btnPass.forEach(e => {
-			e.addEventListener('click', function(){
-				// console.log('e.previousElementSibling', e.previousElementSibling)
-				password.showPass(e, e.previousElementSibling)
+		btnPass.forEach(element => {
+			element.addEventListener('click', function(){
+				// console.log('element.previousElementSibling', element.previousElementSibling)
+				password.showPass(element, element.previousElementSibling)
 			})
 		})
 
@@ -263,21 +259,21 @@ class Password {
 	};
 
 	// Превращает поле пароля в текстовое поле и обратно. /JS/
-	showPass($btn, $input){		
+	showPass(button, input){		
 		// Если не ввели пароль
-		if ($input.value.length < 1) {return false}
+		if (input.value.length < 1) {return false}
 
 		// Добавляем активный класс
-		$btn.classList.toggle('is-actived')
+		button.classList.toggle('is-actived')
 
 		// Изменяем тип input поля с password на text
-		$input.type == 'text' ? $input.type = 'password' : $input.type = 'text'
+		input.type == 'text' ? input.type = 'password' : input.type = 'text'
 	};
 		
 	// Регистрация. /JS/
 	registration(obj){
 		// console.log('registration', obj)
-		const content = obj.closest('#main')
+		const content = obj.closest('.wrapper')
 		// console.log('content', content)
 		const email = content.querySelector('.form__email')
 		const pass = content.querySelector('.password')
@@ -885,7 +881,7 @@ class Product {
 						<a class="noty__image flex-center" href="${prod_link}" title="${prod_name}">
 							<img src="${image}" alt="${prod_name}" />
 						</a>
-						<div class="noty__content">
+						<div class="noty__content flex">
 							<div class="noty__title">${title}</div>
 							<div class="noty__message">${message}</div>
 							<div class="noty__buttons">
@@ -1499,8 +1495,8 @@ class Remove {
 		// console.log('Remove start');
 
 		// Действия при клике
-		this.onClick = function(){
-			const content = document.querySelector('.addto')
+		this.onClick = function(selector = '.addto'){
+			const content = document.querySelector(selector)
 			// Если нет контента
 			if (!content) {return false}
 			// Действия
@@ -1551,15 +1547,15 @@ class Remove {
 		}
 
 		// Обновление данных после удаления
-		this.fromElements = function(obj){
-			obj.forEach((e) => {
+		this.fromElements = function(objects){
+			objects.forEach((element) => {
 				// console.log('e', e);
-				e.parentElement.classList.remove('is-added');
-				e.classList.remove('is-added');
-				e.querySelector('span').innerText = e.getAttribute('data-add-tooltip');
-				e.setAttribute('data-action-is-add', '1');
-				e.setAttribute('title', e.getAttribute('data-add-tooltip'));
-				e.setAttribute('href', e.getAttribute('data-action-add-url') + '?id=' + e.getAttribute('data-mod-id'));
+				element.parentElement.classList.remove('is-added');
+				element.classList.remove('is-added');
+				element.querySelector('span').innerText = e.getAttribute('data-add-tooltip');
+				element.setAttribute('data-action-is-add', '1');
+				element.setAttribute('title', element.getAttribute('data-add-tooltip'));
+				element.setAttribute('href', element.getAttribute('data-action-add-url') + '?id=' + e.getAttribute('data-mod-id'));
 			})
 		}
 
@@ -1661,10 +1657,10 @@ class Remove {
 						obj.closest('.compare').querySelector('.addto__item[data-id="' + id + '"]').remove();
 
 						if (newCount != 0){
-							document.querySelectorAll('.compare .addto__item').forEach((e) => {
+							document.querySelectorAll('.compare .addto__item').forEach((element) => {
 								if (flag == 0){
-									if (e.style.display == 'none'){
-										e.style.display = 'flex'
+									if (element.style.display == 'none'){
+										element.style.display = 'flex'
 										flag++;
 									}
 								}
@@ -1672,14 +1668,12 @@ class Remove {
 						} else {
 							// Обновляем кол-во
 							updateCount('.compare-count', '0')
-							document.querySelectorAll('.compare').forEach(e => e.classList.remove('has-items'));
+							document.querySelectorAll('.compare').forEach(element => element.classList.remove('has-items'));
 						}
 
 						// Удаляем класс добавленного товара
-						const elements = document.querySelectorAll('.add-compare[data-id="' + id + '"]');
-						if (elements.length){
-							remove.fromElements(elements)
-						}
+						const objects = document.querySelectorAll('.add-compare[data-id="' + id + '"]');
+						objects.length ? remove.fromElements(objects) : false
 					}
 				});
 			}
@@ -3285,28 +3279,6 @@ function openMenu(){
 		}
 	});
 
-	// Каталог на мобильных устройствах
-	// $('.header-catalog__icon, .adaptive__navigate-catalog').on('click',function(event){
-	// 	event.preventDefault();
-
-	// 	if(getClientWidth() > 1023) {
-	// 		// window.location = this.href;
-	// 		return false
-	// 	}
-
-	// 	$('.adaptive__sideblock-menu').removeClass('is-opened');
-	// 	$('.adaptive__sideblock-catalog').toggleClass('is-opened');
-	// 	$('.adaptive__sideblock-catalog').hasClass('is-opened') ? $('#overlay').addClass('is-opened'): $('#overlay').removeClass('is-opened')
-	// })
-
-	// Открыть Меню
-	// $('.adaptive__navigate-user').on('click',function(event){
-	// 	event.preventDefault();
-	// 	$('.adaptive__sideblock-catalog').removeClass('is-opened');
-	// 	$('.adaptive__sideblock-menu').toggleClass('is-opened');
-	// 	$('.adaptive__sideblock-menu').hasClass('is-opened') ? $('#overlay').addClass('is-opened'): $('#overlay').removeClass('is-opened')
-	// })
-
 	// Закрыть
 	$('.adaptive__navigate-close').on('click',function(){
 		closeAll();
@@ -3319,6 +3291,8 @@ function openMenu(){
 		$('.adaptive__block').removeClass('is-actived')
 		this.classList.add('is-actived')
 		$('.adaptive__block[data-opened="'+ open +'"]').addClass('is-actived')
+
+		remove.onClick('.adaptive')
 
 		if (open == 'compare'){
 			const content = document.querySelector('.addto__compare')
@@ -3338,7 +3312,12 @@ function openMenu(){
 		if (open == 'user'){
 			const content = document.querySelector('.addto__user')
 			document.querySelector('.adaptive__block-user').innerHTML = content.innerHTML
+			password.onClick()
 		}
+		
+		// let once = true
+		// once ? remove.onClick() : once = false
+
 	})
 
 	// Открыть поиск
@@ -3352,7 +3331,7 @@ function openMenu(){
 	// Открыть адаптивное меню
 	$('.header-catalog__icon').on('click',function(event){
 		event.preventDefault();
-		if (getClientWidth() > 1024){
+		if (getClientWidth() > 1023){
 			$.fancybox.open($('#fancybox__catalog'))
 		} else {
 			$('.adaptive').addClass('is-opened');

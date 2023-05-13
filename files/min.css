@@ -191,12 +191,11 @@ main {margin: 32px 0 48px;position: relative;display: block;}
 .has-items .addto__title {display: block;}
 
 
-
 /**************************************/
 /*** Формализованный список ***/
 /**************************************/
 .form__pp {font-size: 12px;}
-.form__pp [data-fancybox] {text-decoration: underline;}
+.form__pp [data-fancybox] {text-decoration: underline;color: inherit;}
 .form__pp [data-fancybox]:hover {text-decoration: none;cursor: pointer;}
 .form__buttons {gap: 12px;display: flex;flex-direction: column;align-items: flex-start;}
 .form__list {gap: 16px;flex-direction: column;display: -ms-flexbox;display: -webkit-flex;display: flex;-ms-flex-wrap: wrap;-webkit-flex-wrap: wrap;flex-wrap: wrap;}

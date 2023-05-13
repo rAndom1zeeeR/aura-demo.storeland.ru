@@ -1313,7 +1313,7 @@
 									<!-- Краткое Описание -->
 									{% IF index_page_sale_goods.DESCRIPTION_SHORT %}
 									<div class="product__desc">
-										<span>{index_page_sale_goods.DESCRIPTION_SHORT}</span>
+										<a href="{index_page_sale_goods.URL_MIN_PRICE_NOW | url_amp}" title="Перейти в &laquo;{index_page_sale_goods.NAME}&raquo;">{index_page_sale_goods.DESCRIPTION_SHORT}</a>
 									</div>
 									{% ENDIF %}
 						
@@ -3271,19 +3271,21 @@
 						<!-- Подвал. Меню --> 
 						<div class="footer__block menu">
 							<div class="footer__title flex"><span>Меню</span></div>
-							<ul class="footer__links flex unstyled" itemscope itemtype="https://schema.org/SiteNavigationElement">
-								{% FOR menu %}
-									{% FOR footer %}
-										{% FOR links %}
-										<li>
-											<a class="footer__link {% IF menu.footer.links.SELECTED %}is-actived{%ENDIF%}" href="{menu.footer.links.URL}" title="{% IF menu.footer.links.TITLE %}{menu.footer.links.TITLE}{% ELSE%}{menu.footer.links.NAME}{% ENDIF %}" itemprop="url">
-												<span itemprop="name">{menu.footer.links.NAME}</span>
-											</a>
-										</li>
+							<div class="footer__content">
+								<ul class="footer__links flex unstyled" itemscope itemtype="https://schema.org/SiteNavigationElement">
+									{% FOR menu %}
+										{% FOR footer %}
+											{% FOR links %}
+											<li>
+												<a class="footer__link {% IF menu.footer.links.SELECTED %}is-actived{%ENDIF%}" href="{menu.footer.links.URL}" title="{% IF menu.footer.links.TITLE %}{menu.footer.links.TITLE}{% ELSE%}{menu.footer.links.NAME}{% ENDIF %}" itemprop="url">
+													<span itemprop="name">{menu.footer.links.NAME}</span>
+												</a>
+											</li>
+											{% ENDFOR %}
 										{% ENDFOR %}
 									{% ENDFOR %}
-								{% ENDFOR %}
-							</ul>
+								</ul>
+							</div>
 						</div>
 
 					</div>
