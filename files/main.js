@@ -81,22 +81,6 @@ function genWordEnd(num, e = '', m = 'а', mm = 'oв') {
 
 
 ///////////////////////////////////////
-// Предзагрузчик. /JS/
-///////////////////////////////////////
-function preload(){
-	document.querySelectorAll('.preloader').forEach(element => {
-		element.firstElementChild.style.opacity = '0'
-		setTimeout(() => { element.style.display = 'none' }, 100);
-	})
-}
-
-// Создать предзагрузчик. /JS/
-function createLoader(position = ''){
-	return `<div class="preloader ${position}"><div class="preloading"></div></div>`
-}
-
-
-///////////////////////////////////////
 // Ленивая загрузка. /JS/
 ///////////////////////////////////////
 function lazyload(){
@@ -153,8 +137,8 @@ function toTop(){
 ///////////////////////////////////////
 // Изменение текста в объкте. /JS/JEST/
 ///////////////////////////////////////
-function changeTxt(obj){
-	const slot = obj.querySelector('[slot]')
+function changeTxt(object){
+	const slot = object.querySelector('[slot]')
 	const hideText = slot.getAttribute('slot')
 	const showText = slot.textContent.trim()
 	// Обновляем данные
@@ -164,35 +148,51 @@ function changeTxt(obj){
 
 
 ///////////////////////////////////////
-// Функция показать все на главной. /JS/
+// Функция Показать все/Скрыть.
 ///////////////////////////////////////
-function pdtVisible(id){
-	const content = document.querySelector(id);
-	if (!content) {return false}
-	const button = content.querySelector('.visible__button');
-	if (!button) {return false}
-	const items = content.querySelectorAll('.visible__item');
-	
-	// Скрываем кнопку показать все если мало товаров
-	pdtVisibleButton(content, button, items)
+class VisibleItems {
+	constructor(selector, button = '.visible__button', items = '.visible__item', itemsVisible = '.visible__item:visible') {
+		this.selector = selector
+		this.button = button
+		this.items = items
+		this.itemsVisible = itemsVisible
+		// Проверяем видимость кнопки
+		this.checkVisible()
+		// Запуск функций при нажатии
+		this.onClickVisible()
+	}
 
-	// Функция открытия скрытых товаров
-	button.addEventListener('click', function(event){
-		event.preventDefault();
-		changeTxt(this)
-		isActived(this)
-		isActived(content)
-		setTimeout(() => {
-			scrollTop(this.matches('.is-actived') ? true : content.offsetTop)
-		}, 100);
-	})
+	// Получаем кол-во элементов
+	getItemsLength(){
+		return document.querySelector(this.selector).querySelectorAll(this.items).length
+	}
+
+	// Получаем кол-во видимых элементов
+	getItemsVisibleLength(){
+		return $(this.selector).find(this.itemsVisible).length
+	}
+
+	// Скрыть/показать кнопку
+	checkVisible(){
+		const content = document.querySelector(this.selector)
+		content.querySelector(this.button).parentElement.style.display = this.getItemsLength() > this.getItemsVisibleLength() ? 'block' : 'none';
+	}
+
+	// Функции при клике
+	onClickVisible(){
+		const content = document.querySelector(this.selector)
+		content.querySelector(this.button).addEventListener('click', function(event){
+			event.preventDefault();
+			changeTxt(this)
+			isActived(this)
+			isActived(content)
+			setTimeout(() => {
+				scrollTop(this.matches('.is-actived') ? true : content.offsetTop)
+			}, 100);
+		})
+	}
 }
 
-// Скрываем кнопку показать все если мало товаров
-function pdtVisibleButton(content, button, items) {
-	const visible = $(content).find('.visible__item:visible');
-	button.parentElement.style.display = items.length > visible.length ? 'block' : 'none';
-}
 
 // Переход к контенту сверху
 function scrollTop(offsetTop){
@@ -235,15 +235,15 @@ function updateCount(selector, count){
 class Password {
 	// Нажатие иконки Показать пароль. /JS/
 	onClick(){
-		const btnPass = document.querySelectorAll('.password__icon')
-		const btnReg = document.querySelector('#registration')
+		const password = document.querySelectorAll('.password__icon')
+		const registration = document.querySelector('#registration')
 		// console.log('btnReg', btnReg)
 
 		// Если нет объекта
-		if (!btnPass) {return false}
+		if (!password) {return false}
 
 		// Действие нажатие Показать пароль
-		btnPass.forEach(element => {
+		password.forEach(element => {
 			element.addEventListener('click', function(){
 				// console.log('element.previousElementSibling', element.previousElementSibling)
 				password.showPass(element, element.previousElementSibling)
@@ -251,11 +251,10 @@ class Password {
 		})
 
 		// Если нет объекта
-		if (!btnReg) {return false}
-		// console.log('btnReg2', btnReg)
+		if (!registration) {return false}
 
 		// Действие нажатие Регистрация
-		btnReg.addEventListener('click', () => password.registration(btnReg))
+		registration.addEventListener('click', () => password.registration(registration))
 	};
 
 	// Превращает поле пароля в текстовое поле и обратно. /JS/
@@ -1325,7 +1324,6 @@ class Product {
 							order.onSelect();
 							order.coupons();
 							order.onValidate();
-							preload();
 							cart.minSum();
 							// Стили для новых селектов
 							$('.form__phone').mask('+7 (999) 999-9999');
@@ -2610,7 +2608,6 @@ class Cart {
 				success: function(data){
 					OrderAjaxBlock.html($(data).find('.order-fast__content').wrap('<div></div>').html()).show('slow');
 					$('html, body').delay(400).animate({ scrollTop: globalOrder.offset().top }, 800);
-					preload();
 					password.onClick();
 					password.capsWarning();
 					order.onInit();
@@ -3046,7 +3043,6 @@ class Order {
 						keyboard: false,
 						baseClass: 'fastOrder',
 						afterShow: function(){
-							preload()
 							password.onClick();
 							password.capsWarning()
 							order.onInit()
