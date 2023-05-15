@@ -106,7 +106,7 @@ function notyStart(content, type){
       speed: 400
     },
     timeout: '2000',
-    progressBar: false,
+    progressBar: true,
     closable: true,
     closeOnSelfClick: true,
     modal: false,
@@ -235,17 +235,19 @@ function updateCount(selector, count){
 class Password {
 	// Нажатие иконки Показать пароль. /JS/
 	onClick(){
-		const password = document.querySelectorAll('.password__icon')
+		const passwordIcon = document.querySelectorAll('.password__icon')
 		const registration = document.querySelector('#registration')
 		// console.log('btnReg', btnReg)
 
 		// Если нет объекта
-		if (!password) {return false}
+		if (!passwordIcon) {return false}
 
 		// Действие нажатие Показать пароль
-		password.forEach(element => {
+		passwordIcon.forEach(element => {
 			element.addEventListener('click', function(){
-				// console.log('element.previousElementSibling', element.previousElementSibling)
+				console.log('this', this)
+				console.log('element', element)
+				console.log('element.previousElementSibling', element.previousElementSibling)
 				password.showPass(element, element.previousElementSibling)
 			})
 		})
@@ -258,7 +260,7 @@ class Password {
 	};
 
 	// Превращает поле пароля в текстовое поле и обратно. /JS/
-	showPass(button, input){		
+	showPass(button, input){
 		// Если не ввели пароль
 		if (input.value.length < 1) {return false}
 
@@ -505,6 +507,7 @@ class Quantity {
 				if (prodCart) {
 					// console.log('prodCart', prodCart);
 					quantity.updCart(input)
+					cart.minSum();
 				}
 	
 				// Если выпадающая корзина
@@ -570,7 +573,7 @@ class Quantity {
 			minus.classList.add('qty__disable');
 			plus.classList.add('qty__disable');
 			// Сообщение пользователю
-			const message = quantity.notyMessage('Вы пытаетесь положить в корзину товар которого нет в наличии');
+			const message = notyMessage('Вы пытаетесь положить в корзину товар которого нет в наличии');
 			notyStart(message, 'warning');
 			return false;
 		}
@@ -580,7 +583,7 @@ class Quantity {
 			obj.value = val = max;
 			plus.classList.add('qty__disable');
 			// Сообщение пользователю
-			const message = quantity.notyMessage('Вы пытаетесь положить в корзину товара больше, чем есть в наличии');
+			const message = notyMessage('Вы пытаетесь положить в корзину товара больше, чем есть в наличии');
 			notyStart(message, 'warning');
 			return false;
 		} else {
@@ -898,9 +901,9 @@ class Product {
 						<a class="addto__image flex-center" href="${pUrl}" title="${pName}"><img src="${pImg}" alt="${pName}" /></a>
 						<div class="addto__content flex">
 							<a class="addto__name" href="${pUrl}" title="${pName}"><span>${pName}</span></a>
-							<div class="addto__price ${pDataChar}">
-								<del class="price__old" data-price="${pDataPriceOld}"><span title="${pDataPriceOld} российских рублей"><span class="num">${pDataPriceOld}</span><span>р.</span></span></del>
-								<span class="price__now" data-price="${pDataPrice}"><span title="${pDataPrice} российских рублей"><span class="num">${pDataPrice}</span><span>р.</span></span></span>
+							<div class="addto__price flex ${pDataChar}">
+								${pDataPriceOld == 0 ? '' : `<del class="price__old" data-price="${pDataPriceOld}"><span title="${pDataPriceOld} российских рублей"><span class="num">${addSpaces(pDataPriceOld)}</span><span>р.</span></span></del>`}
+								<span class="price__now" data-price="${pDataPrice}"><span title="${pDataPrice} российских рублей"><span class="num">${addSpaces(pDataPrice)}</span><span>р.</span></span></span>
 							</div>
 							<a class="addto__remove button-rotate" href="${delUrl}?id=${pDataid}" data-id="${pDataid}" title="Убрать товар из списка"><i class="icon-close"></i></a>
 						</div>
@@ -1550,10 +1553,10 @@ class Remove {
 				// console.log('e', e);
 				element.parentElement.classList.remove('is-added');
 				element.classList.remove('is-added');
-				element.querySelector('span').innerText = e.getAttribute('data-add-tooltip');
+				element.querySelector('span').innerText = element.getAttribute('data-add-tooltip');
 				element.setAttribute('data-action-is-add', '1');
 				element.setAttribute('title', element.getAttribute('data-add-tooltip'));
-				element.setAttribute('href', element.getAttribute('data-action-add-url') + '?id=' + e.getAttribute('data-mod-id'));
+				element.setAttribute('href', element.getAttribute('data-action-add-url') + '?id=' + element.getAttribute('data-mod-id'));
 			})
 		}
 
@@ -2570,14 +2573,16 @@ class Cart {
 			if ($('.cartTotal__min').length){
 				const minPrice = parseInt($('.cartTotal__min-price').data('price'));
 				const totalSum = parseInt($('.cartSumDiscount').data('price'));
-				// console.log('minPrice', minPrice);
-				// console.log('totalSum', totalSum);
+				console.log('minPrice', minPrice);
+				console.log('totalSum', totalSum);
 				if (minPrice > totalSum){
 					const diff = minPrice - totalSum;
+					console.log('diff', diff);
 					$('.cartTotal__min-price').find('.num').text(addSpaces(diff));
-					$('.total__buttons button').attr('disabled', true).addClass('is-disabled');
+					$('.total__button').attr('disabled', true).addClass('is-disabled');
 					$('.cartTotal__min').removeClass('is-hide');
 				} else {
+					console.log('no-diff');
 					$('.total__buttons button').attr('disabled', false).removeClass('is-disabled');
 					$('.cartTotal__min').addClass('is-hide');
 				}
@@ -3088,6 +3093,7 @@ console.timeEnd('start test');
 
 ///////////////////////////////////////
 // Дополнительные пункты меню в шапке Перенос пунктов меню
+// TODO Переписать функцию
 ///////////////////////////////////////
 function mainnav(id,rows,media){
 	if(getClientWidth() > media){
@@ -3115,7 +3121,7 @@ function mainnav(id,rows,media){
 		let nextCheck = 0;
 
 		for(let i=1; i < menuCount; i++){
-			const currentWidth = parseInt(Math.ceil(mainNavList.find('li:nth-child('+i+')').width())) + 24;
+			const currentWidth = parseInt(Math.ceil(mainNavList.find('li:nth-child('+i+')').width())) + 28;
 			nextCheck += currentWidth;
 
 			if(nextCheck > menuWidth){
@@ -3320,7 +3326,7 @@ function openMenu(){
 	$('.header-search__icon').on('click',function(event){
 		event.preventDefault();
 		$('.search').addClass('is-opened');
-		$('#overlay').addClass('is-opened transparent');
+		$('#overlay').addClass('is-opened');
 		$('.search__input').focus();
 	})
 
@@ -3345,7 +3351,8 @@ function closeAll(){
 	$('#overlay').click();
 	setTimeout(function(){
 		$('#overlay').removeClass('transparent');
-		// $('.search__reset').click();
+		$('.search__reset').click();
+		$('.search').removeClass('is-opened');
 		// $('.search__input').blur(); 
 		$('#overlay').click();
 	},100)
@@ -3866,7 +3873,7 @@ function productSlider(){
 		const image = product.find('.product__img').html()
 		const link = product.find('.product__img').attr('href')
 		const sticker = product.find('.sticker__sales').html()
-		const name = product.find('.product__name').text()
+		const name = product.find('.product__name').text().trim()
 
 		// Данные формы товара для добавления в корзину
 		const hash = product.find('input[name="hash"]').val()

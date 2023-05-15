@@ -156,11 +156,11 @@
 
 				<!-- Корзина: Минимальная сумма заказа -->
 				{% IF SETTINGS_STORE_ORDER_MIN_ORDER_PRICE %}
-				<div class="cartTotal__item cartTotal__min">
+				<div class="cartTotal__item cartTotal__min is-hide">
 					<div class="cartTotal__label cartTotal__min-label">
 						<div class="cartTotal__min-title">До мин. суммы заказа осталось:</div>
 					</div>
-					<div class="cartTotal__price cartTotal__min-price {CURRENCY_CHAR_CODE}" data-price="{SETTINGS_STORE_ORDER_MIN_ORDER_PRICE}">{SETTINGS_STORE_ORDER_MIN_ORDER_PRICE | money_format}</div>
+					<div class="cartTotal__price cartTotal__min-price {CURRENCY_CHAR_CODE}" data-price="{SETTINGS_STORE_ORDER_MIN_ORDER_PRICE}" data-total="{CART_SUM_NOW_WITH_DISCOUNT}">{SETTINGS_STORE_ORDER_MIN_ORDER_PRICE | money_format}</div>
 				</div>
 				{% ENDIF %}
 
@@ -174,10 +174,10 @@
 
 				<!-- Корзина: Оформление -->
 				<div class="total__buttons flex-center">
-					<button class="total__button button-gradient button-big startOrder" type="submit" title="Перейти к быстрому оформлению заказа">
+					<button class="total__button button-gradient button-big startOrder is-disabled" type="submit" title="Перейти к быстрому оформлению заказа" disabled>
 						<span>Оформить заказ</span>
 					</button>
-					<button class="total__button button-gradient button-big confirmOrder is-disabled" type="submit" title="Перейти к быстрому оформлению заказа">
+					<button class="total__button button-gradient button-big confirmOrder is-disabled" type="submit" title="Перейти к быстрому оформлению заказа" disabled>
 						<span>Оформить заказ</span>
 					</button>
 					<a class="total__button button-tertiary button-big closeOrder" title="Отменить заказ">

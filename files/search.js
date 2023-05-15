@@ -2,63 +2,64 @@
 /* Поиск */
 //////////////////////////////////////////////////////
 // Форма поиска ( Сразу же помечаем объект поиска, как инициализированный, чтобы случайно не инициализировать его дважды.)
-function SearchFieldInit(obj) {
+function SearchFieldInit(object) {
 	// Блок в котором лежит поле поиска
-	obj.f_search = obj.find('.search__form');
+	object.search_form = object.find('.search__form');
 	// Если поля поиска не нашлось, завершаем работу, ничего страшного.
-	if(0 == obj.f_search.length) {
+	if(0 == object.search_form.length) {
 		return false;
 	}
 	// Поле поиска товара
-	obj.s_search = obj.f_search.find('.search__input');
-	obj.s_submit = obj.f_search.find('.search__submit');
+	object.search_input = object.search_form.find('.search__input');
+	object.search_submit = object.search_form.find('.search__submit');
 	// Обнуление данных в форме поиска
-	obj.s_reset = obj.f_search.find('.search__reset');
+	object.s_reset = object.search_form.find('.search__reset');
 	// Проверка на существование функции проверки поля и действий с ним
-	if(typeof(obj.SearchFieldCheck) != 'function') {
+	if(typeof(object.SearchFieldCheck) != 'function') {
 		console.log('function SearchFieldCheck is not found in object for SearchFieldInit', {status: 'error'});
 		return false;
 		// Проверка, сколько полей поиска нам подсунули за раз на инициализацию
-	} else if(1 < obj.f_search.length) {
+	} else if(1 < object.search_form.length) {
 		console.log('function SearchFieldInit must have only one search object', {status: 'error'});
 		return false;
 	}
 	// Создаём функцию которая будет отвечать за основные действия с полем поиска
-	obj.__SearchFieldCheck = function (isAfter) {
+	object.__SearchFieldCheck = function (isAfter) {
 		// Если в поле текста есть вбитые данные
-		if(obj.s_search.val().length) {
-			obj.f_search.addClass('search__filled');
-			obj.f_search.parent().addClass('search__filled');
-			if(obj.s_search.val().length < 2){
-				obj.s_submit.css({'pointer-events' : 'none'})
+		if(object.search_input.val().length) {
+			object.search_form.addClass('search__filled');
+			object.search_form.parent().addClass('search__filled');
+			$('#overlay').addClass('is-opened')
+			if(object.search_input.val().length < 2){
+				object.search_submit.css({'pointer-events' : 'none'})
 			} else {
-				obj.s_submit.css({'pointer-events' : 'all'})
+				object.search_submit.css({'pointer-events' : 'all'})
 			}
 		} else {
-			obj.f_search.removeClass('search__filled');
-			obj.f_search.parent().removeClass('search__filled');
-			obj.s_submit.css({'pointer-events' : 'none'})
+			object.search_form.removeClass('search__filled');
+			object.search_form.parent().removeClass('search__filled');
+			object.search_submit.css({'pointer-events' : 'none'})
 		}
 		// При нажатии клавиши данных внутри поля ещё нет, так что проверки вернут информацию что менять поле не нужно, хотя как только операция будет завершена данные в поле появятся. Поэтому произведём вторую проверку спустя 2 сотых секунды.
 		if(typeof( isAfter ) == "undefined" || !isAfter) {
 			setTimeout(function(){
-				obj.__SearchFieldCheck(1)
+				object.__SearchFieldCheck(1)
 			},20);
 		}else{
-			return obj.SearchFieldCheck();
+			return object.SearchFieldCheck();
 		}
 	}
 	// Действия с инпут полем поиска
-	obj.s_search.click(function(){
-		obj.__SearchFieldCheck();
+	object.search_input.click(function(){
+		object.__SearchFieldCheck();
 	}).focus(function(){
-		obj.f_search.addClass('search__focused');
-		obj.f_search.parent().addClass('search__focused');
-		obj.__SearchFieldCheck();
+		object.search_form.addClass('search__focused');
+		object.search_form.parent().addClass('search__focused');
+		object.__SearchFieldCheck();
 	}).blur(function(){
-		obj.f_search.removeClass('search__focused');
-		obj.f_search.parent().removeClass('search__focused');
-		obj.__SearchFieldCheck();
+		object.search_form.removeClass('search__focused');
+		object.search_form.parent().removeClass('search__focused');
+		object.__SearchFieldCheck();
 	}).keyup(function(I){
 		switch(I.keyCode) {
 				// игнорируем нажатия на эти клавишы
@@ -68,19 +69,19 @@ function SearchFieldInit(obj) {
 			case 40:  // стрелка вниз
 				break;
 			default:
-				obj.f_search.removeClass('search__focused');
-				obj.__SearchFieldCheck();
+				object.search_form.removeClass('search__focused');
+				object.__SearchFieldCheck();
 				break;
 		}
 	}).bind('paste', function(e){
-		obj.__SearchFieldCheck();
+		object.__SearchFieldCheck();
 		setTimeout(function(){
-			obj.__SearchFieldCheck()
+			object.__SearchFieldCheck()
 		},20);
 	}).bind('cut', function(e){
 		$('.search-results').hide();
 		$('.search-results__item').remove();
-		obj.__SearchFieldCheck();
+		object.__SearchFieldCheck();
 	});
 
 	//Считываем нажатие клавиш, уже после вывода подсказки
@@ -98,7 +99,7 @@ function SearchFieldInit(obj) {
 			$links.eq(suggestSelected-1).addClass('is-actived');
 		}
 	}
-	obj.s_search.keydown(function(I){
+	object.search_input.keydown(function(I){
 		switch(I.keyCode) {
 				// По нажатию клавиш прячем подсказку
 			case 27: // escape
@@ -134,13 +135,13 @@ function SearchFieldInit(obj) {
 		}
 	});
 	// Кнопка обнуления данных в форме поиска
-	obj.s_reset.click(function(){
-		obj.s_search.val('').focus();
+	object.s_reset.click(function(){
+		object.search_input.val('').focus();
 		$('.search-results').hide();
 		$('.search-results__item').remove();
 	});
 	// Проверка данных в форме после инициализации функционала. Возможно браузер вставил туда какой-либо текст, нужно обработать и такой вариант
-	obj.__SearchFieldCheck();
+	object.__SearchFieldCheck();
 }
 
 // Аналог php функции.
@@ -191,7 +192,7 @@ $(function(){
 		if(typeof(document.lastTimeoutId) != 'undefined') {
 			clearTimeout(document.lastTimeoutId);
 		}
-		document.lastTimeoutId = setTimeout("document.SearchInCatalogAjaxQuerySender['" + randHash + "']('" + htmlspecialchars(searchBlock.s_search.val()) + "');", 300);
+		document.lastTimeoutId = setTimeout("document.SearchInCatalogAjaxQuerySender['" + randHash + "']('" + htmlspecialchars(searchBlock.search_input.val()) + "');", 300);
 	}
 	// Отправляет запрос к серверу с задачей поиска товаров
 	document.SearchInCatalogAjaxQuerySender[randHash] = function (old_val) {
@@ -217,11 +218,11 @@ $(function(){
 			}
 		}
 		// Если текущее значение не изменилось спустя 300 сотых секунды и это значение не то по которому мы искали товары при последнем запросе
-		if(htmlspecialchars(searchBlock.s_search.val()) == old_val && searchBlock.s_search.val().length > 1) {
+		if(htmlspecialchars(searchBlock.search_input.val()) == old_val && searchBlock.search_input.val().length > 1) {
 			// Запоминаем этот запрос, который мы ищем, чтобы не произвводить повторного поиска
 			options['last_search_query'] = old_val;
 			// Добавляем нашей форме поиска поле загрузки
-			searchBlock.f_search.addClass('search__loading');
+			searchBlock.search_form.addClass('search__loading');
 			// Собираем параметры для Ajax запроса
 			var params = {
 						'ajax_q'                : 1,
@@ -229,17 +230,17 @@ $(function(){
 						'q'                     : options['last_search_query'],
 					},
 					// Объект со значением которого будем в последствии проверять полученные от сервера данные
-					search_field_obj = searchBlock.s_search;
+					search_field_object = searchBlock.search_input;
 			// Аяксом отправляем запрос на поиск нужных товаров и категорий
 			$.ajax({
 				type: "POST",
 				cache: false,
-				url: searchBlock.f_search.attr('action'),
+				url: searchBlock.search_form.attr('action'),
 				data: params,
 				dataType: 'json',
 				success: function(data) {
 					// Если набранный запрос не соответствует полученным данным, видимо запрос пришёл не вовремя, отменяем его.
-					if(search_field_obj.val() != old_val) {
+					if(search_field_object.val() != old_val) {
 						return false;
 					}
 					// Записываем в sessionStorage
@@ -266,7 +267,7 @@ $(function(){
 					// Показываем результаты на основе пришедших данных
 					showDropdownSearch(data);
 					// Убираем информацию о том что запрос грузится.
-					searchBlock.f_search.removeClass("search__loading");
+					searchBlock.search_form.removeClass("search__loading");
 				}
 			});
 		}else{
@@ -351,7 +352,7 @@ $(function(){
 			data.goods.length > 0 ? $(".search-results__goods").show() : $(".search-results__goods").hide();
 
 			// Убираем информацию о том что запрос грузится.
-			searchBlock.f_search.removeClass("search__loading");
+			searchBlock.search_form.removeClass("search__loading");
 		}
 	}
 

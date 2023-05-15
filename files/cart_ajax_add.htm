@@ -9,7 +9,11 @@
 			</div>
 
 			<div class="noty__content flex">
-				<div class="noty__message">{FORM_NOTICE}</div>
+				<div class="noty__title flex">
+					<i class="icon-check"></i>
+					<span>Товар добавлен в корзину</span>
+				</div>
+				<div class="noty__message">{cart_items.GOODS_NAME}</div>
 				<div class="noty__buttons">
 					<a class="button-primary" href="/cart" title="Перейти в корзину">
 						<span>Перейти в корзину</span>
@@ -124,7 +128,7 @@
 	</div>
 
 	<div class="addto__buttons">
-		<a class="button-gradient" href="{CART_URL}" title="Перейти в Корзину">
+		<a class="button-gradient button-big" href="{CART_URL}" title="Перейти в Корзину">
 			<span>В Корзину</span>
 		</a>
 	</div>
