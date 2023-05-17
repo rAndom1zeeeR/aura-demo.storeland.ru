@@ -29,7 +29,6 @@ function SearchFieldInit(object) {
 		if(object.search_input.val().length) {
 			object.search_form.addClass('search__filled');
 			object.search_form.parent().addClass('search__filled');
-			$('#overlay').addClass('is-opened')
 			if(object.search_input.val().length < 2){
 				object.search_submit.css({'pointer-events' : 'none'})
 			} else {
@@ -51,6 +50,7 @@ function SearchFieldInit(object) {
 	}
 	// Действия с инпут полем поиска
 	object.search_input.click(function(){
+		$('#overlay').addClass('is-opened')
 		object.__SearchFieldCheck();
 	}).focus(function(){
 		object.search_form.addClass('search__focused');

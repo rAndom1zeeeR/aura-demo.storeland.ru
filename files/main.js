@@ -3331,7 +3331,7 @@ function openMenu(){
 		event.preventDefault();
 		$('.search').addClass('is-opened');
 		$('#overlay').addClass('is-opened');
-		$('.search__input').focus();
+		document.querySelector('.search__input').focus();
 	})
 
 	// Открыть адаптивное меню
