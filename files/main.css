@@ -69,7 +69,7 @@ textarea {padding: 16px 24px;height: auto;resize: vertical;}
 /**************************************/
 /*** Кнопки ***/
 /**************************************/
-button, [class*="button-"], .paymentFormSubmitLink, .paymentFormTbodySubmitButton {color: var(--color-white);background: var(--color-primary);border: 2px solid transparent;border-radius: 10px;padding: 0 48px;height: 48px;font-size: 16px;font-weight: 600;}
+button, [class*="button-"], .paymentFormSubmitLink, .paymentFormTbodySubmitButton {color: var(--color-white);background: var(--color-primary);border: 2px solid transparent;border-radius: 10px;padding: 0 48px;height: 54px;font-size: 16px;font-weight: 600;}
 button:hover, [class*="button-"]:hover, .paymentFormSubmitLink:hover, .paymentFormTbodySubmitButton:hover {color: var(--color-white);background: var(--color-secondary);border-color: var(--color-secondary);cursor: pointer;}
 [class*="button-"]:before {content: '';width: calc(100% - 2px);height: calc(100% - 2px);border: 2px solid rgba(255, 255, 255, 0.2);border-radius: 10px;transition: all 0.3s ease;position: absolute;}
 [class*="button-"] span, [class*="button-"] i {position: relative;z-index: 3;}
@@ -108,7 +108,7 @@ button:hover, [class*="button-"]:hover, .paymentFormSubmitLink:hover, .paymentFo
 .button-rotate:hover i, .button-rotate.is-actived i {transform: rotate(180deg);}
 .button-rotate.is-actived:hover i {transform: rotate(0deg);}
 /*** Кнопка. Большая, Маленькая ***/
-.button-big {height: 54px;}
+.button-big {font-size: 18px;height: 64px;padding: 0 64px;}
 .button-small {height: 34px;font-size: 14px;font-weight: 400;padding: 0 12px;}
 /*** Кнопка. Выключенная ***/
 [class*="button-"].is-disabled, [class*="button-"]:disabled {cursor: default;background: var(--color-gray);border-color: var(--color-gray);pointer-events: none;}
@@ -296,6 +296,7 @@ header .catalog__items::-webkit-scrollbar {width: 4px;}
 .has-items:not(.cart) .addto__link i {color: var(--color-primary);}
 .has-items:not(.cart) .addto__link:after {content: '';width: 6px;height: 6px;border-radius: 100%;background: var(--color-primary);top: 0;right: -6px;position: absolute;}
 .addto__buttons {flex-direction: column;justify-content: center;padding: 16px;background: var(--color-bg2);border-radius: 0px 0px 20px 20px;}
+.addto__buttons span {padding: 0;}
 .addto__dropdown {padding: 0;}
 .addto__image {width: 72px;height: 72px;border-radius: 20px;}
 .addto__content {gap: 6px 16px;width: calc(100% - 72px);padding: 0 20px 4px 8px;}
@@ -382,11 +383,11 @@ header .catalog__items::-webkit-scrollbar {width: 4px;}
 .addto__cart .addto__removeAll {flex-grow: 1;justify-content: flex-end;}
 .addto__total-discount .addto__total-price {color: var(--color-tertiary);}
 .cartSumDiscount {display: none;}
-.has-items .cartSumDiscount {display: block;}
 .has-items .cart__icon {width: 148px;}
+.has-items .cart__icon .cartSumDiscount {display: block;}
 @media all and (max-width: 639px) {
 	.has-items .cart__icon {width: auto;}
-	.has-items .cartSumDiscount {display: none;}
+	.has-items .cart__icon .cartSumDiscount {display: none;}
 	.cart__icon span {display: none;}
 }
 
@@ -775,6 +776,7 @@ header .catalog__items::-webkit-scrollbar {width: 4px;}
 #pdt__sales .product__img {height: 280px;}
 #pdt__sales .product__shop {width: calc(100% - 476px);padding-left: 230px;padding-top: 40px;gap: 16px;height: auto;}
 #pdt__sales .product__name {width: 476px;height: 220px;margin-bottom: 154px;font-size: 22px;line-height: 1.25;padding: 32px 124px 48px 40px;color: var(--color-white);background: var(--color-primary);border-radius: 0 140px;align-self: flex-start;text-align: left;}
+#pdt__sales .product__name:hover {color: var(--color-secondary);}
 #pdt__sales .product__name span {-webkit-line-clamp: 4;}
 #pdt__sales .product__desc {display: -webkit-box;-webkit-line-clamp: 6;color: inherit;font-size: 16px;}
 #pdt__sales .product__addto {justify-content: space-between;gap: 12px 24px;margin-top: 16px;}

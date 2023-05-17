@@ -538,11 +538,11 @@
 
 								<form class="slideshow__buttons flex product__form" action="{CART_ADD_GOODS_MODIFICATION_URL | url_amp}" method="post">
 									<div class="slideshow__price flex-column {CURRENCY_CHAR_CODE}"></div>
-									<button class="slideshow__button button-gradient button-big" type="submit" title="Купить">
+									<button class="slideshow__button button-gradient" type="submit" title="Купить">
 										<span>Купить</span>
 									</button>
 									<!-- Если нет в наличии -->
-									<a class="slideshow__button add-notify button-big button-empty"
+									<a class="slideshow__button add-notify button-empty"
 										title="Уведомить"
 										data-tooltip="Уведомить"
 										rel="nofollow"
@@ -554,7 +554,7 @@
 									</a>
 								</form>
 
-								<a class="slideshow__button-catalog button-gradient button-big" href="{CATALOG_URL}">
+								<a class="slideshow__button-catalog button-gradient" href="{CATALOG_URL}">
 									<span>Каталог</span>
 								</a>
 
@@ -588,12 +588,12 @@
 								<form class="slideshow__buttons flex product__form" action="{CART_ADD_GOODS_MODIFICATION_URL | url_amp}" method="post">
 									<div class="slideshow__price flex-column {CURRENCY_CHAR_CODE}"></div>
 
-									<button class="slideshow__button button-gradient button-big" type="submit" title="Купить">
+									<button class="slideshow__button button-gradient" type="submit" title="Купить">
 										<span>Купить</span>
 									</button>
 
 									<!-- Если нет в наличии -->
-									<a class="slideshow__button add-notify button-big button-empty"
+									<a class="slideshow__button add-notify button-empty"
 										title="Уведомить"
 										data-tooltip="Уведомить"
 										rel="nofollow"
@@ -605,7 +605,7 @@
 									</a>
 								</form>
 
-								<a class="slideshow__button-catalog button-gradient button-big" href="{CATALOG_URL}">
+								<a class="slideshow__button-catalog button-gradient" href="{CATALOG_URL}">
 									<span>Каталог</span>
 								</a>
 							</div>
@@ -638,12 +638,12 @@
 								<form class="slideshow__buttons flex product__form" action="{CART_ADD_GOODS_MODIFICATION_URL | url_amp}" method="post">
 									<div class="slideshow__price flex-column {CURRENCY_CHAR_CODE}"></div>
 
-									<button class="slideshow__button button-gradient button-big" type="submit" title="Купить">
+									<button class="slideshow__button button-gradient" type="submit" title="Купить">
 										<span>Купить</span>
 									</button>
 
 									<!-- Если нет в наличии -->
-									<a class="slideshow__button add-notify button-big button-empty"
+									<a class="slideshow__button add-notify button-empty"
 										title="Уведомить"
 										data-tooltip="Уведомить"
 										rel="nofollow"
@@ -655,7 +655,7 @@
 									</a>
 								</form>
 
-								<a class="slideshow__button-catalog button-gradient button-big" href="{CATALOG_URL}">
+								<a class="slideshow__button-catalog button-gradient" href="{CATALOG_URL}">
 									<span>Каталог</span>
 								</a>
 							</div>
@@ -2425,7 +2425,7 @@
 							<fieldset class="form__field">
 								<input class="form__input form__email" type="email" name="form[callback_email]" value="{FORM_CALLBACK_EMAIL}" placeholder="email@email.ru *" autocomplete="off" />
 							</fieldset>
-							<button class="form__button button-secondary button-big" type="submit" title="Подписаться">
+							<button class="form__button button-secondary" type="submit" title="Подписаться">
 								<span>Подписаться</span>
 							</button>
 						</div>
@@ -3107,7 +3107,7 @@
 							</div>
 							{% ENDIF SETTINGS_STORE_PHONE_NUMBER3 %}
 
-							<div class="contacts__button button-secondary button-big" data-fancybox data-src="#fancybox__callback">
+							<div class="contacts__button button-secondary" data-fancybox data-src="#fancybox__callback">
 								<span>Заказать звонок</span>
 							</div>
 
@@ -3704,7 +3704,7 @@
 						<!-- Добавление товара в корзину -->
 						<div class="fixed-goods__cart {% IF GOODS_MOD_REST_VALUE=0 %}is-empty{% ENDIF %}">
 							<!-- Уведомить -->
-							<a class="button-empty button-big"
+							<a class="button-empty"
 								title="Уведомить"
 								data-tooltip="Уведомить"
 								rel="nofollow"
@@ -3717,7 +3717,7 @@
 								<span>Уведомить</span>
 							</a>
 							<!-- Добавление в корзину -->
-							<a class="button-gradient button-big"
+							<a class="button-gradient"
 								title="Добавить в корзину &laquo;{GOODS_NAME}&raquo;"
 								data-tooltip="В корзину"
 								rel="nofollow"
@@ -3973,7 +3973,7 @@
 							<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
 						</fieldset>
 						<div class="form__buttons">
-							<button class="form__button button-primary button-big" type="submit" title="Заказать звонок">
+							<button class="form__button button-primary" type="submit" title="Заказать звонок">
 								<span>Заказать звонок</span>
 							</button>
 							<div class="form__pp">
@@ -4006,7 +4006,7 @@
 							<textarea class="form__textarea" rows="2" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_COMMENT}]" placeholder="Комментарий" >{FORM_CALLBACK_COMMENT}</textarea>
 						</fieldset>
 						<div class="form__buttons">
-							<button class="form__button button-primary button-big" type="submit" title="Отправить">
+							<button class="form__button button-primary" type="submit" title="Отправить">
 								<span>Отправить</span>
 							</button>
 							<div class="form__pp">
@@ -4043,7 +4043,7 @@
 							<input class="form__input form__email" type="email" name="form[callback_email]" value="{FORM_CALLBACK_EMAIL}" placeholder="email@email.ru *" autocomplete="off" />
 						</fieldset>
 						<div class="form__buttons">
-							<button class="form__button button-primary button-big" type="submit" title="Уведомить">
+							<button class="form__button button-primary" type="submit" title="Уведомить">
 								<span>Уведомить</span>
 							</button>
 							<div class="form__pp">
