@@ -201,15 +201,13 @@
 						<span class="filter__name">{filter_attr_list.NAME}</span>
 						<i class="icon-chevron_up"></i>
 					</a>
-					<!-- <a class="filter__clear" title="Очистить фильтры">
-						<span>Сбросить</span>
-					</a> -->
 
 					<div class="filter__content">
-						<!-- <input class="filter__search" type="text" placeholder="Я ищу"> -->
+						<input class="filter__search" type="text" placeholder="Я ищу">
+
 						<div class="filter__items">
 							{% FOR values %}
-							<div class="filter__item flex {% IF filter_attr_list.values.CHECKED %}is-checked{% ELSEIF filter_attr_list.values.NB_GOODS_FILTERED=0 %}is-disabled{% ENDIF %}">
+							<div class="filter__item flex {% IF filter_attr_list.values.CHECKED %}is-checked{% ELSEIF filter_attr_list.values.NB_GOODS_FILTERED=0 %}is-disabled{% ENDIF %}" data-value="{filter_attr_list.values.VALUE}">
 								<input class="square" 
 											type="checkbox" 
 											value="1" 
@@ -217,12 +215,16 @@
 											id="filterAttrVal{filter_attr_list.values.ID}" 
 											{% IF filter_attr_list.values.CHECKED %}checked="checked" {% ELSEIF filter_attr_list.values.NB_GOODS_FILTERED=0 %}disabled="disabled"{% ENDIF %} 
 								/>
-								<label class="filter__label" for="filterAttrVal{filter_attr_list.values.ID}" data-name="{filter_attr_list.values.VALUE}">
+								<label class="filter__label" for="filterAttrVal{filter_attr_list.values.ID}">
 									<span class="filter__label-value">{filter_attr_list.values.VALUE}</span>
 									<span class="filter__label-count">{filter_attr_list.values.NB_GOODS_FILTERED}</span>
 								</label>
 							</div>
 							{% ENDFOR %}
+						</div>
+
+						<div class="filter__search-empty is-hide">
+							<span>Фильтр не найден</span>
 						</div>
 					</div>
 
@@ -236,15 +238,13 @@
 						<span class="filter__name">{filter_prop_list.NAME}</span>
 						<i class="icon-chevron_up"></i>
 					</a>
-					<!-- <a class="filter__clear" title="Очистить фильтры">
-						<span>Сбросить</span>
-					</a> -->
 
 					<div class="filter__content">
-						<!-- <input class="filter__search" type="text" placeholder="Я ищу"> -->
+						<input class="filter__search" type="text" placeholder="Я ищу">
+
 						<div class="filter__items">
 							{% FOR values %}
-							<div class="filter__item flex {% IF filter_prop_list.values.CHECKED %}is-checked{% ELSEIF filter_prop_list.values.NB_GOODS_FILTERED=0 %}is-disabled{% ENDIF %}">
+							<div class="filter__item flex {% IF filter_prop_list.values.CHECKED %}is-checked{% ELSEIF filter_prop_list.values.NB_GOODS_FILTERED=0 %}is-disabled{% ENDIF %}" data-value="{filter_prop_list.values.VALUE}">
 								<input class="square" 
 											type="checkbox" 
 											value="1" 
@@ -252,13 +252,18 @@
 											id="filterPropVal{filter_prop_list.values.ID}" 													
 											{% IF filter_prop_list.values.CHECKED %}checked="checked"{% ELSEIF filter_prop_list.values.NB_GOODS_FILTERED=0 %}disabled="disabled"{% ENDIF %} 
 								/>
-								<label class="filter__label" for="filterPropVal{filter_prop_list.values.ID}" data-name="{filter_prop_list.values.VALUE}">
+								<label class="filter__label" for="filterPropVal{filter_prop_list.values.ID}">
 									<span class="filter__label-value">{filter_prop_list.values.VALUE}</span>
 									<span class="filter__label-count">{filter_prop_list.values.NB_GOODS_FILTERED}</span>
 								</label>
 							</div>
 							{% ENDFOR %}
 						</div>
+
+						<div class="filter__search-empty is-hide">
+							<span>Фильтр не найден</span>
+						</div>
+
 					</div>
 
 				</div>

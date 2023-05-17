@@ -342,19 +342,18 @@
 						<!-- Личный кабинет -->
 						{% IF MOD_LNAME = cart || MOD_LNAME = user || MOD_LNAME = order %}
 						{% ELSE %}
-						<div class="addto__block user dropdown {% IF CLIENT_IS_LOGIN %}is-loggined{% ENDIF %}">
-							<a class="addto__link flex dropdown__open" href="{USER_LOGIN_URL}" title="Личный кабинет">
-								{% IF CLIENT_IS_LOGIN %}
-								<span>Личный кабинет</span>
-								{% ELSE %}
+						<div class="addto__block user {% IF CLIENT_IS_LOGIN %}dropdown{% ENDIF %}">
+							{% IFNOT CLIENT_IS_LOGIN %}
+							<a class="addto__link flex" href="{USER_LOGIN_URL}" title="Войти/Регистрация" data-fancybox data-src="#fancybox__login">
 								<span>Войти/Регистрация</span>
-								{% ENDIF %}
 							</a>
+							{% ELSE %}
+							<a class="addto__link flex dropdown__open" href="{USER_LOGIN_URL}" title="Личный кабинет">
+								<span>Личный кабинет</span>
+							</a>
+							<!-- ЛК для авторизованных пользователей -->
 							<div class="addto__user dropdown__content">
-								{% IF CLIENT_IS_LOGIN %}
-								<!-- ЛК для авторизованных пользователей -->
 								<ul class="mainnav__list flex-column unstyled">
-									{% IF CLIENT_IS_LOGIN %}
 									<li>
 										<a class="mainnav__link" href="{USER_SETTINGS_URL}" title="Личный кабинет" rel="nofollow">
 											<span>Мой кабинет</span>
@@ -387,73 +386,14 @@
 										</a>
 									</li>
 
-									{% ELSE %}
-
-									<li>
-										<a class="mainnav__link" href="{USER_LOGIN_URL}" title="Вход" rel="nofollow">
-											<span>Вход</span>
-										</a>
-									</li>
-
-									<li>
-										<a class="mainnav__link" href="{USER_REGISTER_URL}" title="Регистрация" rel="nofollow">
-											<span>Регистрация</span>
-										</a>
-									</li>
-									{% ENDIF CLIENT_IS_LOGIN %}
-
 								</ul>
-								{% ELSE %}
-								<div class="addto__user-title">Личный кабинет</div>
-								<div class="addto__user-subtitle">Если вы уже зарегистрированны в нашем магазине, войдите в свой аккаунт, заполнив форму ниже</div>
-								<form class="client__form" action="{USER_LOGIN_URL}" method="post">
-									<input type="hidden" name="hash" value="{HASH}" />
-									<input type="hidden" name="from" value="{FROM}" />
-									<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
-									{ANTISPAM_CODE}
-					
-									<div class="form__list">
-										<fieldset class="form__field">
-											<legend for="sites_client_mail" class="form__label required"><span>Электронная почта</span><em>*</em></legend>
-											<input id="sites_client_mail" class="form__input form__email" type="email" name="form[sites_client_mail]" value="{FORM_SITES_CLIENT_MAIL}" maxlength="255" placeholder="Email" required/>
-										</fieldset>
-					
-										<fieldset class="form__field password">
-											<legend class="form__label required"><span>Пароль:</span><em>*</em></legend>
-											<input class="form__input password__input" type="password" name="form[sites_client_pass]" value="{FORM_SITES_CLIENT_PASS}" maxlength="50" minlength="6" placeholder="Пароль" required/>
-											<div class="password__icon" title="Показать пароль"></div>
-										</fieldset>
-										
-										<!-- Капслок -->
-										<div id="capslock">
-											<div class="capslock__icon flex">
-												<i class="icon-warning"></i>
-												<strong>Caps Lock включен.</strong>
-											</div>
-											<div class="capslock__text">Пароль может быть введен неверно.</div>
-										</div>
-					
-										<div class="client__buttons flex justify-between">
-											<button class="button-primary" type="submit" name="send" title="Войти">
-												<span>Войти</span>
-											</button>
-											<a class="button-more" href="{USER_RECOVERY_URL}" title="Забыли пароль">
-												<span>Забыли пароль?</span>
-											</a>
-											<a class="button-more" href="{USER_REGISTER_URL}" title="Зарегистроваться">
-												<span>Зарегистроваться</span>
-											</a>
-										</div>
-					
-									</div>
-					
-								</form>
-								{% ENDIF %}
 							</div>
+							{% ENDIF %}
 						</div>
 						{% ENDIF %}
 
 						<!-- Корзина -->
+						{% IFNOT MOD_LNAME = cart %}
 						<div class="addto__block cart dropdown {% IF CART_COUNT_TOTAL > 0 %}has-items{% ENDIF %}">
 							<a class="addto__link flex cart__icon dropdown__open" href="{CART_URL}" title="Перейти в корзину">
 								<i class="icon-cart"></i>
@@ -565,6 +505,7 @@
 							</div>
 
 						</div>
+						{% ENDIF %}
 
 					</div>
 				</div>
@@ -3961,6 +3902,58 @@
 				</div>
 			</div>
 
+			<!-- Авторизация в модальном окне -->
+			<div id="fancybox__login" class="modal" style="display: none;">
+				<div class="modal__title block__title">
+					<h2 class="title">Личный кабинет</h2>
+					<div class="subtitle">Если вы уже зарегистрированны в нашем магазине, войдите в свой аккаунт, заполнив форму ниже</div>
+				</div>
+				<div class="modal__content">
+					<form class="client__form" action="{USER_LOGIN_URL}" method="post">
+						<input type="hidden" name="hash" value="{HASH}" />
+						<input type="hidden" name="from" value="{FROM}" />
+						<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
+						{ANTISPAM_CODE}
+		
+						<div class="form__list">
+							<fieldset class="form__field">
+								<legend for="sites_client_mail" class="form__label required"><span>Электронная почта</span><em>*</em></legend>
+								<input id="sites_client_mail" class="form__input form__email" type="email" name="form[sites_client_mail]" value="{FORM_SITES_CLIENT_MAIL}" maxlength="255" placeholder="Email" required/>
+							</fieldset>
+		
+							<fieldset class="form__field password">
+								<legend class="form__label required"><span>Пароль:</span><em>*</em></legend>
+								<input class="form__input password__input" type="password" name="form[sites_client_pass]" value="{FORM_SITES_CLIENT_PASS}" maxlength="50" minlength="6" placeholder="Пароль" required/>
+								<div class="password__icon" title="Показать пароль"></div>
+							</fieldset>
+							
+							<!-- Капслок -->
+							<div id="capslock">
+								<div class="capslock__icon flex">
+									<i class="icon-warning"></i>
+									<strong>Caps Lock включен.</strong>
+								</div>
+								<div class="capslock__text">Пароль может быть введен неверно.</div>
+							</div>
+		
+							<div class="client__buttons flex justify-between">
+								<button class="button-primary" type="submit" name="send" title="Войти">
+									<span>Войти</span>
+								</button>
+								<a class="button-more" href="{USER_RECOVERY_URL}" title="Забыли пароль">
+									<span>Забыли пароль?</span>
+								</a>
+								<a class="button-more" href="{USER_REGISTER_URL}" title="Зарегистроваться">
+									<span>Зарегистроваться</span>
+								</a>
+							</div>
+		
+						</div>
+		
+					</form>
+				</div>
+			</div>
+
 			<!-- Обратный звонок в модальном окне -->
 			<div id="fancybox__callback" class="modal" style="display:none">
 				<div class="modal__title block__title">
@@ -4185,8 +4178,7 @@
 	<script type="text/javascript">
 	// Загрузка основных функций шаблона Товары
 	document.addEventListener('DOMContentLoaded', function(){
-		catalog.onClick();
-		catalog.priceFilter();
+		new CatalogFilter()
 	});
 	</script>
 	<script defer type="text/javascript" src="{ASSETS_JS_PATH}jqueryui.js?design=THEMENAME"></script>

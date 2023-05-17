@@ -18,7 +18,9 @@ function sendError(desc, page, line){
   img.src = 'https://storeland.ru/error/js?desc='+encodeURIComponent(desc)+'&page='+encodeURIComponent(window.location)+'&line=0';
   img.style.position = 'absolute';
   img.style.top = '-9999px';
-  try { document.getElementsByTagName('head').appendChild(img) } catch (e){}
+  try {
+		document.getElementsByTagName('head').appendChild(img)
+	} catch (e){}
   return false;
 }
 
@@ -27,7 +29,7 @@ function sendError(desc, page, line){
 // Функция определения ширины экрана пользователя. /JS/
 ///////////////////////////////////////
 function getClientWidth(){
-  return document.compatMode=='CSS1Compat' && !window.opera?document.documentElement.clientWidth:document.body.clientWidth;
+  return document.compatMode=='CSS1Compat' && !window.opera ? document.documentElement.clientWidth : document.body.clientWidth;
 }
 
 
@@ -52,7 +54,7 @@ function addSpaces(str){
 // Считает сумму  33 599,65 + 2000 - 1910-41,6
 ///////////////////////////////////////
 function GetSum(val,precision) {
-  if(typeof (precision) == "undefined" || precision < 0) { precision = 0; }
+  if(typeof(precision) == "undefined" || precision < 0) { precision = 0; }
   // Возводим в степень точности 10 для округления
   var p = Math.pow(10,precision);  
   try {return Math.round(parseFloat(eval(val.toString().replace(/\s/gi, "").replace(/,/gi, ".")))*p)/p;} catch (e) {return 0;}
@@ -84,8 +86,7 @@ function genWordEnd(num, e = '', m = 'а', mm = 'oв') {
 // Ленивая загрузка. /JS/
 ///////////////////////////////////////
 function lazyload(){
-	const observer = lozad()
-	observer.observe()
+	lozad().observe()
 }
 
 
@@ -128,9 +129,7 @@ function toTop(){
   })
 
 	// Действие наверх
-  goto.addEventListener('click', function(){
-    scrollTop(0)
-  })
+  goto.addEventListener('click', () => scrollTop(0))
 }
 
 
@@ -216,15 +215,15 @@ function notyMessage(message){
 };
 
 // Функция проверки активного класса у объекта
-function isActived(obj, act = 'is-actived'){
-	obj.matches('.'+act) ? obj.classList.remove(act) : obj.classList.add(act)
+function isActived(object, active = 'is-actived'){
+	object.matches('.'+active) ? object.classList.remove(active) : object.classList.add(active)
 }
 
 // Функция обновления количества
 function updateCount(selector, count){
-	document.querySelectorAll(selector).forEach(e => {
-		e.setAttribute('data-count', count)
-		e.textContent = count
+	document.querySelectorAll(selector).forEach(element => {
+		element.setAttribute('data-count', count)
+		element.textContent = count
 	});
 }
 
@@ -383,14 +382,14 @@ class Compare {
 		// console.log('Compare onSwitch')
 		// Обновляем текст
 		changeTxt(obj)
-		if (obj.classList.contains('switch-on')){
+		if (obj.matches('.switch-on')){
 			obj.classList.remove('switch-on')
 			document.querySelector('.compare__showAll').classList.add('is-hide')
 			document.querySelectorAll('.compare__line').forEach((el) => el.style.display = '')
 		} else {
 			obj.classList.add('switch-on')
 			document.querySelector('.compare__showAll').classList.remove('is-hide')
-			document.querySelectorAll('.compare__line').forEach((el) => el.style.display = el.classList.contains('is-same') ? 'none' : '')
+			document.querySelectorAll('.compare__line').forEach((element) => element.style.display = element.matches('.is-same') ? 'none' : '')
 		}
 	}
 
@@ -751,7 +750,7 @@ class Quantity {
 	
 	// Отображаем скидку 
 	updAddtoSale(){
-		const value = document.querySelector('.discountValue')
+		const value = document.querySelector('.addto__total-discount .discountValue')
 		// Если корзина пуста
 		if (!value) return false
 		// Если есть скидки
@@ -1767,136 +1766,141 @@ class Remove {
 ///////////////////////////////////////
 /*** Скрипты для Товары, Категории ***/
 ///////////////////////////////////////
-class Catalog {
+class CatalogFilter {
 	constructor(){
-		console.time('Catalog test');
+		const objects = document.querySelectorAll('.filter__search')
+		objects.forEach((object) => {
+			// Поиск по фильтрам
+			this.filterSearchHide(object)
+			object.addEventListener('input', () => this.filterSearch(object));
 
-		const content = document.querySelector('#main');
-
-		// Функции при клике на фильтры
-		this.onClick = function(){
-			// Если нет контента
-			if (!content) {return false;}
-
-			document.addEventListener('click', function(event){
-				// Объявление переменных
-				const filterInput = event.target.closest('.filter__item input');
-				const filterTitle = event.target.closest('.filter__collapsible .filter__title');
-				// const filterClear = event.target.closest('.filter__clear');
-				const filterIcon = event.target.closest('.filters__icon');
-
-				// Фильтры по товарам. При нажании на какую либо характеристику или свойство товара происходит фильтрация товаров
-				if (filterInput){
+			// Выбора фильтра
+			const filterInputs = object.parentElement.querySelectorAll('.filter__item input');
+			filterInputs.forEach(element => {
+				element.addEventListener('click', function(event){
 					event.target.form.submit();
-				}
+				})
+			})
 
-				// Открытие/Скрытие фильтров в сайдбаре
-				else if (filterTitle){
-					event.preventDefault();
-					// console.log('filterTitle', filterTitle);
-					if (filterTitle.classList.contains('is-actived')){
-						// console.log('act', filterTitle.classList.contains('is-actived'));
-						filterTitle.classList.remove('is-actived');
-						$(filterTitle).next().slideDown(600);
-					} else {
-						// console.log('not act', filterTitle.classList.contains('is-actived'));
-						filterTitle.classList.add('is-actived');
-						$(filterTitle).next().slideUp(600);
-					}
+			// Свернуть/Развернуть фильтр
+			const filterTitle = object.closest('.filter__collapsible').querySelector('.filter__title');
+			filterTitle.addEventListener('click', function(event){
+				event.preventDefault();
+				this.filterSlideDownUp(filterTitle)
+			})
 
-				}
+		})
 
-				// Открыть фильтры по иконке
-				else if (filterIcon){
-					// event.preventDefault();
-					filterIcon.classList.toggle('is-opened');
-					// catalog.onClick();
-					// document.querySelector('#filters').classList.toggle('is-opened');
-					// document.querySelector('#overlay').classList.toggle('is-opened');
-				}
+		// Фильтр цены
+		this.filterPrice()
+	}
 
-				// Сборосить категорию фильтра
-				// else if (filterClear){
-				// 	event.preventDefault();
-				// 	const parent = event.target.closest('.filter__list')
-				// 	const checkboxes = parent.querySelectorAll('[type="checkbox"]')
-				// 	checkboxes.forEach((el) => {
-				// 		el.checked = false
-				// 	})
-				// 	document.querySelector('.form__filters').submit();
-				// }
-			});
+	// Поиск по фильтрам
+	filterSearch(object){
+		// Поисковый запрос
+		const query = object.value.toLowerCase()
 
-		};
+		// Объекты элементов
+		const items = object.parentElement.querySelectorAll('.filter__item')
+		const searchEmpty = object.parentElement.querySelector('.filter__search-empty')
 
-		// Фильтр по ценам
-		this.priceFilter = function(){
+		// Массив названий фильтров
+		const itemsArray = []
+		items.forEach(element => itemsArray.push(element.getAttribute('data-value').toLowerCase()))
 
-			const
-				priceFilterMinAvailable = parseInt($('[name="form[filter][available_price][min]"]').val()), // Минимальное значение цены для фильтра
-				priceFilterMaxAvailable = parseInt($('[name="form[filter][available_price][max]"]').val()), // Максимальное значение цены для фильтра
-				priceSliderBlock = $('#goods-filter-price-slider'), // Максимальное значение цены для фильтра
-				priceInputMin = $('#goods-filter-min-price'), // Поле ввода текущего значения цены "От"
-				priceInputMax = $('#goods-filter-max-price'), // Поле ввода текущего значения цены 'До'
-				priceSubmitButtonBlock = $('.filters-price__buttons'); // Блок с кнопкой, которую есть смысл нажимать только тогда, когда изменялся диапазон цен.
+		// Совпадение в массиве
+		const resultArray = itemsArray.map((element, index) => element.indexOf(query) >= 0 ? index : -1).filter(element => element >= 0)
 
-
-			// Слайдер, который используется для удобства выбора цены
-			priceSliderBlock.slider({
-				range: true,
-				min: priceFilterMinAvailable,
-				max: priceFilterMaxAvailable,
-				values: [
-					parseInt($('#goods-filter-min-price').val()),
-					parseInt($('#goods-filter-max-price').val())
-				],
-				slide: function(event, ui){
-					priceInputMin.val(ui.values[0]);
-					priceInputMax.val(ui.values[1]);
-					priceSubmitButtonBlock.css('display', 'flex');
-				}
-			});
-
-			// При изменении минимального значения цены
-			priceInputMin.keyup(function(){
-				let newVal = parseInt($(this).val());
-				if (newVal < priceFilterMinAvailable){
-					newVal = priceFilterMinAvailable;
-				}
-				priceSliderBlock.slider('values', 0, newVal);
-				priceSubmitButtonBlock.css('display', 'flex');
-			});
-
-			// При изменении максимального значения цены
-			priceInputMax.keyup(function(){
-				let newVal = parseInt($(this).val());
-				if (newVal > priceFilterMaxAvailable){
-					newVal = priceFilterMaxAvailable;
-				}
-				priceSliderBlock.slider('values', 1, newVal);
-				priceSubmitButtonBlock.css('display', 'flex');
-			});
-
-			// Активный фильтр цены
-			if (priceInputMin.val() > priceFilterMinAvailable || priceInputMax.val() < priceFilterMaxAvailable){
-				$('.filters-price').addClass('has-filters');
-				$('.toolbar').addClass('has-filters');
-				$('#filters').addClass('has-filters');
+		// Фильтры не найдены
+		items.forEach(element => {
+			if (resultArray.length === 0){
+				element.classList.add('is-hide')
+				searchEmpty.classList.remove('is-hide')
 			} else {
-				$('.filters-price').removeClass('has-filters');
-				$('.toolbar').removeClass('has-filters');
-				$('#filters').removeClass('has-filters');
+				element.classList.add('is-hide')
+				searchEmpty.classList.add('is-hide')
+				resultArray.forEach(element => items[element].classList.remove('is-hide'))
 			}
+		});
+	}
 
-			// const result = $('.products__container .product__item').length
-			// console.log('result', result);
-			// $('.filters-active__result').html(`Найдено ${result} товар${genWordEnd(result)}:`)
+	// Показать поиск
+	filterSearchHide(object){
+		const items = object.parentElement.querySelectorAll('.filter__item')
+		items.length < 6 ? object.classList.add('is-hide') : object.classList.remove('is-hide')
+	}
 
-		};
+	// Фильтр по ценам
+	filterPrice(){
+		const
+			priceFilterMinAvailable = parseInt($('[name="form[filter][available_price][min]"]').val()), // Минимальное значение цены для фильтра
+			priceFilterMaxAvailable = parseInt($('[name="form[filter][available_price][max]"]').val()), // Максимальное значение цены для фильтра
+			priceSliderBlock = $('#goods-filter-price-slider'), // Максимальное значение цены для фильтра
+			priceInputMin = $('#goods-filter-min-price'), // Поле ввода текущего значения цены "От"
+			priceInputMax = $('#goods-filter-max-price'), // Поле ввода текущего значения цены 'До'
+			priceSubmitButtonBlock = $('.filters-price__buttons'); // Блок с кнопкой, которую есть смысл нажимать только тогда, когда изменялся диапазон цен.
 
-		console.timeEnd('Catalog test');
+		// Слайдер, который используется для удобства выбора цены
+		priceSliderBlock.slider({
+			range: true,
+			min: priceFilterMinAvailable,
+			max: priceFilterMaxAvailable,
+			values: [
+				parseInt($('#goods-filter-min-price').val()),
+				parseInt($('#goods-filter-max-price').val())
+			],
+			slide: function(event, ui){
+				priceInputMin.val(ui.values[0]);
+				priceInputMax.val(ui.values[1]);
+				priceSubmitButtonBlock.css('display', 'flex');
+			}
+		});
+
+		// При изменении минимального значения цены
+		priceInputMin.keyup(function(){
+			let newVal = parseInt($(this).val());
+			if (newVal < priceFilterMinAvailable){
+				newVal = priceFilterMinAvailable;
+			}
+			priceSliderBlock.slider('values', 0, newVal);
+			priceSubmitButtonBlock.css('display', 'flex');
+		});
+
+		// При изменении максимального значения цены
+		priceInputMax.keyup(function(){
+			let newVal = parseInt($(this).val());
+			if (newVal > priceFilterMaxAvailable){
+				newVal = priceFilterMaxAvailable;
+			}
+			priceSliderBlock.slider('values', 1, newVal);
+			priceSubmitButtonBlock.css('display', 'flex');
+		});
+
+		// Активный фильтр цены
+		if (priceInputMin.val() > priceFilterMinAvailable || priceInputMax.val() < priceFilterMaxAvailable){
+			$('.filters-price').addClass('has-filters');
+			$('.toolbar').addClass('has-filters');
+			$('#filters').addClass('has-filters');
+		} else {
+			$('.filters-price').removeClass('has-filters');
+			$('.toolbar').removeClass('has-filters');
+			$('#filters').removeClass('has-filters');
+		}
 
 	}
+
+	// Показать/Скрыть фильтр
+	filterSlideDownUp(object){
+		// console.log('object', object);
+		if (object.matches('.is-actived')){
+			object.classList.remove('is-actived');
+			$(object).next().slideDown(600);
+		} else {
+			object.classList.add('is-actived');
+			$(object).next().slideUp(600);
+		}
+	}
+
 }
 
 
@@ -3075,7 +3079,7 @@ const product = new Product();
 // Объявляем конструктор Удаления
 const remove = new Remove();
 // Объявляем конструктор Товары
-const catalog = new Catalog();
+// const catalogFilter = new CatalogFilter();
 // Объявляем конструктор Товар
 const goods = new Goods();
 // Объявляем конструктор Корзины
@@ -3312,7 +3316,7 @@ function openMenu(){
 		}
 
 		if (open == 'user'){
-			const content = document.querySelector('.addto__user')
+			const content = document.querySelector('.addto__user') || document.querySelector('#fancybox__login')
 			document.querySelector('.adaptive__block-user').innerHTML = content.innerHTML
 			password.onClick()
 		}
@@ -3840,7 +3844,7 @@ function catalogHover(){
 	items.forEach((item) => {
 		item.addEventListener('mouseenter', () => {
 			const id = item.getAttribute('data-id')
-			const parent = item.classList.contains('parent')
+			const parent = item.matches('.parent')
 			const subs = document.querySelectorAll('.catalog__items-sub .catalog__item')
 			const currents = document.querySelectorAll('.catalog__item[data-id="'+ id +'"]')
 			if (parent) {
