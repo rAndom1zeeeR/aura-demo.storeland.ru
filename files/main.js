@@ -1920,6 +1920,11 @@ class Goods {
 				slidesPerView: '4',
 				spaceBetween: 16,
 				freeMode: true,
+				scrollbar: {
+					el: '.thumblist .swiper-scrollbar',
+					draggable: true,
+					hide: false,
+				},
 				breakpoints: {
 					0: {
 						slidesPerView: '1',
@@ -1951,11 +1956,6 @@ class Goods {
 				slidesPerView: '1',
 				spaceBetween: 16,
 				autoHeight: false,
-				scrollbar: {
-					el: '.thumblist .swiper-scrollbar',
-					draggable: true,
-					hide: false,
-				},
 				navigation: {
 					nextEl: ".swiper-button-next",
 					prevEl: ".swiper-button-prev",
@@ -3848,9 +3848,11 @@ function catalogHover(){
 			const subs = document.querySelectorAll('.catalog__items-sub .catalog__item')
 			const currents = document.querySelectorAll('.catalog__item[data-id="'+ id +'"]')
 			if (parent) {
+				items.forEach((e) => e.classList.remove('is-show'))
 				subs.forEach((e) => e.classList.remove('is-show'))
 				currents.forEach((e) => e.classList.add('is-show'))
 			} else {
+				items.forEach((e) => e.classList.remove('is-show'))
 				subs.forEach((e) => e.classList.remove('is-show'))
 				return false
 			}
