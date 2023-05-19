@@ -150,11 +150,12 @@ function changeTxt(object){
 // Функция Показать все/Скрыть.
 ///////////////////////////////////////
 class VisibleItems {
-	constructor(selector, button = '.visible__button', items = '.visible__item', itemsVisible = '.visible__item:visible') {
-		this.selector = selector
-		this.button = button
-		this.items = items
-		this.itemsVisible = itemsVisible
+	constructor(selector) {
+		this.selector = document.querySelector(selector)
+		if (!this.selector) return false;
+		this.button = this.selector.querySelector('.visible__button')
+		this.items = this.selector.querySelectorAll('.visible__item')
+		this.itemsVisible = '.visible__item:visible'
 		// Проверяем видимость кнопки
 		this.checkVisible()
 		// Запуск функций при нажатии
@@ -163,7 +164,7 @@ class VisibleItems {
 
 	// Получаем кол-во элементов
 	getItemsLength(){
-		return document.querySelector(this.selector).querySelectorAll(this.items).length
+		return this.items.length
 	}
 
 	// Получаем кол-во видимых элементов
@@ -173,14 +174,13 @@ class VisibleItems {
 
 	// Скрыть/показать кнопку
 	checkVisible(){
-		const content = document.querySelector(this.selector)
-		content.querySelector(this.button).parentElement.style.display = this.getItemsLength() > this.getItemsVisibleLength() ? 'block' : 'none';
+		this.button.parentElement.style.display = this.getItemsLength() > this.getItemsVisibleLength() ? 'block' : 'none';
 	}
 
 	// Функции при клике
 	onClickVisible(){
-		const content = document.querySelector(this.selector)
-		content.querySelector(this.button).addEventListener('click', function(event){
+		const content = this.selector
+		this.button.addEventListener('click', function(event){
 			event.preventDefault();
 			changeTxt(this)
 			isActived(this)
