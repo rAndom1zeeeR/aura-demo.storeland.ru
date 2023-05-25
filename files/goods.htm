@@ -18,6 +18,12 @@
 			<div class="productView__info flex justify-between">
 				<!-- Стикеры -->
 				<div class="productView__sticker flex">
+					{% IF GOODS_MOD_PRICE_NOW_WITHOUT_DISCOUNT > GOODS_MOD_PRICE_NOW %}
+					<span class="sticker__sales">%</span>
+					{% ELSEIF GOODS_MOD_PRICE_OLD > GOODS_MOD_PRICE_NOW %}
+					<span class="sticker__sales">%</span>
+					{% ENDIF %}
+
 					{% IF GOODS_IS_NEW %}
 					<span class="sticker__new"></span>
 					{% ENDIF %}
@@ -229,11 +235,9 @@
 			{% IF GOODS_DESCRIPTION_SHORT %}
 			<div class="productView__desc">
 				<div class="productView__desc-text" itemprop="description">{GOODS_DESCRIPTION_SHORT}</div>
-				{% IF GOODS_DESCRIPTION_SHORT %}
 				<a class="productView__desc-more button-more is-hide" href="#tab_1" data-href="{GOODS_URL}#tab_1">
 					<span>Читать описание</span>
 				</a>
-				{% ENDIF %}
 			</div>
 			{% ENDIF %}
 
@@ -855,18 +859,20 @@
 					<div class="opinion__score-container flex">
 						<div class="opinion__score-content">
 							{% IFNOT opinion_list_empty %}
-							<div class="opinion__score-ratings ratings" title="Рейтинг товара">
-								{% IF GOODS_OPINION_RATING_VALUE_ROUND %}
-								<div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
-									<meta itemprop="worstRating" content="1">
-									<meta itemprop="bestRating" content="10">
-									<meta itemprop="ratingValue" content="{GOODS_OPINION_RATING_VALUE_ROUND}">
-									<meta itemprop="reviewCount" content="{GOODS_OPINION_RATING_CNT_ALL}">
-									<div class="ratings__value" style="width:{GOODS_OPINION_RATING_VALUE_ROUND}0%" alt="{GOODS_OPINION_RATING_VALUE_ROUND}" title="Рейтинг товара"></div>
+							<div class="opinion__score-ratings">
+								<div class="ratings">
+									{% IF GOODS_OPINION_RATING_VALUE_ROUND %}
+									<div itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+										<meta itemprop="worstRating" content="1">
+										<meta itemprop="bestRating" content="10">
+										<meta itemprop="ratingValue" content="{GOODS_OPINION_RATING_VALUE_ROUND}">
+										<meta itemprop="reviewCount" content="{GOODS_OPINION_RATING_CNT_ALL}">
+										<div class="ratings__value" style="width:{GOODS_OPINION_RATING_VALUE_ROUND}0%" alt="{GOODS_OPINION_RATING_VALUE_ROUND}" title="Рейтинг товара"></div>
+									</div>
+									{% ELSE %}
+									<div class="ratings__value" style="width:0%" alt="Рейтинг не определён" title="Рейтинг не определён"></div>
+									{% ENDIF %}
 								</div>
-								{% ELSE %}
-								<div class="ratings__value" style="width:0%" alt="Рейтинг не определён" title="Рейтинг не определён"></div>
-								{% ENDIF %}
 							</div>
 					
 							<div class="opinion__score-count">На основе {GOODS_OPINION_RATING_CNT_ALL} оцен{GOODS_OPINION_RATING_CNT_ALL | gen_word_end("ка","ки","ок")} покупателей</div>

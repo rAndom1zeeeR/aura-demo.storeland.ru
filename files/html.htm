@@ -497,6 +497,10 @@
 									<a class="button-gradient" href="{CART_URL}" title="Перейти в Корзину">
 										<span>В Корзину</span>
 									</a>
+									<a class="addto__removeAll button-more button-rotate" href="{CART_TRUNCATE_URL}" title="Очистить корзину">
+										<span>Очистить</span>
+										<i class="icon-close"></i>
+									</a>
 								</div>
 
 								<!-- Пустая корзина -->
@@ -520,9 +524,9 @@
 				<div class="slideshow-swiper swiper">
 					<!-- Слайдер -->
 					<div class="swiper-wrapper">
-						<!-- Укажите ИД товара в атрибут data-product-id="23996300" для отображения в слайдере. -->
+						<!-- Укажите ИД товара в атрибут data-product-id="184458978" для отображения в слайдере. -->
 						<!-- ВАЖНО! Товар должен быть в одной из категорий (Товары на главной, Новинки, Хиты продаж)  -->
-						<div class="slideshow__item swiper-slide" data-product-id="23996300">
+						<div class="slideshow__item swiper-slide" data-product-id="184458978">
 							<a class="slideshow__image" href="{CATALOG_URL}" title="">
 								<img src="{ASSETS_IMAGES_PATH}slide_1.jpg?design=THEMENAME" alt="">
 							</a>
@@ -1054,7 +1058,7 @@
 
 		<!-- Распродажа -->
 		{% IFNOT index_page_sale_goods_empty %}
-		<section id="pdt__sales" class="pdt__small">
+		<section id="pdt__sales" class="">
 			<div class="container">
 				<!-- Заголовок -->
 				<div class="block__title">
@@ -2416,15 +2420,15 @@
 					<form class="subscribe__form form__callback" method="post" action="{CALLBACK_URL}" enctype="multipart/form-data">
 						<input type="hidden" name="hash" value="{HASH}" />
 						<input class="callbackredirect" type="hidden" name="return_to" value="{CALLBACK_URL}" />
-						<input class="form__person" type="hidden" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="Заказать звонок - {FORM_CALLBACK_PERSON}" placeholder="Ваше имя" autocomplete="off" />
-						<input class="form__phone" type="hidden" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="Заказать звонок - {FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" />
+						<input class="" type="hidden" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="Подписаться - {FORM_CALLBACK_PERSON}" placeholder="Ваше имя" autocomplete="off" />
+						<input class="" type="hidden" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="Подписаться - {FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" />
 						<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
 						{ANTISPAM_CODE}
 
 						<div class="form__fields flex">
-							<fieldset class="form__field">
-								<input class="form__input form__email" type="email" name="form[callback_email]" value="{FORM_CALLBACK_EMAIL}" placeholder="email@email.ru *" autocomplete="off" />
-							</fieldset>
+							<div class="form__field">
+								<input class="form__input form__email" type="email" name="form[callback_email]" value="{FORM_CALLBACK_EMAIL}" placeholder="email@email.ru *" autocomplete="off" required />
+							</div>
 							<button class="form__button button-secondary" type="submit" title="Подписаться">
 								<span>Подписаться</span>
 							</button>
@@ -3916,16 +3920,16 @@
 						{ANTISPAM_CODE}
 		
 						<div class="form__list">
-							<fieldset class="form__field">
+							<div class="form__field">
 								<legend for="sites_client_mail" class="form__label required"><span>Электронная почта</span><em>*</em></legend>
 								<input id="sites_client_mail" class="form__input form__email" type="email" name="form[sites_client_mail]" value="{FORM_SITES_CLIENT_MAIL}" maxlength="255" placeholder="Email" required/>
-							</fieldset>
+							</div>
 		
-							<fieldset class="form__field password">
+							<div class="form__field password">
 								<legend class="form__label required"><span>Пароль:</span><em>*</em></legend>
 								<input class="form__input password__input" type="password" name="form[sites_client_pass]" value="{FORM_SITES_CLIENT_PASS}" maxlength="50" minlength="6" placeholder="Пароль" required/>
 								<div class="password__icon" title="Показать пароль"></div>
-							</fieldset>
+							</div>
 							
 							<!-- Капслок -->
 							<div id="capslock">
@@ -3961,26 +3965,32 @@
 					<div class="subtitle">Возникли вопросы? Заполните форму и мы бесплатно Вас проконсультируем!</div>
 				</div>
 				<div class="modal__content">
-					<form method="post" action="{CALLBACK_URL}" class="form__callback" enctype="multipart/form-data">
+					<form class="form__callback" method="post" action="{CALLBACK_URL}" enctype="multipart/form-data">
 						<input type="hidden" name="hash" value="{HASH}" />
 						<input class="callbackredirect" type="hidden" name="return_to" value="{CALLBACK_URL}" />
 						<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
 						{ANTISPAM_CODE}
-						<fieldset class="form__field">
-							<input class="form__input form__person" type="text" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="{FORM_CALLBACK_PERSON}" placeholder="Ваше имя" autocomplete="off" required />
-						</fieldset>
-						<fieldset class="form__field">
-							<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
-						</fieldset>
-						<div class="form__buttons">
-							<button class="form__button button-primary" type="submit" title="Заказать звонок">
-								<span>Заказать звонок</span>
-							</button>
-							<div class="form__pp">
-								<span>Я принимаю условия</span>
-								<a data-fancybox data-src="#fancybox__pp">политики конфиденциальности</a>
+
+						<div class="form__list">
+							<div class="form__field">
+								<input class="form__input form__person" type="text" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="{FORM_CALLBACK_PERSON}" placeholder="Ваше имя" autocomplete="off" required />
+							</div>
+
+							<div class="form__field">
+								<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
+							</div>
+
+							<div class="form__buttons">
+								<button class="form__button button-primary" type="submit" title="Заказать звонок">
+									<span>Заказать звонок</span>
+								</button>
+								<div class="form__pp">
+									<span>Я принимаю условия</span>
+									<a data-fancybox data-src="#fancybox__pp">политики конфиденциальности</a>
+								</div>
 							</div>
 						</div>
+
 					</form>
 				</div>
 			</div>
@@ -3996,24 +4006,32 @@
 						<input class="callbackredirect" type="hidden" name="return_to" value="{CALLBACK_URL}" />
 						<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
 						{ANTISPAM_CODE}
-						<fieldset class="form__field">
-							<input class="form__input form__person" type="text" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="{FORM_CALLBACK_PERSON}" placeholder="Ваше имя" autocomplete="off" required />
-						</fieldset>
-						<fieldset class="form__field">
-							<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
-						</fieldset>
-						<fieldset class="form__field">
-							<textarea class="form__textarea" rows="2" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_COMMENT}]" placeholder="Комментарий" >{FORM_CALLBACK_COMMENT}</textarea>
-						</fieldset>
-						<div class="form__buttons">
-							<button class="form__button button-primary" type="submit" title="Отправить">
-								<span>Отправить</span>
-							</button>
-							<div class="form__pp">
-								<span>Я принимаю условия</span>
-								<a data-fancybox data-src="#fancybox__pp">политики конфиденциальности</a>
+
+						<div class="form__list">
+							<div class="form__field">
+								<input class="form__input form__person" type="text" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="{FORM_CALLBACK_PERSON}" placeholder="Ваше имя" autocomplete="off" required />
 							</div>
+
+							<div class="form__field">
+								<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="Номер телефона" autocomplete="off" required />
+							</div>
+
+							<div class="form__field">
+								<textarea class="form__textarea" rows="2" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_COMMENT}]" placeholder="Комментарий" >{FORM_CALLBACK_COMMENT}</textarea>
+							</div>
+
+							<div class="form__buttons">
+								<button class="form__button button-primary" type="submit" title="Отправить">
+									<span>Отправить</span>
+								</button>
+								<div class="form__pp">
+									<span>Я принимаю условия</span>
+									<a data-fancybox data-src="#fancybox__pp">политики конфиденциальности</a>
+								</div>
+							</div>
+
 						</div>
+						
 					</form>
 				</div>
 			</div>
@@ -4032,25 +4050,31 @@
 						<!-- Набор полей которые не видит пользователь, но видят боты. Когда они их заполняют мы точно знаем, что их прислал нам бот и мы не сохраняем подобный отзыв о товаре, а боту отправившему отзыв сообщаем, что отзыв добавлен успешно, но будет отображён здесь после прохождения модерации -->
 						{ANTISPAM_CODE}
 						<!-- Для использования почты для уведомлений необходимо удалить блок с телефоном -->
-						<fieldset class="form__field">
-							<input class="form__input form__person" type="text" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="{FORM_CALLBACK_PERSON}" placeholder="Ваше имя" autocomplete="off" required />
-						</fieldset>
-						<fieldset class="form__field">
-							<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="+7 (987) 654-3210" autocomplete="off" required />
-						</fieldset>
-						<!-- Для использования почты для уведомлений необходимо удалить ниже style="display: none;" -->
-						<fieldset class="form__field" style="display: none;">
-							<input class="form__input form__email" type="email" name="form[callback_email]" value="{FORM_CALLBACK_EMAIL}" placeholder="email@email.ru *" autocomplete="off" />
-						</fieldset>
-						<div class="form__buttons">
-							<button class="form__button button-primary" type="submit" title="Уведомить">
-								<span>Уведомить</span>
-							</button>
-							<div class="form__pp">
-								<span>Я принимаю условия</span>
-								<a data-fancybox data-src="#fancybox__pp">политики конфиденциальности</a>
+						<div class="form__list">
+							<div class="form__field">
+								<input class="form__input form__person" type="text" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PERSON}]" value="{FORM_CALLBACK_PERSON}" placeholder="Ваше имя" autocomplete="off" required />
+							</div>
+
+							<div class="form__field">
+								<input class="form__input form__phone" type="tel" name="form[{ANTISPAM_FORM_FIELD_NAME_CALLBACK_PHONE}]" value="{FORM_CALLBACK_PHONE}" placeholder="+7 (987) 654-3210" autocomplete="off" required />
+							</div>
+
+							<!-- Для использования почты для уведомлений необходимо удалить ниже style="display: none;" -->
+							<div class="form__field" style="display: none;">
+								<input class="form__input form__email" type="email" name="form[callback_email]" value="{FORM_CALLBACK_EMAIL}" placeholder="email@email.ru *" autocomplete="off" />
+							</div>
+
+							<div class="form__buttons">
+								<button class="form__button button-primary" type="submit" title="Уведомить">
+									<span>Уведомить</span>
+								</button>
+								<div class="form__pp">
+									<span>Я принимаю условия</span>
+									<a data-fancybox data-src="#fancybox__pp">политики конфиденциальности</a>
+								</div>
 							</div>
 						</div>
+
 					</form>
 				</div>
 			</div>

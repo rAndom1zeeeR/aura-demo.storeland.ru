@@ -19,7 +19,9 @@
 			</div>
 			{% ENDFOR %}
 		</div>
+		{% IFNOT IS_FULL_CATALOG && goods_empty=0 %}
 		<div class="swiper-scrollbar"></div>
+		{% ENDIF %}
 	</div>
 	{% ENDIF %}
 
@@ -84,6 +86,7 @@
 				<a class="filters__icon button-link" data-fancybox data-src="#filters">
 					<i class="icon-filter"></i>
 					<span>Все фильтры</span>
+					<span class="filters__result">{GOODS_PAGES_RESULTS}</span>
 				</a>
 			</div>
 			{% ENDIF %}

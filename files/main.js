@@ -2079,15 +2079,15 @@ class Goods {
 
 			// Скрыть/Показать кнопку описания
 			setTimeout(() => {
-				if (document.querySelector('.productView__desc-text')){
-					if (document.querySelector('.productView__desc-text').offsetHeight >= 70){
-						document.querySelector('.productView__desc-more').classList.remove('is-hide')
-					} else {
-						document.querySelector('.productView__desc-more').classList.add('is-hide')
-					}
+				const desc = document.querySelector('.productView__desc-text')
+				const more = document.querySelector('.productView__desc-more')
+				if (desc && more){
+					desc.offsetHeight >= 70 ? more.classList.remove('is-hide') : more.classList.add('is-hide')
 				}
 				
 			}, 1000);
+
+			product.priceDiff(document.querySelector('.productView'))
 
 		};
 
@@ -3125,7 +3125,7 @@ function mainnav(id,rows,media){
 		let nextCheck = 0;
 
 		for(let i=1; i < menuCount; i++){
-			const currentWidth = parseInt(Math.ceil(mainNavList.find('li:nth-child('+i+')').width())) + 28;
+			const currentWidth = parseInt(Math.ceil(mainNavList.find('li:nth-child('+i+')').width())) + 16;
 			nextCheck += currentWidth;
 
 			if(nextCheck > menuWidth){
@@ -3369,13 +3369,12 @@ function closeAll(){
 ///////////////////////////////////////
 function ajaxForms(id,flag,successMessage,errorMessage){
   flag = false;
-  // console.log('ajaxForms loaded ', id)
 	if(!id) { return false}
   const form = $(id).find('.form__callback');
   form.on('submit',function(event){
     event.preventDefault();
     if(!flag){
-      t = $(this);
+      const t = $(this);
       const url = t.prop('action');
       const formData = t.serializeArray();
       formData.push({name: 'ajax_q', value: 1});
@@ -3385,8 +3384,10 @@ function ajaxForms(id,flag,successMessage,errorMessage){
         cache: false,
         url: url,
         data: formData,
-        success: function(d){
-          const serverCall = JSON.parse(d).status;
+        success: function(data){
+					console.log('data', data);
+          const serverCall = JSON.parse(data).status;
+					console.log('serverCall', serverCall);
           if(serverCall =='ok'){
 						setTimeout(function(){
 							$.fancybox.close();
@@ -3400,7 +3401,17 @@ function ajaxForms(id,flag,successMessage,errorMessage){
 						`;
 						notyStart(content, 'success');
             flag = true;
-          }
+          }else{
+						console.log('error');
+						// Функция, которая отображает сообщения пользователю
+							const content = `
+							<div class="noty__addto flex">
+								<div class="noty__title">Ошибка!</div>
+								<div class="noty__content">Не удалось отправить форму</div>
+							</div>
+						`;
+						notyStart(content, 'warning');
+					}
         },
 				error: function(d){
 					callbackError()
@@ -3437,7 +3448,7 @@ ajaxForms('.page-сallback','pageCallbackFlag','Спасибо за обраще
 // 'Обратный звонок в подвале'.
 ajaxForms('footer .form__callback','footerCallbackFlag','Спасибо за обращение! Мы перезвоним вам в ближайшее время','Вы уже отправляли запрос. Пожалуйста ожидайте звонка.')
 // 'Подписаться'.
-//ajaxForms('#subscribe','subscribeFlag','Спасибо за обращение! Вы подписались на наши уведомления','Вы уже отправляли запрос. Пожалуйста ожидайте.')
+ajaxForms('#subscribe','subscribeFlag','Спасибо за обращение! Вы подписались на наши уведомления','Вы уже отправляли запрос. Пожалуйста ожидайте.')
 
 
 ///////////////////////////////////////

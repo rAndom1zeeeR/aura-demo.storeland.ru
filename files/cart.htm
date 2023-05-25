@@ -25,53 +25,54 @@
 						</a>
 
 						<div class="cartTable__content flex">
-								<div class="cartTable__inner">
-									<!-- Название -->
-									<a class="cartTable__name" href="{cart_items.GOODS_URL}" title="{cart_items.GOODS_NAME}">
-										<span>{cart_items.GOODS_NAME}</span>
-									</a>
+							<div class="cartTable__inner">
+								<!-- Название -->
+								<a class="cartTable__name" href="{cart_items.GOODS_URL}" title="{cart_items.GOODS_NAME}">
+									<span>{cart_items.GOODS_NAME}</span>
+								</a>
 
-									<!-- Если у товара есть отличительные свойства для модификации товара, допишем их к названию товара -->
-									{% IF cart_items.GOODS_MOD_ART_NUMBER %}
-									<div class="cartTable__art">
-										<span class="cartTable__art-name">Артикул:</span>
-										<span class="cartTable__art-value">{cart_items.GOODS_MOD_ART_NUMBER}</span>
-									</div>
-									{% ENDIF %}
-
-									{% FOR distinctive_properties %}
-									<div class="cartTable__prop flex">
-										<span class="cartTable__prop-name">{cart_items.distinctive_properties.NAME}:</span>
-										<span class="cartTable__prop-value">{cart_items.distinctive_properties.VALUE}</span>
-									</div>
-									{% ENDFOR %}
+								<!-- Если у товара есть отличительные свойства для модификации товара, допишем их к названию товара -->
+								{% IF cart_items.GOODS_MOD_ART_NUMBER %}
+								<div class="cartTable__art">
+									<span class="cartTable__art-name">Артикул:</span>
+									<span class="cartTable__art-value">{cart_items.GOODS_MOD_ART_NUMBER}</span>
 								</div>
+								{% ENDIF %}
 
-								<!-- Кол-во -->
-								<div class="cartTable__qty">
-									<div class="qty flex {% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE %}has-max{% ENDIF %}">
-										<span class="qty__select qty__select-minus" title="Уменьшить"><i class="icon-minus"></i></span>
-										<input class="qty__input" 
-													type="text" 
-													name="form[quantity][{cart_items.GOODS_MOD_ID}]" 
-													maxlength="3" 
-													{% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE %}max="{cart_items.GOODS_MOD_REST_VALUE}"{% ENDIF %}
-													min="1" 
-													value="{cart_items.ORDER_LINE_QUANTITY}" 
-													title="Количество, {cart_items.GOODS_MOD_MEASURE_NAME}" 
-													autocomplete="off" 
-													onkeypress="return keyPress(this, event);" 
-													onpaste="return false;" 
-										/>
-										<span class="qty__select qty__select-plus" title="Увеличить"><i class="icon-plus"></i></span>
-									</div>
+								{% FOR distinctive_properties %}
+								<div class="cartTable__prop">
+									<span class="cartTable__prop-name">{cart_items.distinctive_properties.NAME}:</span>
+									<span class="cartTable__prop-value">{cart_items.distinctive_properties.VALUE}</span>
 								</div>
+								{% ENDFOR %}
+							</div>
+
+							<!-- Кол-во -->
+							<div class="cartTable__qty">
+								<div class="qty flex {% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE %}has-max{% ENDIF %}">
+									<span class="qty__select qty__select-minus" title="Уменьшить"><i class="icon-minus"></i></span>
+									<input class="qty__input" 
+												type="text" 
+												name="form[quantity][{cart_items.GOODS_MOD_ID}]" 
+												maxlength="3" 
+												{% IF SETTINGS_GOODS_DONT_PUT_TO_CART_MORE_THAN_AVAILABLE %}max="{cart_items.GOODS_MOD_REST_VALUE}"{% ENDIF %}
+												min="1" 
+												value="{cart_items.ORDER_LINE_QUANTITY}" 
+												title="Количество, {cart_items.GOODS_MOD_MEASURE_NAME}" 
+												autocomplete="off" 
+												onkeypress="return keyPress(this, event);" 
+												onpaste="return false;" 
+									/>
+									<span class="qty__select qty__select-plus" title="Увеличить"><i class="icon-plus"></i></span>
+								</div>
+							</div>
 
 							<!-- Цена -->
 							<div class="cartTable__price flex-column {CURRENCY_CHAR_CODE}">
-								{% IF cart_items.ORDER_LINE_PRICE_OLD > cart_items.ORDER_LINE_PRICE_NOW %}
+								<!-- {% IF cart_items.ORDER_LINE_PRICE_OLD > cart_items.ORDER_LINE_PRICE_NOW %}
 								<del class="price__old" data-price="{cart_items.ORDER_LINE_PRICE_OLD}">{cart_items.ORDER_LINE_PRICE_OLD | money_format}</del>
-								{% ENDIF %}
+								{% ENDIF %} -->
+								<div class="price__one" data-price="{cart_items.GOODS_MOD_PRICE_NOW}">{cart_items.GOODS_MOD_PRICE_NOW | money_format}/{cart_items.GOODS_MOD_MEASURE_NAME}</div>
 								<div class="price__now cartPriceTotal" data-price="{cart_items.ORDER_LINE_PRICE_NOW}">{cart_items.ORDER_LINE_PRICE_NOW | money_format}</div>
 							</div>
 
@@ -88,11 +89,11 @@
 				</div>
 
 				<div class="cartTable__buttons flex-center">
-					<a class="cartTable__clear button-rotate" href="{CART_TRUNCATE_URL}" title="Очистить корзину">
+					<a class="cartTable__clear button-rotate button-more" href="{CART_TRUNCATE_URL}" title="Очистить корзину">
 						<i class="icon-close"></i>
 						<span>Очистить корзину</span>
 					</a>
-					<button class="cartTable__recalc button-rotate" type="submit" title="Пересчитать">
+					<button class="cartTable__recalc button-rotate button-more" type="submit" title="Пересчитать">
 						<i class="icon-reload"></i>
 						<span>Пересчитать</span>
 					</button>
@@ -109,6 +110,15 @@
 		<!-- Корзина: Итоговый блок -->
 		<div class="cartTotal">
 			<div class="cartTotal__items flex">
+
+				<!-- Корзина: Итого -->
+				<div class="cartTotal__item total__cart">
+					<b>Итого: </b>
+					<span class="cartTotal__price cartSumTotal {CURRENCY_CHAR_CODE}" data-price="{CART_SUM_NOW_WITH_DELIVERY_AND_DISCOUNT}">{CART_SUM_NOW_WITH_DELIVERY_AND_DISCOUNT | money_format}</span>
+					<div style="display: none;" class="cartTotal__price cartSumNow" data-price="{CART_SUM_NOW}">{CART_SUM_NOW | money_format}</div>
+					<div style="display: none;" class="cartTotal__price cartSumDiscount" data-price="{CART_SUM_NOW_WITH_DISCOUNT}">{CART_SUM_NOW_WITH_DISCOUNT | money_format}</div>
+				</div>
+
 				<!-- Корзина: Товары -->
 				<div class="cartTotal__item cartTotal__goods">
 					<div class="cartTotal__label">
@@ -164,14 +174,6 @@
 				</div>
 				{% ENDIF %}
 
-				<!-- Корзина: Итого -->
-				<div class="cartTotal__item total__cart">
-					<b>Итого: </b>
-					<span class="cartTotal__price cartSumTotal {CURRENCY_CHAR_CODE}" data-price="{CART_SUM_NOW_WITH_DELIVERY_AND_DISCOUNT}">{CART_SUM_NOW_WITH_DELIVERY_AND_DISCOUNT | money_format}</span>
-					<div style="display: none;" class="cartTotal__price cartSumNow" data-price="{CART_SUM_NOW}">{CART_SUM_NOW | money_format}</div>
-					<div style="display: none;" class="cartTotal__price cartSumDiscount" data-price="{CART_SUM_NOW_WITH_DISCOUNT}">{CART_SUM_NOW_WITH_DISCOUNT | money_format}</div>
-				</div>
-
 				<!-- Корзина: Оформление -->
 				<div class="total__buttons flex-center">
 					<button class="total__button button-gradient startOrder is-disabled" type="submit" title="Перейти к быстрому оформлению заказа" disabled>
@@ -183,10 +185,14 @@
 					<a class="total__button button-tertiary closeOrder" title="Отменить заказ">
 						<span>Изменить заказ</span>
 					</a>
-					<div class="form__pp">
+					<a class="total__button button-more" href="{CATALOG_URL}" title="Отменить заказ">
+						<i class="icon-chevron_left"></i>
+						<span>Вернуться к покупкам</span>
+					</a>
+					<!-- <div class="form__pp">
 						<span>Я принимаю условия</span>
 						<a data-fancybox data-src="#fancybox__pp">политики конфиденциальности</a>
-					</div>
+					</div> -->
 				</div>
 
 			</div>
