@@ -330,9 +330,11 @@
 					<div class="order-fast__title">
 						<span>Комментарий к заказу</span>
 					</div>
-					<div class="form__fields fields__comment {% IF SETTINGS_ORDER_FIELDS_COMMENT=1 %}required{% ENDIF %}">
-						<label for="quickDeliveryComment" class="form__label {% IF SETTINGS_ORDER_FIELDS_COMMENT=1 %}required{% ENDIF %}"><span>Комментарий</span><em>*</em></label>
-						<textarea id="quickDeliveryComment" class="form__textarea" cols="100" rows="3" name="form[delivery][comment]" placeholder="Комментарий {% IF SETTINGS_ORDER_FIELDS_COMMENT=1 %}*{% ENDIF %}" {% IF SETTINGS_ORDER_FIELDS_COMMENT=1 %}required{% ENDIF %}>{ORDER_FORM_DELIVERY_COMMENT}</textarea>
+					<div class="order-fast__list">
+						<div class="form__fields fields__comment {% IF SETTINGS_ORDER_FIELDS_COMMENT=1 %}required{% ENDIF %}">
+							<label for="quickDeliveryComment" class="form__label {% IF SETTINGS_ORDER_FIELDS_COMMENT=1 %}required{% ENDIF %}"><span>Комментарий</span><em>*</em></label>
+							<textarea id="quickDeliveryComment" class="form__textarea" cols="100" rows="3" name="form[delivery][comment]" placeholder="Комментарий {% IF SETTINGS_ORDER_FIELDS_COMMENT=1 %}*{% ENDIF %}" {% IF SETTINGS_ORDER_FIELDS_COMMENT=1 %}required{% ENDIF %}>{ORDER_FORM_DELIVERY_COMMENT}</textarea>
+						</div>
 					</div>
 				</div>
 				{% ENDIF %}
@@ -343,15 +345,17 @@
 					<div class="order-fast__title">
 						<span>Купон</span>
 					</div>
-					<div class="form__fields coupon__order flex">
-						<input type="hidden" name="orderSumDefaul" value="{CART_SUM_NOW}">
-						<input class="coupon__code form__input" type="text" name="form[coupon_code]" value="{ORDER_FORM_COUPON_CODE}" placeholder="Введите код"/>
-						<a class="coupon__reset" title="Сбросить">
-							<i class="icon-close"></i>
-						</a>
-						<a class="coupon__button button-secondary" title="Применить">
-							<span>Применить</span>
-						</a>
+					<div class="order-fast__list">
+						<div class="form__fields coupon__order flex">
+							<input type="hidden" name="orderSumDefaul" value="{CART_SUM_NOW}">
+							<input class="coupon__code form__input" type="text" name="form[coupon_code]" value="{ORDER_FORM_COUPON_CODE}" placeholder="Введите код"/>
+							<a class="coupon__reset" title="Сбросить">
+								<i class="icon-close"></i>
+							</a>
+							<a class="coupon__button button-secondary" title="Применить">
+								<span>Применить</span>
+							</a>
+						</div>
 					</div>
 				</div>
 				{% ENDIF %}

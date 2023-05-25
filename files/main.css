@@ -399,7 +399,7 @@ header .catalog__items::-webkit-scrollbar {width: 4px;}
 .header-logo {position: relative;}
 .header-logo svg {bottom: -36px;left: -116px;position: absolute;z-index: 0;}
 .header-logo img {margin-bottom: -48px;position: relative;z-index: 2;}
-@media all and (max-width: 767px) {
+@media all and (max-width: 1023px) {
 	.header-logo svg {left: -100%;bottom: -36px;}
 	.header-logo img {max-width: 140px;max-height: 50px;}
 }
@@ -1805,7 +1805,10 @@ footer .contacts__phone-big {font-size: 20px;font-weight: 700;padding-left: 0;}
 .order-fast__content {max-width: 720px;margin: auto;}
 .order-fast__form {gap: 20px;display: flex;flex-wrap: wrap;}
 .order-fast__block {width: 100%;padding: 40px 32px;background: var(--color-bg2);border-radius: 40px;}
-.order-fast__title {font-size: 20px;font-weight: 600;margin-bottom: 20px;}
+.order-fast__title {font-size: 20px;font-weight: 600;position: relative;cursor: pointer;}
+.order-fast__title::after {content: '\e907';font-family: 'icomoon';color: var(--color-darkgray);right: 0;position: absolute;}
+.order-fast__title.is-actived::after {content: '\e90a';}
+.order-fast__list {margin-top: 20px;flex-wrap: nowrap;}
 .order-fast__block .form__input, .order-fast__block select, .order-fast__block textarea {background: var(--color-white);height: 54px;}
 .order-fast__block textarea {height: auto;}
 .order-fast__block .password__icon {bottom: 14px;}

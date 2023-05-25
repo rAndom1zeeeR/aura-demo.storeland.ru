@@ -1786,7 +1786,7 @@ class CatalogFilter {
 			const filterTitle = object.closest('.filter__collapsible').querySelector('.filter__title');
 			filterTitle.addEventListener('click', function(event){
 				event.preventDefault();
-				this.filterSlideDownUp(filterTitle)
+				slideDownUp(filterTitle)
 			})
 
 		})
@@ -1889,18 +1889,18 @@ class CatalogFilter {
 
 	}
 
-	// Показать/Скрыть фильтр
-	filterSlideDownUp(object){
-		// console.log('object', object);
-		if (object.matches('.is-actived')){
-			object.classList.remove('is-actived');
-			$(object).next().slideDown(600);
-		} else {
-			object.classList.add('is-actived');
-			$(object).next().slideUp(600);
-		}
-	}
+}
 
+// Показать/Скрыть фильтр
+function slideDownUp(object){
+	// console.log('object', object);
+	if (object.matches('.is-actived')){
+		object.classList.remove('is-actived');
+		$(object).next().slideDown(600);
+	} else {
+		object.classList.add('is-actived');
+		$(object).next().slideUp(600);
+	}
 }
 
 
@@ -2805,6 +2805,11 @@ class Order {
 			setTimeout(function(){
 				$('.order-delivery__select').trigger('change');
 			}, 100);
+
+			$('.order-fast__title').on('click', function(event){
+				event.preventDefault();
+				slideDownUp(this)
+			})
 
 		};
 
