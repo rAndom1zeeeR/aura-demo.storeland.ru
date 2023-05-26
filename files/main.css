@@ -1115,7 +1115,7 @@ footer .contacts__phone {padding-left: 40px;}
 footer .contacts__phone-big {font-size: 20px;font-weight: 700;padding-left: 0;}
 /** Подвал. Логотип **/
 .footer-logo {position: relative;margin: -72px 0 60px;}
-.footer-logo svg {top: 32px;left: -96px;position: absolute;z-index: 1;transform: rotateX(180deg);}
+.footer-logo svg {top: 30px;left: -96px;position: absolute;z-index: 1;transform: rotateX(180deg);}
 .footer-logo img {position: relative;z-index: 2;}
 @media all and (max-width: 1199px) {
 	.footer__links li {width: 100%;}
@@ -1786,6 +1786,8 @@ footer .contacts__phone-big {font-size: 20px;font-weight: 700;padding-left: 0;}
 .cartTable__ajax .total__buttons {display: none;}
 .confirmOrder {display: none;}
 .closeOrder {display: none;}
+.cartTable__items-title {display: none;}
+.price__measure {display: none;}
 .is-started .confirmOrder {display: inline-flex;}
 .is-started .closeOrder {display: inline-flex;}
 .is-started .startOrder {display: none;}
@@ -1797,6 +1799,21 @@ footer .contacts__phone-big {font-size: 20px;font-weight: 700;padding-left: 0;}
 .is-started .cartTable__buttons {display: none;}
 .is-started .total__button.button-more {display: none;}
 
+.is-started .cartTable {display: flex;flex-direction: column;}
+.is-started .cartTable__form {order: 2;width: 100%;}
+.is-started .cartTable__ajax {margin: 0 auto 40px auto;}
+.is-started .cartTable__items-label {display: none;}
+.is-started .cartTable__items-title {margin-bottom: 24px;display: block;}
+.is-started .cartTable__items-title.is-actived {margin-bottom: 0;}
+.is-started .cartTable__qty {display: none;}
+.is-started .cartTable__inner {width: calc(100% - 180px - 24px);}
+.is-started .cartTable__price {gap: 8px 12px;width: 180px;flex-direction: row;align-items: center;}
+.is-started .price__one {display: none;}
+.is-started .price__measure {display: inline-flex;color: var(--color-darkgray);font-size: 14px;font-weight: 600;}
+@media all and (max-width: 639px) {
+	.is-started .cartTable__price {width: 100%;max-width: 100%;}
+	.is-started .cartTable__inner {width: 100%;}
+}
 
 /**************************************/
 /*** Быстрый заказ ***/

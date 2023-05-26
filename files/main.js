@@ -2639,6 +2639,7 @@ class Cart {
 			$('.qty__input').removeAttr('readonly');
 			$('.startOrder').removeClass('is-disabled');
 			$('.cartTable__order').hide('slow');
+			$('.cartTable__items').css('display', '');
 			$('html, body').delay(400).animate({ scrollTop: jQuery('#main').offset().top }, 800);
 		};
 

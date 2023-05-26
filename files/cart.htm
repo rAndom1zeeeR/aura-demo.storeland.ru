@@ -15,6 +15,10 @@
 					<span class="cart-wordend">товар{CART_COUNT_TOTAL | gen_word_end("","а","ов")}</span>
 				</div>
 
+				<div class="cartTable__items-title order-fast__title">
+					<span>Ваш заказ</span>
+				</div>
+
 				<div class="cartTable__items">
 
 					{% FOR cart_items %}
@@ -74,6 +78,7 @@
 								{% ENDIF %} -->
 								<div class="price__one" data-price="{cart_items.GOODS_MOD_PRICE_NOW}">{cart_items.GOODS_MOD_PRICE_NOW | money_format}/{cart_items.GOODS_MOD_MEASURE_NAME}</div>
 								<div class="price__now cartPriceTotal" data-price="{cart_items.ORDER_LINE_PRICE_NOW}">{cart_items.ORDER_LINE_PRICE_NOW | money_format}</div>
+								<div class="price__measure" data-price="{cart_items.GOODS_MOD_PRICE_NOW}">x {cart_items.ORDER_LINE_QUANTITY} {cart_items.GOODS_MOD_MEASURE_NAME}.</div>
 							</div>
 
 							<!-- Удалить -->
