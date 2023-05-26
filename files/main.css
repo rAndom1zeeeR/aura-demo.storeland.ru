@@ -1810,6 +1810,7 @@ footer .contacts__phone-big {font-size: 20px;font-weight: 700;padding-left: 0;}
 .is-started .cartTable__price {gap: 8px 12px;width: 180px;flex-direction: row;align-items: center;}
 .is-started .price__one {display: none;}
 .is-started .price__measure {display: inline-flex;color: var(--color-darkgray);font-size: 14px;font-weight: 600;}
+
 @media all and (max-width: 639px) {
 	.is-started .cartTable__price {width: 100%;max-width: 100%;}
 	.is-started .cartTable__inner {width: 100%;}

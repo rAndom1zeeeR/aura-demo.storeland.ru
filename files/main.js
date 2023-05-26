@@ -2640,6 +2640,7 @@ class Cart {
 			$('.startOrder').removeClass('is-disabled');
 			$('.cartTable__order').hide('slow');
 			$('.cartTable__items').css('display', '');
+			$('.order-fast__title').removeClass('is-actived');
 			$('html, body').delay(400).animate({ scrollTop: jQuery('#main').offset().top }, 800);
 		};
 
@@ -2807,7 +2808,7 @@ class Order {
 				$('.order-delivery__select').trigger('change');
 			}, 100);
 
-			$('.order-fast__title').on('click', function(event){
+			$('.order-fast__title').off('click').on('click', function(event){
 				event.preventDefault();
 				slideDownUp(this)
 			})
