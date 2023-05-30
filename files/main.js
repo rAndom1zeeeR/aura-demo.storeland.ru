@@ -24,6 +24,7 @@ try {
     } catch (j) {}
   })
 } catch (e) {}
+
 // Установка cookie файлов на основном домене магазина, в случае если покупатель зашёл на другой домен магазина, например по старой ссылке
 try {
   $(document).ajaxSuccess(function (i, l, h) {
@@ -282,12 +283,7 @@ class Password {
 
     // Действие нажатие Показать пароль
     passwordIcon.forEach((element) => {
-      element.addEventListener('click', function () {
-        console.log('this', this)
-        console.log('element', element)
-        console.log('element.previousElementSibling', element.previousElementSibling)
-        password.showPass(element, element.previousElementSibling)
-      })
+      element.addEventListener('click', () => password.showPass(element, element.previousElementSibling))
     })
 
     // Если нет объекта
@@ -315,13 +311,9 @@ class Password {
 
   // Регистрация. /JS/
   registration(obj) {
-    // console.log('registration', obj)
     const content = obj.closest('.wrapper')
-    // console.log('content', content)
     const email = content.querySelector('.form__email')
     const pass = content.querySelector('.password')
-    // console.log('email', email)
-    // console.log('pass', pass)
     if (obj.checked) {
       obj.checked = true
       email.setAttribute('required', true)
@@ -410,7 +402,6 @@ class Compare {
 
   // Скрытие характеристик товара, которые выделил пользователь
   onSelected() {
-    // console.log('Compare onSelected')
     document.querySelector('.compare__showAll').classList.remove('is-hide')
     document.querySelectorAll('.compare__line').forEach((el) => {
       const сhecked = el.querySelector('.compare__input:checked')
@@ -422,7 +413,6 @@ class Compare {
 
   // Показать отличия
   onSwitch(obj) {
-    // console.log('Compare onSwitch')
     // Обновляем текст
     changeTxt(obj)
     if (obj.matches('.switch-on')) {
@@ -445,7 +435,6 @@ class Compare {
 
   // Слайдер сравнения
   onSlider() {
-    // console.log('Compare onSlider')
     const swiper = new Swiper('.compare__line', {
       loop: false,
       allowTouchMove: false,
@@ -504,11 +493,6 @@ function keyPress(oToCheckField, oKeyEvent) {
 ///////////////////////////////////////
 class Quantity {
   init(doc = document) {
-    // console.log('doc', doc);
-    if (!doc) {
-      doc = document
-    }
-
     const qtys = doc.querySelectorAll('.qty')
 
     qtys.forEach((e) => {
@@ -540,26 +524,22 @@ class Quantity {
 
         // Если карточка товара
         if (prodView) {
-          // console.log('prodView', prodView);
           quantity.updView(prodView)
         }
 
         // Если корзина
         if (prodCart) {
-          // console.log('prodCart', prodCart);
           quantity.updCart(input)
           cart.minSum()
         }
 
         // Если выпадающая корзина
         if (prodAddto) {
-          // console.log('prodAddto', prodAddto);
           quantity.updAddto(input)
         }
 
         // Если товар
         if (prodItem) {
-          // console.log('prodItem', prodItem);
           quantity.updAddtoValue(input)
         }
       })
@@ -568,7 +548,6 @@ class Quantity {
 
   // Функция Плюс + для товара. //JS
   getPlus(obj) {
-    // console.log('plus obj', obj)
     obj.value = parseInt(obj.value) + 1
     obj.setAttribute('value', obj.value)
     obj.dispatchEvent(new Event('input'))
@@ -577,7 +556,6 @@ class Quantity {
 
   // Функция Минус - для товара. //JS
   getMinus(obj) {
-    // console.log('minus obj', obj)
     obj.value = parseInt(obj.value) - 1
     obj.setAttribute('value', obj.value)
     obj.dispatchEvent(new Event('input'))
@@ -586,7 +564,6 @@ class Quantity {
 
   // Проверка кол-ва. //JS
   getCheck(obj) {
-    // console.log('check obj', obj);
     // Количество
     let val = parseInt(obj.value)
     const minus = obj.parentElement.querySelector('.qty__select-minus')
@@ -645,14 +622,11 @@ class Quantity {
       const priceData = priceOld.getAttribute('data-price')
       const multiOld = parseInt(val * priceData)
       priceOld.querySelector('.num').innerHTML = addSpaces(multiOld)
-      // console.log('goods priceOld', priceData)
-      // console.log('goods multiOld', multiOld)
     }
   }
 
   // Корзина
   updCart(obj) {
-    // console.log('updCart', obj);
     const item = obj.closest('.cartTable__item')
     const mod = item.getAttribute('data-mod-id')
     const priceNow = item.querySelector('.cartTable__price')
@@ -687,14 +661,11 @@ class Quantity {
 
   // Обновление в корзине
   updCartContent(doc, mod, priceNow) {
-    // console.log('doc2', doc);
-    // console.log('mod2', mod);
-    // console.log('priceNow2', priceNow);
     // Обновить цену
     const price = doc.querySelector('.cartTable__item[data-mod-id="' + mod + '"] .cartTable__price')
     priceNow.innerHTML = price.innerHTML
     // Обновить кол-во
-    const newCount = doc.querySelector('.cart-count').innerHTML
+    // const newCount = doc.querySelector('.cart-count').innerHTML
     // console.log('newCount', newCount);
     // quantityAddto.updAddtoCount(newCount);
     // Обновить итого
@@ -707,15 +678,10 @@ class Quantity {
     setTimeout(() => {
       cart.minSum()
     }, 100)
-    // console.log('price', price);
-    // console.log('newCount', newCount);
-    // console.log('newTotal', newTotal);
-    // console.log('newLabel', newLabel);
   }
 
   // Выпадающая корзина
   updAddto(obj) {
-    // console.log('updAddto obj', obj);
     const item = obj.closest('.addto__item')
     const mod = item.getAttribute('data-mod-id')
     const price = item.querySelector('.addto__price')
@@ -828,10 +794,6 @@ class Product {
         const qty = e.querySelector('.qty__input')
         const count = e.querySelector('.inCart__count')
         const addtoItem = document.querySelector('.addto__item[data-id="' + id + '"] .qty__input[name="' + mod + '"]')
-        // console.log('qty1', qty);
-        // console.log('count1', count);
-        // console.log('addtoItem1', addtoItem);
-        // console.log('addtoItem2', addtoItem.value);
         // Обновление данных
         e.classList.add('product__inCart')
         qty.value = addtoItem.value
@@ -928,22 +890,24 @@ class Product {
 
       // Создать товара в списке
       function createItem(pDataid, pUrl, pName, pImg, pDataChar, pDataPrice, pDataPriceOld, delUrl) {
+        console.log('pDataPriceOld1', pDataPriceOld)
+        function priceOld() {
+          console.log('pDataPriceOld2', pDataPriceOld)
+          return `<del class="price__old" data-price="${pDataPriceOld}">
+						<span title="${pDataPriceOld} российских рублей">
+							<span class="num">${addSpaces(pDataPriceOld)}</span>
+							<span>р.</span>
+						</span>
+					</del>`
+        }
         return `
 					<div class="addto__item flex" data-id="${pDataid}">
 						<a class="addto__image flex-center" href="${pUrl}" title="${pName}"><img src="${pImg}" alt="${pName}" /></a>
 						<div class="addto__content flex">
 							<a class="addto__name" href="${pUrl}" title="${pName}"><span>${pName}</span></a>
 							<div class="addto__price flex ${pDataChar}">
-								${
-                  pDataPriceOld == 0
-                    ? ''
-                    : `<del class="price__old" data-price="${pDataPriceOld}"><span title="${pDataPriceOld} российских рублей"><span class="num">${addSpaces(
-                        pDataPriceOld,
-                      )}</span><span>р.</span></span></del>`
-                }
-								<span class="price__now" data-price="${pDataPrice}"><span title="${pDataPrice} российских рублей"><span class="num">${addSpaces(
-          pDataPrice,
-        )}</span><span>р.</span></span></span>
+								${pDataPriceOld == 0 ? '' : priceOld()}
+								<span class="price__now" data-price="${pDataPrice}"><span title="${pDataPrice} российских рублей"><span class="num">${addSpaces(pDataPrice)}</span><span>р.</span></span></span>
 							</div>
 							<a class="addto__remove button-rotate" href="${delUrl}?id=${pDataid}" data-id="${pDataid}" title="Убрать товар из списка"><i class="icon-close"></i></a>
 						</div>
@@ -3509,37 +3473,17 @@ function ajaxForms(id, flag, successMessage, errorMessage) {
 }
 
 // 'Обратный звонок' в модальном окне.
-ajaxForms(
-  '#fancybox__callback',
-  'fancyCallbackFlag',
-  'Запрос обратного звонка успешно отправлен администрации магазина',
-  'Вы уже отправляли запрос. Пожалуйста ожидайте звонка.',
-)
+ajaxForms('#fancybox__callback', 'fancyCallbackFlag', 'Запрос обратного звонка успешно отправлен администрации магазина', 'Вы уже отправляли запрос. Пожалуйста ожидайте звонка.')
 // // 'Обратная связь' в модальном окне.
-ajaxForms(
-  '#fancybox__feedback',
-  'fancyFeedbackFlag',
-  'Запрос обратной связи успешно отправлен администрации магазина',
-  'Вы уже отправляли запрос. Пожалуйста ожидайте.',
-)
+ajaxForms('#fancybox__feedback', 'fancyFeedbackFlag', 'Запрос обратной связи успешно отправлен администрации магазина', 'Вы уже отправляли запрос. Пожалуйста ожидайте.')
 // // 'Уведомить' в модальном окне.
 ajaxForms('#fancybox__notify', 'notifyFlag', 'Вы будете уведомлены о поступлении товара', 'Вы уже отправляли запрос. Пожалуйста ожидайте.')
 // // 'Обратная связь'.
 // ajaxForms('.form__feedback','feedbackFlag','Спасибо за обращение! Мы свяжемся с вами в ближайшее время','Вы уже отправляли запрос. Пожалуйста ожидайте.')
 // // Страница 'Обратный звонок'.
-ajaxForms(
-  '.page-сallback',
-  'pageCallbackFlag',
-  'Спасибо за обращение! Мы перезвоним вам в ближайшее время',
-  'Вы уже отправляли запрос. Пожалуйста ожидайте звонка.',
-)
+ajaxForms('.page-сallback', 'pageCallbackFlag', 'Спасибо за обращение! Мы перезвоним вам в ближайшее время', 'Вы уже отправляли запрос. Пожалуйста ожидайте звонка.')
 // 'Обратный звонок в подвале'.
-ajaxForms(
-  'footer .form__callback',
-  'footerCallbackFlag',
-  'Спасибо за обращение! Мы перезвоним вам в ближайшее время',
-  'Вы уже отправляли запрос. Пожалуйста ожидайте звонка.',
-)
+ajaxForms('footer .form__callback', 'footerCallbackFlag', 'Спасибо за обращение! Мы перезвоним вам в ближайшее время', 'Вы уже отправляли запрос. Пожалуйста ожидайте звонка.')
 // 'Подписаться'.
 ajaxForms('#subscribe', 'subscribeFlag', 'Спасибо за обращение! Вы подписались на наши уведомления', 'Вы уже отправляли запрос. Пожалуйста ожидайте.')
 
@@ -4018,13 +3962,6 @@ function productSlider() {
 			<input type="hidden" name="form[goods_count]" value="1" class="goodsDataCount" />
 			<input type="hidden" name="form[goods_min_rest]" value="${goods_min_rest}" />
 		`)
-
-    // console.log('product', product);
-    // console.log('slideID', slideID);
-    // console.log('imgBlock', image);
-    // console.log('priceBlock', price);
-    // console.log('sticker', sticker);
-    // console.log('goods_min_rest', goods_min_rest);
   })
 }
 

@@ -73,8 +73,8 @@
 							data-prodname="{GOODS_NAME}" data-produrl="{GOODS_URL}"
 							data-prodimg="{% IF GOODS_IMAGE_ICON %}{GOODS_IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 							data-id="{GOODS_ID}" data-mod-id="{GOODS_MOD_ID}" data-mod-price="{GOODS_MOD_PRICE_NOW}"
-							data-mod-price-old="{GOODS_MOD_PRICE_OLD}" data-add-tooltip="В сравнение" data-del-tooltip="В сравнении"
-							data-tooltip="Убрать из избранного"
+							data-mod-price-old="{% IF GOODS_MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{GOODS_MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{GOODS_MOD_PRICE_OLD}{% ENDIF %}"
+							data-add-tooltip="В сравнение" data-del-tooltip="В сравнении" data-tooltip="Убрать из избранного"
 							title="Убрать &laquo;{GOODS_NAME}&raquo; из списка сравнения с другими товарами"
 							href="{COMPARE_DELETE_URL}?id={GOODS_MOD_ID}" rel="nofollow">
 						<i class="icon-compare"></i>
@@ -88,8 +88,8 @@
 							data-prodname="{GOODS_NAME}" data-produrl="{GOODS_URL}"
 							data-prodimg="{% IF GOODS_IMAGE_ICON %}{GOODS_IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 							data-id="{GOODS_ID}" data-mod-id="{GOODS_MOD_ID}" data-mod-price="{GOODS_MOD_PRICE_NOW}"
-							data-mod-price-old="{GOODS_MOD_PRICE_OLD}" data-add-tooltip="В сравнение" data-del-tooltip="В сравнении"
-							data-tooltip="Добавить в сравнение"
+							data-mod-price-old="{% IF GOODS_MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{GOODS_MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{GOODS_MOD_PRICE_OLD}{% ENDIF %}"
+							data-add-tooltip="В сравнение" data-del-tooltip="В сравнении" data-tooltip="Добавить в сравнение"
 							title="Добавить &laquo;{GOODS_NAME}&raquo; в список сравнения с другими товарами"
 							href="{COMPARE_ADD_URL}?id={GOODS_MOD_ID}" rel="nofollow">
 						<i class="icon-compare"></i>
@@ -106,9 +106,10 @@
 							data-prodname="{GOODS_NAME}" data-produrl="{GOODS_URL}"
 							data-prodimg="{% IF GOODS_IMAGE_ICON %}{GOODS_IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 							data-id="{GOODS_ID}" data-mod-id="{GOODS_MIN_PRICE_NOW_ID}" data-mod-price="{GOODS_MOD_PRICE_NOW}"
-							data-mod-price-old="{GOODS_MOD_PRICE_OLD}" data-add-tooltip="Отложить" data-del-tooltip="Отложенно"
-							data-tooltip="Убрать из избранного" title="Убрать &laquo;{GOODS_NAME}&raquo; из Избранного"
-							href="{FAVORITES_DELETE_URL}?id={GOODS_MOD_ID}" rel="nofollow">
+							data-mod-price-old="{% IF GOODS_MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{GOODS_MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{GOODS_MOD_PRICE_OLD}{% ENDIF %}"
+							data-add-tooltip="Отложить" data-del-tooltip="Отложенно" data-tooltip="Убрать из избранного"
+							title="Убрать &laquo;{GOODS_NAME}&raquo; из Избранного" href="{FAVORITES_DELETE_URL}?id={GOODS_MOD_ID}"
+							rel="nofollow">
 						<i class="icon-favorites"></i>
 						<span>Отложенно</span>
 					</a>
@@ -120,9 +121,10 @@
 							data-prodname="{GOODS_NAME}" data-produrl="{GOODS_URL}"
 							data-prodimg="{% IF GOODS_IMAGE_ICON %}{GOODS_IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 							data-id="{GOODS_ID}" data-mod-id="{GOODS_MIN_PRICE_NOW_ID}" data-mod-price="{GOODS_MOD_PRICE_NOW}"
-							data-mod-price-old="{GOODS_MOD_PRICE_OLD}" data-add-tooltip="Отложить" data-del-tooltip="Отложенно"
-							data-tooltip="Убрать из избранного" title="Добавить &laquo;{GOODS_NAME}&raquo; в Избранное"
-							href="{FAVORITES_ADD_URL}?id={GOODS_MOD_ID}" rel="nofollow">
+							data-mod-price-old="{% IF GOODS_MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{GOODS_MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{GOODS_MOD_PRICE_OLD}{% ENDIF %}"
+							data-add-tooltip="Отложить" data-del-tooltip="Отложенно" data-tooltip="Убрать из избранного"
+							title="Добавить &laquo;{GOODS_NAME}&raquo; в Избранное" href="{FAVORITES_ADD_URL}?id={GOODS_MOD_ID}"
+							rel="nofollow">
 						<i class="icon-favorites"></i>
 						<span>Отложить</span>
 					</a>
@@ -420,8 +422,9 @@
 												data-prodimg="{% IF related_goods.IMAGE_ICON %}{related_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 												data-id="{related_goods.ID}" data-mod-id="{related_goods.MIN_PRICE_NOW_ID}"
 												data-mod-price="{related_goods.MIN_PRICE_NOW}"
-												data-mod-price-old="{related_goods.MIN_PRICE_OLD}" data-char-code="{CURRENCY_CHAR_CODE}"
-												data-add-tooltip="Сравнить" data-del-tooltip="В сравнении" data-tooltip="Удалено из сравнения"
+												data-mod-price-old="{% IF related_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{related_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{related_goods.MIN_PRICE_OLD}{% ENDIF %}"
+												data-char-code="{CURRENCY_CHAR_CODE}" data-add-tooltip="Сравнить" data-del-tooltip="В сравнении"
+												data-tooltip="Удалено из сравнения"
 												title="Убрать &laquo;{related_goods.NAME}&raquo; из списка сравнения с другими товарами"
 												href="{COMPARE_DELETE_URL}?id={related_goods.MIN_PRICE_NOW_ID}" rel="nofollow">
 											<i class="icon-compare"></i>
@@ -436,8 +439,9 @@
 												data-prodimg="{% IF related_goods.IMAGE_ICON %}{related_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 												data-id="{related_goods.ID}" data-mod-id="{related_goods.MIN_PRICE_NOW_ID}"
 												data-mod-price="{related_goods.MIN_PRICE_NOW}"
-												data-mod-price-old="{related_goods.MIN_PRICE_OLD}" data-char-code="{CURRENCY_CHAR_CODE}"
-												data-add-tooltip="Сравнить" data-del-tooltip="В сравнении" data-tooltip="Добавлено в сравнение"
+												data-mod-price-old="{% IF related_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{related_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{related_goods.MIN_PRICE_OLD}{% ENDIF %}"
+												data-char-code="{CURRENCY_CHAR_CODE}" data-add-tooltip="Сравнить" data-del-tooltip="В сравнении"
+												data-tooltip="Добавлено в сравнение"
 												title="Добавить &laquo;{related_goods.NAME}&raquo; в список сравнения с другими товарами"
 												href="{COMPARE_ADD_URL}?id={related_goods.MIN_PRICE_NOW_ID}" rel="nofollow">
 											<i class="icon-compare"></i>
@@ -457,8 +461,9 @@
 												data-prodimg="{% IF related_goods.IMAGE_ICON %}{related_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 												data-id="{related_goods.ID}" data-mod-id="{related_goods.MIN_PRICE_NOW_ID}"
 												data-mod-price="{related_goods.MIN_PRICE_NOW}"
-												data-mod-price-old="{related_goods.MIN_PRICE_OLD}" data-char-code="{CURRENCY_CHAR_CODE}"
-												data-add-tooltip="Отложить" data-del-tooltip="Отложено" data-tooltip="Убрать из избранного"
+												data-mod-price-old="{% IF related_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{related_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{related_goods.MIN_PRICE_OLD}{% ENDIF %}"
+												data-char-code="{CURRENCY_CHAR_CODE}" data-add-tooltip="Отложить" data-del-tooltip="Отложено"
+												data-tooltip="Убрать из избранного"
 												title="Убрать &laquo;{related_goods.NAME}&raquo; из Избранного"
 												href="{FAVORITES_DELETE_URL}?id={related_goods.MIN_PRICE_NOW_ID}" rel="nofollow">
 											<i class="icon-favorites"></i>
@@ -473,8 +478,9 @@
 												data-prodimg="{% IF related_goods.IMAGE_ICON %}{related_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 												data-id="{related_goods.ID}" data-mod-id="{related_goods.MIN_PRICE_NOW_ID}"
 												data-mod-price="{related_goods.MIN_PRICE_NOW}"
-												data-mod-price-old="{related_goods.MIN_PRICE_OLD}" data-char-code="{CURRENCY_CHAR_CODE}"
-												data-add-tooltip="Отложить" data-del-tooltip="Отложено" data-tooltip="Добавить в избранное"
+												data-mod-price-old="{% IF related_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{related_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{related_goods.MIN_PRICE_OLD}{% ENDIF %}"
+												data-char-code="{CURRENCY_CHAR_CODE}" data-add-tooltip="Отложить" data-del-tooltip="Отложено"
+												data-tooltip="Добавить в избранное"
 												title="Добавить &laquo;{related_goods.NAME}&raquo; в Избранное"
 												href="{FAVORITES_ADD_URL}?id={related_goods.MIN_PRICE_NOW_ID}" rel="nofollow">
 											<i class="icon-favorites"></i>
@@ -1169,8 +1175,9 @@
 									data-prodimg="{% IF related_views_goods.IMAGE_ICON %}{related_views_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 									data-id="{related_views_goods.ID}" data-mod-id="{related_views_goods.MIN_PRICE_NOW_ID}"
 									data-mod-price="{related_views_goods.MIN_PRICE_NOW}"
-									data-mod-price-old="{related_goods.MIN_PRICE_OLD}" data-char-code="{CURRENCY_CHAR_CODE}"
-									data-add-tooltip="Сравнить" data-del-tooltip="В сравнении" data-tooltip="Удалено из сравнения"
+									data-mod-price-old="{% IF related_views_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{related_views_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{related_views_goods.MIN_PRICE_OLD}{% ENDIF %}"
+									data-char-code="{CURRENCY_CHAR_CODE}" data-add-tooltip="Сравнить" data-del-tooltip="В сравнении"
+									data-tooltip="Удалено из сравнения"
 									title="Убрать &laquo;{related_views_goods.NAME}&raquo; из списка сравнения с другими товарами"
 									href="{COMPARE_DELETE_URL}?id={related_views_goods.MIN_PRICE_NOW_ID}" rel="nofollow">
 								<i class="icon-compare"></i>
@@ -1185,8 +1192,9 @@
 									data-prodimg="{% IF related_views_goods.IMAGE_ICON %}{related_views_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 									data-id="{related_views_goods.ID}" data-mod-id="{related_views_goods.MIN_PRICE_NOW_ID}"
 									data-mod-price="{related_views_goods.MIN_PRICE_NOW}"
-									data-mod-price-old="{related_goods.MIN_PRICE_OLD}" data-char-code="{CURRENCY_CHAR_CODE}"
-									data-add-tooltip="Сравнить" data-del-tooltip="В сравнении" data-tooltip="Добавлено в сравнение"
+									data-mod-price-old="{% IF related_views_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{related_views_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{related_views_goods.MIN_PRICE_OLD}{% ENDIF %}"
+									data-char-code="{CURRENCY_CHAR_CODE}" data-add-tooltip="Сравнить" data-del-tooltip="В сравнении"
+									data-tooltip="Добавлено в сравнение"
 									title="Добавить &laquo;{related_views_goods.NAME}&raquo; в список сравнения с другими товарами"
 									href="{COMPARE_ADD_URL}?id={related_views_goods.MIN_PRICE_NOW_ID}" rel="nofollow">
 								<i class="icon-compare"></i>
@@ -1205,8 +1213,9 @@
 									data-prodimg="{% IF related_views_goods.IMAGE_ICON %}{related_views_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 									data-id="{related_views_goods.ID}" data-mod-id="{related_views_goods.MIN_PRICE_NOW_ID}"
 									data-mod-price="{related_views_goods.MIN_PRICE_NOW}"
-									data-mod-price-old="{related_goods.MIN_PRICE_OLD}" data-char-code="{CURRENCY_CHAR_CODE}"
-									data-add-tooltip="Отложить" data-del-tooltip="Отложено" data-tooltip="Убрать из избранного"
+									data-mod-price-old="{% IF related_views_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{related_views_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{related_views_goods.MIN_PRICE_OLD}{% ENDIF %}"
+									data-char-code="{CURRENCY_CHAR_CODE}" data-add-tooltip="Отложить" data-del-tooltip="Отложено"
+									data-tooltip="Убрать из избранного"
 									title="Убрать &laquo;{related_views_goods.NAME}&raquo; из Избранного"
 									href="{FAVORITES_DELETE_URL}?id={related_views_goods.MIN_PRICE_NOW_ID}" rel="nofollow">
 								<i class="icon-favorites"></i>
@@ -1221,8 +1230,9 @@
 									data-prodimg="{% IF related_views_goods.IMAGE_ICON %}{related_views_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
 									data-id="{related_views_goods.ID}" data-mod-id="{related_views_goods.MIN_PRICE_NOW_ID}"
 									data-mod-price="{related_views_goods.MIN_PRICE_NOW}"
-									data-mod-price-old="{related_views_goods.MIN_PRICE_OLD}" data-char-code="{CURRENCY_CHAR_CODE}"
-									data-add-tooltip="Отложить" data-del-tooltip="Отложено" data-tooltip="Добавить в избранное"
+									data-mod-price-old="{% IF related_views_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{related_views_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{related_views_goods.MIN_PRICE_OLD}{% ENDIF %}"
+									data-char-code="{CURRENCY_CHAR_CODE}" data-add-tooltip="Отложить" data-del-tooltip="Отложено"
+									data-tooltip="Добавить в избранное"
 									title="Добавить &laquo;{related_views_goods.NAME}&raquo; в Избранное"
 									href="{FAVORITES_ADD_URL}?id={related_views_goods.MIN_PRICE_NOW_ID}" rel="nofollow">
 								<i class="icon-favorites"></i>

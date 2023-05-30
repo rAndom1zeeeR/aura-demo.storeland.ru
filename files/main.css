@@ -317,7 +317,7 @@ header .catalog__items::-webkit-scrollbar {width: 4px;}
 .addto__price {gap: 8px 16px;}
 .addto__price .price__now {font-size: 18px;}
 .addto__price .price__old {font-size: 14px;}
-.addto__remove {font-size: 20px;right: 8px;bottom: 0;position: absolute;}
+.addto__remove {font-size: 20px;right: 12px;bottom: 4px;position: absolute;}
 .addto__qty .qty__input {width: 40px;height: 28px;}
 .addto__qty .qty__select {width: 28px;height: 28px;}
 @media all and (max-width: 1199px) {
