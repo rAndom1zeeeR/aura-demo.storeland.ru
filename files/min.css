@@ -171,7 +171,7 @@ main {margin: 32px 0 48px;position: relative;display: block;}
 /**************************************/
 .addto__empty {font-weight: 500;}
 .addto__title {margin-bottom: 16px;font-weight: 500;display: none;}
-.addto__items {max-height: 288px;overflow-y: auto;}
+.addto__items {max-height: 288px;overflow-y: scroll;scrollbar-color: var(--color-gray) var(--color-bg);scrollbar-width: thin;}
 .addto__items::-webkit-scrollbar {width: 6px;}
 .addto__item {margin-bottom: 12px;}
 .addto__item:last-child {margin-bottom: 0;}
