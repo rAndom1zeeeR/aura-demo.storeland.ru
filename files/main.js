@@ -234,7 +234,6 @@ class VisibleItems {
 
 // Переход к контенту сверху
 function scrollTop(offsetTop) {
-  // console.log('offsetTop', offsetTop);
   if (offsetTop == true) return false
   window.scrollTo({
     top: offsetTop,
@@ -274,7 +273,6 @@ class Password {
   onClick() {
     const passwordIcon = document.querySelectorAll('.password__icon')
     const registration = document.querySelector('#registration')
-    // console.log('btnReg', btnReg)
 
     // Если нет объекта
     if (!passwordIcon) {
@@ -356,13 +354,9 @@ class Password {
 // Конструктор функции Сравнения товаров
 ///////////////////////////////////////
 class Compare {
-  constructor() {
-    // console.log('Compare start')
-  }
 
   // Функции при клике
   onClick() {
-    // console.log('Compare onClick')
     const element = document.querySelector('.compare__table')
     // Если нет контента
     if (!element) {
@@ -654,7 +648,6 @@ class Quantity {
         const parser = new DOMParser()
         const doc = parser.parseFromString(html, 'text/html')
         quantity.updCartContent(doc, mod, priceNow)
-        // console.log('getCart doc', doc);
       })
       .catch((error) => console.error(error))
   }
@@ -890,9 +883,7 @@ class Product {
 
       // Создать товара в списке
       function createItem(pDataid, pUrl, pName, pImg, pDataChar, pDataPrice, pDataPriceOld, delUrl) {
-        console.log('pDataPriceOld1', pDataPriceOld)
         function priceOld() {
-          console.log('pDataPriceOld2', pDataPriceOld)
           return `<del class="price__old" data-price="${pDataPriceOld}">
 						<span title="${pDataPriceOld} российских рублей">
 							<span class="num">${addSpaces(pDataPriceOld)}</span>
@@ -2017,29 +2008,18 @@ class Goods {
         const ids = []
         const mods = document.querySelectorAll('.modifications-props__select')
         mods.forEach((e) => {
-          // console.log('e1', e);
-          // console.log('e2', e.value);
           e.addEventListener('change', function () {
-            // console.log('e2', this);
-            // console.log('this.value', this.value);
-            // console.log('e3', e.value);
-            // console.log('ids',ids);
             const mod = e.closest('.productView__modifications').querySelector('.goodsModificationsSlug[rel="' + getModId() + '"]')
-            // console.log('getModId()',getModId());
-            // console.log('mod',mod);
 
             if (!mod) {
               return false
             }
             const id = mod.querySelector('[name="goods_mod_image_id"]').value
-            // console.log('id', id);
             if (!id) {
               return false
             }
             const thumb = document.querySelector('.thumblist__item[data-id="' + id + '"]')
             const index = thumb.getAttribute('data-swiper-slide-index')
-            // console.log('thumb', thumb);
-            // console.log('index', index);
             swiperImage.slideTo(index)
           })
         })
@@ -2056,29 +2036,8 @@ class Goods {
           const arr = []
           const slugs = document.querySelectorAll('.goodsModificationsSlug')
           slugs.forEach((e) => arr.push(e.getAttribute('rel')))
-          // console.log('items', items);
-          // console.log('arr', arr);
           return items.sort(compareNumeric).join('_')
         }
-        // mods.forEach(e => {
-        // 	e.addEventListener('change', function(){
-        // 		console.log('e', e);
-        // 		const mod = e.closest('.productView__modifications').querySelector('.goodsModificationsSlug[rel="'+ e.value +'"]')
-        // 		console.log('this.value', e.value);
-        // 		console.log('mod', mod);
-
-        // 		if (!mod) {return false}
-        // 		const id = mod.querySelector('[name="goods_mod_image_id"]').value
-        // 		console.log('id', id);
-        // 		if (!id) {return false}
-        // 		const thumb = document.querySelector('.thumblist__item[data-id="'+ id +'"]')
-        // 		const index = thumb.getAttribute('data-swiper-slide-index')
-        // 		console.log('thumb', thumb);
-        // 		console.log('index', index);
-        // 		swiperImage.slideTo(index)
-        // 		// swiperThumb.slideTo(index)
-        // 	})
-        // })
       }
     }
 
@@ -2144,8 +2103,6 @@ class Goods {
       }
 
       content.addEventListener('click', function (event) {
-        // console.log('event1', event)
-        // console.log('event1.target', event.target)
         // Объявление переменных
         const targetNav = event.target.closest('.opinion__nav')
         const targetAdd = event.target.closest('.opinion__add')
@@ -2208,9 +2165,6 @@ class Goods {
 
           // Переход к контенту
           scrollTop(opinionBlock.offsetTop + 100)
-
-          // console.log('targetShowAll', targetShowAll);
-          // console.log('parentItems', parentItems);
 
           // Показать все отзывы
           targetShowAll.matches('.is-actived') ? parentItems.classList.add('is-actived') : parentItems.classList.remove('is-actived')
@@ -2352,8 +2306,6 @@ class Goods {
       }
 
       const $parentBlock = $(selector)
-      // console.log('selector', selector);
-      // console.log('$parentBlock', $parentBlock);
 
       const goodsDataProperties = $parentBlock.find('.modifications-props select[name="form[properties][]"]'), // Запоминаем поля выбора свойств, для ускорения работы со значениями свойств
         goodsDataModifications = $parentBlock.find('.goodsModificationsSlug') // Запоминаем блоки с информацией по модификациям, для ускорения работы
@@ -2434,20 +2386,14 @@ class Goods {
             $('.fixed-goods__price .price__now').attr('data-price', modificationPriceNow).html(modificationPriceNowFormated)
 
             // Старая цена товара
-            // console.log('modificationPriceOld', modificationPriceOld);
-            // console.log('modificationPriceNow', modificationPriceNow);
             if (modificationPriceOld > modificationPriceNow) {
-              // console.log(' > ', goodsPriceOld);
-              // console.log(' goodsPriceOld.length ', goodsPriceOld.length);
               if (goodsPriceOld.length == 0) {
-                // console.log(' goodsPriceOld ', goodsPriceOld);
                 goodsPriceBlock.prepend(`<del class="price__old" data-price="${modificationPriceOld}">${modificationPriceOldFormated}</del>`)
                 $('.fixed-goods__price').prepend(`<del class="price__old" data-price="${modificationPriceOld}">${modificationPriceOldFormated}</del>`)
               }
               goodsPriceOld.attr('data-price', modificationPriceOld).html(modificationPriceOldFormated).show()
               $('.fixed-goods__price .price__old').attr('data-price', modificationPriceOld).html(modificationPriceOldFormated).show()
             } else {
-              // console.log(' < ', goodsPriceOld);
               goodsPriceOld.hide()
               $('.fixed-goods__price .price__old').hide()
             }
@@ -2552,8 +2498,6 @@ class Cart {
       }
 
       content.addEventListener('click', function (event) {
-        // console.log('event1', event)
-        // console.log('event1.target', event.target)
         // Объявление переменных
         const remove = event.target.closest('.cartTable__remove')
         const start = event.target.closest('.startOrder')
@@ -2569,7 +2513,6 @@ class Cart {
         } else if (close) {
           cart.orderClose()
         } else if (make) {
-          // console.log('make', make);
           event.preventDefault()
           const form = $('.order-fast__form')
           form.validate()
@@ -2612,16 +2555,12 @@ class Cart {
       if ($('.cartTotal__min').length) {
         const minPrice = parseInt($('.cartTotal__min-price').data('price'))
         const totalSum = parseInt($('.cartSumDiscount').data('price'))
-        console.log('minPrice', minPrice)
-        console.log('totalSum', totalSum)
         if (minPrice > totalSum) {
           const diff = minPrice - totalSum
-          console.log('diff', diff)
           $('.cartTotal__min-price').find('.num').text(addSpaces(diff))
           $('.total__button').attr('disabled', true).addClass('is-disabled')
           $('.cartTotal__min').removeClass('is-hide')
         } else {
-          console.log('no-diff')
           $('.total__buttons button').attr('disabled', false).removeClass('is-disabled')
           $('.cartTotal__min').addClass('is-hide')
         }
@@ -2690,7 +2629,6 @@ class Order {
   constructor() {
     // Валидация формы в оформлении заказа
     this.onValidate = function () {
-      // console.log('onValidate');
       // Валидация формы
       $('.order-fast__form').validate({
         validClass: 'valid',
@@ -2832,7 +2770,6 @@ class Order {
 
       // Выбор оплаты по умолчанию
       $('.order-payment__radio').each(function () {
-        // console.log('each', $(this).parent());
         const paymentDescription = $('.order-payment__radio:checked').parent().find('.order-payment__desc').html()
         const payDesc = $('.order-payment__desc')
         payDesc.html(paymentDescription)
@@ -3032,17 +2969,6 @@ class Order {
               $('.cartSumDiscount').attr('data-price', totalSum)
               $('.cartSumDiscount .num').text(addSpaces(totalSum))
             }
-
-            // Тестирование. Проверка переменных
-            // console.log('---', )
-            // console.log('discountName', discountName)
-            // console.log('discountPrice', discountPrice)
-            // console.log('discountPercent', discountPercent)
-            // console.log('totalBlock', totalBlock)
-            // console.log('totalSum', totalSum)
-            // console.log('deliveryPrice', deliveryPrice)
-            // console.log('newTotalSum', newTotalSum)
-            // console.log('---', )
           },
           error: function () {
             console.log('Возникла ошибка: Невозможно отправить форму купона.')
@@ -3422,9 +3348,7 @@ function ajaxForms(id, flag, successMessage, errorMessage) {
         url: url,
         data: formData,
         success: function (data) {
-          console.log('data', data)
           const serverCall = JSON.parse(data).status
-          console.log('serverCall', serverCall)
           if (serverCall == 'ok') {
             setTimeout(function () {
               $.fancybox.close()
@@ -3439,7 +3363,6 @@ function ajaxForms(id, flag, successMessage, errorMessage) {
             notyStart(content, 'success')
             flag = true
           } else {
-            console.log('error')
             // Функция, которая отображает сообщения пользователю
             const content = `
 							<div class="noty__addto flex">
@@ -3889,7 +3812,6 @@ window.addEventListener('resize', function () {
     $('body').removeClass('landscape')
   }
   mainnav('header .mainnav', '1', 991)
-  // console.log('getClientWidth()', getClientWidth());
 })
 
 function catalogHover() {
