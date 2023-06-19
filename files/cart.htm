@@ -4,6 +4,15 @@
   {% ELSE %}
 		<!-- Корзина: Элементы -->
 		<div class="cartTable">
+			<!-- Корзина: Минимальная сумма заказа -->
+			{% IF SETTINGS_STORE_ORDER_MIN_ORDER_PRICE %}
+			<div class="cartTotal__min flex is-hide">
+				<i class="icon-warning"></i>
+				<span class="cartTotal__min-title">До минимальной суммы заказа осталось:</span>
+				<span class="cartTotal__price cartTotal__min-price {CURRENCY_CHAR_CODE}" data-price="{SETTINGS_STORE_ORDER_MIN_ORDER_PRICE}" data-total="{CART_SUM_NOW_WITH_DISCOUNT}">{SETTINGS_STORE_ORDER_MIN_ORDER_PRICE | money_format}</span>
+			</div>
+			{% ENDIF %}
+
 			<!-- Форма корзины -->
 			<form class="cartTable__form" action="{CART_URL}" method="post">
 				<input type="hidden" name="fast_order" value="1" />
@@ -168,16 +177,6 @@
 						<span class="cartSumCoupons" data-price=""></span>
 					</div>
 				</div>
-
-				<!-- Корзина: Минимальная сумма заказа -->
-				{% IF SETTINGS_STORE_ORDER_MIN_ORDER_PRICE %}
-				<div class="cartTotal__item cartTotal__min is-hide">
-					<div class="cartTotal__label cartTotal__min-label">
-						<div class="cartTotal__min-title">До мин. суммы заказа осталось:</div>
-					</div>
-					<div class="cartTotal__price cartTotal__min-price {CURRENCY_CHAR_CODE}" data-price="{SETTINGS_STORE_ORDER_MIN_ORDER_PRICE}" data-total="{CART_SUM_NOW_WITH_DISCOUNT}">{SETTINGS_STORE_ORDER_MIN_ORDER_PRICE | money_format}</div>
-				</div>
-				{% ENDIF %}
 
 				<!-- Корзина: Оформление -->
 				<div class="total__buttons flex-center">
