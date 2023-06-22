@@ -254,8 +254,7 @@ header .catalog__items::-webkit-scrollbar {width: 4px;}
 .catalog__items-main .catalog__item {font-size: 18px;font-weight: bold;padding-right: 16px;transition: all 0.3s ease;}
 .catalog__items-main .catalog__item + .catalog__item {margin-top: 16px;}
 .catalog__items-main .catalog__item i {color: var(--color-darkgray);right: 8px;position: absolute;display: inline-block;transition: all 0.3s ease;}
-.catalog__items-main .catalog__item.is-show {padding-right: 0;}
-.catalog__items-main .catalog__item.is-show .catalog__link {border-radius: 16px 0 0 16px;color: var(--color-primary);}
+.catalog__items-main .catalog__item.is-show .catalog__link {color: var(--color-primary);}
 .catalog__items-main .catalog__link {padding: 12px 20px;background: var(--color-bg2);border-radius: 16px;line-height: 24px;}
 .catalog__items-sub {width: calc(100% - 300px);height: 416px;overflow-y: auto;background: var(--color-bg2);border-radius: 16px;scrollbar-color: var(--color-gray) var(--color-bg);scrollbar-width: thin;}
 .catalog__items-sub::-webkit-scrollbar {width: 4px;}
@@ -407,8 +406,10 @@ header .catalog__items::-webkit-scrollbar {width: 4px;}
 	.header-logo svg {left: -100%;bottom: -36px;}
 	.header-logo img {max-width: 140px;max-height: 50px;}
 }
+@media all and (max-width: 639px) {
+	.header-logo svg {display: none;}
+}
 @media all and (max-width: 479px) {
-	.header-logo svg {left: -180%;bottom: -22px;}
 	.header-logo img {margin-bottom: 0;max-width: 110px;max-height: 40px;}
 }
 
@@ -663,6 +664,8 @@ header .catalog__items::-webkit-scrollbar {width: 4px;}
 @media all and (max-width: 479px) {
 	.product__img {height: 316px;}
 	.product__shop {height: calc(100% - 316px);}
+	.product__desc {-webkit-line-clamp: 2;}
+	.product__name span {-webkit-line-clamp: 2;}
 }
 @media all and (max-width: 374px) {
 	.product__img {height: 262px;}
@@ -1602,6 +1605,7 @@ footer .contacts__phone-big {font-size: 20px;font-weight: 700;padding-left: 0;}
 #related-goods .product__shop {width: calc(100% - 120px);}
 #related-goods .product__price {width: calc(100% - 48px - 12px);}
 #related-goods .product__name {flex-grow: 1;}
+#related-goods .product__name span {-webkit-line-clamp: 3;}
 #related-goods .product__add {width: 48px;height: 48px;}
 #related-goods .product__link {width: 40px;height: 48px;padding: 8px 2px;position: absolute;opacity: 0;}
 #related-goods .product__link.add-compare {border-radius: 0 0 48px 0;}

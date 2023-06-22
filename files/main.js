@@ -2474,7 +2474,7 @@ class Goods {
 
       $obj.parents().find('.modifications-values__value').removeClass('is-disabled is-actived')
       $obj.addClass('is-actived')
-      const val = $obj.data('value')
+      const val = $obj.attr('data-id')
       $obj
         .parents()
         .find('.modifications-props__select option[value="' + val + '"]')
