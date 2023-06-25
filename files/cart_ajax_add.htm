@@ -5,7 +5,7 @@
 		{% IF cart_items.GOODS_MOD_ID = FORM_GOODS_MOD_ID || cart_items.GOODS_ID = FORM_GOODS_ID %}
 		<div class="noty__addto flex {% IF FORM_NOTICE_IS_GOOD %}noty_good{% ELSE %}noty_bad{% ENDIF %}" data-id="{cart_items.GOODS_ID}">
 			<div class="noty__image flex-center">
-				<img src="{% IF cart_items.GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{cart_items.GOODS_IMAGE_ICON}{% ENDIF %}" />
+				<img src="{% IF cart_items.GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=AURA{% ELSE %}{cart_items.GOODS_IMAGE_ICON}{% ENDIF %}" />
 			</div>
 
 			<div class="noty__content flex">
@@ -52,7 +52,7 @@
 			{% FOR cart_items %}
 			<div class="addto__item flex" data-id="{cart_items.GOODS_ID}" data-mod-id="{cart_items.GOODS_MOD_ID}">
 				<a class="addto__image flex-center" href="{cart_items.GOODS_URL}" title="{cart_items.GOODS_NAME}">
-					<img src="{% IF cart_items.GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{cart_items.GOODS_IMAGE_ICON}{% ENDIF %}" alt="{cart_items.GOODS_NAME}" width="{SETTINGS_GOODS_IMAGES_SIZE_ICON | divide('2')}" height="{SETTINGS_GOODS_IMAGES_SIZE_ICON | divide('2')}" />
+					<img src="{% IF cart_items.GOODS_IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=AURA{% ELSE %}{cart_items.GOODS_IMAGE_ICON}{% ENDIF %}" alt="{cart_items.GOODS_NAME}" width="{SETTINGS_GOODS_IMAGES_SIZE_ICON | divide('2')}" height="{SETTINGS_GOODS_IMAGES_SIZE_ICON | divide('2')}" />
 				</a>
 
 				<div class="addto__content flex">

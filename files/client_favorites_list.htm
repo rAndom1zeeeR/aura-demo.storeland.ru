@@ -23,7 +23,7 @@
 					<input type="hidden" name="form[goods_id]" value="{favorites_goods.ID}" />
 					<input type="hidden" name="form[goods_count]" value="1" class="goodsDataCount" />
 					<link itemprop="image"
-							href="{% IF favorites_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{favorites_goods.IMAGE_MEDIUM}{% ENDIF %}" />
+							href="{% IF favorites_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=AURA{% ELSE %}{favorites_goods.IMAGE_MEDIUM}{% ENDIF %}" />
 					<!-- Изображение товара -->
 					<div class="product__image">
 						<!-- Стикеры -->
@@ -46,11 +46,11 @@
 								title="{favorites_goods.NAME}" itemprop="url" data-id="{favorites_goods.IMAGE_ID}">
 							<noscript>
 								<img class="noscript-lozad"
-										src="{% IF favorites_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{favorites_goods.IMAGE_MEDIUM}{% ENDIF %}"
+										src="{% IF favorites_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=AURA{% ELSE %}{favorites_goods.IMAGE_MEDIUM}{% ENDIF %}"
 										alt="{favorites_goods.NAME}" />
 							</noscript>
-							<img class="lozad" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME"
-									data-src="{% IF favorites_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{favorites_goods.IMAGE_MEDIUM}{% ENDIF %}"
+							<img class="lozad" src="{ASSETS_IMAGES_PATH}placeholder.png?design=AURA"
+									data-src="{% IF favorites_goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=AURA{% ELSE %}{favorites_goods.IMAGE_MEDIUM}{% ENDIF %}"
 									alt="{favorites_goods.NAME}" />
 						</a>
 
@@ -63,7 +63,7 @@
 									data-action-add-title="Добавить &laquo;{favorites_goods.NAME}&raquo; в список сравнения с другими товарами"
 									data-action-delete-title="Убрать &laquo;{favorites_goods.NAME}&raquo; из списка сравнения с другими товарами"
 									data-prodname="{favorites_goods.NAME}" data-produrl="{favorites_goods.URL}"
-									data-prodimg="{% IF favorites_goods.IMAGE_ICON %}{favorites_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
+									data-prodimg="{% IF favorites_goods.IMAGE_ICON %}{favorites_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=AURA{% ENDIF %}"
 									data-id="{favorites_goods.ID}" data-mod-id="{favorites_goods.MIN_PRICE_NOW_ID}"
 									data-mod-price="{favorites_goods.MIN_PRICE_NOW}"
 									data-mod-price-old="{% IF favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{favorites_goods.MIN_PRICE_OLD}{% ENDIF %}"
@@ -80,7 +80,7 @@
 									data-action-add-title="Добавить &laquo;{favorites_goods.NAME}&raquo; в список сравнения с другими товарами"
 									data-action-delete-title="Убрать &laquo;{favorites_goods.NAME}&raquo; из списка сравнения с другими товарами"
 									data-prodname="{favorites_goods.NAME}" data-produrl="{favorites_goods.URL}"
-									data-prodimg="{% IF favorites_goods.IMAGE_ICON %}{favorites_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
+									data-prodimg="{% IF favorites_goods.IMAGE_ICON %}{favorites_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=AURA{% ENDIF %}"
 									data-id="{favorites_goods.ID}" data-mod-id="{favorites_goods.MIN_PRICE_NOW_ID}"
 									data-mod-price="{favorites_goods.MIN_PRICE_NOW}"
 									data-mod-price-old="{% IF favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{favorites_goods.MIN_PRICE_OLD}{% ENDIF %}"
@@ -101,7 +101,7 @@
 									data-action-add-title="Добавить &laquo;{favorites_goods.NAME}&raquo; в Избранное"
 									data-action-delete-title="Убрать &laquo;{favorites_goods.NAME}&raquo; из Избранного"
 									data-prodname="{favorites_goods.NAME}" data-produrl="{favorites_goods.URL}"
-									data-prodimg="{% IF favorites_goods.IMAGE_ICON %}{favorites_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
+									data-prodimg="{% IF favorites_goods.IMAGE_ICON %}{favorites_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=AURA{% ENDIF %}"
 									data-id="{favorites_goods.ID}" data-mod-id="{favorites_goods.MIN_PRICE_NOW_ID}"
 									data-mod-price="{favorites_goods.MIN_PRICE_NOW}"
 									data-mod-price-old="{% IF favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{favorites_goods.MIN_PRICE_OLD}{% ENDIF %}"
@@ -117,7 +117,7 @@
 									data-action-add-title="Добавить &laquo;{favorites_goods.NAME}&raquo; в Избранное"
 									data-action-delete-title="Убрать &laquo;{favorites_goods.NAME}&raquo; из Избранного"
 									data-prodname="{favorites_goods.NAME}" data-produrl="{favorites_goods.URL}"
-									data-prodimg="{% IF favorites_goods.IMAGE_ICON %}{favorites_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
+									data-prodimg="{% IF favorites_goods.IMAGE_ICON %}{favorites_goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=AURA{% ENDIF %}"
 									data-id="{favorites_goods.ID}" data-mod-id="{favorites_goods.MIN_PRICE_NOW_ID}"
 									data-mod-price="{favorites_goods.MIN_PRICE_NOW}"
 									data-mod-price-old="{% IF favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{favorites_goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{favorites_goods.MIN_PRICE_OLD}{% ENDIF %}"

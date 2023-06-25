@@ -1,5 +1,3 @@
-console.time('time test')
-console.time('start test')
 ///////////////////////////////////////
 /// Общие функции ///
 ///////////////////////////////////////
@@ -1549,7 +1547,6 @@ class Remove {
     // Обновление данных после удаления
     this.fromElements = function (objects) {
       objects.forEach((element) => {
-        // console.log('e', e);
         element.parentElement.classList.remove('is-added')
         element.classList.remove('is-added')
         element.querySelector('span').innerText = element.getAttribute('data-add-tooltip')
@@ -3061,7 +3058,6 @@ const order = new Order()
 // Объявляем конструктор Заказа
 const quantity = new Quantity()
 
-console.timeEnd('start test')
 
 ///////////////////////////////////////
 // Дополнительные пункты меню в шапке Перенос пунктов меню
@@ -3887,4 +3883,3 @@ function productSlider() {
   })
 }
 
-console.timeEnd('time test')

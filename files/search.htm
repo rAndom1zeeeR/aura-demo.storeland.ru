@@ -104,7 +104,7 @@
 					<input type="hidden" name="form[goods_id]" value="{goods.ID}" />
 					<input type="hidden" name="form[goods_count]" value="1" class="goodsDataCount" />
 					<link itemprop="image"
-							href="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}" />
+							href="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=AURA{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}" />
 
 					<!-- Артикул товара -->
 					<meta itemprop="sku" content="{goods.ART_NUMBER}" />
@@ -125,11 +125,11 @@
 								itemprop="url" data-id="{goods.IMAGE_ID}">
 							<noscript>
 								<img class="noscript-lozad"
-										src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}"
+										src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=AURA{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}"
 										alt="{goods.NAME}" />
 							</noscript>
-							<img class="lozad" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME"
-									data-src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}"
+							<img class="lozad" src="{ASSETS_IMAGES_PATH}placeholder.png?design=AURA"
+									data-src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=AURA{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}"
 									alt="{goods.NAME}" />
 						</a>
 
@@ -153,7 +153,7 @@
 									data-action-add-title="Добавить &laquo;{goods.NAME}&raquo; в список сравнения с другими товарами"
 									data-action-delete-title="Убрать &laquo;{goods.NAME}&raquo; из списка сравнения с другими товарами"
 									data-prodname="{goods.NAME}" data-produrl="{goods.URL}"
-									data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
+									data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=AURA{% ENDIF %}"
 									data-id="{goods.ID}" data-mod-id="{goods.MIN_PRICE_NOW_ID}" data-mod-price="{goods.MIN_PRICE_NOW}"
 									data-mod-price-old="{% IF goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{goods.MIN_PRICE_OLD}{% ENDIF %}"
 									data-char-code="{CURRENCY_CHAR_CODE}" data-add-tooltip="Сравнить" data-del-tooltip="В сравнении"
@@ -169,7 +169,7 @@
 									data-action-add-title="Добавить &laquo;{goods.NAME}&raquo; в список сравнения с другими товарами"
 									data-action-delete-title="Убрать &laquo;{goods.NAME}&raquo; из списка сравнения с другими товарами"
 									data-prodname="{goods.NAME}" data-produrl="{goods.URL}"
-									data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
+									data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=AURA{% ENDIF %}"
 									data-id="{goods.ID}" data-mod-id="{goods.MIN_PRICE_NOW_ID}" data-mod-price="{goods.MIN_PRICE_NOW}"
 									data-mod-price-old="{% IF goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{goods.MIN_PRICE_OLD}{% ENDIF %}"
 									data-char-code="{CURRENCY_CHAR_CODE}" data-add-tooltip="Сравнить" data-del-tooltip="В сравнении"
@@ -189,7 +189,7 @@
 									data-action-add-title="Добавить &laquo;{goods.NAME}&raquo; в Избранное"
 									data-action-delete-title="Убрать &laquo;{goods.NAME}&raquo; из Избранного"
 									data-prodname="{goods.NAME}" data-produrl="{goods.URL}"
-									data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
+									data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=AURA{% ENDIF %}"
 									data-id="{goods.ID}" data-mod-id="{goods.MIN_PRICE_NOW_ID}" data-mod-price="{goods.MIN_PRICE_NOW}"
 									data-mod-price-old="{% IF goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{goods.MIN_PRICE_OLD}{% ENDIF %}"
 									data-char-code="{CURRENCY_CHAR_CODE}" data-add-tooltip="Отложить" data-del-tooltip="Отложено"
@@ -204,7 +204,7 @@
 									data-action-add-title="Добавить &laquo;{goods.NAME}&raquo; в Избранное"
 									data-action-delete-title="Убрать &laquo;{goods.NAME}&raquo; из Избранного"
 									data-prodname="{goods.NAME}" data-produrl="{goods.URL}"
-									data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
+									data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=AURA{% ENDIF %}"
 									data-id="{goods.ID}" data-mod-id="{goods.MIN_PRICE_NOW_ID}" data-mod-price="{goods.MIN_PRICE_NOW}"
 									data-mod-price-old="{% IF goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{goods.MIN_PRICE_OLD}{% ENDIF %}"
 									data-char-code="{CURRENCY_CHAR_CODE}" data-add-tooltip="Отложить" data-del-tooltip="Отложено"
@@ -381,7 +381,7 @@
 					<input type="hidden" name="form[goods_id]" value="{goods.ID}" />
 					<input type="hidden" name="form[goods_count]" value="1" class="goodsDataCount" />
 					<link itemprop="image"
-							href="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}" />
+							href="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=AURA{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}" />
 					<!-- Изображение товара -->
 					<div class="product__image">
 						<!-- Стикеры -->
@@ -404,11 +404,11 @@
 								itemprop="url" data-id="{goods.IMAGE_ID}">
 							<noscript>
 								<img class="noscript-lozad"
-										src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}"
+										src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=AURA{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}"
 										alt="{goods.NAME}" />
 							</noscript>
-							<img class="lozad" src="{ASSETS_IMAGES_PATH}placeholder.png?design=THEMENAME"
-									data-src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}"
+							<img class="lozad" src="{ASSETS_IMAGES_PATH}placeholder.png?design=AURA"
+									data-src="{% IF goods.IMAGE_EMPTY %}{ASSETS_IMAGES_PATH}no-photo.png?design=AURA{% ELSE %}{goods.IMAGE_MEDIUM}{% ENDIF %}"
 									alt="{goods.NAME}" />
 						</a>
 
@@ -421,7 +421,7 @@
 									data-action-add-title="Добавить &laquo;{goods.NAME}&raquo; в список сравнения с другими товарами"
 									data-action-delete-title="Убрать &laquo;{goods.NAME}&raquo; из списка сравнения с другими товарами"
 									data-prodname="{goods.NAME}" data-produrl="{goods.URL}"
-									data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
+									data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=AURA{% ENDIF %}"
 									data-id="{goods.ID}" data-mod-id="{goods.MIN_PRICE_NOW_ID}" data-mod-price="{goods.MIN_PRICE_NOW}"
 									data-mod-price-old="{% IF goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{goods.MIN_PRICE_OLD}{% ENDIF %}"
 									data-char-code="{CURRENCY_CHAR_CODE}" data-add-tooltip="Сравнить" data-del-tooltip="В сравнении"
@@ -437,7 +437,7 @@
 									data-action-add-title="Добавить &laquo;{goods.NAME}&raquo; в список сравнения с другими товарами"
 									data-action-delete-title="Убрать &laquo;{goods.NAME}&raquo; из списка сравнения с другими товарами"
 									data-prodname="{goods.NAME}" data-produrl="{goods.URL}"
-									data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
+									data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=AURA{% ENDIF %}"
 									data-id="{goods.ID}" data-mod-id="{goods.MIN_PRICE_NOW_ID}" data-mod-price="{goods.MIN_PRICE_NOW}"
 									data-mod-price-old="{% IF goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{goods.MIN_PRICE_OLD}{% ENDIF %}"
 									data-char-code="{CURRENCY_CHAR_CODE}" data-add-tooltip="Сравнить" data-del-tooltip="В сравнении"
@@ -457,7 +457,7 @@
 									data-action-add-title="Добавить &laquo;{goods.NAME}&raquo; в Избранное"
 									data-action-delete-title="Убрать &laquo;{goods.NAME}&raquo; из Избранного"
 									data-prodname="{goods.NAME}" data-produrl="{goods.URL}"
-									data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
+									data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=AURA{% ENDIF %}"
 									data-id="{goods.ID}" data-mod-id="{goods.MIN_PRICE_NOW_ID}" data-mod-price="{goods.MIN_PRICE_NOW}"
 									data-mod-price-old="{% IF goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{goods.MIN_PRICE_OLD}{% ENDIF %}"
 									data-char-code="{CURRENCY_CHAR_CODE}" data-add-tooltip="Отложить" data-del-tooltip="Отложено"
@@ -472,7 +472,7 @@
 									data-action-add-title="Добавить &laquo;{goods.NAME}&raquo; в Избранное"
 									data-action-delete-title="Убрать &laquo;{goods.NAME}&raquo; из Избранного"
 									data-prodname="{goods.NAME}" data-produrl="{goods.URL}"
-									data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=THEMENAME{% ENDIF %}"
+									data-prodimg="{% IF goods.IMAGE_ICON %}{goods.IMAGE_ICON}{% ELSE %}{ASSETS_IMAGES_PATH}no-photo.png?design=AURA{% ENDIF %}"
 									data-id="{goods.ID}" data-mod-id="{goods.MIN_PRICE_NOW_ID}" data-mod-price="{goods.MIN_PRICE_NOW}"
 									data-mod-price-old="{% IF goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT %}{goods.MIN_PRICE_NOW_WITHOUT_DISCOUNT}{% ELSE %}{goods.MIN_PRICE_OLD}{% ENDIF %}"
 									data-char-code="{CURRENCY_CHAR_CODE}" data-add-tooltip="Отложить" data-del-tooltip="Отложено"
